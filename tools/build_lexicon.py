@@ -34,6 +34,14 @@ MAX_KEY_LEN = 24
 JUNK_KEYS = {"m", "n", "ng", "hm", "hng"}
 
 
+# 每天都会用、但词频库里排名不高的词：给它们加权，保证第一候选
+DAILY_BOOST = {
+    "晚安": 40, "早上好": 30, "中午好": 25, "下午好": 25, "晚上好": 25,
+    "你好": 12, "谢谢": 12, "再见": 12, "对不起": 12, "没关系": 12, "不客气": 12,
+    "请问": 8, "麻烦": 6, "一会儿": 6, "怎么样": 6,
+}
+
+
 def strip_tones(text: str) -> str:
     """去掉声调与分隔符，只保留 a-z（ü 记作 v）。"""
     text = text.translate(_TONE_TABLE).lower()
@@ -181,6 +189,13 @@ def main() -> int:
             put(key, word, f * 1.15 if f > 0 else 25)
             added += 1
         print(f"CC-CEDICT 补充词条：{added}")
+
+    # 日常高频词加权：词频库里「万安」这类地名/书面语会压过「晚安」，这里矫正
+    for bucket in table.values():
+        for word in list(bucket):
+            factor = DAILY_BOOST.get(word)
+            if factor:
+                bucket[word] *= factor
 
     # 统计与裁剪
     pairs = sum(len(v) for v in table.values())
