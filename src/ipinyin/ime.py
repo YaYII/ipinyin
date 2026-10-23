@@ -401,9 +401,9 @@ class ImeState:
         for word, key, _freq in unique:
             simp = word
             trad = converter.to_traditional(simp) if converter else simp
-            yue = converter.to_traditional(self.yue.convert(simp)) if (self.yue and converter) else (
-                self.yue.convert(simp) if self.yue else trad
-            )
+            yue = self.yue.convert(simp) if self.yue else trad
+            if converter:
+                yue = converter.to_traditional(yue)   # 粤语书面一律用繁体字
             forms = {"simp": simp, "trad": trad, "yue": yue}
             output = forms.get(self.mode, simp)
             words.append(output)
