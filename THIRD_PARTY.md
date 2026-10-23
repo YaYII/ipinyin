@@ -11,6 +11,7 @@
 | OpenCC STCharacters | 简→繁映射 | Apache-2.0 | https://github.com/BYVoid/OpenCC |
 | rime-cantonese | 粤语字音/词音（粤拼） | CC BY 4.0 | https://github.com/rime/rime-cantonese |
 | 開放粵語字典 (kfcd/yyzd) | 粤语字音校验 | CC BY 3.0 | https://github.com/kfcd/yyzd |
+| indiejoseph/yue-zh-translation | 普通话-粤语句对（16.9 万，仅用于质量评测与词表校对） | CC BY 4.0 | https://huggingface.co/datasets/indiejoseph/yue-zh-translation |
 | CanCLID/sentences | 粤语对话语料（仅统计高频用法，不转载原文） | 未标注许可，仅作词频统计 | https://github.com/CanCLID/sentences |
 | CanCLID/awesome-cantonese-nlp | 资源索引 | — | https://github.com/CanCLID/awesome-cantonese-nlp |
 

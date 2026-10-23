@@ -21,7 +21,7 @@ def main() -> int:
                 continue
             simp, targets = parts[0], parts[1].split()
             if simp and targets:
-                mapping[simp] = targets[0]
+                mapping[simp] = targets[0].replace("爲", "為")   # 统一用「為」
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "wb") as fh:
         marshal.dump(mapping, fh)
