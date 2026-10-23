@@ -73,7 +73,21 @@ def main() -> int:
     ap.add_argument("--batch", type=int, default=96)
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--out", default="experiments/yue_model.pt")
+    ap.add_argument("--device", default="auto", help="auto/cpu/mps/cuda")
+    ap.add_argument("--resume", action="store_true", help="从 --out 续训")
+    ap.add_argument("--d", type=int, default=160)
+    ap.add_argument("--layers", type=int, default=2)
     args = ap.parse_args()
+
+    if args.device == "auto":
+        if torch.cuda.is_available():
+            args.device = "cuda"
+        elif getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+            args.device = "mps"          # Apple M 系列
+        else:
+            args.device = "cpu"
+    device = torch.device(args.device)
+    print("训练设备", args.device, flush=True)
 
     random.seed(0)
     torch.manual_seed(0)
@@ -91,7 +105,12 @@ def main() -> int:
     inv_tgt = {i: c for c, i in tgt_vocab.items()}
     print(f"字表 src {len(src_vocab)} tgt {len(tgt_vocab)}", flush=True)
 
-    model = Seq2Seq(len(src_vocab) + 4, len(tgt_vocab) + 4)
+    model = Seq2Seq(len(src_vocab) + 4, len(tgt_vocab) + 4, d=args.d, layers=args.layers)
+    if args.resume and os.path.exists(args.out):
+        ckpt = torch.load(args.out, map_location="cpu", weights_only=False)
+        model.load_state_dict(ckpt["model"])
+        print("已从", args.out, "续训", flush=True)
+    model.to(device)
     print("参数", sum(p.numel() for p in model.parameters()) / 1e6, "M", flush=True)
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr)
     loss_fn = nn.CrossEntropyLoss(ignore_index=PAD, label_smoothing=0.1)
@@ -109,8 +128,8 @@ def main() -> int:
             tgt = [encode(p["yue"], tgt_vocab) for p in chunk]
             sw = max(len(r) for r in src)
             tw = max(len(r) for r in tgt)
-            src_t = torch.tensor(pad(src, sw))
-            tgt_t = torch.tensor(pad(tgt, tw))
+            src_t = torch.tensor(pad(src, sw), device=device)
+            tgt_t = torch.tensor(pad(tgt, tw), device=device)
             logits = model(src_t, tgt_t[:, :-1])
             loss = loss_fn(logits.reshape(-1, logits.size(-1)), tgt_t[:, 1:].reshape(-1))
             opt.zero_grad()
@@ -122,20 +141,24 @@ def main() -> int:
                 print(f"epoch {epoch} step {step}/{len(train)//args.batch} loss {total/(step+1):.3f} "
                       f"{time.time()-started:.0f}s", flush=True)
         print(f"epoch {epoch} 结束 平均 loss {total/(step+1):.3f} 用时 {time.time()-started:.0f}s", flush=True)
+        torch.save({"model": model.to("cpu").state_dict(), "src_vocab": src_vocab,
+                    "tgt_vocab": tgt_vocab, "args": vars(args)}, args.out)
+        model.to(device)
+        print("已保存检查点", args.out, flush=True)
 
         @torch.no_grad()
         def translate(text):
             model.eval()
-            ids = torch.tensor([encode(text, src_vocab)])
+            ids = torch.tensor([encode(text, src_vocab)], device=device)
             memory = model.encoder(model.src_emb(ids) + model.pos(torch.arange(ids.size(1)).unsqueeze(0)),
                                    src_key_padding_mask=ids == PAD)
             out = [SOS]
             for _ in range(40):
-                tgt = torch.tensor([out])
+                tgt = torch.tensor([out], device=device)
                 hidden = model.decoder(model.tgt_emb(tgt) + model.pos(torch.arange(len(out)).unsqueeze(0)),
                                        memory, tgt_mask=nn.Transformer.generate_square_subsequent_mask(len(out)),
                                        memory_key_padding_mask=ids == PAD)
-                nxt = model.out(hidden)[0, -1].argmax().item()
+                nxt = model.out(hidden)[0, -1].argmax().cpu().item()
                 if nxt == EOS:
                     break
                 out.append(nxt)

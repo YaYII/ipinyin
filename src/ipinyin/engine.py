@@ -51,6 +51,12 @@ def get_yue() -> YueConverter:
     global _YUE
     if _YUE is None:
         _YUE = YueConverter.load_dict(config.yue_dict_path(), YueConverter.load(config.yue_path())._map)
+        if os.environ.get("IPINYIN_YUE_NN", "1") != "0":
+            from .yue_nn import NeuralYue
+
+            _YUE.nn = NeuralYue.load(os.path.join(config.data_home(), "data"))
+            if _YUE.nn is not None:
+                LOG.info("粤语神经模型已加载（%d 字表）", len(_YUE.nn))
         LOG.info("粤语对照 %d 条", len(_YUE))
     return _YUE
 

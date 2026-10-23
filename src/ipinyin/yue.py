@@ -9,7 +9,7 @@ from . import yue_rules
 
 
 class YueConverter:
-    __slots__ = ("_map", "_max_len", "_chars", "_words", "_max_word", "_phrase", "_max_phrase")
+    __slots__ = ("_map", "_max_len", "_chars", "_words", "_max_word", "_phrase", "_max_phrase", "nn")
 
     def __init__(self, mapping: dict[str, str] | None = None,
                  chars: dict[str, str] | None = None,
@@ -19,6 +19,7 @@ class YueConverter:
         self._max_len = max((len(k) for k in self._map), default=1)
         self._phrase = phrase or {}
         self._max_phrase = max((len(k) for k in self._phrase), default=1)
+        self.nn = None          # 可选：NeuralYue，存在时优先用于长句
         self._chars = chars or {}
         self._words = words or {}
         self._max_word = max((len(k) for k in self._words), default=1)
@@ -102,6 +103,14 @@ class YueConverter:
         return " ".join(out)
 
     def convert(self, text: str, rules: bool = True) -> str:
+        # 长句且装了神经模型时优先用它（短词仍走规则，稳定且快）
+        if self.nn is not None and len(text) >= 8:
+            try:
+                neural = self.nn.translate(text)
+                if neural:
+                    return neural
+            except Exception:
+                pass
         if rules:
             text = yue_rules.apply(text)      # 先调语序，再换字
         if not self._map:
