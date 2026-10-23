@@ -11,6 +11,8 @@
 | OpenCC STCharacters | 简→繁映射 | Apache-2.0 | https://github.com/BYVoid/OpenCC |
 | rime-cantonese | 粤语字音/词音（粤拼） | CC BY 4.0 | https://github.com/rime/rime-cantonese |
 | 開放粵語字典 (kfcd/yyzd) | 粤语字音校验 | CC BY 3.0 | https://github.com/kfcd/yyzd |
+| CanCLID/sentences | 粤语对话语料（仅统计高频用法，不转载原文） | 未标注许可，仅作词频统计 | https://github.com/CanCLID/sentences |
+| CanCLID/awesome-cantonese-nlp | 资源索引 | — | https://github.com/CanCLID/awesome-cantonese-nlp |
 
 `tools/fetch_data.sh` 会下载上述数据到 `vendor/`，`tools/build_lexicon.py` 编译成
 `data/lexicon.tsv` 与 `data/lexicon.marshal`（不含在仓库里，按需生成）。
