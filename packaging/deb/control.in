@@ -1,0 +1,15 @@
+Package: ipinyin
+Version: @VERSION@
+Section: utils
+Priority: optional
+Architecture: all
+Depends: python3 (>= 3.8), python3-gi, gir1.2-ibus-1.0, ibus
+Maintainer: @MAINTAINER@
+Installed-Size: @SIZE@
+Description: IPinyin - 轻量级中文拼音输入法（IBus 引擎）
+ 自建 IBus 拼音引擎：整句切分、整词匹配、前缀补全、模糊音、
+ 个人词频学习（命中率排序）。
+ .
+ 词库：pinyin-data / phrase-pinyin-data / jieba 词频 / CC-CEDICT。
+ 安装后运行 ipinyin-setup 注册到当前用户，注销重登生效。
+Homepage: https://example.invalid/ipinyin

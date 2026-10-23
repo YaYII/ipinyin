@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+rm -f /var/cache/ibus/bus/registry 2>/dev/null || true
+exit 0

@@ -1,0 +1,22 @@
+# 常用词补充表：每行「词 拼音」，没有的会被加进候选
+只会 zhihui
+不会 buhui
+就是 jiushi
+还是 haishi
+也是 yeshi
+都是 doushi
+只是 zhishi
+只有 zhiyou
+只要 zhiyao
+这样 zheyang
+那样 nayang
+不能 buneng
+可以 keyi
+因为 yinwei
+所以 suoyi
+但是 danshi
+如果 ruguo
+已经 yijing
+输入法 shurufa
+拼音 pinyin
+打字 dazi

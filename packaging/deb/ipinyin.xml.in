@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component>
+	<name>org.freedesktop.IBus.IPinyin</name>
+	<description>IPinyin Component</description>
+	<exec>/usr/bin/ipinyin-engine --ibus</exec>
+	<version>@VERSION@</version>
+	<author>@MAINTAINER@</author>
+	<license>MIT</license>
+	<homepage>https://example.invalid/ipinyin</homepage>
+	<textdomain>ipinyin</textdomain>
+	<engines>
+		<engine>
+			<name>ipinyin</name>
+			<language>zh_CN</language>
+			<license>MIT</license>
+			<author>@MAINTAINER@</author>
+			<icon>/usr/share/ipinyin/ipinyin.svg</icon>
+			<layout>default</layout>
+			<longname>IPinyin 拼音</longname>
+			<description>轻量拼音输入法（整句切分 / 个人词频）</description>
+			<rank>50</rank>
+			<symbol>&#x62FC;</symbol>
+		</engine>
+	</engines>
+</component>

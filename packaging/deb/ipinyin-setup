@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+"""把 IPinyin 注册到当前用户（安装后运行一次）。
+
+  ipinyin-setup          注册输入源 + 装常驻服务（崩溃自动重启）
+  ipinyin-setup --remove 移除输入源与常驻服务
+"""
+from __future__ import annotations
+
+import ast
+import os
+import pathlib
+import subprocess
+import sys
+
+SCHEMA = "org.gnome.desktop.input-sources"
+SOURCE = ("ibus", "ipinyin")
+
+
+def gsettings(*args: str) -> str:
+    return subprocess.run(["gsettings", *args], check=True, capture_output=True, text=True).stdout.strip()
+
+
+SERVICE = """[Unit]
+Description=IPinyin IBus 拼音引擎（常驻，崩溃自动重启）
+After=org.freedesktop.IBus.session.GNOME.service
+Wants=org.freedesktop.IBus.session.GNOME.service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ipinyin-engine --ibus
+ExecStartPost=-/usr/bin/ipinyin-ensure
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target
+"""
+
+
+def install_service() -> None:
+    unit = pathlib.Path.home() / ".config/systemd/user/ipinyin-engine.service"
+    unit.parent.mkdir(parents=True, exist_ok=True)
+    unit.write_text(SERVICE, encoding="utf-8")
+    subprocess.run(["systemctl", "--user", "daemon-reload"], check=False)
+    subprocess.run(["systemctl", "--user", "enable", "ipinyin-engine.service"], check=False)
+    subprocess.run(["systemctl", "--user", "restart", "ipinyin-engine.service"], check=False)
+
+
+def remove_service() -> None:
+    subprocess.run(["systemctl", "--user", "disable", "--now", "ipinyin-engine.service"], check=False)
+    unit = pathlib.Path.home() / ".config/systemd/user/ipinyin-engine.service"
+    if unit.exists():
+        unit.unlink()
+    subprocess.run(["systemctl", "--user", "daemon-reload"], check=False)
+
+
+def main() -> int:
+    remove = "--remove" in sys.argv
+    if remove:
+        remove_service()
+    else:
+        install_service()
+
+    raw = gsettings("get", SCHEMA, "sources")
+    sources = [tuple(item) for item in ast.literal_eval(raw)]
+    sources = [item for item in sources if item != SOURCE]
+    if not remove:
+        sources.insert(0, SOURCE)
+    if not sources:
+        sources = [("xkb", "us")]
+    value = "[" + ", ".join(f"('{kind}', '{name}')" for kind, name in sources) + "]"
+    gsettings("set", SCHEMA, "sources", value)
+    if not remove:
+        subprocess.run(["gsettings", "set", SCHEMA, "current", "0"], check=False)
+        subprocess.run(["gsettings", "set", "org.freedesktop.ibus.general", "preload-engines",
+                        "['ipinyin']"], check=False)
+
+    # 重启 ibus 让它读到新组件
+    for cmd in (["systemctl", "--user", "restart", "org.freedesktop.IBus.session.GNOME.service"],
+                ["ibus-daemon", "-drx"]):
+        if subprocess.run(cmd, capture_output=True).returncode == 0:
+            break
+    subprocess.run(["ibus", "engine", "ipinyin"], capture_output=True)
+    name = subprocess.run(["ibus", "engine"], capture_output=True, text=True).stdout.strip()
+    print(f"输入源：{sources}")
+    print(f"当前引擎：{name or '(未生效，请注销重登一次)'}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

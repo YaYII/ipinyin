@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 由 install.sh 渲染：@PREFIX@ 会替换成安装目录 -->
+<component>
+	<name>org.freedesktop.IBus.IPinyin</name>
+	<description>IPinyin Component</description>
+	<exec>@PREFIX@/bin/ipinyin-engine --ibus</exec>
+	<version>0.1.0</version>
+	<author>as-workstation01</author>
+	<license>MIT</license>
+	<homepage>file://@PREFIX@</homepage>
+	<textdomain>ipinyin</textdomain>
+
+	<engines>
+		<engine>
+			<name>ipinyin</name>
+			<language>zh_CN</language>
+			<license>MIT</license>
+			<author>as-workstation01</author>
+			<icon>@PREFIX@/data/ipinyin.svg</icon>
+			<layout>default</layout>
+			<longname>IPinyin 拼音</longname>
+			<description>极简拼音输入法（自带词库）</description>
+			<rank>50</rank>
+			<symbol>&#x62FC;</symbol>
+		</engine>
+	</engines>
+</component>

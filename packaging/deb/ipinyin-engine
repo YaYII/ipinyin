@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+"""IBus 引擎入口（系统安装版）。"""
+import sys
+
+sys.path.insert(0, "/usr/lib/ipinyin")
+
+from ipinyin.engine import main  # noqa: E402
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

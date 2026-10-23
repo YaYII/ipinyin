@@ -1,0 +1,9 @@
+vendor/
+build/
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+.code-arch/
+data/*.tsv
+data/*.marshal

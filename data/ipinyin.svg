@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#2f6f4e"/>
+  <text x="32" y="45" font-family="Noto Sans CJK SC, WenQuanYi Zen Hei, sans-serif" font-size="38"
+        text-anchor="middle" fill="#ffffff">拼</text>
+</svg>

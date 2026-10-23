@@ -1,0 +1,16 @@
+[Unit]
+Description=IPinyin IBus 拼音引擎（常驻，崩溃自动重启）
+After=org.freedesktop.IBus.session.GNOME.service
+Wants=org.freedesktop.IBus.session.GNOME.service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=@PREFIX@/bin/ipinyin-engine --ibus
+# 引擎被杀后 ibus 会清空"当前引擎"，这里补回来（仅在空缺时）
+ExecStartPost=-@PREFIX@/bin/ipinyin-ensure
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target

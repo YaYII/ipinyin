@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+cat <<'MSG'
+
+IPinyin 已安装。接下来（用你自己的账号，不要用 sudo）：
+
+  ipinyin-setup      # 注册到当前用户并置顶为默认输入法
+  Super+Space        # 切到「IPinyin 拼音」
+
+如果切换列表里没有出现，注销重登一次。
+
+MSG
+exit 0
