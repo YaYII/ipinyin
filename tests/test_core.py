@@ -145,14 +145,21 @@ def test_commit_segment_keeps_remaining_pinyin(ime):
     assert ime.view().candidates[0] == "吗"
 
 
-def test_traditional_toggle_shows_both_scripts(lexicon):
+def test_tab_cycles_simplified_traditional_cantonese(lexicon):
     from ipinyin.t2s import Converter
+    from ipinyin.yue import YueConverter
 
-    converter = Converter.load("data/s2t.marshal")
-    ime = ImeState(lexicon, converter=converter)
-    for char in "zhongguo":
+    ime = ImeState(
+        lexicon,
+        converter=Converter.load("data/s2t.marshal"),
+        yue=YueConverter.load("data/yue.tsv"),
+    )
+    for char in "women":
         ime.insert(char)
-    assert ime.view().candidates[0].startswith("中国")
-    ime.toggle_traditional()
-    assert ime.view().candidates[0].startswith("中國")
-    assert ime.select(1) == "中國"
+    assert ime.view().candidates[0].startswith("我们")
+    assert ime.cycle_mode() == "trad"
+    assert ime.view().candidates[0].startswith("我們")
+    assert ime.cycle_mode() == "yue"
+    assert ime.view().candidates[0].startswith("我哋")
+    assert ime.select(1) == "我哋"
+    assert ime.cycle_mode() == "simp"

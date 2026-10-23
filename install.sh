@@ -58,6 +58,7 @@ cp "$ROOT/data/user_bigram_seed.tsv" "$PREFIX/data/user_bigram_seed.tsv" 2>/dev/
 touch "$PREFIX/data/user_model.tsv"
 cp "$ROOT/data/ipinyin.svg" "$PREFIX/data/ipinyin.svg"
 cp "$ROOT/data/s2t.marshal" "$PREFIX/data/s2t.marshal"
+cp "$ROOT/data/yue.tsv" "$PREFIX/data/yue.tsv"
 install -m 755 "$ROOT/bin/ipinyin-engine" "$PREFIX/bin/ipinyin-engine"
 install -m 755 "$ROOT/bin/ipinyin-ensure" "$PREFIX/bin/ipinyin-ensure"
 sed "s|@PREFIX@|$PREFIX|g" "$ROOT/packaging/ipinyin.xml.in" > "$PREFIX/component/ipinyin.xml"

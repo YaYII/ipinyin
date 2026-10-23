@@ -51,6 +51,10 @@ def _find_data(name: str) -> str:
     return user
 
 
+def yue_path() -> str:
+    return _find_data("yue.tsv")
+
+
 def s2t_path() -> str:
     return _find_data("s2t.marshal")
 

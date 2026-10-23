@@ -11,6 +11,7 @@ from itertools import product
 from .lexicon import Lexicon
 from .segmenter import best_path
 from .t2s import Converter
+from .yue import YueConverter
 from .user_model import UserModel
 
 PAGE_SIZE = 9
@@ -81,10 +82,12 @@ def fuzzy_variants(text: str, limit: int = 16, depth: int = 2) -> list[str]:
 
 class ImeState:
     def __init__(self, lexicon: Lexicon, page_size: int = PAGE_SIZE,
-                 user_model: UserModel | None = None, converter: Converter | None = None):
+                 user_model: UserModel | None = None, converter: Converter | None = None,
+                 yue: YueConverter | None = None):
         self.lexicon = lexicon
         self.converter = converter
-        self.traditional = False
+        self.yue = yue
+        self.mode = "simp"          # simp / trad / yue
         self.page_size = page_size
         self.user_model = user_model
         self.buffer = ""
@@ -203,10 +206,11 @@ class ImeState:
         self._page, self._highlighted = divmod(index, self.page_size)
         return True
 
-    def toggle_traditional(self) -> bool:
-        self.traditional = not self.traditional
+    def cycle_mode(self) -> str:
+        """Tab：简体 → 繁体 → 粤语 → 简体"""
+        self.mode = {"simp": "trad", "trad": "yue", "yue": "simp"}[self.mode]
         self._rebuild()
-        return self.traditional
+        return self.mode
 
     def page_by(self, delta: int) -> bool:
         if not self._candidates:
@@ -301,7 +305,7 @@ class ImeState:
 
         version = self.user_model.version if self.user_model else 0
         cached = self._cache.get(text) if self._segment < 0 else None
-        if cached and cached[0] == version and cached[1] == self.traditional:
+        if cached and cached[0] == version and cached[1] == self.mode:
             _, _, self._candidates, self._display, self._keys = cached
             self.last_build_ms = (time.perf_counter() - started) * 1000
             return
@@ -393,27 +397,26 @@ class ImeState:
         words: list[str] = []
         displays: list[str] = []
         for word, key, _freq in unique:
-            if converter is None:
-                words.append(word)
-                displays.append(word)
-                continue
-            traditional = converter.to_traditional(word)
-            if traditional == word:
-                words.append(word)
-                displays.append(word)
-                continue
-            if self.traditional:
-                words.append(traditional)
-                displays.append(f"{traditional}  {word}")
-            else:
-                words.append(word)
-                displays.append(f"{word}  {traditional}")
+            simp = word
+            trad = converter.to_traditional(simp) if converter else simp
+            yue = converter.to_traditional(self.yue.convert(simp)) if (self.yue and converter) else (
+                self.yue.convert(simp) if self.yue else trad
+            )
+            forms = {"simp": simp, "trad": trad, "yue": yue}
+            output = forms.get(self.mode, simp)
+            words.append(output)
+            columns: list[str] = []
+            for name in (self.mode, "simp", "trad", "yue"):
+                value = forms[name]
+                if value not in columns:
+                    columns.append(value)
+            displays.append("  ".join(columns))
         self._candidates = words
         self._display = displays
         self._keys = [key for _, key, _ in unique]
         self.last_build_ms = (time.perf_counter() - started) * 1000
         if len(self._cache) > 64:
             self._cache.clear()
-        self._cache[text] = (version, self.traditional, self._candidates, self._display, self._keys)
+        self._cache[text] = (version, self.mode, self._candidates, self._display, self._keys)
         if self.user_model:
             self.user_model.observe(text, self._candidates[: self.page_size])

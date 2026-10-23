@@ -22,6 +22,7 @@ from .ime import ImeState  # noqa: E402
 from .keys import Action, translate  # noqa: E402
 from .lexicon import Lexicon  # noqa: E402
 from .t2s import Converter  # noqa: E402
+from .yue import YueConverter  # noqa: E402
 from .user_model import UserModel  # noqa: E402
 
 LOG = logging.getLogger("ipinyin")
@@ -31,6 +32,7 @@ _LEXICON: Lexicon | None = None
 SYNC_INTERVAL = 0.015
 _USER_MODEL: UserModel | None = None
 _CONVERTER: Converter | None = None
+_YUE: YueConverter | None = None
 # 词库加载完成前，按键一律放行（当英文打），绝不阻塞 IBus 主循环
 _LEXICON_READY = threading.Event()
 
@@ -45,21 +47,30 @@ def get_lexicon() -> Lexicon:
     return _LEXICON
 
 
-def _read_mode() -> bool:
+def get_yue() -> YueConverter:
+    global _YUE
+    if _YUE is None:
+        _YUE = YueConverter.load(config.yue_path())
+        LOG.info("粤语对照 %d 条", len(_YUE))
+    return _YUE
+
+
+def _read_mode() -> str:
     """记住上次的简/繁选择。"""
     try:
         with open(config.mode_path(), encoding="utf-8") as fh:
-            return fh.read().strip() == "trad"
+            mode = fh.read().strip()
+        return mode if mode in ("simp", "trad", "yue") else "simp"
     except OSError:
-        return False
+        return "simp"
 
 
-def _write_mode(traditional: bool) -> None:
+def _write_mode(mode: str) -> None:
     try:
         path = config.mode_path()
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8") as fh:
-            fh.write("trad" if traditional else "simp")
+            fh.write(mode)
     except OSError:
         pass
 
@@ -137,8 +148,9 @@ class PinyinEngine(IBus.Engine):
     @property
     def ime(self) -> ImeState:
         if self._ime is None:
-            self._ime = ImeState(get_lexicon(), user_model=get_user_model(), converter=get_converter())
-            self._ime.traditional = _read_mode()
+            self._ime = ImeState(get_lexicon(), user_model=get_user_model(),
+                                 converter=get_converter(), yue=get_yue())
+            self._ime.mode = _read_mode()
         return self._ime
 
     # ---------- IBus 虚函数 ----------
@@ -259,9 +271,9 @@ class PinyinEngine(IBus.Engine):
             self.ime.page_by(1)
             self._sync()
         elif action is Action.TOGGLE_TRAD:
-            mode = self.ime.toggle_traditional()
+            mode = self.ime.cycle_mode()
             _write_mode(mode)
-            LOG.info("切换到%s输出", "繁体" if mode else "简体")
+            LOG.info("切换到%s输出", {"simp": "简体", "trad": "繁体", "yue": "粤语"}[mode])
             self._sync_now()
         elif action is Action.SEG_PREV:
             if self.ime.move_segment(-1):
