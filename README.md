@@ -33,7 +33,7 @@ zhongguo    →  中国  中國   ← Tab 切换上屏简体还是繁体
 
 ```bash
 ./packaging/build_deb.sh            # 生成 dist/ipinyin_x.y.z_all.deb
-sudo dpkg -i dist/ipinyin_*_all.deb && sudo apt -f install
+sudo dpkg -i dist/ipinyin_*_all.deb && sudo apt -f install   # 或从 Releases 下载
 ipinyin-setup                       # 用自己账号跑，注册并置顶输入源
 ```
 

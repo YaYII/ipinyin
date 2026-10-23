@@ -3,7 +3,7 @@
 ## 1. 安装
 
 ```bash
-sudo dpkg -i ipinyin_0.2.0_all.deb
+sudo dpkg -i ipinyin_x.y.z_all.deb
 # 如果提示缺依赖：
 sudo apt -f install
 ```

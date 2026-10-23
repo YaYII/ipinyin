@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-VERSION="${VERSION:-0.2.0}"
+VERSION="${VERSION:-$(cat "$ROOT/VERSION" 2>/dev/null || echo 0.0.0)}"
 MAINTAINER="${MAINTAINER:-as-workstation01 <as-workstation01@localhost>}"
 PKG="ipinyin"
 BUILD="$ROOT/build/deb"
