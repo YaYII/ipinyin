@@ -370,9 +370,11 @@ class ImeState:
             unique.sort(key=lambda item: priority.get(item[0], len(priority)))
 
         # 模糊音：只在首选很弱时启用，且只收比首选更高频的
+        # 但是——用户手动选过的词绝不能被模糊音挤下去
+        picked = set(priority)
         top_freq = unique[0][2] if unique else 0
         weak = (not unique) or (len(text) <= 8 and top_freq < 1000)
-        if len(text) >= 2 and not exact and weak:
+        if len(text) >= 2 and not exact and weak and picked.isdisjoint([unique[0][0]] if unique else []):
             strong: list[tuple[str, str, int]] = []
             for variant in fuzzy_variants(text, limit=8) + transposition_variants(text):
                 for word, freq in self.lexicon.entries(variant)[:5]:
@@ -384,11 +386,15 @@ class ImeState:
                 strong.sort(key=lambda item: -item[2])
                 head: list[tuple[str, str, int]] = []
                 for word, key, freq in strong:
-                    if word in seen:
+                    if word in seen or word in picked:
                         continue
                     seen.add(word)
                     head.append((word, key, freq))
-                unique = head + unique   # 按词频降序整段前置
+                # 插在"用户选过的词"之后，绝不覆盖它们
+                insert_at = 0
+                while insert_at < len(unique) and unique[insert_at][0] in picked:
+                    insert_at += 1
+                unique[insert_at:insert_at] = head
 
         if not unique:
             unique = [(word, text, 0) for word in self._fallback(text)]

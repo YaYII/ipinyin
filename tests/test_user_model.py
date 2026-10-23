@@ -81,3 +81,23 @@ def test_fuzzy_pinyin_rescues_fast_typo(lexicon):
     for char in "pingying":  # ing/ying 打混了，拼音打成 pingying
         ime.insert(char)
     assert ime.view().words[0] == "拼音"
+
+
+def test_picked_word_survives_fuzzy(lexicon, tmp_path):
+    """用户选过的词，不能被模糊音挤下去（才对 vs 柴堆 的真实 bug）。"""
+    from ipinyin.ime import ImeState
+    from ipinyin.user_model import UserModel
+
+    model = UserModel(str(tmp_path / "m.tsv"), None, str(tmp_path / "b.tsv"), None,
+                      validator=lambda key, word: True)
+    ime = ImeState(lexicon, user_model=model)
+    for char in "caidui":
+        ime.insert(char)
+    target = "才对"
+    index = ime.view().words.index(target)
+    ime.select(index + 1)
+    model.learn("caidui", target)      # 引擎在上屏时会学习，这里直接模拟
+    ime.clear()
+    for char in "caidui":
+        ime.insert(char)
+    assert ime.view().words[0] == target
