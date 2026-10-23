@@ -7,3 +7,4 @@ __pycache__/
 .code-arch/
 data/*.tsv
 data/*.marshal
+experiments/*.pt
