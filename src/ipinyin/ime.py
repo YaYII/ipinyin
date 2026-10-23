@@ -413,9 +413,9 @@ class ImeState:
                 continue
             columns = [simp, trad if trad != simp else "—", yue if yue != simp else "—"]
             if self.yue is not None:
-                # 粤语写法与繁体不同（我哋/冇/睇到）时按粤语取音，否则按繁体取音
-                source = yue if yue != trad else trad
-                reading = self.yue.jyutping(source)
+                # 粤拼词表是繁体字，先把粤语写法转繁体再查（呢個/聽日/邊度），查不到再用原形
+                yue_trad = converter.to_traditional(yue) if converter else yue
+                reading = self.yue.jyutping(yue_trad) or self.yue.jyutping(yue)
                 if reading:
                     columns.append(reading)
             displays.append("  ".join(columns))
