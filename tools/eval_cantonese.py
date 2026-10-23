@@ -47,7 +47,10 @@ def main() -> int:
     else:
         pairs = fetch(1000)
 
-    converter = YueConverter.load(os.path.join(ROOT, "data", "yue.tsv"))
+    converter = YueConverter.load_dict(
+        os.path.join(ROOT, "data", "yue.marshal"),
+        YueConverter.load(os.path.join(ROOT, "data", "yue.tsv"))._map,
+    )
     t2s = Converter.load(os.path.join(ROOT, "data", "s2t.marshal"))
 
     exact = 0

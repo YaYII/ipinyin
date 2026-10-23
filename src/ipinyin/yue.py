@@ -5,15 +5,20 @@ import marshal
 import os
 import zlib
 
+from . import yue_rules
+
 
 class YueConverter:
-    __slots__ = ("_map", "_max_len", "_chars", "_words", "_max_word")
+    __slots__ = ("_map", "_max_len", "_chars", "_words", "_max_word", "_phrase", "_max_phrase")
 
     def __init__(self, mapping: dict[str, str] | None = None,
                  chars: dict[str, str] | None = None,
-                 words: dict[str, str] | None = None):
+                 words: dict[str, str] | None = None,
+                 phrase: dict[str, str] | None = None):
         self._map = mapping or {}
         self._max_len = max((len(k) for k in self._map), default=1)
+        self._phrase = phrase or {}
+        self._max_phrase = max((len(k) for k in self._phrase), default=1)
         self._chars = chars or {}
         self._words = words or {}
         self._max_word = max((len(k) for k in self._words), default=1)
@@ -51,7 +56,22 @@ class YueConverter:
                     words = data.get("words", {}) or {}
             except (OSError, ValueError, EOFError):
                 pass
-        return cls(mapping, chars, words)
+        phrase: dict[str, str] = {}
+        ppath = os.path.join(os.path.dirname(path), "yue_phrase.marshal") if path else ""
+        if ppath and os.path.exists(ppath):
+            try:
+                with open(ppath, "rb") as fh:
+                    raw = fh.read()
+                try:
+                    raw = zlib.decompress(raw)
+                except zlib.error:
+                    pass
+                loaded = marshal.loads(raw)
+                if isinstance(loaded, dict):
+                    phrase = loaded
+            except (OSError, ValueError, EOFError):
+                pass
+        return cls(mapping, chars, words, phrase)
 
     def jyutping(self, text: str) -> str:
         """给一段粤语文字注音：优先整词，其次按字拼。"""
@@ -81,23 +101,38 @@ class YueConverter:
             return ""
         return " ".join(out)
 
-    def convert(self, text: str) -> str:
+    def convert(self, text: str, rules: bool = True) -> str:
+        if rules:
+            text = yue_rules.apply(text)      # 先调语序，再换字
         if not self._map:
             return text
         out: list[str] = []
         index = 0
         size = len(text)
         while index < size:
-            for length in range(min(self._max_len, size - index), 0, -1):
-                piece = text[index : index + length]
-                replacement = self._map.get(piece)
+            matched = False
+            # 1) 统计得到的短语（学到的地道说法，最长优先）
+            for length in range(min(self._max_phrase, size - index), 1, -1):
+                replacement = self._phrase.get(text[index:index + length])
                 if replacement is not None:
                     out.append(replacement)
                     index += length
+                    matched = True
                     break
-            else:
-                out.append(text[index])
-                index += 1
+            if matched:
+                continue
+            # 2) 人工词表
+            for length in range(min(self._max_len, size - index), 0, -1):
+                replacement = self._map.get(text[index:index + length])
+                if replacement is not None:
+                    out.append(replacement)
+                    index += length
+                    matched = True
+                    break
+            if matched:
+                continue
+            out.append(text[index])
+            index += 1
         return "".join(out)
 
     def __len__(self) -> int:
