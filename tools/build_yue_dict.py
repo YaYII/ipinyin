@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import marshal
 import os
+import zlib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CHARS = os.path.join(ROOT, "vendor", "yue_chars.yaml")
@@ -36,15 +37,13 @@ def load_pairs(path: str) -> list[tuple[str, str]]:
 
 def main() -> int:
     chars = dict(load_pairs(CHARS))
-    wanted = {dst for _src, dst in load_pairs(YUE_TSV)}
     words: dict[str, str] = {}
     for word, jyutping in load_pairs(WORDS):
-        if word in wanted or (COLLOQUIAL & set(word)):
-            words.setdefault(word, jyutping)
+        words.setdefault(word, jyutping)      # 全量词音，注音才准（如 中國 zung1 gwok3）
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "wb") as fh:
-        marshal.dump({"chars": chars, "words": words}, fh)
+        fh.write(zlib.compress(marshal.dumps({"chars": chars, "words": words}), 6))
     print(f"字音 {len(chars)} 条，词音 {len(words)} 条 → {OUT}")
     for probe in ("我哋", "佢哋", "唔該", "而家", "点解", "冇"):
         print(f"  {probe}: {words.get(probe) or '（按字拼）'}")

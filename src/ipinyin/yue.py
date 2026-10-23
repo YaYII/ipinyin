@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import marshal
 import os
+import zlib
 
 
 class YueConverter:
@@ -39,7 +40,12 @@ class YueConverter:
         if path and os.path.exists(path):
             try:
                 with open(path, "rb") as fh:
-                    data = marshal.load(fh)
+                    raw = fh.read()
+                try:
+                    raw = zlib.decompress(raw)
+                except zlib.error:
+                    pass                     # 兼容未压缩的旧文件
+                data = marshal.loads(raw)
                 if isinstance(data, dict):
                     chars = data.get("chars", {}) or {}
                     words = data.get("words", {}) or {}

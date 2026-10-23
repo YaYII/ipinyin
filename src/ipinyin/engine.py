@@ -336,6 +336,14 @@ class PinyinEngine(IBus.Engine):
         model.learn(joined_key, joined, weight=2)
         LOG.info("合成词组 %r → %r", joined_key, joined)
 
+    def _push_mode_hint(self) -> None:
+        """在预编辑上方显示当前模式（简体/繁体/粤语），避免忘了在哪个模式。"""
+        if self._ime is None:
+            return
+        label = {"simp": "简体", "trad": "繁体", "yue": "粤语"}.get(self.ime.mode, "")
+        visible = bool(self.ime.buffer)
+        self.update_auxiliary_text(IBus.Text.new_from_string(label if visible else ""), visible)
+
     def _push_preedit(self) -> None:
         if self._ime is None:
             return
@@ -343,6 +351,7 @@ class PinyinEngine(IBus.Engine):
         if not view.visible:
             return
         self.update_preedit_text(IBus.Text.new_from_string(view.preedit), view.cursor, True)
+        self._push_mode_hint()
 
     def _sync(self) -> None:
         """节流版：距离上次刷新不足 15ms 就合并，避免每键都打一次 D-Bus。"""

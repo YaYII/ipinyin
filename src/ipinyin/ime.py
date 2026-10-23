@@ -405,15 +405,17 @@ class ImeState:
             forms = {"simp": simp, "trad": trad, "yue": yue}
             output = forms.get(self.mode, simp)
             words.append(output)
-            columns: list[str] = []
-            for name in (self.mode, "simp", "trad", "yue"):
-                value = forms[name]
-                if value not in columns:
-                    columns.append(value)
-            if self.mode == "yue" and self.yue is not None:
-                reading = self.yue.jyutping(columns[0])
+            # 固定四列：普通话 / 繁体 / 粤语 / 粤拼，方便对照学习
+            if simp == trad == yue:
+                displays.append(simp)
+                continue
+            columns = [simp, trad, yue]
+            if self.yue is not None:
+                # 粤语写法与繁体不同（我哋/冇/睇到）时按粤语取音，否则按繁体取音
+                source = yue if yue != trad else trad
+                reading = self.yue.jyutping(source)
                 if reading:
-                    columns.append(reading)   # 粤拼注音，方便学
+                    columns.append(reading)
             displays.append("  ".join(columns))
         self._candidates = words
         self._display = displays

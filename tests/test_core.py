@@ -158,10 +158,10 @@ def test_tab_cycles_simplified_traditional_cantonese(lexicon):
         ime.insert(char)
     assert ime.view().candidates[0].startswith("我们")
     assert ime.cycle_mode() == "trad"
-    assert ime.view().candidates[0].startswith("我們")
+    assert "我們" in ime.view().candidates[0]
     assert ime.cycle_mode() == "yue"
     first = ime.view().candidates[0]
-    assert first.startswith("我哋")
-    assert "ngo5 dei6" in first          # 粤拼注音
+    assert "我哋" in first                # 四列里始终有粤语
+    assert "ngo5 dei6" in first           # 粤拼注音
     assert ime.select(1) == "我哋"
     assert ime.cycle_mode() == "simp"
