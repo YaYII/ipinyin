@@ -51,6 +51,10 @@ def _find_data(name: str) -> str:
     return user
 
 
+def yue_dict_path() -> str:
+    return _find_data("yue.marshal")
+
+
 def yue_path() -> str:
     return _find_data("yue.tsv")
 

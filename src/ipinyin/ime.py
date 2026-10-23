@@ -410,6 +410,10 @@ class ImeState:
                 value = forms[name]
                 if value not in columns:
                     columns.append(value)
+            if self.mode == "yue" and self.yue is not None:
+                reading = self.yue.jyutping(columns[0])
+                if reading:
+                    columns.append(reading)   # 粤拼注音，方便学
             displays.append("  ".join(columns))
         self._candidates = words
         self._display = displays

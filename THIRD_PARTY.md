@@ -9,6 +9,8 @@
 | jieba dict | 词频 | MIT | https://github.com/fxsjy/jieba |
 | CC-CEDICT | 中英词典（12.5 万条） | CC BY-SA 4.0 | https://www.mdbg.net/chinese/dictionary?page=cc-cedict |
 | OpenCC STCharacters | 简→繁映射 | Apache-2.0 | https://github.com/BYVoid/OpenCC |
+| rime-cantonese | 粤语字音/词音（粤拼） | CC BY 4.0 | https://github.com/rime/rime-cantonese |
+| 開放粵語字典 (kfcd/yyzd) | 粤语字音校验 | CC BY 3.0 | https://github.com/kfcd/yyzd |
 
 `tools/fetch_data.sh` 会下载上述数据到 `vendor/`，`tools/build_lexicon.py` 编译成
 `data/lexicon.tsv` 与 `data/lexicon.marshal`（不含在仓库里，按需生成）。

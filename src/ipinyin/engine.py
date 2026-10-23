@@ -50,7 +50,7 @@ def get_lexicon() -> Lexicon:
 def get_yue() -> YueConverter:
     global _YUE
     if _YUE is None:
-        _YUE = YueConverter.load(config.yue_path())
+        _YUE = YueConverter.load_dict(config.yue_dict_path(), YueConverter.load(config.yue_path())._map)
         LOG.info("粤语对照 %d 条", len(_YUE))
     return _YUE
 

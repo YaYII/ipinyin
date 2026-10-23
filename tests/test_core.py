@@ -152,7 +152,7 @@ def test_tab_cycles_simplified_traditional_cantonese(lexicon):
     ime = ImeState(
         lexicon,
         converter=Converter.load("data/s2t.marshal"),
-        yue=YueConverter.load("data/yue.tsv"),
+        yue=YueConverter.load_dict("data/yue.marshal", YueConverter.load("data/yue.tsv")._map),
     )
     for char in "women":
         ime.insert(char)
@@ -160,6 +160,8 @@ def test_tab_cycles_simplified_traditional_cantonese(lexicon):
     assert ime.cycle_mode() == "trad"
     assert ime.view().candidates[0].startswith("我們")
     assert ime.cycle_mode() == "yue"
-    assert ime.view().candidates[0].startswith("我哋")
+    first = ime.view().candidates[0]
+    assert first.startswith("我哋")
+    assert "ngo5 dei6" in first          # 粤拼注音
     assert ime.select(1) == "我哋"
     assert ime.cycle_mode() == "simp"

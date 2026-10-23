@@ -22,3 +22,10 @@ fetch https://raw.githubusercontent.com/mozillazg/pinyin-data/master/pinyin.txt 
 fetch https://raw.githubusercontent.com/mozillazg/phrase-pinyin-data/master/large_pinyin.txt large_pinyin.txt
 fetch https://raw.githubusercontent.com/fxsjy/jieba/master/jieba/dict.txt jieba.txt
 echo "完成：$(ls -l "$VENDOR" | tail -n +2 | awk '{print $5, $9}' | tr '\n' ' ')"
+
+# 粤语发音（rime-cantonese，CC BY 4.0）
+fetch "https://raw.githubusercontent.com/rime/rime-cantonese/main/jyut6ping3.chars.dict.yaml" \
+      "$ROOT/vendor/yue_chars.yaml"
+fetch "https://raw.githubusercontent.com/rime/rime-cantonese/main/jyut6ping3.words.dict.yaml" \
+      "$ROOT/vendor/yue_words.yaml"
+python3 "$ROOT/tools/build_yue_dict.py"
