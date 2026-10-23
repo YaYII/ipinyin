@@ -58,7 +58,7 @@ def test_segment_rejects_garbage(lexicon):
 )
 def test_first_candidate(ime, typed, expected):
     view = type_text(ime, typed)
-    assert view.candidates[0] == expected
+    assert view.words[0] == expected
 
 
 def test_commit_first_candidate(ime):
@@ -74,7 +74,7 @@ def test_commit_raw_keeps_letters(ime):
 
 def test_digit_selects_second_candidate(ime):
     type_text(ime, "shi")
-    second = ime.view().candidates[1]
+    second = ime.view().words[1]
     assert ime.select(2) == second
 
 
@@ -82,7 +82,7 @@ def test_backspace_shortens_buffer(ime):
     type_text(ime, "nih")
     assert ime.backspace() is True
     assert ime.buffer == "ni"
-    assert ime.view().candidates[0] == "你"
+    assert ime.view().words[0] == "你"
 
 
 def test_escape_clears(ime):
@@ -118,7 +118,7 @@ def test_bracket_paging_selects_from_second_page(ime):
     type_text(ime, "shi")
     first_page = list(ime.view().candidates)
     assert ime.page_by(1) is True
-    second_page = ime.view().candidates
+    second_page = ime.view().words
     assert second_page and second_page != first_page
     picked = ime.select(1)          # 第 2 页第 1 个
     assert picked == second_page[0]
@@ -126,13 +126,13 @@ def test_bracket_paging_selects_from_second_page(ime):
 
 def test_left_right_moves_pinyin_segment(ime):
     type_text(ime, "nihaoma")
-    assert ime.view().candidates[0] == "你号码"
+    assert ime.view().words[0] == "你号码"
     assert ime.move_segment(-1) is True          # 左：切到 nihao
     assert ime.active_text() == "nihao"
-    assert ime.view().candidates[0] == "你好"
+    assert ime.view().words[0] == "你好"
     assert ime.move_segment(-1) is True          # 再左：切到 ni
     assert ime.active_text() == "ni"
-    assert ime.view().candidates[0] == "你"
+    assert ime.view().words[0] == "你"
     assert ime.move_segment(1) is True           # 右：回到 nihao
     assert ime.active_text() == "nihao"
 
@@ -142,7 +142,7 @@ def test_commit_segment_keeps_remaining_pinyin(ime):
     ime.move_segment(-1)                          # 只转 nihao
     assert ime.commit_current() == "你好"
     assert ime.buffer == "ma"
-    assert ime.view().candidates[0] == "吗"
+    assert ime.view().words[0] == "吗"
 
 
 def test_tab_cycles_simplified_traditional_cantonese(lexicon):

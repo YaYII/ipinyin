@@ -17,15 +17,15 @@ def test_learn_moves_word_to_front(lexicon, tmp_path):
     ime.insert("s")
     ime.insert("h")
     ime.insert("i")
-    default_first = ime.view().candidates[0]
-    second = ime.view().candidates[1]
+    default_first = ime.view().words[0]
+    second = ime.view().words[1]
     assert default_first != second
 
     model.learn("shi", second)
     ime.clear()
     for char in "shi":
         ime.insert(char)
-    assert ime.view().candidates[0] == second
+    assert ime.view().words[0] == second
 
 
 def test_learning_persists_across_restart(tmp_path):
@@ -66,7 +66,7 @@ def test_bigram_puts_expected_next_word_first(lexicon, tmp_path):
     ime.context = "我"
     for char in "ni":
         ime.insert(char)
-    assert ime.view().candidates[0] == "呢"
+    assert ime.view().words[0] == "呢"
 
 
 def test_bigram_survives_restart(tmp_path):
@@ -80,4 +80,4 @@ def test_fuzzy_pinyin_rescues_fast_typo(lexicon):
     ime = ImeState(lexicon)
     for char in "pingying":  # ing/ying 打混了，拼音打成 pingying
         ime.insert(char)
-    assert ime.view().candidates[0] == "拼音"
+    assert ime.view().words[0] == "拼音"

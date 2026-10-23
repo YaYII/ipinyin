@@ -37,7 +37,8 @@ FUZZY_PAIRS = (
 class View:
     visible: bool
     preedit: str
-    candidates: list[str] = field(default_factory=list)
+    candidates: list[str] = field(default_factory=list)   # 显示用（简/繁/粤/粤拼四列）
+    words: list[str] = field(default_factory=list)        # 真正会上屏的词
     page: int = 0
     page_count: int = 0
     highlighted: int = 0
@@ -232,6 +233,7 @@ class ImeState:
             preedit=self.buffer,
             cursor=len(self.active_text()),
             candidates=self._display[start : start + self.page_size],
+            words=self._candidates[start : start + self.page_size],
             page=self._page,
             page_count=self._page_count(),
             highlighted=self._highlighted,
@@ -406,10 +408,10 @@ class ImeState:
             output = forms.get(self.mode, simp)
             words.append(output)
             # 固定四列：普通话 / 繁体 / 粤语 / 粤拼，方便对照学习
-            if simp == trad == yue:
+            if not any("\u4e00" <= ch <= "\u9fff" for ch in simp):
                 displays.append(simp)
                 continue
-            columns = [simp, trad, yue]
+            columns = [simp, trad if trad != simp else "—", yue if yue != simp else "—"]
             if self.yue is not None:
                 # 粤语写法与繁体不同（我哋/冇/睇到）时按粤语取音，否则按繁体取音
                 source = yue if yue != trad else trad

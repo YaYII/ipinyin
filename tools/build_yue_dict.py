@@ -36,7 +36,9 @@ def load_pairs(path: str) -> list[tuple[str, str]]:
 
 
 def main() -> int:
-    chars = dict(load_pairs(CHARS))
+    chars: dict[str, str] = {}
+    for char, reading in load_pairs(CHARS):
+        chars.setdefault(char, reading)      # 多音字取第一条（最常用）
     words: dict[str, str] = {}
     for word, jyutping in load_pairs(WORDS):
         words.setdefault(word, jyutping)      # 全量词音，注音才准（如 中國 zung1 gwok3）
