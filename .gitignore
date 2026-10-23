@@ -5,6 +5,4 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .code-arch/
-data/*.tsv
-data/*.marshal
 experiments/*.pt
