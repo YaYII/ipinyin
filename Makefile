@@ -1,4 +1,4 @@
-.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs
+.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs sogou-dict
 
 install:
 	./install.sh
@@ -51,6 +51,10 @@ eval-sentence:
 # 简中：拿你自己的简体文档端到端测（无重排 vs 重排，救回/弄坏分开报）
 eval-docs:
 	python3 tools/eval_personal_docs.py
+
+# 搜狗细胞词库（本地评测用；许可：不得用于商业用途）
+sogou-dict:
+	python3 tools/fetch_sogou_dict.py --out vendor/sogou
 
 clean:
 	rm -rf .pytest_cache src/ipinyin/__pycache__ tests/__pycache__ tools/__pycache__
