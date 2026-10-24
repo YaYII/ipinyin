@@ -165,3 +165,111 @@ def test_tab_cycles_simplified_traditional_cantonese(lexicon):
     assert "ngo5 dei6" in first           # 粤拼注音
     assert ime.select(1) == "我哋"
     assert ime.cycle_mode() == "simp"
+
+
+def test_best_paths_returns_ordered_distinct_paths(lexicon):
+    """n-best 是上下文重排的前置：多于一条、按分降序、第一条必须等于旧的最优解。"""
+    from ipinyin.segmenter import best_path, best_paths
+
+    text = "woxihuannizhongguo"
+    paths = best_paths(lexicon, text, k=3)
+    assert len(paths) >= 2, "长拼音应该有多个切分"
+    assert paths[0] == best_path(lexicon, text)
+    joined = ["".join(p) for p in paths]
+    assert len(set(joined)) == len(joined), "同一结果不应重复出现"
+    assert all("".join(p) for p in paths)
+
+
+def test_best_paths_handles_short_and_unknown(lexicon):
+    from ipinyin.segmenter import best_paths
+
+    assert best_paths(lexicon, "", k=3) == []
+    assert best_paths(lexicon, "zzzz", k=3) == []
+    single = best_paths(lexicon, "women", k=3)
+    assert single and single[0] == ["我们"]
+
+
+def test_sentence_candidates_expose_alternatives(lexicon):
+    """整句候选要有备选：打错一个字时用户能直接选第二条，不用重打。"""
+    ime = ImeState(lexicon)
+    for char in "woxihuannizhongguo":
+        ime.insert(char)
+    words = ime.view().words
+    assert len(words) >= 2
+    assert len(set(words)) == len(words)
+
+
+def test_attach_lm_reranks_sentence_candidates(lexicon):
+    """挂上语言模型后，整句候选顺序由「词库先验 + λ·上下文分」决定。
+
+    这里用桩模型验证接线（真实 LM 的效果见 docs/nn-chinese.md 的 +6.3pt）。
+    """
+    from ipinyin.segmenter import best_paths_scored
+
+    text = "woxihuannizhongguo"
+    paths = best_paths_scored(lexicon, text, k=3)
+    assert len(paths) >= 2
+    target = "".join(paths[-1][1])          # 先验排最后的那条整句
+
+    ime = ImeState(lexicon)
+    for char in text:
+        ime.insert(char)
+    before = ime.view().words
+    assert target in before, "目标整句应该出现在候选里"
+
+    class StubLM:
+        def logp(self, self_text):
+            return 100.0 if self_text == target else 0.0
+
+    ime.attach_lm(StubLM(), weight=1.0)
+    after = ime.view().words
+    # 候选里除了整句还有前缀词，所以看「位置前移」而不是「必须第一」
+    assert after.index(target) < before.index(target)
+
+
+def test_t2s_converter_roundtrip():
+    """简↔繁只是显示层映射，必须可逆：繁→简不能产出异体字（㓰 那类）。"""
+    from ipinyin.t2s import Converter
+
+    conv = Converter.load("data/s2t.marshal")
+    assert len(conv) > 3000
+    assert conv.to_traditional("这个问题") == "這個問題"
+    assert conv.to_simplified("這個問題") == "这个问题"
+    # 划/劃 曾因扩展区异体字 㓰 污染反向表，映射成「计㓰」
+    assert conv.to_simplified("計劃") == "计划"
+    assert conv.to_simplified(conv.to_traditional("数据库迁移方案")) == "数据库迁移方案"
+
+
+def test_simplified_is_only_a_mapping_not_a_model():
+    """繁体不走模型：同一句简体的输出只有一个「字面对应」，不涉及语序/用词改写。"""
+    from ipinyin.t2s import Converter
+
+    conv = Converter.load("data/s2t.marshal")
+    src = "今天天气不错，我们出去走走吧"
+    assert conv.to_traditional(src) == "今天天氣不錯，我們出去走走吧"
+    # 粤语才需要模型：我们 → 我哋，这不是字形映射能做出来的
+    assert conv.to_traditional(src) != "今日天氣唔錯，我哋出去行下啦"
+
+
+def test_t2s_converter_roundtrip():
+    """简↔繁只是显示层映射，必须可逆：繁→简不能产出异体字（㓰 那类）。"""
+    from ipinyin.t2s import Converter
+
+    conv = Converter.load("data/s2t.marshal")
+    assert len(conv) > 3000
+    assert conv.to_traditional("这个问题") == "這個問題"
+    assert conv.to_simplified("這個問題") == "这个问题"
+    # 划/劃 曾因扩展区异体字 㓰 污染反向表，映射成「计㓰」
+    assert conv.to_simplified("計劃") == "计划"
+    assert conv.to_simplified(conv.to_traditional("数据库迁移方案")) == "数据库迁移方案"
+
+
+def test_simplified_is_only_a_mapping_not_a_model():
+    """繁体不走模型：同一句简体的输出只有一个「字面对应」，不涉及语序/用词改写。"""
+    from ipinyin.t2s import Converter
+
+    conv = Converter.load("data/s2t.marshal")
+    src = "今天天气不错，我们出去走走吧"
+    assert conv.to_traditional(src) == "今天天氣不錯，我們出去走走吧"
+    # 粤语才需要模型：我们 → 我哋，这不是字形映射能做出来的
+    assert conv.to_traditional(src) != "今日天氣唔錯，我哋出去行下啦"

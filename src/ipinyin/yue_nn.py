@@ -15,13 +15,16 @@ PAD, SOS, EOS, UNK = 0, 1, 2, 3
 
 
 class NeuralYue:
-    __slots__ = ("_session", "_src", "_inv_tgt", "_max_len")
+    __slots__ = ("_session", "_src", "_inv_tgt", "_max_len", "_cache")
+
+    CACHE_SIZE = 256          # 整句缓存：同一句反复重建候选时不再重复推理
 
     def __init__(self, session, src_vocab: dict[str, int], tgt_vocab: dict[str, int], max_len: int = 40):
         self._session = session
         self._src = src_vocab
         self._inv_tgt = {i: ch for ch, i in tgt_vocab.items()}
         self._max_len = max_len
+        self._cache: dict[str, str] = {}
 
     @classmethod
     def load(cls, data_dir: str) -> Optional["NeuralYue"]:
@@ -44,8 +47,15 @@ class NeuralYue:
     def translate(self, text: str) -> str:
         import numpy as np
 
+        cached = self._cache.get(text)
+        if cached is not None:
+            return cached
+
+        ids = [SOS] + [self._src.get(ch, UNK) for ch in text][: self._max_len - 2] + [EOS]
+        # 注意：现有 ONNX 图内部 Reshape 的形状固化在 40（旧导出器所致），
+        # 变长输入会报 "cannot reshape"，所以必须按 max_len 补齐。
+        # 想提速得改用 torch.onnx dynamo 导出器（见 experiments/export_onnx.py）。
         width = self._max_len
-        ids = [SOS] + [self._src.get(ch, UNK) for ch in text][: width - 2] + [EOS]
         src = np.full((1, width), PAD, dtype=np.int64)
         src[0, : len(ids)] = ids
         out = [SOS]
@@ -57,7 +67,11 @@ class NeuralYue:
             if nxt == EOS:
                 break
             out.append(nxt)
-        return "".join(self._inv_tgt.get(i, "") for i in out[1:])
+        result = "".join(self._inv_tgt.get(i, "") for i in out[1:])
+        if len(self._cache) >= self.CACHE_SIZE:
+            self._cache.clear()
+        self._cache[text] = result
+        return result
 
     def __len__(self) -> int:
         return len(self._src)

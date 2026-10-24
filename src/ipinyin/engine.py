@@ -33,6 +33,7 @@ SYNC_INTERVAL = 0.015
 _USER_MODEL: UserModel | None = None
 _CONVERTER: Converter | None = None
 _YUE: YueConverter | None = None
+_LM = None            # 字级语言模型；False 表示明确没有/已关闭
 # 词库加载完成前，按键一律放行（当英文打），绝不阻塞 IBus 主循环
 _LEXICON_READY = threading.Event()
 
@@ -59,6 +60,28 @@ def get_yue() -> YueConverter:
                 LOG.info("粤语神经模型已加载（%d 字表）", len(_YUE.nn))
         LOG.info("粤语对照 %d 条", len(_YUE))
     return _YUE
+
+
+def get_lm():
+    """字级语言模型（可选）：给整句候选做上下文重排。
+
+    放在 ~/.local/share/ipinyin/data/lm_char.marshal，没有就退回纯词库排序。
+    设 IPINYIN_LM=0 可强制关闭。
+    """
+    global _LM
+    if _LM is None:
+        if os.environ.get("IPINYIN_LM", "1") == "0":
+            _LM = False
+            return None
+        from .lm import CharLM
+
+        path = os.path.join(config.data_home(), "data", "lm_char.marshal")
+        _LM = CharLM.load(path) or False
+        if _LM:
+            LOG.info("语言模型已加载（%d 字表，%s）", len(_LM), path)
+        else:
+            LOG.info("没找到语言模型 %s，整句候选按词库排序", path)
+    return _LM or None
 
 
 def _read_mode() -> str:
@@ -156,6 +179,9 @@ class PinyinEngine(IBus.Engine):
         if self._ime is None:
             self._ime = ImeState(get_lexicon(), user_model=get_user_model(),
                                  converter=get_converter(), yue=get_yue())
+            lm = get_lm()
+            if lm is not None:
+                self._ime.attach_lm(lm)
             self._ime.mode = _read_mode()
         return self._ime
 

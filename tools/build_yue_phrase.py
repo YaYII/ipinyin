@@ -59,6 +59,9 @@ def plausible(zh: str, yue: str) -> bool:
 
 
 def ngrams(text: str, low: int, high: int) -> set[str]:
+    """返回该文本所有 n-gram。注意：调用方必须用 sorted() 遍历，
+    否则 set 的迭代顺序受 PYTHONHASHSEED 影响，Counter 的并列项会随运行变化，
+    统计出来的短语表每次跑都可能差几条（实测 3972~3978 条）。"""
     out: set[str] = set()
     for n in range(low, high + 1):
         for i in range(len(text) - n + 1):
@@ -68,23 +71,16 @@ def ngrams(text: str, low: int, high: int) -> set[str]:
     return out
 
 
-def main() -> int:
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    min_count = 5
-    for arg in sys.argv[1:]:
-        if arg.startswith("--min"):
-            min_count = int(arg.split("=", 1)[1]) if "=" in arg else min_count
-    path = args[0] if args else "/tmp/yue_pairs.json"
-    pairs = json.load(open(path, encoding="utf-8"))
-
+def mine_phrases(pairs: list[dict], min_count: int = 5) -> dict[str, str]:
+    """从平行句对里挖 (普通话片段 → 粤语片段)。纯统计，可被评测脚本复用。"""
     zh_freq: Counter[str] = Counter()
     yue_freq: Counter[str] = Counter()
     for item in pairs:
         zh, yue = item.get("zh", ""), item.get("yue", "")
-        zh_freq.update(ngrams(zh, *ZH_RANGE))
-        yue_freq.update(ngrams(yue, *YUE_RANGE))
+        zh_freq.update(sorted(ngrams(zh, *ZH_RANGE)))
+        yue_freq.update(sorted(ngrams(yue, *YUE_RANGE)))
 
-    known = load_known(path)
+    known = load_known("")
     # 只有"确实是个普通话词/短语"的 key 才收（防止 为|他 这种跨界切分）
     jieba: set[str] = set()
     jf = os.path.join(ROOT, "vendor", "jieba.txt")
@@ -105,8 +101,8 @@ def main() -> int:
 
     co: defaultdict[str, Counter[str]] = defaultdict(Counter)
     for item in pairs:
-        zh_z = ngrams(item.get("zh", ""), *ZH_RANGE) & zh_ok
-        yue_z = ngrams(item.get("yue", ""), *YUE_RANGE) & yue_ok
+        zh_z = sorted(ngrams(item.get("zh", ""), *ZH_RANGE) & zh_ok)
+        yue_z = sorted(ngrams(item.get("yue", ""), *YUE_RANGE) & yue_ok)
         if not zh_z or not yue_z:
             continue
         for z in zh_z:
@@ -141,8 +137,8 @@ def main() -> int:
     # 反向检查（互选），去掉"一对多"的噪声
     reverse: defaultdict[str, Counter[str]] = defaultdict(Counter)
     for item in pairs:
-        zh_z = ngrams(item.get("zh", ""), *ZH_RANGE) & zh_ok
-        yue_z = ngrams(item.get("yue", ""), *YUE_RANGE) & yue_ok
+        zh_z = sorted(ngrams(item.get("zh", ""), *ZH_RANGE) & zh_ok)
+        yue_z = sorted(ngrams(item.get("yue", ""), *YUE_RANGE) & yue_ok)
         for y in yue_z:
             reverse[y].update(zh_z)
     filtered = {}
@@ -151,6 +147,18 @@ def main() -> int:
             continue
         if max(reverse[y].items(), key=lambda kv: kv[1])[0] == z:
             filtered[z] = y
+    return filtered
+
+
+def main() -> int:
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    min_count = 5
+    for arg in sys.argv[1:]:
+        if arg.startswith("--min"):
+            min_count = int(arg.split("=", 1)[1]) if "=" in arg else min_count
+    path = args[0] if args else "/tmp/yue_pairs.json"
+    pairs = json.load(open(path, encoding="utf-8"))
+    filtered = mine_phrases(pairs, min_count)
     print(f"短语对 {len(filtered)} 条")
     for probe in ("给你", "我们", "知道", "这个", "没有问题"):
         if probe in filtered:

@@ -4,5 +4,13 @@ dist/
 __pycache__/
 *.pyc
 .pytest_cache/
+.pytest-tmp/
 .code-arch/
 experiments/*.pt
+experiments/*.onnx
+experiments/yue_nn_vocab.json
+experiments/logs/
+.venv/
+.workbuddy/
+# 语言模型由 tools/build_lm.py 生成，别提交（3MB+）
+data/lm_char.marshal

@@ -20,3 +20,35 @@
 输入法 shurufa
 拼音 pinyin
 打字 dazi
+
+# --- 2026-10-24 从 vendor/personal 挖出的领域词（人工筛过，拼音按单字读音猜，多音字待核）---
+组网产品 zuwangchanpin
+一键替换 yijiantihuan
+下拉选择 xialaxuanze
+达通支付 datongzhifu
+受资助者 shouzhuzhe
+可重覆 kechongfu
+排班表 paibanbiao
+门禁卡 menjinka
+访客登记 fangkedengji
+人脸识别 renlianshibie
+证件识别 zhengjianshibie
+摄像头 shexiangtou
+网关场景 wanggjingchang
+数据迁移 shujuqianyi
+回退计划 huituijihua
+渗透测试 shentouceshi
+漏洞扫描 loudongsaomiao
+堡垒机 baoleiji
+跳板机 tiaobanji
+云服务器 yunfuwuqi
+运维架构 yunweijiagou
+安全配置 anquanpeizhi
+接口联调 jiekouliantiao
+需求评审 xuqiupingshen
+测试用例 ceshiyongli
+验收报告 yanshoubaogao
+上线切换 shangxianqiehuan
+并行运行 bingxingyunxing
+权限控制 quanxiankongzhi
+通知推送 tongzhuituisong

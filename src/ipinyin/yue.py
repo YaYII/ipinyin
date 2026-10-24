@@ -102,13 +102,18 @@ class YueConverter:
             return ""
         return " ".join(out)
 
-    def convert(self, text: str, rules: bool = True) -> str:
-        # 长句且装了神经模型时优先用它（短词仍走规则，稳定且快）
-        if self.nn is not None and len(text) >= 8:
+    def convert(self, text: str, rules: bool = True, neural: bool | None = None) -> str:
+        # neural=None 时默认走神经（装了模型就用）。但调用方要注意：
+        # 输入法的候选列表里每个候选都会调一次 convert，2~4 字词实测单次 7~10ms，
+        # 9 个候选全算就是 60ms+/键。正确用法是只对「首选候选/上屏内容」传 neural=True，
+        # 其余候选走规则（0.02ms）。见 src/ipinyin/ime.py 的调用点。
+        if neural is None:
+            neural = True
+        if neural and self.nn is not None:
             try:
-                neural = self.nn.translate(text)
-                if neural:
-                    return neural
+                result = self.nn.translate(text)
+                if result:
+                    return result
             except Exception:
                 pass
         if rules:

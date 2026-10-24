@@ -34,7 +34,10 @@ def main() -> int:
     out_dir = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, "experiments")
     ckpt = torch.load(ckpt_path, map_location="cpu", weights_only=False)
     src_vocab, tgt_vocab = ckpt["src_vocab"], ckpt["tgt_vocab"]
-    model = Seq2Seq(len(src_vocab) + 4, len(tgt_vocab) + 4)
+    # 架构超参必须跟训练时一致，否则 state_dict 尺寸不匹配（训练用 --d 256 --layers 4 就炸）
+    trained = ckpt.get("args") or {}
+    d, layers = int(trained.get("d", 160)), int(trained.get("layers", 2))
+    model = Seq2Seq(len(src_vocab) + 4, len(tgt_vocab) + 4, d=d, layers=layers)
     model.load_state_dict(ckpt["model"])
     model.eval()
 

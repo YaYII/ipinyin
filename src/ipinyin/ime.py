@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from itertools import product
 
 from .lexicon import Lexicon
-from .segmenter import best_path
+from .segmenter import best_paths_scored
 from .t2s import Converter
 from .yue import YueConverter
 from .user_model import UserModel
@@ -18,6 +18,7 @@ PAGE_SIZE = 9
 MAX_BUFFER = 48
 WORDS_PER_SYLLABLE = 2
 MAX_COMPOSED = 9
+SENTENCE_CANDIDATES = 3      # 整句给几条备选：只有一条时打错一个字就没有第二选择
 
 # 快打时最常见的拼音笔误（zh/z、ch/c、sh/s、前后鼻音、ying/yin）
 FUZZY_PAIRS = (
@@ -88,6 +89,8 @@ class ImeState:
         self.lexicon = lexicon
         self.converter = converter
         self.yue = yue
+        self.lm = None             # 可选：字级语言模型（有 logp(text) 即可，可以是神经模型）
+        self.lm_weight = 0.4
         self.mode = "simp"          # simp / trad / yue
         self.page_size = page_size
         self.user_model = user_model
@@ -224,6 +227,17 @@ class ImeState:
         return True
 
     # ---------- 视图 ----------
+    def attach_lm(self, lm, weight: float = 0.4) -> None:
+        """挂上上下文语言模型：整句候选会按「词库先验 + λ·上下文分」重排。
+
+        lm 只需要实现 logp(text) -> float（对数概率）。神经 LM 用同样的接口直接替换。
+        """
+        self.lm = lm
+        self.lm_weight = weight
+        self._cache.clear()
+        if self.buffer:                 # 候选是上次按键算的，挂上模型后要重算一遍
+            self._rebuild()
+
     def view(self) -> View:
         if not self.buffer:
             return View(visible=False, preedit="")
@@ -314,8 +328,20 @@ class ImeState:
 
         exact = self.lexicon.entries(text)
         keyed = self.lexicon.prefix_entries(text)
-        path = best_path(self.lexicon, text)
-        sentence = "".join(path) if path and len(path) > 1 else ""
+        paths = best_paths_scored(self.lexicon, text, k=SENTENCE_CANDIDATES)
+        if self.lm is not None and len(paths) > 1:
+            # 词库先验 + 上下文分插值，按字数归一。λ=0.4 是「通用 81.0% / 领域 93.0%」的折中：
+            # 不归一的话对数概率求和会让最短的候选永远排第一（与质量无关）——
+            # 这是 chinese-ime-lm 的 docs/measurements.md 点名的两个测量陷阱之一。
+            weight = self.lm_weight
+
+            def _rank(item):
+                score, seg = item
+                text_len = max(len("".join(seg)), 1)
+                return -(score + weight * self.lm.logp("".join(seg))) / text_len
+
+            paths = sorted(paths, key=_rank)
+        sentences = ["".join(p) for _score, p in paths if len(p) > 1]
         composed = self._compose(text)
 
         close = [(k, w, f) for k, w, f in keyed if len(k) <= len(text) + 3]
@@ -324,20 +350,17 @@ class ImeState:
         items: list[tuple[str, str, int]] = []   # (词, 消耗的拼音, 词频)
         if exact:
             items += [(w, text, f) for w, f in exact]
-            if sentence:
-                items.append((sentence, text, 0))
+            items += [(s, text, 0) for s in sentences]
             items += [(w, k, f) for k, w, f in close]
             items += [(w, k, f) for k, w, f in far]
             items += [(w, text, 0) for w in composed]
         elif close:
             items += [(w, k, f) for k, w, f in close]
-            if sentence:
-                items.append((sentence, text, 0))
+            items += [(s, text, 0) for s in sentences]
             items += [(w, text, 0) for w in composed]
             items += [(w, k, f) for k, w, f in far]
         else:
-            if sentence:
-                items.append((sentence, text, 0))
+            items += [(s, text, 0) for s in sentences]
             items += [(w, text, 0) for w in composed]
             items += [(w, k, f) for k, w, f in far]
 
@@ -404,10 +427,14 @@ class ImeState:
         converter = self.converter
         words: list[str] = []
         displays: list[str] = []
-        for word, key, _freq in unique:
+        for rank, (word, key, _freq) in enumerate(unique):
             simp = word
             trad = converter.to_traditional(simp) if converter else simp
-            yue = self.yue.convert(simp) if self.yue else trad
+            # 神经模型只在粤语模式、且只对首选候选推理：
+            # convert() 在候选重建路径上，2~4 字词单次 7~10ms，9 个候选全算就是 60ms+/键。
+            # 非首选候选走规则（0.02ms）够用，用户真正要看的粤语写法就是首选那条。
+            neural = self.mode == "yue" and rank == 0
+            yue = self.yue.convert(simp, neural=neural) if self.yue else trad
             if converter:
                 yue = converter.to_traditional(yue)   # 粤语书面一律用繁体字
             forms = {"simp": simp, "trad": trad, "yue": yue}
