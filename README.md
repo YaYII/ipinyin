@@ -98,6 +98,21 @@ make lm                                  # 训练字级语言模型（整句重�
 简中这条链路的现状、整句基准和「神经网络该放在哪」见 [docs/nn-chinese.md](docs/nn-chinese.md)，
 整句基准跑 `make eval-sentence`。
 
+## 推到 GitHub
+
+```bash
+make push          # 等价于 python3 tools/gh_push.py HEAD master
+```
+
+大陆网络下 `github.com:443` 直连不通（`curl 28` 超时），而 `api.github.com` 可直连，
+所以 `make push` 走 GitHub 的 **git-data API**：本地算出 blob/tree/commit 的 sha，
+经 API 创建远端对象，再快进 `refs/heads/master` —— 内容与 `git push` 完全等价。
+凭据取自 macOS 钥匙串里的 `github.com`（个人访问令牌），不落在仓库里。
+
+> 别用 `git push https://gh-proxy.com/https://github.com/...` 这类镜像 URL：
+> 镜像会剥离 `Authorization` 头，结果是 `No anonymous write access`。
+> 镜像只适合 `git fetch`（拉取不需认证）。
+
 ## 结构
 
 ```

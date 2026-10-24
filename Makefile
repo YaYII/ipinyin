@@ -1,4 +1,4 @@
-.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs sogou-dict
+.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs sogou-dict push
 
 install:
 	./install.sh
@@ -55,6 +55,10 @@ eval-docs:
 # 搜狗细胞词库（本地评测用；许可：不得用于商业用途）
 sogou-dict:
 	python3 tools/fetch_sogou_dict.py --out vendor/sogou
+
+# 推 GitHub（大陆网络：github.com 直连不通，走 api.github.com 的 git-data API）
+push:
+	python3 tools/gh_push.py HEAD master
 
 clean:
 	rm -rf .pytest_cache src/ipinyin/__pycache__ tests/__pycache__ tools/__pycache__
