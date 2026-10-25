@@ -6,9 +6,8 @@ __pycache__/
 .pytest_cache/
 .pytest-tmp/
 .code-arch/
-experiments/*.pt
-experiments/*.onnx
-experiments/yue_nn_vocab.json
+# 开源决定（2026-10-25）：训练产物全部入库，clone 即用，不隐瞒
+# experiments/logs/ 仍忽略（本地运行日志）
 experiments/logs/
 .venv/
 .workbuddy/

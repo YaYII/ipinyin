@@ -1,0 +1,137 @@
+训练设备 mps
+训练 135000 / 验证 7500 / 测试 7500
+字表 src 4470 tgt 4885
+/Users/yingyang/WorkBuddy/ipinyin/experiments/train_yue_seq2seq.py:45: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.encoder = nn.TransformerEncoder(encoder_layer, layers)
+参数 8.941337 M
+/Users/yingyang/.workbuddy/binaries/python/envs/default/lib/python3.13/site-packages/torch/nn/modules/activation.py:1337: UserWarning: Support for mismatched key_padding_mask and attn_mask is deprecated. Use same type for both instead.
+  key_padding_mask = F._canonical_mask(
+epoch 0 step 0/1406 loss 9.673 lr 2.0e-06 0s
+epoch 0 step 50/1406 loss 8.734 lr 5.2e-05 6s
+epoch 0 step 100/1406 loss 7.989 lr 1.0e-04 11s
+epoch 0 step 150/1406 loss 7.473 lr 1.5e-04 15s
+epoch 0 step 200/1406 loss 7.089 lr 2.0e-04 20s
+epoch 0 step 250/1406 loss 6.661 lr 2.5e-04 25s
+epoch 0 step 300/1406 loss 6.266 lr 3.0e-04 29s
+epoch 0 step 350/1406 loss 5.922 lr 3.0e-04 34s
+epoch 0 step 400/1406 loss 5.642 lr 3.0e-04 38s
+epoch 0 step 450/1406 loss 5.389 lr 3.0e-04 43s
+epoch 0 step 500/1406 loss 5.164 lr 3.0e-04 47s
+epoch 0 step 550/1406 loss 4.970 lr 3.0e-04 51s
+epoch 0 step 600/1406 loss 4.806 lr 3.0e-04 56s
+epoch 0 step 650/1406 loss 4.654 lr 3.0e-04 60s
+epoch 0 step 700/1406 loss 4.515 lr 3.0e-04 65s
+epoch 0 step 750/1406 loss 4.391 lr 3.0e-04 69s
+epoch 0 step 800/1406 loss 4.283 lr 2.9e-04 73s
+epoch 0 step 850/1406 loss 4.181 lr 2.9e-04 77s
+epoch 0 step 900/1406 loss 4.085 lr 2.9e-04 82s
+epoch 0 step 950/1406 loss 3.998 lr 2.9e-04 86s
+epoch 0 step 1000/1406 loss 3.920 lr 2.9e-04 90s
+epoch 0 step 1050/1406 loss 3.847 lr 2.9e-04 94s
+epoch 0 step 1100/1406 loss 3.775 lr 2.9e-04 99s
+epoch 0 step 1150/1406 loss 3.710 lr 2.8e-04 103s
+epoch 0 step 1200/1406 loss 3.651 lr 2.8e-04 107s
+epoch 0 step 1250/1406 loss 3.595 lr 2.8e-04 112s
+epoch 0 step 1300/1406 loss 3.540 lr 2.8e-04 116s
+epoch 0 step 1350/1406 loss 3.488 lr 2.7e-04 120s
+epoch 0 step 1400/1406 loss 3.442 lr 2.7e-04 124s
+epoch 0 结束 平均 loss 3.437 用时 126s
+已保存检查点 experiments/yue_model_d256.pt
+[验证] 整句一致 23.5% 字符重合 70.8%
+epoch 1 step 0/1406 loss 2.741 lr 2.7e-04 0s
+epoch 1 step 50/1406 loss 2.120 lr 2.7e-04 4s
+epoch 1 step 100/1406 loss 2.087 lr 2.7e-04 9s
+epoch 1 step 150/1406 loss 2.073 lr 2.6e-04 13s
+epoch 1 step 200/1406 loss 2.075 lr 2.6e-04 17s
+epoch 1 step 250/1406 loss 2.070 lr 2.6e-04 21s
+epoch 1 step 300/1406 loss 2.057 lr 2.6e-04 26s
+epoch 1 step 350/1406 loss 2.046 lr 2.5e-04 30s
+epoch 1 step 400/1406 loss 2.043 lr 2.5e-04 34s
+epoch 1 step 450/1406 loss 2.038 lr 2.5e-04 38s
+epoch 1 step 500/1406 loss 2.026 lr 2.4e-04 43s
+epoch 1 step 550/1406 loss 2.017 lr 2.4e-04 47s
+epoch 1 step 600/1406 loss 2.010 lr 2.4e-04 51s
+epoch 1 step 650/1406 loss 2.004 lr 2.3e-04 55s
+epoch 1 step 700/1406 loss 1.995 lr 2.3e-04 60s
+epoch 1 step 750/1406 loss 1.987 lr 2.3e-04 64s
+epoch 1 step 800/1406 loss 1.983 lr 2.2e-04 68s
+epoch 1 step 850/1406 loss 1.978 lr 2.2e-04 72s
+epoch 1 step 900/1406 loss 1.971 lr 2.2e-04 76s
+epoch 1 step 950/1406 loss 1.965 lr 2.1e-04 81s
+epoch 1 step 1000/1406 loss 1.961 lr 2.1e-04 85s
+epoch 1 step 1050/1406 loss 1.957 lr 2.0e-04 89s
+epoch 1 step 1100/1406 loss 1.950 lr 2.0e-04 93s
+epoch 1 step 1150/1406 loss 1.945 lr 2.0e-04 98s
+epoch 1 step 1200/1406 loss 1.941 lr 1.9e-04 102s
+epoch 1 step 1250/1406 loss 1.937 lr 1.9e-04 106s
+epoch 1 step 1300/1406 loss 1.932 lr 1.9e-04 110s
+epoch 1 step 1350/1406 loss 1.927 lr 1.8e-04 115s
+epoch 1 step 1400/1406 loss 1.923 lr 1.8e-04 119s
+epoch 1 结束 平均 loss 1.923 用时 120s
+已保存检查点 experiments/yue_model_d256.pt
+[验证] 整句一致 32.2% 字符重合 76.9%
+epoch 2 step 0/1406 loss 2.352 lr 1.8e-04 0s
+epoch 2 step 50/1406 loss 1.812 lr 1.7e-04 4s
+epoch 2 step 100/1406 loss 1.785 lr 1.7e-04 9s
+epoch 2 step 150/1406 loss 1.778 lr 1.6e-04 13s
+epoch 2 step 200/1406 loss 1.782 lr 1.6e-04 17s
+epoch 2 step 250/1406 loss 1.785 lr 1.6e-04 22s
+epoch 2 step 300/1406 loss 1.778 lr 1.5e-04 26s
+epoch 2 step 350/1406 loss 1.774 lr 1.5e-04 30s
+epoch 2 step 400/1406 loss 1.775 lr 1.4e-04 35s
+epoch 2 step 450/1406 loss 1.775 lr 1.4e-04 39s
+epoch 2 step 500/1406 loss 1.770 lr 1.4e-04 44s
+epoch 2 step 550/1406 loss 1.767 lr 1.3e-04 48s
+epoch 2 step 600/1406 loss 1.765 lr 1.3e-04 53s
+epoch 2 step 650/1406 loss 1.764 lr 1.3e-04 57s
+epoch 2 step 700/1406 loss 1.759 lr 1.2e-04 62s
+epoch 2 step 750/1406 loss 1.757 lr 1.2e-04 67s
+epoch 2 step 800/1406 loss 1.756 lr 1.1e-04 71s
+epoch 2 step 850/1406 loss 1.756 lr 1.1e-04 75s
+epoch 2 step 900/1406 loss 1.753 lr 1.1e-04 80s
+epoch 2 step 950/1406 loss 1.751 lr 1.0e-04 84s
+epoch 2 step 1000/1406 loss 1.750 lr 1.0e-04 89s
+epoch 2 step 1050/1406 loss 1.750 lr 9.6e-05 93s
+epoch 2 step 1100/1406 loss 1.748 lr 9.3e-05 97s
+epoch 2 step 1150/1406 loss 1.746 lr 9.0e-05 102s
+epoch 2 step 1200/1406 loss 1.745 lr 8.6e-05 106s
+epoch 2 step 1250/1406 loss 1.744 lr 8.3e-05 110s
+epoch 2 step 1300/1406 loss 1.742 lr 8.0e-05 115s
+epoch 2 step 1350/1406 loss 1.740 lr 7.7e-05 119s
+epoch 2 step 1400/1406 loss 1.739 lr 7.4e-05 124s
+epoch 2 结束 平均 loss 1.739 用时 124s
+已保存检查点 experiments/yue_model_d256.pt
+[验证] 整句一致 35.2% 字符重合 79.0%
+epoch 3 step 0/1406 loss 2.196 lr 7.4e-05 1s
+epoch 3 step 50/1406 loss 1.711 lr 7.1e-05 5s
+epoch 3 step 100/1406 loss 1.690 lr 6.8e-05 9s
+epoch 3 step 150/1406 loss 1.686 lr 6.5e-05 14s
+epoch 3 step 200/1406 loss 1.688 lr 6.3e-05 18s
+epoch 3 step 250/1406 loss 1.692 lr 6.0e-05 22s
+epoch 3 step 300/1406 loss 1.688 lr 5.8e-05 26s
+epoch 3 step 350/1406 loss 1.686 lr 5.5e-05 31s
+epoch 3 step 400/1406 loss 1.688 lr 5.3e-05 35s
+epoch 3 step 450/1406 loss 1.690 lr 5.1e-05 39s
+epoch 3 step 500/1406 loss 1.686 lr 4.9e-05 44s
+epoch 3 step 550/1406 loss 1.684 lr 4.7e-05 48s
+epoch 3 step 600/1406 loss 1.684 lr 4.5e-05 53s
+epoch 3 step 650/1406 loss 1.683 lr 4.3e-05 57s
+epoch 3 step 700/1406 loss 1.681 lr 4.1e-05 61s
+epoch 3 step 750/1406 loss 1.679 lr 4.0e-05 65s
+epoch 3 step 800/1406 loss 1.680 lr 3.8e-05 70s
+epoch 3 step 850/1406 loss 1.680 lr 3.7e-05 74s
+epoch 3 step 900/1406 loss 1.679 lr 3.6e-05 78s
+epoch 3 step 950/1406 loss 1.678 lr 3.5e-05 83s
+epoch 3 step 1000/1406 loss 1.678 lr 3.4e-05 87s
+epoch 3 step 1050/1406 loss 1.679 lr 3.3e-05 92s
+epoch 3 step 1100/1406 loss 1.677 lr 3.2e-05 96s
+epoch 3 step 1150/1406 loss 1.677 lr 3.1e-05 101s
+epoch 3 step 1200/1406 loss 1.677 lr 3.1e-05 106s
+epoch 3 step 1250/1406 loss 1.677 lr 3.1e-05 110s
+epoch 3 step 1300/1406 loss 1.676 lr 3.0e-05 114s
+epoch 3 step 1350/1406 loss 1.675 lr 3.0e-05 119s
+epoch 3 step 1400/1406 loss 1.675 lr 3.0e-05 123s
+epoch 3 结束 平均 loss 1.675 用时 124s
+已保存检查点 experiments/yue_model_d256.pt
+[验证] 整句一致 36.5% 字符重合 79.6%
+模型已保存 experiments/yue_model_d256.pt 35.959386 MB
