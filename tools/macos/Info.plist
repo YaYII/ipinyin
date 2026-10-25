@@ -12,23 +12,67 @@
 	<string>IPinyin</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.9.2</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>LSBackgroundOnly</key>
+	<key>LSUIElement</key>
 	<true/>
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
+	<key>TISInputSourceID</key>
+	<string>org.yayii.ipinyin</string>
+	<key>ComponentInputModeDict</key>
+	<dict>
+		<key>tsInputModeListKey</key>
+		<dict>
+			<key>org.yayii.ipinyin.Hans</key>
+			<dict>
+				<key>TISInputSourceID</key>
+				<string>org.yayii.ipinyin.Hans</string>
+				<key>TISIntendedLanguage</key>
+				<string>zh-Hans</string>
+				<key>tsInputModeAlternateMenuIconFileKey</key>
+				<string>ipinyin.pdf</string>
+				<key>tsInputModeCharacterRepertoireKey</key>
+				<array>
+					<string>Hans</string>
+					<string>Hant</string>
+				</array>
+				<key>tsInputModeDefaultStateKey</key>
+				<true/>
+				<key>tsInputModeIsVisibleKey</key>
+				<true/>
+				<key>tsInputModeKeyEquivalentModifiersKey</key>
+				<integer>4608</integer>
+				<key>tsInputModeMenuIconFileKey</key>
+				<string>ipinyin.pdf</string>
+				<key>tsInputModePaletteIconFileKey</key>
+				<string>ipinyin.pdf</string>
+				<key>tsInputModePrimaryInScriptKey</key>
+				<true/>
+				<key>tsInputModeScriptKey</key>
+				<string>smUnicodeScript</string>
+			</dict>
+		</dict>
+		<key>tsVisibleInputModeOrderedArrayKey</key>
+		<array>
+			<string>org.yayii.ipinyin.Hans</string>
+		</array>
+	</dict>
 	<key>InputMethodConnectionName</key>
 	<string>IPinyinServerConnection</string>
-	<key>tsInputMethodCharacterLocationKey</key>
-	<string>zh-Hans</string>
-	<key>tsInputMethodIconFileKey</key>
-	<string>ipinyin.pdf</string>
-	<key>TISIntendedLanguage</key>
-	<string>zh-Hans</string>
+	<key>InputMethodServerControllerClass</key>
+	<string>PinyinController</string>
+	<key>InputMethodServerDelegateClass</key>
+	<string>PinyinController</string>
+	<key>TICapsLockLanguageSwitchCapable</key>
+	<true/>
 </dict>
 </plist>

@@ -6,6 +6,8 @@ import InputMethodKit
 // 与 ipinyin/keys.py 对齐的修饰键位
 private let SHIFT_MASK = 1 << 0
 
+// @objc 固定 ObjC 类名：Info.plist 的 InputMethodServerControllerClass 按它解析
+@objc(PinyinController)
 final class PinyinController: IMKInputController {
     private let engine = EngineClient.shared
     private var candidatesWindow: IMKCandidates?

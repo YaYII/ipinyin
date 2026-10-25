@@ -25,8 +25,15 @@ swiftc -O -o "$APP/Contents/MacOS/$APP_NAME" \
     "$ROOT/tools/macos/main.swift" "$ROOT/tools/macos/Controller.swift" "$ROOT/tools/macos/Engine.swift" \
     -framework Cocoa -framework Carbon -framework InputMethodKit
 
-echo "==> 签名（ad-hoc）"
-codesign --force --sign - "$APP" 2>/dev/null
+echo "==> 签名"
+# 有真实证书就用它（Tahoe 对 ad-hoc 签名的输入法会静默拒绝注册），否则退回 ad-hoc
+SIGN_ID=$(security find-identity -v -p codesigning 2>/dev/null \
+    | grep "Apple Development" | head -1 | awk '{print $2}')
+if [ -n "${SIGN_ID}" ]; then
+    codesign --force --sign "${SIGN_ID}" "$APP"
+else
+    codesign --force --sign - "$APP"
+fi
 
 echo "==> 装机 $INSTALLED"
 mkdir -p "$INSTALL_DIR"

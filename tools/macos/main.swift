@@ -12,7 +12,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         EngineProcess.ensureRunning()
-        server = IMKServer(name: kConnectionName, bundleIdentifier: Bundle.main.bundleIdentifier)
+        // 必须显式传 controllerClass：initWithName:bundleIdentifier: 会让 IMK
+        // 实例化默认基类控制器，PinyinController 的 handle/candidates 都不会被调。
+        server = IMKServer(name: kConnectionName,
+                           controllerClass: PinyinController.self,
+                           delegateClass: PinyinController.self)
         NSLog("ipinyin: IMKServer 就绪（%@）", kConnectionName)
     }
 

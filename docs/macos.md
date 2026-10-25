@@ -22,12 +22,16 @@ make macos        # 打包引擎 → 编译 IMKit 外壳 → 签名 → 装入 ~
 
 ## 激活（一次性）
 
-macOS 在**会话初始化时**才扫描 `~/Library/Input Methods`（TISRegisterInputSource
-在较新系统上不可靠，Squirrel/fcitx5 也是这个流程）：
+实测（macOS 26.6）**程序化注册在本系统上不生效**：`TISRegisterInputSource` 返回
+noErr 但源不进注册表（318 个输入源里查无此名）—— ad-hoc / Apple Development
+签名、Squirrel 同款 `ComponentInputModeDict`、重启 inputswitchd 都试过，
+与 [Squirrel #1140](https://github.com/rime/squirrel/issues/1140) 反映的
+Tahoe 输入源内部变更一致。所以激活走系统扫描流程：
 
-1. **注销并重新登录**（构建脚本已把 IPinyin 写进启用列表，重登后多半直接出现在
-   菜单栏输入法菜单里；构建脚本也会尝试自动启用）；
-2. 若没出现：系统设置 → 键盘 → 输入法 → 编辑 → 添加「中文，简体 → IPinyin 拼音」；
+1. **注销并重新登录** —— 会话初始化时扫描 `~/Library/Input Methods`，
+   这是 Squirrel/fcitx5 同款流程；启用列表已预先写好（键盘输入法 + Hans 模式两条），
+   重登后输入法菜单里应直接出现「IPinyin 拼音」；
+2. 若没自动出现：系统设置 → 键盘 → 输入法 → 编辑 → 添加「中文，简体 → IPinyin 拼音」；
 3. `Ctrl+Space`（或输入法菜单）切到 IPinyin，任意输入框直接打拼音。
 
 ## 不注销也能先试：测试垫
