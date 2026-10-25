@@ -20,19 +20,24 @@ Tab 简繁粤、四列候选（简/繁/粤/粤拼）、守卫防误改。
 make macos        # 打包引擎 → 编译 IMKit 外壳 → 签名 → 装入 ~/Library/Input Methods → 注册
 ```
 
-## 激活（一次性）
+## 激活（重要结论，2026-10-25 实测 macOS 26.6）
 
-实测（macOS 26.6）**程序化注册在本系统上不生效**：`TISRegisterInputSource` 返回
-noErr 但源不进注册表（318 个输入源里查无此名）—— ad-hoc / Apple Development
-签名、Squirrel 同款 `ComponentInputModeDict`、重启 inputswitchd 都试过，
-与 [Squirrel #1140](https://github.com/rime/squirrel/issues/1140) 反映的
-Tahoe 输入源内部变更一致。所以激活走系统扫描流程：
+**程序化注册只对「Developer ID + 公证」的 app 生效**，其余被静默拒绝：
 
-1. **注销并重新登录** —— 会话初始化时扫描 `~/Library/Input Methods`，
-   这是 Squirrel/fcitx5 同款流程；启用列表已预先写好（键盘输入法 + Hans 模式两条），
-   重登后输入法菜单里应直接出现「IPinyin 拼音」；
-2. 若没自动出现：系统设置 → 键盘 → 输入法 → 编辑 → 添加「中文，简体 → IPinyin 拼音」；
-3. `Ctrl+Space`（或输入法菜单）切到 IPinyin，任意输入框直接打拼音。
+- `TISRegisterInputSource` 对未公证 app 返回 noErr 但什么都不做（用户/roots、
+  ad-hoc/开发者证书签名、系统级目录、重启 inputswitchd、注销重登、真重启全试过）；
+- `spctl --add` 手动放行已被 Apple 移除（"no longer supported"）；
+- **对照实验**：装官方公证的 Squirrel 1.1.2（同样的 /Library/Input Methods、
+  同样的 root 注册流程），3 个输入源**注销前立即注册成功**；同流程的 IPinyin
+  （plist 逐键同构）始终无效。唯一变量是公证。
+
+所以在本机的激活路径只有两条：
+
+1. **公证**：加入 Apple Developer Program（$99/年）后 `xcrun notarytool submit`
+   公证 IPinyin.app，注册即通（这是长期正解）；
+2. **测试垫**：`make macos-testpad` —— 不依赖系统输入源，同一条引擎链路直接体验。
+
+（系统设置「+」面板枚举的也是 TIS 注册表，未公证 app 同样不出现，已实测。）
 
 ## 不注销也能先试：测试垫
 
