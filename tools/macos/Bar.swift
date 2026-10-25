@@ -89,6 +89,7 @@ final class BarView: NSView {
     override var acceptsFirstResponder: Bool { true }
 
     func summon() {
+        NSLog("ipinyin-bar: hotkey 触发，唤出输入条")
         previousApp = NSWorkspace.shared.frontmostApplication
         engine.reset()
         render(preedit: "", candidates: [], hint: "⌃⌥空格已在输入 · Esc 关闭")
@@ -97,8 +98,8 @@ final class BarView: NSView {
             let y = screen.frame.maxY - 120
             setFrameOrigin(NSPoint(x: x, y: y))
         }
-        (window as? NSPanel)?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+        (window as? NSPanel)?.makeKeyAndOrderFront(nil)
         window?.makeFirstResponder(self)
     }
 
@@ -174,7 +175,7 @@ enum BarApp {
         }
 
         let panel = BarPanel(contentRect: NSRect(x: 0, y: 0, width: 620, height: 34),
-                             styleMask: [.borderless, .nonactivatingPanel],
+                             styleMask: [.borderless],
                              backing: .buffered, defer: false)
         panel.level = .floating
         panel.isOpaque = false
@@ -197,8 +198,9 @@ enum BarApp {
             return noErr
         }, 1, &eventType, nil, nil)
         // ⌃⌥空格
-        RegisterEventHotKey(UInt32(kVK_Space), UInt32(controlKey | optionKey),
+        let hkStatus = RegisterEventHotKey(UInt32(kVK_Space), UInt32(controlKey | optionKey),
                             EventHotKeyID(signature: OSType(0x4950494E), id: 1),
                             GetApplicationEventTarget(), 0, &hotKeyRef)
+        NSLog("ipinyin-bar: hotkey 注册 status=%d", hkStatus)
     }
 }
