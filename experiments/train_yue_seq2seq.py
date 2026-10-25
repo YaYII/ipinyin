@@ -97,6 +97,22 @@ def main() -> int:
     ap.add_argument("--resume", action="store_true", help="从 --out 续训（含优化器状态）")
     ap.add_argument("--d", type=int, default=160)
     ap.add_argument("--layers", type=int, default=2)
+    ap.add_argument("--short-boost", type=int, default=1,
+                    help="≤4 字句对的过采样倍数。输入法真实输入以 2-4 字词为主（权重 0.65），"
+                         "而语料是句子级（均长 10.8 字）——纯句子训练越久越偏向句子模式，"
+                         "2 字词转换反而退化（实测 12 轮 90.6%%→84.5%%）。"
+                         "短句过采样把训练分布拉回打字分布。")
+    ap.add_argument("--augment-guard", default="",
+                    help="守卫数据 marshal（train 切分）的片段替换对并入训练集。"
+                         "约 6 万条词级平行对（不好→唔好 / 之前的→之前嘅），把词级信号"
+                         "从语料的 0.3%% 拉到 ~1/3——治 2 字桶退化，比过采样 445 个短句根本。"
+                         "注意：key 含跨界片段（之前的），2026-10-25 实测会教坏成语桶，"
+                         "已被 --augment-words 的真词版取代，保留仅作对照。")
+    ap.add_argument("--augment-words", default="",
+                    help="真词级平行语料 JSON（experiments/build_word_pairs.py 产出，"
+                         "锚定对齐 + lexicon 真词过滤）。词级信号干净版。")
+    ap.add_argument("--words-repeat", type=int, default=1,
+                    help="词级对的重复倍数（控制词级样本占比；4≈15%%，6≈24%%）。")
     args = ap.parse_args()
     if not args.pairs:
         args.pairs = default_pairs()
@@ -123,6 +139,37 @@ def main() -> int:
     n_test = max(500, len(pairs) // 20)
     n_valid = n_test
     test, valid, train = pairs[:n_test], pairs[n_test:2 * n_test], pairs[2 * n_test:]
+    if args.short_boost > 1:
+        # 过采样只在 train 内做：test/valid 保持原分布，验证与基准不被污染
+        short = [p for p in train if len(p["zh"]) <= 4]
+        train = train + short * (args.short_boost - 1)
+        random.shuffle(train)
+    if args.augment_guard and os.path.exists(args.augment_guard):
+        import marshal as _marshal
+        import zlib as _zlib
+        raw = open(args.augment_guard, "rb").read()
+        try:
+            raw = _zlib.decompress(raw)
+        except _zlib.error:
+            pass
+        aug: list[dict] = []
+        for z, ys in _marshal.loads(raw).get("word_pairs", {}).items():
+            for y in ys:
+                if z and y and len(z) <= 38 and len(y) <= 38:
+                    aug.append({"zh": z, "yue": y})
+        train = train + aug
+        random.shuffle(train)
+        print(f"守卫片段对增广 +{len(aug)}（词级训练信号，train 切分无泄漏）", flush=True)
+    if args.augment_words and os.path.exists(args.augment_words):
+        words_aug = [p for p in json.load(open(args.augment_words, encoding="utf-8"))
+                     if p.get("zh") and p.get("yue")
+                     and len(p["zh"]) <= 38 and len(p["yue"]) <= 38]
+        if args.words_repeat > 1:
+            words_aug = words_aug * args.words_repeat
+        train = train + words_aug
+        random.shuffle(train)
+        print(f"真词对增广 +{len(words_aug)}（×{args.words_repeat}，"
+              f"词级占比 {len(words_aug) / (len(train)):.0%}）", flush=True)
     print(f"训练 {len(train)} / 验证 {len(valid)} / 测试 {len(test)}", flush=True)
 
     src_vocab = build_vocab(train, "zh")

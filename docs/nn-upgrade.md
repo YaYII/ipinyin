@@ -118,8 +118,20 @@
 （Tab 已经在切形式了，扩展一档即可）。
 
 ### P3 继续训练
-现在明显欠拟合（第 4 轮验证还在涨）。`--epochs 8` 约 18 分钟，预期 +2~4pt。
-守卫已经把「误改」拦住了，继续堆训练的收益可以放心拿了。
+~~现在明显欠拟合（第 4 轮验证还在涨）。`--epochs 8` 约 18 分钟，预期 +2~4pt。~~
+**2026-10-25/26 六次实测定论：词级平行数据是解除「练越久 2字越退化」魔咒的钥匙，
+生产已晋升为「真词增广 + 8 轮」版（`experiments/yue_model_d256.pt`，2026-10-26）。**
+判决链（全程记录见 projects/06-benchmark METHODOLOGY §12）：
+①裸加轮数（8/12 轮）被否决——句子验证大涨但 2字词桶 90.6%→86/84.5（p=0.0004），
+训练分布是句子级（≤4 字句对仅 0.3%）；
+②守卫片段对增广被否决——key 含跨界片段（之前的），47.5% 占比教坏成语桶（72.5%→7.5%）；
+③真词语料（`experiments/build_word_pairs.py`：锚定对齐 + lexicon 真词过滤 + 成语/古诗
+保护，5,946 对）×4 并入训练：4 轮与旧生产打平（p=0.69），8 轮**破局**——
+裸神经加权 80.3%→84.3%（p=0.0026），全桶无回退（2字 100%、成语 82.5%、
+5-7字 45.3%、8-15字 46.7%），守卫后生产路径加权 87.4%→87.9%。
+复现：`python3 experiments/build_word_pairs.py && python3 experiments/train_yue_seq2seq.py
+--pairs vendor/yue_pairs.json --limit 150000 --epochs 8 --batch 96 --d 256 --layers 4
+--device mps --augment-words data/yue_word_pairs.json --words-repeat 4 --out experiments/yue_model_d256.pt`
 
 ### P4 换编辑式模型（长期）
 任务本质是「改几个字」：77% 的字符不变。用 seq2seq 从零生成等于把八成算力花在抄写上。
