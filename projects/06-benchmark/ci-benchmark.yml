@@ -1,0 +1,66 @@
+# 基准套件 CI 示例 —— 复制到 .github/workflows/benchmark.yml 即启用。
+# （本文件放在 projects/06-benchmark/ 是因为基准包要求自包含；GitHub Actions
+#   只认仓库根的 .github/workflows/，故需复制一份过去。）
+#
+# 设计（对应 README「CI 集成」）：
+#   - selftest：任何机器都能跑——schema 校验与版本化纪律的测试不依赖数据，
+#     依赖数据的测试自动 skip（graceful skip 语义本身就是被测行为之一）。
+#   - smoke：跑 run_all --suite all --quick --nn off。没有 vendor 语料时三个
+#     suite 全部 {"status":"skipped"}、退出码 0——CI 拿它验证「管线坏没坏」；
+#     有语料（self-hosted runner 或手动 make corpus 后缓存）则是真冒烟。
+#   - quick-matrix（手动触发）：装 CPU torch 跑真冒烟，结果 JSON 作为 artifact 存档。
+
+name: benchmark
+
+on:
+  push:
+    paths: ["projects/06-benchmark/**", "tools/**", "src/**"]
+  pull_request:
+    paths: ["projects/06-benchmark/**"]
+  workflow_dispatch:
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 套件自测（无数据环境 → 数据类测试自动 skip）
+        run: python -m pytest projects/06-benchmark/test_runner.py -q -rs
+
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 全套件 quick 冒烟（无模型/无语料 → 全部 graceful skip，退出码 0）
+        run: python projects/06-benchmark/run_all.py --suite all --quick --nn off
+      - name: 存档结果（含 skipped 信封）
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: projects/06-benchmark/results/
+
+  quick-matrix:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 装 CPU torch（国内 runner 换清华源）
+        run: pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: 语料（make corpus，产物不入库）
+        run: |
+          test -f vendor/yue_pairs.json || echo "::warning::vendor/yue_pairs.json 缺失，suite 将 skipped"
+      - name: quick 真跑（有语料就有数字，无则 skipped）
+        run: python projects/06-benchmark/run_all.py --suite all --quick
+      - uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-quick
+          path: projects/06-benchmark/results/

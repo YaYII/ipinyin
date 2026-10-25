@@ -14,11 +14,13 @@ from __future__ import annotations
 import time
 from collections import OrderedDict
 
-from bench_common import (DEFAULT_MODEL, DEFAULT_PAIRS, file_ok, load_yue_nn,
-                          median, repo, r4, stub_nn)
+from bench_common import (DEFAULT_MODEL, DEFAULT_PAIRS, accept_forms, file_ok,
+                          fingerprint, load_variant_map, load_yue_nn,
+                          median, repo, r4, stub_nn, question_hash,
+                          wilson)
 
 SUITE = "yue-lengths"
-SUITE_VERSION = "1.0.0"
+SUITE_VERSION = "1.3.0"
 
 # 评测哪些桶（与 tools/eval_ime_lengths.py 的打印顺序一致；挖矿出的「4字」桶
 # 被「4字成语」对照桶覆盖，不单独报——见 METHODOLOGY.md）
@@ -52,6 +54,44 @@ def _idioms_path() -> str:
 
 def _poems_path() -> str:
     return repo("tools", "poems.txt")
+
+
+def question_sets(params: dict):
+    """题面/答案构造（export_questions / score_submission 复用，与 run() 同源）。
+
+    返回 (questions, answers, conv, t2s)：
+      questions = [{"id", "bucket", "input"}]（对外分发，不含答案）
+      answers   = [{"id", "bucket", "expected", "accept"}]（评分侧用，不随题面分发；
+                  v1.3.0 起词桶 accept 含合法变体，繁体化后的可接受集合）
+    与 run() 共用 build_buckets 与同一 cap/桶序，一致性由 test 钉死。
+    """
+    from eval_ime_lengths import load_pairs
+    from ipinyin.t2s import Converter
+    from ipinyin.yue import YueConverter
+
+    quick = params["quick"]
+    cap = QUICK_CAP if quick else 10 ** 9
+    limit = params.get("limit") or (QUICK_LIMIT if quick else FULL_LIMIT)
+    pairs_path = params.get("pairs") or DEFAULT_PAIRS
+
+    test = load_pairs(pairs_path, limit)
+    conv = YueConverter.load_dict(
+        params.get("yue_dict") or repo("data", "yue.marshal"),
+        YueConverter.load(repo("data", "yue.tsv"))._map)
+    t2s = Converter.load(repo("data", "s2t.marshal"))
+    buckets = build_buckets(test, t2s)
+    variants = load_variant_map()
+
+    questions: list[dict] = []
+    answers: list[dict] = []
+    for name in EVAL_BUCKETS:
+        multi = name in ("2字", "3字")
+        for i, (zh, ref) in enumerate((buckets.get(name) or [])[:cap]):
+            questions.append({"id": f"{name}:{i}", "bucket": name, "input": zh})
+            answers.append({"id": f"{name}:{i}", "bucket": name, "expected": ref,
+                            "accept": accept_forms(zh, ref, variants, shell=t2s)
+                            if multi else [t2s.to_traditional(ref)]})
+    return questions, answers, conv, t2s
 
 
 def run(params: dict) -> tuple[str, dict | None, str | None]:
@@ -89,26 +129,58 @@ def run(params: dict) -> tuple[str, dict | None, str | None]:
             neural_note = reason
 
     buckets = build_buckets(test, t2s)
+    variants = load_variant_map()
     out_buckets: "OrderedDict[str, dict]" = OrderedDict()
     empty: list[str] = []
+    per_item: list[dict] = []
+    questions: list[dict] = []
+    inputs: list[dict] = []
+    nn_from_ckpt = (params.get("nn") or "auto") == "auto" and not params.get("_nn_fn")
+    data_paths = [pairs_path,
+                  (params.get("model") or DEFAULT_MODEL) if nn_from_ckpt else None,
+                  repo("data", "yue.marshal"), repo("data", "yue.tsv"),
+                  repo("data", "s2t.marshal"), _idioms_path(), _poems_path()]
+    for p in data_paths:
+        fp = fingerprint(p)
+        if fp:
+            inputs.append(fp)
     for name in EVAL_BUCKETS:
         items = (buckets.get(name) or [])[:cap]
         if not items:
             empty.append(name)
             continue
+        # v1.3.0：挖矿词桶（2字/3字）判分接受「训练侧实证的合法变体」；
+        # 对照桶（成语/古诗）与句子桶仍是单一标准答案。
+        multi = name in ("2字", "3字")
         c_ok = r_ok = n_ok = 0
         lat: list[float] = []
-        for zh, ref in items:
-            if t2s.to_traditional(zh) == ref:              # 照抄不改对照列
+        for i, (zh, ref) in enumerate(items):
+            questions.append({"id": f"{name}:{i}", "bucket": name, "input": zh})
+            accept = accept_forms(zh, ref, variants, shell=t2s) if multi \
+                else [t2s.to_traditional(ref)]
+            copy_ok = t2s.to_traditional(zh) in accept          # 照抄不改对照列
+            rule_out = t2s.to_traditional(conv.convert(zh))
+            rule_ok = rule_out in accept
+            if copy_ok:
                 c_ok += 1
-            if t2s.to_traditional(conv.convert(zh)) == ref:
+            if rule_ok:
                 r_ok += 1
+            item = {"id": f"{name}:{i}", "bucket": name, "input": zh,
+                    "expected": ref, "accept": accept, "copy_ok": copy_ok,
+                    "rule_out": rule_out, "rule_ok": rule_ok,
+                    "neural_out": None, "neural_ok": None,
+                    "latency_ms": None}
             if nn_fn is not None:
                 t0 = time.perf_counter()
                 got = t2s.to_traditional(nn_fn(zh))
                 lat.append((time.perf_counter() - t0) * 1000)
-                if got == ref:
+                neural_ok = got in accept
+                if neural_ok:
                     n_ok += 1
+                item["neural_out"] = got
+                item["neural_ok"] = neural_ok
+                item["latency_ms"] = r4(lat[-1])
+            per_item.append(item)
         n = len(items)
         out_buckets[name] = {
             "n": n,
@@ -117,6 +189,11 @@ def run(params: dict) -> tuple[str, dict | None, str | None]:
             "neural": r4(n_ok / n) if nn_fn is not None else None,
             "neural_median_latency_ms": r4(median(lat)) if lat else None,
             "weight": WEIGHTS.get(name, 0.0),
+            "wilson": {
+                "copy_baseline": wilson(c_ok, n),
+                "rule": wilson(r_ok, n),
+                "neural": wilson(n_ok, n) if nn_fn is not None else None,
+            },
         }
 
     total_w = sum(b["weight"] for b in out_buckets.values())
@@ -132,5 +209,8 @@ def run(params: dict) -> tuple[str, dict | None, str | None]:
         },
         "empty_buckets": empty,
         "neural_note": neural_note,
+        "inputs": inputs,
+        "question_set_hash": question_hash(questions),
+        "per_item": per_item,
     }
     return "ok", results, None

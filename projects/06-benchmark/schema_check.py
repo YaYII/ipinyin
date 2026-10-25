@@ -38,6 +38,62 @@ def _check_bucket_metrics(name: str, b: dict, errs: list[str]) -> None:
              f"{name}: neural_median_latency_ms 非法", errs)
     w = b.get("weight")
     _errs_if(w is not None and not _is_ratio(w), f"{name}: weight 不是 [0,1]", errs)
+    _check_wilson(name, b.get("wilson"), errs)
+
+
+def _check_wilson(name: str, w, errs: list[str]) -> None:
+    """wilson（v1.1.0 增，可选）：{指标名: {lo, hi}}，0 ≤ lo ≤ hi ≤ 1。"""
+    if w is None:
+        return
+    _errs_if(not isinstance(w, dict), f"{name}: wilson 应为 object", errs)
+    if not isinstance(w, dict):
+        return
+    for k, iv in w.items():
+        if iv is None:
+            continue
+        ok = (isinstance(iv, dict) and {"lo", "hi"} <= set(iv)
+              and _is_num(iv["lo"]) and _is_num(iv["hi"])
+              and 0.0 <= iv["lo"] <= iv["hi"] <= 1.0)
+        _errs_if(not ok, f"{name}: wilson.{k} 非法（需 0≤lo≤hi≤1）", errs)
+
+
+def _check_v1_1_fields(suite: str, res: dict, errs: list[str]) -> None:
+    """v1.1.0 增的可选字段：inputs 文件指纹、question_set_hash、per_item 逐题。"""
+    inputs = res.get("inputs")
+    if inputs is not None:
+        _errs_if(not isinstance(inputs, list), f"{suite}: inputs 应为 list", errs)
+        if isinstance(inputs, list):
+            for i, fp in enumerate(inputs):
+                ok = (isinstance(fp, dict)
+                      and isinstance(fp.get("path"), str) and fp["path"]
+                      and isinstance(fp.get("sha256_16"), str) and len(fp["sha256_16"]) == 16
+                      and isinstance(fp.get("bytes"), int) and fp["bytes"] >= 0)
+                _errs_if(not ok, f"{suite}: inputs[{i}] 指纹非法", errs)
+    qsh = res.get("question_set_hash")
+    _errs_if(qsh is not None and (not isinstance(qsh, str) or len(qsh) != 16),
+             f"{suite}: question_set_hash 应为 16 位十六进制", errs)
+    per_item = res.get("per_item")
+    if per_item is not None:
+        _errs_if(not isinstance(per_item, list), f"{suite}: per_item 应为 list", errs)
+        if isinstance(per_item, list):
+            seen: set = set()
+            for i, it in enumerate(per_item):
+                ok = (isinstance(it, dict) and isinstance(it.get("id"), str) and it["id"]
+                      and isinstance(it.get("bucket"), str) and it["bucket"])
+                _errs_if(not ok, f"{suite}: per_item[{i}] 缺 id/bucket", errs)
+                if ok:
+                    _errs_if(it["id"] in seen, f"{suite}: per_item id 重复 {it['id']}", errs)
+                    seen.add(it["id"])
+                acc = it.get("accept") if isinstance(it, dict) else None
+                if acc is not None:
+                    _errs_if(not isinstance(acc, list) or not all(
+                        isinstance(a, str) and a for a in acc),
+                        f"{suite}: per_item[{i}].accept 应为非空字符串列表", errs)
+                for k in ("copy_ok", "rule_ok", "neural_ok", "nn_ok",
+                          "guarded_ok", "top1_ok", "top9_ok", "base_top1_ok"):
+                    v = it.get(k) if isinstance(it, dict) else None
+                    _errs_if(v is not None and not isinstance(v, bool),
+                             f"{suite}: per_item[{i}].{k} 应为布尔或 null", errs)
 
 
 def _check_yue_lengths(res: dict, errs: list[str]) -> None:
@@ -149,4 +205,8 @@ def validate(doc: dict) -> list[str]:
     _errs_if(not isinstance(results, dict), f"{suite}: results 必须是 object", errs)
     if isinstance(results, dict) and suite in _RESULT_CHECKERS:
         _RESULT_CHECKERS[suite](results, errs)
+        _check_v1_1_fields(suite, results, errs)
+    system = doc.get("system")
+    _errs_if(system is not None and (not isinstance(system, str) or not system.strip()),
+             "system（可选）必须是非空字符串", errs)
     return errs

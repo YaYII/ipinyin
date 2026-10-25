@@ -11,6 +11,7 @@
 """
 from __future__ import annotations
 
+import argparse
 import copy
 import json
 import os
@@ -283,6 +284,257 @@ def test_registry_schema_and_versions_consistent():
         mod = __import__(run_all.SUITE_MODULES[name])
         assert semver.match(mod.SUITE_VERSION), f"{name}: suite_version 必须 semver"
         assert mod.SUITE == name
+        major, minor, _ = (int(x) for x in mod.SUITE_VERSION.split("."))
+        assert (major, minor) >= (1, 1), \
+            f"{name}: v1.1.0 字段（per_item/wilson/inputs）要求版本 ≥ 1.1.0"
+    import suite_yue_guard, suite_yue_lengths  # noqa: F401
+    for mod in (suite_yue_lengths, suite_yue_guard):
+        assert mod.SUITE_VERSION >= "1.3.0", \
+            f"{mod.SUITE}: 词桶合法变体判分（accept 字段）要求版本 ≥ 1.3.0"
+
+
+# ---------------------------------------------------------------- v1.1.0 新字段
+
+from bench_common import fingerprint, question_hash, wilson  # noqa: E402
+
+
+def test_wilson_known_values():
+    iv = wilson(6, 10)
+    assert 0.28 < iv["lo"] < 0.34 and 0.80 < iv["hi"] < 0.86
+    full = wilson(10, 10)                       # 全对也有下界，不许报 0~1
+    assert 0.70 < full["lo"] < 0.75 and full["hi"] == 1.0
+    zero = wilson(0, 10)
+    assert zero["lo"] == 0.0 and 0.2 < zero["hi"] < 0.32
+    assert wilson(0, 0) is None                 # 空桶无区间
+    for k, n in ((3, 50), (47, 50), (0, 1), (1, 1)):
+        iv = wilson(k, n)
+        assert 0.0 <= iv["lo"] <= iv["hi"] <= 1.0
+
+
+def test_question_hash_stable_and_sensitive():
+    a = [{"id": "2字:0", "bucket": "2字", "input": "很不"},
+         {"id": "2字:1", "bucket": "2字", "input": "得他"}]
+    b = [{"id": "2字:0", "bucket": "2字", "input": "很可"},
+         {"id": "2字:1", "bucket": "2字", "input": "得他"}]
+    assert question_hash(a) == question_hash([dict(x) for x in a])   # 字段序无关
+    assert question_hash(a) != question_hash(list(reversed(a)))      # 题序变 → hash 变
+    assert question_hash(a) != question_hash(b)                      # 题面变 → hash 变
+    assert len(question_hash(a)) == 16
+
+
+def test_v110_fields_validate_and_reject():
+    res = _yue_lengths_results()
+    res["buckets"]["2字"]["wilson"] = {"rule": {"lo": 0.7, "hi": 0.1}}   # lo > hi 非法
+    errs = validate(_envelope("yue-lengths", res, suite_version="1.1.0"))
+    assert any("wilson" in e for e in errs)
+
+    res = _yue_lengths_results()
+    res["inputs"] = [{"path": "vendor/yue_pairs.json", "sha256_16": "0123456789abcdef",
+                      "bytes": 123}]
+    res["question_set_hash"] = "0123456789abcdef"
+    res["per_item"] = [{"id": "2字:0", "bucket": "2字", "rule_ok": True,
+                        "neural_ok": None}]
+    assert validate(_envelope("yue-lengths", res, suite_version="1.1.0")) == []
+
+    res["inputs"][0]["sha256_16"] = "short"
+    assert any("inputs" in e for e in validate(_envelope("yue-lengths", res)))
+    res["inputs"][0]["sha256_16"] = "0123456789abcdef"
+    res["per_item"].append({"id": "2字:0", "bucket": "2字"})      # id 重复
+    assert any("重复" in e for e in validate(_envelope("yue-lengths", res)))
+
+    doc = _envelope("yue-lengths", _yue_lengths_results(), system="外部模型")
+    assert validate(doc) == []                                    # system 可选字段
+    doc = _envelope("yue-lengths", _yue_lengths_results(), system=" ")
+    assert validate(doc)                                          # 空白 system 拒绝
+
+
+def test_v100_docs_still_validate():
+    """向后兼容：不带 v1.1.0 新字段的旧结果文件必须仍过校验。"""
+    assert validate(_envelope("yue-lengths", _yue_lengths_results())) == []
+    assert validate(_envelope("yue-guard", _yue_guard_results())) == []
+    assert validate(_envelope("zh-sentence", _zh_results())) == []
+
+
+# ---------------------------------------------------------------- compare.py
+
+import compare as compare_mod  # noqa: E402
+
+
+def _cmp_doc(system: str, outcomes: dict[str, bool]) -> dict:
+    return {
+        "suite": "yue-lengths", "suite_version": "1.1.0", "system": system,
+        "status": "ok", "quick": True,
+        "results": {
+            "question_set_hash": "0123456789abcdef",
+            "per_item": [{"id": pid, "bucket": "2字", "rule_ok": ok,
+                          "neural_ok": ok} for pid, ok in outcomes.items()],
+        },
+    }
+
+
+def test_mcnemar_exact_math():
+    assert compare_mod.mcnemar_exact(0, 0) == 1.0
+    assert abs(compare_mod.mcnemar_exact(5, 0) - 0.0625) < 1e-9
+    assert abs(compare_mod.mcnemar_exact(10, 0) - 2 * 0.5 ** 10) < 1e-9
+    assert compare_mod.mcnemar_exact(3, 3) == 1.0            # 对称 → 无差异
+    assert compare_mod.mcnemar_exact(8, 0) < compare_mod.mcnemar_exact(5, 0)
+
+
+def test_compare_counts_and_guards(tmp_path):
+    a = _cmp_doc("A", {"2字:0": True, "2字:1": True, "2字:2": False,
+                       "2字:3": False, "2字:4": True})
+    b_items = {"2字:0": True, "2字:1": False, "2字:2": False,
+               "2字:3": True, "2字:4": True}
+    b = _cmp_doc("B", b_items)
+    rep = compare_mod.compare(a, b)
+    row = rep["rows"]["2字"]
+    assert row["a_only"] == 1 and row["b_only"] == 1     # :1 A对B错、:3 B对A错
+    assert row["n"] == 5 and row["mcnemar_p"] == 1.0
+    assert row["verdict"] == "在噪声里"
+
+    for bad, frag in ((dict(b, results={"question_set_hash": "ffffffffffffffff"}),
+                       "question_set_hash"),
+                      (dict(b, quick=False), "quick"),
+                      ({"suite": "zh-sentence"}, "suite")):
+        try:
+            compare_mod.compare(a, bad)
+            raise AssertionError(f"应拒绝：{frag}")
+        except SystemExit as exc:
+            assert frag in str(exc)
+
+
+# ---------------------------------------------------------------- 导出 → 评分往返
+
+def _write_jsonl(path, rows):
+    with open(path, "w", encoding="utf-8") as fh:
+        for r in rows:
+            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+
+
+def test_export_score_roundtrip_yue(tmp_path):
+    """导出题面 → 用标准答案构造满分/规则提交 → 评分应复现内部两列。"""
+    if not have(bench_common.DEFAULT_PAIRS):
+        pytest.skip("vendor/yue_pairs.json 不存在")
+    import export_questions as ex
+    import score_submission as sc
+    import suite_yue_lengths as s
+
+    argv = argparse.Namespace(pairs=bench_common.DEFAULT_PAIRS, model="", guard="",
+                              lexicon="", limit=None, n=None)
+    questions, answers, _echo, version, ctx = ex._questions_for(
+        "yue-lengths", "quick", argv)
+    assert version == s.SUITE_VERSION
+    exp = {a["id"]: a["expected"] for a in answers}
+    _write_jsonl(tmp_path / "q.jsonl", questions)
+    _write_jsonl(tmp_path / "perfect.jsonl",
+                 [{"id": q["id"], "output": exp[q["id"]]} for q in questions])
+    _write_jsonl(tmp_path / "rule.jsonl",
+                 [{"id": q["id"], "output": ctx["conv"].convert(q["input"])}
+                  for q in questions])
+    manifest = {"suite": "yue-lengths", "suite_version": version, "mode": "quick",
+                "question_set_hash": question_hash(questions),
+                "answers_sha256_16": __import__("hashlib").sha256(
+                    json.dumps(answers, ensure_ascii=False, sort_keys=True,
+                               separators=(",", ":")).encode()).hexdigest()[:16]}
+    sc._verify(manifest, questions, answers)                 # 防调包校验通过
+    acc = {a["id"]: a.get("accept") for a in answers}
+    perfect = sc._score_lengths(questions, exp, acc,
+                                {r["id"]: r for r in sc._read_jsonl(tmp_path / "perfect.jsonl")},
+                                0, argv, ctx)
+    rule = sc._score_lengths(questions, exp, acc,
+                             {r["id"]: r for r in sc._read_jsonl(tmp_path / "rule.jsonl")},
+                             0, argv, ctx)
+    assert perfect["weighted"]["weighted_neural"] == 1.0     # 标准答案 → 满分
+    assert perfect["buckets"]["4字成语"]["copy_baseline"] >= 0.95
+    # 内部评测跑一遍，提交评分的 neural 列应与内部 rule 列逐桶一致
+    status, results, _ = s.run(_base_params(out_dir=str(tmp_path), nn="off"))
+    assert status == "ok"
+    for name, b in results["buckets"].items():
+        assert rule["buckets"][name]["neural"] == b["rule"], name
+
+
+def test_score_rejects_foreign_id_and_missing_questions(tmp_path):
+    """评分端两道闸：题面/清单缺失必须拒绝；未知 id 必须拒绝（防调包）。"""
+    rows = [{"id": "不存在:0", "output": "x"}]
+    _write_jsonl(tmp_path / "bad.jsonl", rows)
+    import subprocess
+    proc = subprocess.run(
+        [PY, os.path.join(BENCH_DIR, "score_submission.py"), "--suite", "yue-lengths",
+         "--manifest", str(tmp_path / "nope.manifest.json"),
+         "--questions", str(tmp_path / "nope.questions.jsonl"),
+         "--predictions", str(tmp_path / "bad.jsonl"), "--system", "X"],
+        capture_output=True, text=True, cwd=BENCH_DIR)
+    assert proc.returncode != 0                              # 无题面/清单 → 拒绝
+    assert "题面/清单缺失" in (proc.stderr + proc.stdout)
+
+
+# ---------------------------------------------------------------- leaderboard
+
+def test_accept_forms_variants_and_schema():
+    """v1.3.0：词桶判分接受训练侧实证的合法变体。"""
+    from bench_common import accept_forms
+    class _Shell:
+        @staticmethod
+        def to_traditional(s):
+            return s.replace("么", "麼")
+    variants = {"什么": {"乜嘢", "咩"}}
+    forms = accept_forms("什么", "乜嘢", variants, shell=_Shell)
+    assert "乜嘢" in forms and "咩" in forms       # 标准答案 + 实证变体都在
+    forms2 = accept_forms("什么", "什麼", {"什么": {"乜嘢"}}, shell=_Shell)
+    assert forms2 == ["乜嘢", "什麼"]              # shell 后排序稳定
+    assert accept_forms("不知道", "唔知道", {}, shell=_Shell) == ["唔知道"]
+
+    res = _yue_lengths_results()
+    res["per_item"] = res.get("per_item") or []
+    res["per_item"].append({"id": "2字:0", "bucket": "2字", "expected": "乜嘢",
+                            "accept": ["什麼", "乜嘢"], "neural_ok": True})
+    assert validate(_envelope("yue-lengths", res, suite_version="1.3.0")) == []
+    res["per_item"][0]["accept"] = ["", 3]          # 非法变体列表
+    assert any("accept" in e for e in validate(_envelope("yue-lengths", res)))
+
+
+def test_quick_word_bucket_accepts_variants(tmp_path):
+    """端到端：词桶 per_item 的 accept 必须含标准答案的繁体形。"""
+    if not have(bench_common.DEFAULT_PAIRS):
+        pytest.skip("vendor/yue_pairs.json 不存在")
+    import suite_yue_lengths as s
+    status, results, _ = s.run(_base_params(out_dir=str(tmp_path), nn="off"))
+    assert status == "ok"
+    words = [it for it in results["per_item"] if it["bucket"] in ("2字", "3字")]
+    if not words:
+        pytest.skip("词桶为空（语料太小）")
+    for it in words:
+        assert it["accept"] and all(a for a in it["accept"])
+
+
+def test_leaderboard_render(tmp_path):
+    import leaderboard as lb
+    docs = [
+        _envelope("yue-lengths", {**_yue_lengths_results(),
+                                  "weighted": {"weighted_rule": 0.67,
+                                               "weighted_neural": 0.76,
+                                               "weight_coverage": 0.8}},
+                  system="甲", suite_version="1.1.0"),
+        _envelope("yue-lengths", {**_yue_lengths_results(),
+                                  "weighted": {"weighted_rule": 0.90,
+                                               "weighted_neural": None,
+                                               "weight_coverage": 0.8}},
+                  system="乙", suite_version="1.1.0"),
+        _envelope("yue-guard", None, status="skipped", reason="无模型"),
+    ]
+    rdir = tmp_path / "results"
+    rdir.mkdir()
+    for i, d in enumerate(docs):
+        (rdir / f"doc{i}.json").write_text(
+            json.dumps(d, ensure_ascii=False), encoding="utf-8")
+    tables = lb._rows(str(rdir))
+    assert len(tables["yue-lengths"]) == 2
+    # 乙的 weighted_neural 为 None → 回退 weighted_rule 0.90 > 甲 0.76，乙排第一
+    assert tables["yue-lengths"][0]["system"] == "乙"
+    assert tables["yue-lengths"][0]["value"] == 0.90
+    md = lb.render(tables)
+    assert "不具排名资格" in md and "甲" in md and "乙" in md
+    assert "skipped" not in md                                # skipped 不进榜
 
 
 if __name__ == "__main__":

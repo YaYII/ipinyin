@@ -1,0 +1,22 @@
+{
+  "suite": "zh-sentence",
+  "suite_version": "1.1.0",
+  "mode": "full",
+  "created_at": "2026-10-26T06:57:52+08:00",
+  "question_count": 256,
+  "bucket_counts": {
+    "2-4字": 30,
+    "5-7字": 134,
+    "8-15字": 64,
+    "16+字": 28
+  },
+  "question_set_hash": "31adcedce84b6ea5",
+  "answers_sha256_16": "f52055b3cd4387e4",
+  "params": {
+    "quick": false,
+    "pairs": "/Users/yingyang/Documents/project/workbudyy/ipinyin/vendor/yue_pairs.json",
+    "lexicon": "/Users/yingyang/Documents/project/workbudyy/ipinyin/data/lexicon.tsv",
+    "n": null
+  },
+  "note": "答案不随包分发；评分用仓库侧 score_submission.py 重算并核对本清单的 answers_sha256_16 / question_set_hash。口径版本随导出时的 suite 模块（见 schemas.md 的版本化规则）。"
+}

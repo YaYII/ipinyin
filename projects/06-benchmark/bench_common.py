@@ -7,6 +7,9 @@
 """
 from __future__ import annotations
 
+import hashlib
+import json
+import math
 import os
 import platform
 import sys
@@ -26,6 +29,46 @@ DEFAULT_MODEL = os.path.join(ROOT, "experiments", "yue_model_d256.pt")
 DEFAULT_GUARD = os.path.join(ROOT, "data", "yue_guard.eval.marshal")
 DEFAULT_LEXICON = os.path.join(ROOT, "data", "lexicon.tsv")
 DEFAULT_LM = os.path.join(ROOT, "data", "lm_char.marshal")
+DEFAULT_WORD_PAIRS = os.path.join(ROOT, "data", "yue_word_pairs.json")
+
+
+def load_variant_map() -> dict[str, set[str]]:
+    """合法变体表：key → {合法粤语写法集合}（v1.3.0 词桶多答案判分）。
+
+    来源全部是 train 切分的统计（守卫 word_pairs 多目标 + 锚定挖矿的
+    yue_word_pairs.json），与考题（test 切分）互斥——用训练侧证据定义
+    「什么算对」，不是拿考题答案放水。语料里同一个词本就有多个合法
+    写法（什么→乜嘢/咩），单一标准答案会把合法变异记成错。
+    """
+    variants: dict[str, set[str]] = {}
+    try:
+        import marshal
+        import zlib
+        raw = open(DEFAULT_GUARD, "rb").read()
+        try:
+            raw = zlib.decompress(raw)
+        except zlib.error:
+            pass
+        for z, ys in (marshal.loads(raw).get("word_pairs") or {}).items():
+            variants.setdefault(z, set()).update(ys)
+    except (OSError, ValueError, EOFError):
+        pass
+    try:
+        for p in json.load(open(DEFAULT_WORD_PAIRS, encoding="utf-8")):
+            if p.get("zh") and p.get("yue"):
+                variants.setdefault(p["zh"], set()).add(p["yue"])
+    except (OSError, ValueError, json.JSONDecodeError):
+        pass
+    return variants
+
+
+def accept_forms(key: str, ref: str, variants: dict[str, set[str]],
+                 shell=None) -> list[str]:
+    """判分可接受的（繁体化）答案集合：标准答案 + 训练侧实证变体。"""
+    forms = {ref, *variants.get(key, ())}
+    if shell is not None:
+        forms = {shell.to_traditional(f) for f in forms}
+    return sorted(forms)
 
 
 def repo(*parts: str) -> str:
@@ -65,6 +108,53 @@ def median(xs: list[float]) -> float | None:
     s = sorted(xs)
     n = len(s)
     return s[n // 2] if n % 2 else (s[n // 2 - 1] + s[n // 2]) / 2
+
+
+def wilson(k: int, n: int, z: float = 1.96) -> dict | None:
+    """Wilson 分数区间（95% 默认）。k=成功数、n=总数。
+
+    60~300 条分辨不了 1~3pp 的可操作形式：两个系统的区间不重叠才算可分辨。
+    n=0 时返回 None。
+    """
+    if n <= 0:
+        return None
+    p = k / n
+    z2 = z * z
+    denom = 1 + z2 / n
+    center = (p + z2 / (2 * n)) / denom
+    half = z * math.sqrt(p * (1 - p) / n + z2 / (4 * n * n)) / denom
+    return {"lo": r4(max(0.0, center - half)), "hi": r4(min(1.0, center + half))}
+
+
+def sha256_file(path: str) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def fingerprint(path: str | None) -> dict | None:
+    """数据/模型文件指纹：相对仓库根的路径 + sha256 前 16 位 + 字节数。
+
+    对标 lm-evaluation-harness 的 dataset revision pinning：结果 JSON 里钉死
+    本次评测实际吃进的每个文件，别人复核时先对指纹再对数字。
+    """
+    if not path or not os.path.exists(path):
+        return None
+    rel = os.path.relpath(path, ROOT)
+    return {"path": rel, "sha256_16": sha256_file(path)[:16],
+            "bytes": os.path.getsize(path)}
+
+
+def question_hash(items: list) -> str:
+    """题面序列的规范哈希（防调包：提交评分前先对题面指纹）。
+
+    items 为可 JSON 化的题面列表（dict / tuple 先转 list）。
+    """
+    canonical = json.dumps(items, ensure_ascii=False, sort_keys=True,
+                           separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:16]
 
 
 def stub_nn():

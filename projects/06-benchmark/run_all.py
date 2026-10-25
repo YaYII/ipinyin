@@ -30,11 +30,12 @@ SUITE_MODULES = {
 
 def build_envelope(suite: str, suite_version: str, params: dict,
                    status: str, results: dict | None, reason: str | None,
-                   duration_s: float) -> dict:
+                   duration_s: float, system: str = "ipinyin(内置)") -> dict:
     return {
         "suite": suite,
         "suite_version": suite_version,
         "spec": "projects/06-benchmark/schemas.md (envelope v1)",
+        "system": system,
         "status": status,
         "quick": params["quick"],
         "generated_at": now_iso(),
@@ -58,7 +59,8 @@ def run_suite(name: str, params: dict) -> tuple[dict, str]:
     except Exception as exc:                       # noqa: BLE001  套件崩溃不拖垮其余 suite
         status, results, reason = "error", None, f"{type(exc).__name__}: {exc}"
     env = build_envelope(name, module.SUITE_VERSION, params, status,
-                         results, reason, time.perf_counter() - t0)
+                         results, reason, time.perf_counter() - t0,
+                         system=params.get("system") or "ipinyin(内置)")
     errs = validate(env)
     if errs:
         env["status"] = "error"
@@ -119,16 +121,18 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--guard", default=DEFAULT_GUARD, help="守卫评测数据（训练侧切分）")
     ap.add_argument("--lm", nargs="?", const=DEFAULT_LM, default="",
                     help="整句评测挂字级 LM 做重排对照（不带值则用 data/lm_char.marshal）")
-    ap.add_argument("--lm-weight", type=float, default=0.4, help="重排插值 λ")
+    ap.add_argument("--lm-weight", type=float, default=0.6, help="重排插值 λ（基准全量扫描甜点；生产默认同步 0.6）")
     ap.add_argument("--limit", type=int, default=0,
                     help="语料扫描句对数上限（默认 quick 20000 / full 150000）")
     ap.add_argument("--n", type=int, default=0,
                     help="zh-sentence 每桶题数上限（默认 quick 50 / full 300）")
-    ap.add_argument("--ctx-max", type=int, default=7, help="守卫语境实证适用的最大输入长度")
+    ap.add_argument("--ctx-max", type=int, default=5, help="守卫语境实证适用的最大输入长度（与生产 YueGuard 默认一致；2026-10-26 全量重放裁决 7→5：5-7字 +8 题且古诗不回退）")
     ap.add_argument("--show", type=int, default=5, help="yue-guard 每桶保留的决策样例数")
     ap.add_argument("--nn", default="auto", choices=["auto", "stub", "off"],
                     help="auto=有模型就用；stub=原样返回的桩（验证管线）；off=只评非神经列")
     ap.add_argument("--device", default="cpu")
+    ap.add_argument("--system", default="ipinyin(内置)",
+                    help="被测系统名，写入 JSON 的 system 字段（外部系统经 score_submission.py 评分时必填）")
     args = ap.parse_args(argv)
 
     suites = list(SUITE_MODULES) if args.suite == "all" else [args.suite]
@@ -148,6 +152,7 @@ def main(argv: list[str] | None = None) -> int:
             "show": args.show,
             "nn": args.nn,
             "device": args.device,
+            "system": args.system,
         }
         env, out_path = run_suite(name, params)
         statuses[name] = env["status"]

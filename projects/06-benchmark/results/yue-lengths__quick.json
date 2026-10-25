@@ -1,11 +1,12 @@
 {
   "suite": "yue-lengths",
-  "suite_version": "1.0.0",
+  "suite_version": "1.3.0",
   "spec": "projects/06-benchmark/schemas.md (envelope v1)",
+  "system": "ipinyin(内置)",
   "status": "ok",
   "quick": true,
-  "generated_at": "2026-10-25T19:17:10+08:00",
-  "duration_s": 3.58,
+  "generated_at": "2026-10-26T07:25:45+08:00",
+  "duration_s": 3.62,
   "params": {
     "quick": true,
     "out_dir": "/Users/yingyang/Documents/project/workbudyy/ipinyin/projects/06-benchmark/results",
@@ -13,13 +14,14 @@
     "model": "/Users/yingyang/Documents/project/workbudyy/ipinyin/experiments/yue_model_d256.pt",
     "guard": "/Users/yingyang/Documents/project/workbudyy/ipinyin/data/yue_guard.eval.marshal",
     "lm": "",
-    "lm_weight": 0.4,
+    "lm_weight": 0.6,
     "limit": null,
     "n": null,
-    "ctx_max": 7,
+    "ctx_max": 5,
     "show": 5,
     "nn": "auto",
-    "device": "cpu"
+    "device": "cpu",
+    "system": "ipinyin(内置)"
   },
   "environment": {
     "python": "3.13.12",
@@ -30,46 +32,1824 @@
   "results": {
     "buckets": {
       "2字": {
-        "n": 50,
+        "n": 10,
         "copy_baseline": 0.0,
-        "rule": 0.6,
-        "neural": 0.86,
-        "neural_median_latency_ms": 7.1865,
-        "weight": 0.4
+        "rule": 0.4,
+        "neural": 1.0,
+        "neural_median_latency_ms": 7.6458,
+        "weight": 0.4,
+        "wilson": {
+          "copy_baseline": {
+            "lo": 0.0,
+            "hi": 0.2775
+          },
+          "rule": {
+            "lo": 0.1682,
+            "hi": 0.6873
+          },
+          "neural": {
+            "lo": 0.7225,
+            "hi": 1.0
+          }
+        }
       },
       "4字成语": {
         "n": 40,
         "copy_baseline": 1.0,
         "rule": 0.975,
-        "neural": 0.725,
-        "neural_median_latency_ms": 11.9254,
-        "weight": 0.25
+        "neural": 0.825,
+        "neural_median_latency_ms": 12.1951,
+        "weight": 0.25,
+        "wilson": {
+          "copy_baseline": {
+            "lo": 0.9124,
+            "hi": 1.0
+          },
+          "rule": {
+            "lo": 0.8712,
+            "hi": 0.9956
+          },
+          "neural": {
+            "lo": 0.6805,
+            "hi": 0.9125
+          }
+        }
       },
       "5-7字": {
         "n": 50,
         "copy_baseline": 0.14,
         "rule": 0.36,
         "neural": 0.56,
-        "neural_median_latency_ms": 16.7518,
-        "weight": 0.15
+        "neural_median_latency_ms": 17.4597,
+        "weight": 0.15,
+        "wilson": {
+          "copy_baseline": {
+            "lo": 0.0695,
+            "hi": 0.2619
+          },
+          "rule": {
+            "lo": 0.2414,
+            "hi": 0.4986
+          },
+          "neural": {
+            "lo": 0.4231,
+            "hi": 0.6884
+          }
+        }
       },
       "5-7字古诗": {
         "n": 12,
         "copy_baseline": 1.0,
         "rule": 0.75,
-        "neural": 0.5,
-        "neural_median_latency_ms": 14.5579,
-        "weight": 0.0
+        "neural": 0.5833,
+        "neural_median_latency_ms": 14.9696,
+        "weight": 0.0,
+        "wilson": {
+          "copy_baseline": {
+            "lo": 0.7575,
+            "hi": 1.0
+          },
+          "rule": {
+            "lo": 0.4677,
+            "hi": 0.9111
+          },
+          "neural": {
+            "lo": 0.3195,
+            "hi": 0.8067
+          }
+        }
       }
     },
     "weighted": {
-      "weighted_rule": 0.6722,
-      "weighted_neural": 0.7616,
+      "weighted_rule": 0.5722,
+      "weighted_neural": 0.8628,
       "weight_coverage": 0.8
     },
     "empty_buckets": [
       "3字"
     ],
-    "neural_note": null
+    "neural_note": null,
+    "inputs": [
+      {
+        "path": "vendor/yue_pairs.json",
+        "sha256_16": "89e2056ffc6f76bc",
+        "bytes": 18995253
+      },
+      {
+        "path": "experiments/yue_model_d256.pt",
+        "sha256_16": "63057f1950353059",
+        "bytes": 35959514
+      },
+      {
+        "path": "data/yue.marshal",
+        "sha256_16": "30ffdfddb03f73bd",
+        "bytes": 1243852
+      },
+      {
+        "path": "data/yue.tsv",
+        "sha256_16": "cd497232e17a94fa",
+        "bytes": 2766
+      },
+      {
+        "path": "data/s2t.marshal",
+        "sha256_16": "d3308f15719dfaea",
+        "bytes": 65689
+      },
+      {
+        "path": "tools/idioms.txt",
+        "sha256_16": "913582d611741995",
+        "bytes": 727
+      },
+      {
+        "path": "tools/poems.txt",
+        "sha256_16": "1ab45d4593116655",
+        "bytes": 410
+      }
+    ],
+    "question_set_hash": "f89bd3e302bbc22e",
+    "per_item": [
+      {
+        "id": "2字:0",
+        "bucket": "2字",
+        "input": "不明",
+        "expected": "唔明",
+        "accept": [
+          "唔明",
+          "唔明點",
+          "唔明點解"
+        ],
+        "copy_ok": false,
+        "rule_out": "不明",
+        "rule_ok": false,
+        "neural_out": "唔明",
+        "neural_ok": true,
+        "latency_ms": 135.2759
+      },
+      {
+        "id": "2字:1",
+        "bucket": "2字",
+        "input": "要看",
+        "expected": "要睇",
+        "accept": [
+          "要睇"
+        ],
+        "copy_ok": false,
+        "rule_out": "要睇",
+        "rule_ok": true,
+        "neural_out": "要睇",
+        "neural_ok": true,
+        "latency_ms": 8.5368
+      },
+      {
+        "id": "2字:2",
+        "bucket": "2字",
+        "input": "找到",
+        "expected": "搵到",
+        "accept": [
+          "搵到"
+        ],
+        "copy_ok": false,
+        "rule_out": "搵到",
+        "rule_ok": true,
+        "neural_out": "搵到",
+        "neural_ok": true,
+        "latency_ms": 8.1989
+      },
+      {
+        "id": "2字:3",
+        "bucket": "2字",
+        "input": "没了",
+        "expected": "冇咗",
+        "accept": [
+          "冇咗"
+        ],
+        "copy_ok": false,
+        "rule_out": "沒咗",
+        "rule_ok": false,
+        "neural_out": "冇咗",
+        "neural_ok": true,
+        "latency_ms": 7.9817
+      },
+      {
+        "id": "2字:4",
+        "bucket": "2字",
+        "input": "面的",
+        "expected": "面嘅",
+        "accept": [
+          "面嘅"
+        ],
+        "copy_ok": false,
+        "rule_out": "面嘅",
+        "rule_ok": true,
+        "neural_out": "面嘅",
+        "neural_ok": true,
+        "latency_ms": 7.6638
+      },
+      {
+        "id": "2字:5",
+        "bucket": "2字",
+        "input": "想起",
+        "expected": "諗起",
+        "accept": [
+          "諗起"
+        ],
+        "copy_ok": false,
+        "rule_out": "諗起",
+        "rule_ok": true,
+        "neural_out": "諗起",
+        "neural_ok": true,
+        "latency_ms": 7.2417
+      },
+      {
+        "id": "2字:6",
+        "bucket": "2字",
+        "input": "不少",
+        "expected": "唔少",
+        "accept": [
+          "唔少"
+        ],
+        "copy_ok": false,
+        "rule_out": "不少",
+        "rule_ok": false,
+        "neural_out": "唔少",
+        "neural_ok": true,
+        "latency_ms": 7.1684
+      },
+      {
+        "id": "2字:7",
+        "bucket": "2字",
+        "input": "家里",
+        "expected": "屋企",
+        "accept": [
+          "屋企"
+        ],
+        "copy_ok": false,
+        "rule_out": "屋企裏",
+        "rule_ok": false,
+        "neural_out": "屋企",
+        "neural_ok": true,
+        "latency_ms": 7.4081
+      },
+      {
+        "id": "2字:8",
+        "bucket": "2字",
+        "input": "进来",
+        "expected": "入嚟",
+        "accept": [
+          "入嚟"
+        ],
+        "copy_ok": false,
+        "rule_out": "進嚟",
+        "rule_ok": false,
+        "neural_out": "入嚟",
+        "neural_ok": true,
+        "latency_ms": 7.1412
+      },
+      {
+        "id": "2字:9",
+        "bucket": "2字",
+        "input": "不肯",
+        "expected": "唔肯",
+        "accept": [
+          "唔肯"
+        ],
+        "copy_ok": false,
+        "rule_out": "不肯",
+        "rule_ok": false,
+        "neural_out": "唔肯",
+        "neural_ok": true,
+        "latency_ms": 7.6278
+      },
+      {
+        "id": "4字成语:0",
+        "bucket": "4字成语",
+        "input": "亡羊补牢",
+        "expected": "亡羊補牢",
+        "accept": [
+          "亡羊補牢"
+        ],
+        "copy_ok": true,
+        "rule_out": "亡羊補牢",
+        "rule_ok": true,
+        "neural_out": "亡羊補牢",
+        "neural_ok": true,
+        "latency_ms": 11.8616
+      },
+      {
+        "id": "4字成语:1",
+        "bucket": "4字成语",
+        "input": "画蛇添足",
+        "expected": "畫蛇添足",
+        "accept": [
+          "畫蛇添足"
+        ],
+        "copy_ok": true,
+        "rule_out": "畫蛇添足",
+        "rule_ok": true,
+        "neural_out": "畫蛇添足",
+        "neural_ok": true,
+        "latency_ms": 12.1877
+      },
+      {
+        "id": "4字成语:2",
+        "bucket": "4字成语",
+        "input": "守株待兔",
+        "expected": "守株待兔",
+        "accept": [
+          "守株待兔"
+        ],
+        "copy_ok": true,
+        "rule_out": "守株待兔",
+        "rule_ok": true,
+        "neural_out": "守頭待兔",
+        "neural_ok": false,
+        "latency_ms": 11.646
+      },
+      {
+        "id": "4字成语:3",
+        "bucket": "4字成语",
+        "input": "刻舟求剑",
+        "expected": "刻舟求劍",
+        "accept": [
+          "刻舟求劍"
+        ],
+        "copy_ok": true,
+        "rule_out": "刻舟求劍",
+        "rule_ok": true,
+        "neural_out": "刻舟求劍",
+        "neural_ok": true,
+        "latency_ms": 12.6565
+      },
+      {
+        "id": "4字成语:4",
+        "bucket": "4字成语",
+        "input": "掩耳盗铃",
+        "expected": "掩耳盜鈴",
+        "accept": [
+          "掩耳盜鈴"
+        ],
+        "copy_ok": true,
+        "rule_out": "掩耳盜鈴",
+        "rule_ok": true,
+        "neural_out": "掩耳盜鈴",
+        "neural_ok": true,
+        "latency_ms": 12.316
+      },
+      {
+        "id": "4字成语:5",
+        "bucket": "4字成语",
+        "input": "对牛弹琴",
+        "expected": "對牛彈琴",
+        "accept": [
+          "對牛彈琴"
+        ],
+        "copy_ok": true,
+        "rule_out": "對牛彈琴",
+        "rule_ok": true,
+        "neural_out": "對牛彈琴",
+        "neural_ok": true,
+        "latency_ms": 12.204
+      },
+      {
+        "id": "4字成语:6",
+        "bucket": "4字成语",
+        "input": "杯弓蛇影",
+        "expected": "杯弓蛇影",
+        "accept": [
+          "杯弓蛇影"
+        ],
+        "copy_ok": true,
+        "rule_out": "杯弓蛇影",
+        "rule_ok": true,
+        "neural_out": "杯弓蛇影",
+        "neural_ok": true,
+        "latency_ms": 25.7631
+      },
+      {
+        "id": "4字成语:7",
+        "bucket": "4字成语",
+        "input": "井底之蛙",
+        "expected": "井底之蛙",
+        "accept": [
+          "井底之蛙"
+        ],
+        "copy_ok": true,
+        "rule_out": "井底之蛙",
+        "rule_ok": true,
+        "neural_out": "井底之蛙",
+        "neural_ok": true,
+        "latency_ms": 15.2384
+      },
+      {
+        "id": "4字成语:8",
+        "bucket": "4字成语",
+        "input": "塞翁失马",
+        "expected": "塞翁失馬",
+        "accept": [
+          "塞翁失馬"
+        ],
+        "copy_ok": true,
+        "rule_out": "塞翁失馬",
+        "rule_ok": true,
+        "neural_out": "塞翁失馬",
+        "neural_ok": true,
+        "latency_ms": 12.8988
+      },
+      {
+        "id": "4字成语:9",
+        "bucket": "4字成语",
+        "input": "一举两得",
+        "expected": "一舉兩得",
+        "accept": [
+          "一舉兩得"
+        ],
+        "copy_ok": true,
+        "rule_out": "一舉兩得",
+        "rule_ok": true,
+        "neural_out": "一舉兩得",
+        "neural_ok": true,
+        "latency_ms": 12.8349
+      },
+      {
+        "id": "4字成语:10",
+        "bucket": "4字成语",
+        "input": "一石二鸟",
+        "expected": "一石二鳥",
+        "accept": [
+          "一石二鳥"
+        ],
+        "copy_ok": true,
+        "rule_out": "一石二鳥",
+        "rule_ok": true,
+        "neural_out": "一石二鳥",
+        "neural_ok": true,
+        "latency_ms": 12.4294
+      },
+      {
+        "id": "4字成语:11",
+        "bucket": "4字成语",
+        "input": "三心二意",
+        "expected": "三心二意",
+        "accept": [
+          "三心二意"
+        ],
+        "copy_ok": true,
+        "rule_out": "三心二意",
+        "rule_ok": true,
+        "neural_out": "三心二意",
+        "neural_ok": true,
+        "latency_ms": 12.8323
+      },
+      {
+        "id": "4字成语:12",
+        "bucket": "4字成语",
+        "input": "四面八方",
+        "expected": "四面八方",
+        "accept": [
+          "四面八方"
+        ],
+        "copy_ok": true,
+        "rule_out": "四面八方",
+        "rule_ok": true,
+        "neural_out": "四面八方",
+        "neural_ok": true,
+        "latency_ms": 12.9251
+      },
+      {
+        "id": "4字成语:13",
+        "bucket": "4字成语",
+        "input": "五光十色",
+        "expected": "五光十色",
+        "accept": [
+          "五光十色"
+        ],
+        "copy_ok": true,
+        "rule_out": "五光十色",
+        "rule_ok": true,
+        "neural_out": "五光十色",
+        "neural_ok": true,
+        "latency_ms": 12.5744
+      },
+      {
+        "id": "4字成语:14",
+        "bucket": "4字成语",
+        "input": "七上八下",
+        "expected": "七上八下",
+        "accept": [
+          "七上八下"
+        ],
+        "copy_ok": true,
+        "rule_out": "七上八下",
+        "rule_ok": true,
+        "neural_out": "七上八下",
+        "neural_ok": true,
+        "latency_ms": 12.5991
+      },
+      {
+        "id": "4字成语:15",
+        "bucket": "4字成语",
+        "input": "九牛一毛",
+        "expected": "九牛一毛",
+        "accept": [
+          "九牛一毛"
+        ],
+        "copy_ok": true,
+        "rule_out": "九牛一毛",
+        "rule_ok": true,
+        "neural_out": "九牛一毛",
+        "neural_ok": true,
+        "latency_ms": 12.7557
+      },
+      {
+        "id": "4字成语:16",
+        "bucket": "4字成语",
+        "input": "十全十美",
+        "expected": "十全十美",
+        "accept": [
+          "十全十美"
+        ],
+        "copy_ok": true,
+        "rule_out": "十全十美",
+        "rule_ok": true,
+        "neural_out": "十全十美",
+        "neural_ok": true,
+        "latency_ms": 12.5084
+      },
+      {
+        "id": "4字成语:17",
+        "bucket": "4字成语",
+        "input": "百发百中",
+        "expected": "百發百中",
+        "accept": [
+          "百發百中"
+        ],
+        "copy_ok": true,
+        "rule_out": "百發百中",
+        "rule_ok": true,
+        "neural_out": "百發百中",
+        "neural_ok": true,
+        "latency_ms": 12.2025
+      },
+      {
+        "id": "4字成语:18",
+        "bucket": "4字成语",
+        "input": "千军万马",
+        "expected": "千軍萬馬",
+        "accept": [
+          "千軍萬馬"
+        ],
+        "copy_ok": true,
+        "rule_out": "千軍萬馬",
+        "rule_ok": true,
+        "neural_out": "千軍萬馬",
+        "neural_ok": true,
+        "latency_ms": 12.1743
+      },
+      {
+        "id": "4字成语:19",
+        "bucket": "4字成语",
+        "input": "万事如意",
+        "expected": "萬事如意",
+        "accept": [
+          "萬事如意"
+        ],
+        "copy_ok": true,
+        "rule_out": "萬事如意",
+        "rule_ok": true,
+        "neural_out": "萬事如意",
+        "neural_ok": true,
+        "latency_ms": 12.2243
+      },
+      {
+        "id": "4字成语:20",
+        "bucket": "4字成语",
+        "input": "心花怒放",
+        "expected": "心花怒放",
+        "accept": [
+          "心花怒放"
+        ],
+        "copy_ok": true,
+        "rule_out": "心花怒放",
+        "rule_ok": true,
+        "neural_out": "心花怒放",
+        "neural_ok": true,
+        "latency_ms": 12.1678
+      },
+      {
+        "id": "4字成语:21",
+        "bucket": "4字成语",
+        "input": "目瞪口呆",
+        "expected": "目瞪口呆",
+        "accept": [
+          "目瞪口呆"
+        ],
+        "copy_ok": true,
+        "rule_out": "目瞪口呆",
+        "rule_ok": true,
+        "neural_out": "目瞪口呆",
+        "neural_ok": true,
+        "latency_ms": 12.3473
+      },
+      {
+        "id": "4字成语:22",
+        "bucket": "4字成语",
+        "input": "不可思议",
+        "expected": "不可思議",
+        "accept": [
+          "不可思議"
+        ],
+        "copy_ok": true,
+        "rule_out": "不可思議",
+        "rule_ok": true,
+        "neural_out": "唔可思議",
+        "neural_ok": false,
+        "latency_ms": 12.0832
+      },
+      {
+        "id": "4字成语:23",
+        "bucket": "4字成语",
+        "input": "不约而同",
+        "expected": "不約而同",
+        "accept": [
+          "不約而同"
+        ],
+        "copy_ok": true,
+        "rule_out": "不約而同",
+        "rule_ok": true,
+        "neural_out": "唔約而同",
+        "neural_ok": false,
+        "latency_ms": 12.0584
+      },
+      {
+        "id": "4字成语:24",
+        "bucket": "4字成语",
+        "input": "不折不扣",
+        "expected": "不折不扣",
+        "accept": [
+          "不折不扣"
+        ],
+        "copy_ok": true,
+        "rule_out": "不折不扣",
+        "rule_ok": true,
+        "neural_out": "唔摺唔扣",
+        "neural_ok": false,
+        "latency_ms": 12.2312
+      },
+      {
+        "id": "4字成语:25",
+        "bucket": "4字成语",
+        "input": "实事求是",
+        "expected": "實事求是",
+        "accept": [
+          "實事求是"
+        ],
+        "copy_ok": true,
+        "rule_out": "實事求係",
+        "rule_ok": false,
+        "neural_out": "實事求係",
+        "neural_ok": false,
+        "latency_ms": 12.1132
+      },
+      {
+        "id": "4字成语:26",
+        "bucket": "4字成语",
+        "input": "因地制宜",
+        "expected": "因地制宜",
+        "accept": [
+          "因地制宜"
+        ],
+        "copy_ok": true,
+        "rule_out": "因地制宜",
+        "rule_ok": true,
+        "neural_out": "因地制宜",
+        "neural_ok": true,
+        "latency_ms": 12.0581
+      },
+      {
+        "id": "4字成语:27",
+        "bucket": "4字成语",
+        "input": "锦上添花",
+        "expected": "錦上添花",
+        "accept": [
+          "錦上添花"
+        ],
+        "copy_ok": true,
+        "rule_out": "錦上添花",
+        "rule_ok": true,
+        "neural_out": "錦上添花",
+        "neural_ok": true,
+        "latency_ms": 12.1813
+      },
+      {
+        "id": "4字成语:28",
+        "bucket": "4字成语",
+        "input": "雪中送炭",
+        "expected": "雪中送炭",
+        "accept": [
+          "雪中送炭"
+        ],
+        "copy_ok": true,
+        "rule_out": "雪中送炭",
+        "rule_ok": true,
+        "neural_out": "雪中送炭",
+        "neural_ok": true,
+        "latency_ms": 12.3573
+      },
+      {
+        "id": "4字成语:29",
+        "bucket": "4字成语",
+        "input": "水到渠成",
+        "expected": "水到渠成",
+        "accept": [
+          "水到渠成"
+        ],
+        "copy_ok": true,
+        "rule_out": "水到渠成",
+        "rule_ok": true,
+        "neural_out": "水到渠成",
+        "neural_ok": true,
+        "latency_ms": 11.6673
+      },
+      {
+        "id": "4字成语:30",
+        "bucket": "4字成语",
+        "input": "顺其自然",
+        "expected": "順其自然",
+        "accept": [
+          "順其自然"
+        ],
+        "copy_ok": true,
+        "rule_out": "順其自然",
+        "rule_ok": true,
+        "neural_out": "順其自然",
+        "neural_ok": true,
+        "latency_ms": 11.8312
+      },
+      {
+        "id": "4字成语:31",
+        "bucket": "4字成语",
+        "input": "全力以赴",
+        "expected": "全力以赴",
+        "accept": [
+          "全力以赴"
+        ],
+        "copy_ok": true,
+        "rule_out": "全力以赴",
+        "rule_ok": true,
+        "neural_out": "全力以赴",
+        "neural_ok": true,
+        "latency_ms": 11.4532
+      },
+      {
+        "id": "4字成语:32",
+        "bucket": "4字成语",
+        "input": "脚踏实地",
+        "expected": "腳踏實地",
+        "accept": [
+          "腳踏實地"
+        ],
+        "copy_ok": true,
+        "rule_out": "腳踏實地",
+        "rule_ok": true,
+        "neural_out": "腳踏實地",
+        "neural_ok": true,
+        "latency_ms": 12.0275
+      },
+      {
+        "id": "4字成语:33",
+        "bucket": "4字成语",
+        "input": "一丝不苟",
+        "expected": "一絲不苟",
+        "accept": [
+          "一絲不苟"
+        ],
+        "copy_ok": true,
+        "rule_out": "一絲不苟",
+        "rule_ok": true,
+        "neural_out": "一絲不苟",
+        "neural_ok": true,
+        "latency_ms": 12.1098
+      },
+      {
+        "id": "4字成语:34",
+        "bucket": "4字成语",
+        "input": "有条不紊",
+        "expected": "有條不紊",
+        "accept": [
+          "有條不紊"
+        ],
+        "copy_ok": true,
+        "rule_out": "有條不紊",
+        "rule_ok": true,
+        "neural_out": "有條不計",
+        "neural_ok": false,
+        "latency_ms": 12.0223
+      },
+      {
+        "id": "4字成语:35",
+        "bucket": "4字成语",
+        "input": "循序渐进",
+        "expected": "循序漸進",
+        "accept": [
+          "循序漸進"
+        ],
+        "copy_ok": true,
+        "rule_out": "循序漸進",
+        "rule_ok": true,
+        "neural_out": "循序漸入",
+        "neural_ok": false,
+        "latency_ms": 11.8702
+      },
+      {
+        "id": "4字成语:36",
+        "bucket": "4字成语",
+        "input": "温故知新",
+        "expected": "溫故知新",
+        "accept": [
+          "溫故知新"
+        ],
+        "copy_ok": true,
+        "rule_out": "溫故知新",
+        "rule_ok": true,
+        "neural_out": "溫故知新",
+        "neural_ok": true,
+        "latency_ms": 11.966
+      },
+      {
+        "id": "4字成语:37",
+        "bucket": "4字成语",
+        "input": "举一反三",
+        "expected": "舉一反三",
+        "accept": [
+          "舉一反三"
+        ],
+        "copy_ok": true,
+        "rule_out": "舉一反三",
+        "rule_ok": true,
+        "neural_out": "舉一反三",
+        "neural_ok": true,
+        "latency_ms": 11.6675
+      },
+      {
+        "id": "4字成语:38",
+        "bucket": "4字成语",
+        "input": "融会贯通",
+        "expected": "融會貫通",
+        "accept": [
+          "融會貫通"
+        ],
+        "copy_ok": true,
+        "rule_out": "融會貫通",
+        "rule_ok": true,
+        "neural_out": "融會貫通",
+        "neural_ok": true,
+        "latency_ms": 11.9202
+      },
+      {
+        "id": "4字成语:39",
+        "bucket": "4字成语",
+        "input": "精益求精",
+        "expected": "精益求精",
+        "accept": [
+          "精益求精"
+        ],
+        "copy_ok": true,
+        "rule_out": "精益求精",
+        "rule_ok": true,
+        "neural_out": "精益求精",
+        "neural_ok": true,
+        "latency_ms": 12.2061
+      },
+      {
+        "id": "5-7字:0",
+        "bucket": "5-7字",
+        "input": "不是他写的似的",
+        "expected": "唔係佢寫嘅噉",
+        "accept": [
+          "唔係佢寫嘅噉"
+        ],
+        "copy_ok": false,
+        "rule_out": "唔係佢寫嘅似嘅",
+        "rule_ok": false,
+        "neural_out": "唔係佢寫嘅噉",
+        "neural_ok": true,
+        "latency_ms": 17.4315
+      },
+      {
+        "id": "5-7字:1",
+        "bucket": "5-7字",
+        "input": "现在抽三张牌。",
+        "expected": "而家抽三張牌。",
+        "accept": [
+          "而家抽三張牌。"
+        ],
+        "copy_ok": false,
+        "rule_out": "而家抽三張牌。",
+        "rule_ok": true,
+        "neural_out": "而家抽三張牌。",
+        "neural_ok": true,
+        "latency_ms": 20.2009
+      },
+      {
+        "id": "5-7字:2",
+        "bucket": "5-7字",
+        "input": "行不行啊？",
+        "expected": "得唔得啊？",
+        "accept": [
+          "得唔得啊？"
+        ],
+        "copy_ok": false,
+        "rule_out": "得唔得啊？",
+        "rule_ok": true,
+        "neural_out": "得唔得啊？",
+        "neural_ok": true,
+        "latency_ms": 15.3739
+      },
+      {
+        "id": "5-7字:3",
+        "bucket": "5-7字",
+        "input": "买棺材不知道埞",
+        "expected": "買棺材唔知埞",
+        "accept": [
+          "買棺材唔知埞"
+        ],
+        "copy_ok": false,
+        "rule_out": "買棺材唔知埞",
+        "rule_ok": true,
+        "neural_out": "買棺材唔知埞",
+        "neural_ok": true,
+        "latency_ms": 16.9212
+      },
+      {
+        "id": "5-7字:4",
+        "bucket": "5-7字",
+        "input": "你也喜欢吗？",
+        "expected": "你都啱㗎？",
+        "accept": [
+          "你都啱㗎？"
+        ],
+        "copy_ok": false,
+        "rule_out": "你也鍾意嗎？",
+        "rule_ok": false,
+        "neural_out": "你都鍾意咩？",
+        "neural_ok": false,
+        "latency_ms": 16.9218
+      },
+      {
+        "id": "5-7字:5",
+        "bucket": "5-7字",
+        "input": "有时大腿也交了",
+        "expected": "有時大髀都交埋",
+        "accept": [
+          "有時大髀都交埋"
+        ],
+        "copy_ok": false,
+        "rule_out": "有時大腿也交咗",
+        "rule_ok": false,
+        "neural_out": "有時大髀都交埋",
+        "neural_ok": true,
+        "latency_ms": 20.2547
+      },
+      {
+        "id": "5-7字:6",
+        "bucket": "5-7字",
+        "input": "掴了他一巴掌",
+        "expected": "升咗佢一巴",
+        "accept": [
+          "升咗佢一巴"
+        ],
+        "copy_ok": false,
+        "rule_out": "摑咗佢一巴掌",
+        "rule_ok": false,
+        "neural_out": "摑咗佢一巴",
+        "neural_ok": false,
+        "latency_ms": 15.3309
+      },
+      {
+        "id": "5-7字:7",
+        "bucket": "5-7字",
+        "input": "全部有三百多人",
+        "expected": "全部有三百幾人",
+        "accept": [
+          "全部有三百幾人"
+        ],
+        "copy_ok": false,
+        "rule_out": "全部有三百多人",
+        "rule_ok": false,
+        "neural_out": "全部有三百多人",
+        "neural_ok": false,
+        "latency_ms": 20.6937
+      },
+      {
+        "id": "5-7字:8",
+        "bucket": "5-7字",
+        "input": "晨早就知道啦！",
+        "expected": "晨早就知啦！",
+        "accept": [
+          "晨早就知啦！"
+        ],
+        "copy_ok": false,
+        "rule_out": "晨早就知啦！",
+        "rule_ok": true,
+        "neural_out": "晨早就知啦！",
+        "neural_ok": true,
+        "latency_ms": 17.7045
+      },
+      {
+        "id": "5-7字:9",
+        "bucket": "5-7字",
+        "input": "别给人欺负",
+        "expected": "唔好畀人蝦",
+        "accept": [
+          "唔好畀人蝦"
+        ],
+        "copy_ok": false,
+        "rule_out": "別畀人欺負",
+        "rule_ok": false,
+        "neural_out": "咪畀人蝦",
+        "neural_ok": false,
+        "latency_ms": 12.2842
+      },
+      {
+        "id": "5-7字:10",
+        "bucket": "5-7字",
+        "input": "你真有心劲",
+        "expected": "你真係心水清",
+        "accept": [
+          "你真係心水清"
+        ],
+        "copy_ok": false,
+        "rule_out": "你真有心勁",
+        "rule_ok": false,
+        "neural_out": "你真係有心勁",
+        "neural_ok": false,
+        "latency_ms": 18.0431
+      },
+      {
+        "id": "5-7字:11",
+        "bucket": "5-7字",
+        "input": "树大好遮荫。",
+        "expected": "樹大好遮蔭。",
+        "accept": [
+          "樹大好遮蔭。"
+        ],
+        "copy_ok": true,
+        "rule_out": "樹大好遮蔭。",
+        "rule_ok": true,
+        "neural_out": "樹大好遮蔭。",
+        "neural_ok": true,
+        "latency_ms": 17.3543
+      },
+      {
+        "id": "5-7字:12",
+        "bucket": "5-7字",
+        "input": "那么这批音讯呢",
+        "expected": "噉呢批音訊呢",
+        "accept": [
+          "噉呢批音訊呢"
+        ],
+        "copy_ok": false,
+        "rule_out": "噉這批音訊呢",
+        "rule_ok": false,
+        "neural_out": "咁呢批音訊呢",
+        "neural_ok": false,
+        "latency_ms": 17.7428
+      },
+      {
+        "id": "5-7字:13",
+        "bucket": "5-7字",
+        "input": "你好像有东西烦",
+        "expected": "你好似有嘢煩緊喎",
+        "accept": [
+          "你好似有嘢煩緊喎"
+        ],
+        "copy_ok": false,
+        "rule_out": "你好像有嘢煩",
+        "rule_ok": false,
+        "neural_out": "你好似有嘢煩",
+        "neural_ok": false,
+        "latency_ms": 17.4131
+      },
+      {
+        "id": "5-7字:14",
+        "bucket": "5-7字",
+        "input": "去罗湖过关",
+        "expected": "去羅湖過關",
+        "accept": [
+          "去羅湖過關"
+        ],
+        "copy_ok": true,
+        "rule_out": "去羅湖過關",
+        "rule_ok": true,
+        "neural_out": "去羅湖過關",
+        "neural_ok": true,
+        "latency_ms": 15.4774
+      },
+      {
+        "id": "5-7字:15",
+        "bucket": "5-7字",
+        "input": "耶鲁也可以打啊",
+        "expected": "耶魯都可以打啊",
+        "accept": [
+          "耶魯都可以打啊"
+        ],
+        "copy_ok": false,
+        "rule_out": "耶魯也得打啊",
+        "rule_ok": false,
+        "neural_out": "耶魯都可以打啊",
+        "neural_ok": true,
+        "latency_ms": 20.412
+      },
+      {
+        "id": "5-7字:16",
+        "bucket": "5-7字",
+        "input": "什么意思个字",
+        "expected": "噉咩意思個字",
+        "accept": [
+          "噉咩意思個字"
+        ],
+        "copy_ok": false,
+        "rule_out": "乜嘢意思個字",
+        "rule_ok": false,
+        "neural_out": "咩意思個字",
+        "neural_ok": false,
+        "latency_ms": 14.8758
+      },
+      {
+        "id": "5-7字:17",
+        "bucket": "5-7字",
+        "input": "我心里揪著",
+        "expected": "我心好哽",
+        "accept": [
+          "我心好哽"
+        ],
+        "copy_ok": false,
+        "rule_out": "我心裏揪著",
+        "rule_ok": false,
+        "neural_out": "我心度肉緊",
+        "neural_ok": false,
+        "latency_ms": 14.7213
+      },
+      {
+        "id": "5-7字:18",
+        "bucket": "5-7字",
+        "input": "wouwou",
+        "expected": "wouwou",
+        "accept": [
+          "wouwou"
+        ],
+        "copy_ok": true,
+        "rule_out": "wouwou",
+        "rule_ok": true,
+        "neural_out": "wouwou",
+        "neural_ok": true,
+        "latency_ms": 17.4879
+      },
+      {
+        "id": "5-7字:19",
+        "bucket": "5-7字",
+        "input": "世界七大奇迹",
+        "expected": "世界七大奇蹟",
+        "accept": [
+          "世界七大奇蹟"
+        ],
+        "copy_ok": false,
+        "rule_out": "世界七大奇跡",
+        "rule_ok": false,
+        "neural_out": "世界七大奇蹟",
+        "neural_ok": true,
+        "latency_ms": 17.3405
+      },
+      {
+        "id": "5-7字:20",
+        "bucket": "5-7字",
+        "input": "他最有利了",
+        "expected": "佢最著數嘞",
+        "accept": [
+          "佢最著數嘞"
+        ],
+        "copy_ok": false,
+        "rule_out": "佢最有利咗",
+        "rule_ok": false,
+        "neural_out": "佢最有利喇",
+        "neural_ok": false,
+        "latency_ms": 15.1263
+      },
+      {
+        "id": "5-7字:21",
+        "bucket": "5-7字",
+        "input": "中国驻英国大使",
+        "expected": "中國駐英國大使",
+        "accept": [
+          "中國駐英國大使"
+        ],
+        "copy_ok": true,
+        "rule_out": "中國駐英國大使",
+        "rule_ok": true,
+        "neural_out": "中國駐英國大使",
+        "neural_ok": true,
+        "latency_ms": 19.7661
+      },
+      {
+        "id": "5-7字:22",
+        "bucket": "5-7字",
+        "input": "这些年糕很削",
+        "expected": "啲年糕好削",
+        "accept": [
+          "啲年糕好削"
+        ],
+        "copy_ok": false,
+        "rule_out": "呢啲年糕好削",
+        "rule_ok": false,
+        "neural_out": "呢啲年糕好削",
+        "neural_ok": false,
+        "latency_ms": 17.8245
+      },
+      {
+        "id": "5-7字:23",
+        "bucket": "5-7字",
+        "input": "只要没有证据",
+        "expected": "只要冇證據",
+        "accept": [
+          "只要冇證據"
+        ],
+        "copy_ok": false,
+        "rule_out": "只要冇證據",
+        "rule_ok": true,
+        "neural_out": "只要冇證據",
+        "neural_ok": true,
+        "latency_ms": 15.2206
+      },
+      {
+        "id": "5-7字:24",
+        "bucket": "5-7字",
+        "input": "他唱歌有点耍帅",
+        "expected": "佢唱歌錯咗啲",
+        "accept": [
+          "佢唱歌錯咗啲"
+        ],
+        "copy_ok": false,
+        "rule_out": "佢唱歌有啲耍帥",
+        "rule_ok": false,
+        "neural_out": "佢唱歌有啲玩靚",
+        "neural_ok": false,
+        "latency_ms": 21.2924
+      },
+      {
+        "id": "5-7字:25",
+        "bucket": "5-7字",
+        "input": "他这人好商量",
+        "expected": "佢個人好話為嘅",
+        "accept": [
+          "佢個人好話為嘅"
+        ],
+        "copy_ok": false,
+        "rule_out": "佢份人好商量",
+        "rule_ok": false,
+        "neural_out": "佢份人好商量",
+        "neural_ok": false,
+        "latency_ms": 17.6906
+      },
+      {
+        "id": "5-7字:26",
+        "bucket": "5-7字",
+        "input": "今晚他做厅长",
+        "expected": "今晚佢做廳長",
+        "accept": [
+          "今晚佢做廳長"
+        ],
+        "copy_ok": false,
+        "rule_out": "今晚佢做廳長",
+        "rule_ok": true,
+        "neural_out": "今晚佢做廳長",
+        "neural_ok": true,
+        "latency_ms": 18.1903
+      },
+      {
+        "id": "5-7字:27",
+        "bucket": "5-7字",
+        "input": "今晚不是好冷",
+        "expected": "今晚唔係好凍",
+        "accept": [
+          "今晚唔係好凍"
+        ],
+        "copy_ok": false,
+        "rule_out": "今晚唔係好凍",
+        "rule_ok": true,
+        "neural_out": "今晚唔係好凍",
+        "neural_ok": true,
+        "latency_ms": 18.6598
+      },
+      {
+        "id": "5-7字:28",
+        "bucket": "5-7字",
+        "input": "后真相政治",
+        "expected": "後真相政治",
+        "accept": [
+          "後真相政治"
+        ],
+        "copy_ok": true,
+        "rule_out": "後真相政治",
+        "rule_ok": true,
+        "neural_out": "後真相政治",
+        "neural_ok": true,
+        "latency_ms": 15.3494
+      },
+      {
+        "id": "5-7字:29",
+        "bucket": "5-7字",
+        "input": "我不懂英语",
+        "expected": "我唔識英語",
+        "accept": [
+          "我唔識英語"
+        ],
+        "copy_ok": false,
+        "rule_out": "我不懂英文",
+        "rule_ok": false,
+        "neural_out": "我唔識英文",
+        "neural_ok": false,
+        "latency_ms": 16.3095
+      },
+      {
+        "id": "5-7字:30",
+        "bucket": "5-7字",
+        "input": "天下的人民",
+        "expected": "天下嘅人民",
+        "accept": [
+          "天下嘅人民"
+        ],
+        "copy_ok": false,
+        "rule_out": "天下嘅人民",
+        "rule_ok": true,
+        "neural_out": "天下嘅人民",
+        "neural_ok": true,
+        "latency_ms": 15.955
+      },
+      {
+        "id": "5-7字:31",
+        "bucket": "5-7字",
+        "input": "你别这么谦了！",
+        "expected": "你唔好咁謙喇！",
+        "accept": [
+          "你唔好咁謙喇！"
+        ],
+        "copy_ok": false,
+        "rule_out": "你別噉謙咗！",
+        "rule_ok": false,
+        "neural_out": "你唔好咁謙啦！",
+        "neural_ok": false,
+        "latency_ms": 20.3662
+      },
+      {
+        "id": "5-7字:32",
+        "bucket": "5-7字",
+        "input": "大家不要吵",
+        "expected": "大家唔好嘈",
+        "accept": [
+          "大家唔好嘈"
+        ],
+        "copy_ok": false,
+        "rule_out": "大屋企唔好吵",
+        "rule_ok": false,
+        "neural_out": "大家唔好嘈",
+        "neural_ok": true,
+        "latency_ms": 14.9462
+      },
+      {
+        "id": "5-7字:33",
+        "bucket": "5-7字",
+        "input": "原来他口不对心",
+        "expected": "原來佢講一套做一套",
+        "accept": [
+          "原來佢講一套做一套"
+        ],
+        "copy_ok": false,
+        "rule_out": "原來佢口唔啱心",
+        "rule_ok": false,
+        "neural_out": "原來佢口唔啱心",
+        "neural_ok": false,
+        "latency_ms": 20.683
+      },
+      {
+        "id": "5-7字:34",
+        "bucket": "5-7字",
+        "input": "汽车灭了火了",
+        "expected": "汽車死火喇",
+        "accept": [
+          "汽車死火喇"
+        ],
+        "copy_ok": false,
+        "rule_out": "汽車滅咗火咗",
+        "rule_ok": false,
+        "neural_out": "汽車滅咗火喇",
+        "neural_ok": false,
+        "latency_ms": 18.1635
+      },
+      {
+        "id": "5-7字:35",
+        "bucket": "5-7字",
+        "input": "照样打他们",
+        "expected": "照樣打佢哋",
+        "accept": [
+          "照樣打佢哋"
+        ],
+        "copy_ok": false,
+        "rule_out": "照樣打佢哋",
+        "rule_ok": true,
+        "neural_out": "照樣打佢哋",
+        "neural_ok": true,
+        "latency_ms": 15.5162
+      },
+      {
+        "id": "5-7字:36",
+        "bucket": "5-7字",
+        "input": "打code",
+        "expected": "打code",
+        "accept": [
+          "打code"
+        ],
+        "copy_ok": true,
+        "rule_out": "打code",
+        "rule_ok": true,
+        "neural_out": "打code",
+        "neural_ok": true,
+        "latency_ms": 15.24
+      },
+      {
+        "id": "5-7字:37",
+        "bucket": "5-7字",
+        "input": "真是活见鬼",
+        "expected": "真撞鬼",
+        "accept": [
+          "真撞鬼"
+        ],
+        "copy_ok": false,
+        "rule_out": "真係活見鬼",
+        "rule_ok": false,
+        "neural_out": "真係活見鬼",
+        "neural_ok": false,
+        "latency_ms": 14.9253
+      },
+      {
+        "id": "5-7字:38",
+        "bucket": "5-7字",
+        "input": "搞得我一头雾水",
+        "expected": "搞到我一頭霧水",
+        "accept": [
+          "搞到我一頭霧水"
+        ],
+        "copy_ok": false,
+        "rule_out": "搞得我一頭霧水",
+        "rule_ok": false,
+        "neural_out": "搞到我一頭霧水",
+        "neural_ok": true,
+        "latency_ms": 21.0134
+      },
+      {
+        "id": "5-7字:39",
+        "bucket": "5-7字",
+        "input": "马上可以吃饭了",
+        "expected": "就嚟食得飯",
+        "accept": [
+          "就嚟食得飯"
+        ],
+        "copy_ok": false,
+        "rule_out": "即刻得食飯咗",
+        "rule_ok": false,
+        "neural_out": "即刻可以食飯喇",
+        "neural_ok": false,
+        "latency_ms": 21.1317
+      },
+      {
+        "id": "5-7字:40",
+        "bucket": "5-7字",
+        "input": "小声点，他睡著",
+        "expected": "細聲啲，佢瞓着",
+        "accept": [
+          "細聲啲，佢瞓着"
+        ],
+        "copy_ok": false,
+        "rule_out": "小聲點，佢瞓著",
+        "rule_ok": false,
+        "neural_out": "細聲啲，佢瞓住",
+        "neural_ok": false,
+        "latency_ms": 21.6798
+      },
+      {
+        "id": "5-7字:41",
+        "bucket": "5-7字",
+        "input": "他们想装修楼面",
+        "expected": "佢哋想裝修樓面",
+        "accept": [
+          "佢哋想裝修樓面"
+        ],
+        "copy_ok": false,
+        "rule_out": "佢哋諗裝修樓面",
+        "rule_ok": false,
+        "neural_out": "佢哋想裝修樓面",
+        "neural_ok": true,
+        "latency_ms": 20.0506
+      },
+      {
+        "id": "5-7字:42",
+        "bucket": "5-7字",
+        "input": "你先听我说",
+        "expected": "你聽我講先",
+        "accept": [
+          "你聽我講先"
+        ],
+        "copy_ok": false,
+        "rule_out": "你聽我講先",
+        "rule_ok": true,
+        "neural_out": "你聽我講先",
+        "neural_ok": true,
+        "latency_ms": 14.4531
+      },
+      {
+        "id": "5-7字:43",
+        "bucket": "5-7字",
+        "input": "（机场）国际线",
+        "expected": "（機場）國際線",
+        "accept": [
+          "（機場）國際線"
+        ],
+        "copy_ok": true,
+        "rule_out": "（機場）國際線",
+        "rule_ok": true,
+        "neural_out": "（機場）國際線",
+        "neural_ok": true,
+        "latency_ms": 20.7871
+      },
+      {
+        "id": "5-7字:44",
+        "bucket": "5-7字",
+        "input": "你知道他那性子",
+        "expected": "你知佢嗰份人㗎啦",
+        "accept": [
+          "你知佢嗰份人㗎啦"
+        ],
+        "copy_ok": false,
+        "rule_out": "你知佢那性子",
+        "rule_ok": false,
+        "neural_out": "你知佢嗰性",
+        "neural_ok": false,
+        "latency_ms": 14.632
+      },
+      {
+        "id": "5-7字:45",
+        "bucket": "5-7字",
+        "input": "都过了一个月了",
+        "expected": "都過咗一個月喇",
+        "accept": [
+          "都過咗一個月喇"
+        ],
+        "copy_ok": false,
+        "rule_out": "都過咗一個月咗",
+        "rule_ok": false,
+        "neural_out": "都過咗一個月喇",
+        "neural_ok": true,
+        "latency_ms": 20.2986
+      },
+      {
+        "id": "5-7字:46",
+        "bucket": "5-7字",
+        "input": "收到，谢谢晒",
+        "expected": "收到，唔該曬",
+        "accept": [
+          "收到，唔該曬"
+        ],
+        "copy_ok": false,
+        "rule_out": "收到，多謝曬",
+        "rule_ok": false,
+        "neural_out": "收到，唔該曬",
+        "neural_ok": true,
+        "latency_ms": 17.7617
+      },
+      {
+        "id": "5-7字:47",
+        "bucket": "5-7字",
+        "input": "好像不多通",
+        "expected": "好似唔多通",
+        "accept": [
+          "好似唔多通"
+        ],
+        "copy_ok": false,
+        "rule_out": "好似唔多通",
+        "rule_ok": true,
+        "neural_out": "好似唔多通",
+        "neural_ok": true,
+        "latency_ms": 15.1199
+      },
+      {
+        "id": "5-7字:48",
+        "bucket": "5-7字",
+        "input": "打著红旗反红旗",
+        "expected": "打着紅旗反紅旗",
+        "accept": [
+          "打着紅旗反紅旗"
+        ],
+        "copy_ok": false,
+        "rule_out": "打著紅旗反紅旗",
+        "rule_ok": false,
+        "neural_out": "打住紅旗反紅旗",
+        "neural_ok": false,
+        "latency_ms": 20.4513
+      },
+      {
+        "id": "5-7字:49",
+        "bucket": "5-7字",
+        "input": "千万不要说",
+        "expected": "千祈唔好講",
+        "accept": [
+          "千祈唔好講"
+        ],
+        "copy_ok": false,
+        "rule_out": "千萬唔好講",
+        "rule_ok": false,
+        "neural_out": "千祈唔好講",
+        "neural_ok": true,
+        "latency_ms": 14.7592
+      },
+      {
+        "id": "5-7字古诗:0",
+        "bucket": "5-7字古诗",
+        "input": "床前明月光",
+        "expected": "牀前明月光",
+        "accept": [
+          "牀前明月光"
+        ],
+        "copy_ok": true,
+        "rule_out": "牀前明月光",
+        "rule_ok": true,
+        "neural_out": "牀前明月光",
+        "neural_ok": true,
+        "latency_ms": 15.2211
+      },
+      {
+        "id": "5-7字古诗:1",
+        "bucket": "5-7字古诗",
+        "input": "疑是地上霜",
+        "expected": "疑是地上霜",
+        "accept": [
+          "疑是地上霜"
+        ],
+        "copy_ok": true,
+        "rule_out": "疑係地上霜",
+        "rule_ok": false,
+        "neural_out": "疑係地下霜",
+        "neural_ok": false,
+        "latency_ms": 15.274
+      },
+      {
+        "id": "5-7字古诗:2",
+        "bucket": "5-7字古诗",
+        "input": "举头望明月",
+        "expected": "舉頭望明月",
+        "accept": [
+          "舉頭望明月"
+        ],
+        "copy_ok": true,
+        "rule_out": "舉頭望明月",
+        "rule_ok": true,
+        "neural_out": "舉頭望明月",
+        "neural_ok": true,
+        "latency_ms": 14.9361
+      },
+      {
+        "id": "5-7字古诗:3",
+        "bucket": "5-7字古诗",
+        "input": "低头思故乡",
+        "expected": "低頭思故鄉",
+        "accept": [
+          "低頭思故鄉"
+        ],
+        "copy_ok": true,
+        "rule_out": "低頭思故鄉",
+        "rule_ok": true,
+        "neural_out": "低頭思故鄉",
+        "neural_ok": true,
+        "latency_ms": 14.7129
+      },
+      {
+        "id": "5-7字古诗:4",
+        "bucket": "5-7字古诗",
+        "input": "白日依山尽",
+        "expected": "白日依山盡",
+        "accept": [
+          "白日依山盡"
+        ],
+        "copy_ok": true,
+        "rule_out": "白日依山盡",
+        "rule_ok": true,
+        "neural_out": "白日依山盡",
+        "neural_ok": true,
+        "latency_ms": 14.5993
+      },
+      {
+        "id": "5-7字古诗:5",
+        "bucket": "5-7字古诗",
+        "input": "黄河入海流",
+        "expected": "黃河入海流",
+        "accept": [
+          "黃河入海流"
+        ],
+        "copy_ok": true,
+        "rule_out": "黃河入海流",
+        "rule_ok": true,
+        "neural_out": "黃河入海流",
+        "neural_ok": true,
+        "latency_ms": 14.9584
+      },
+      {
+        "id": "5-7字古诗:6",
+        "bucket": "5-7字古诗",
+        "input": "欲穷千里目",
+        "expected": "欲窮千裏目",
+        "accept": [
+          "欲窮千裏目"
+        ],
+        "copy_ok": true,
+        "rule_out": "欲窮千裏目",
+        "rule_ok": true,
+        "neural_out": "欲窮千裏目",
+        "neural_ok": true,
+        "latency_ms": 14.9808
+      },
+      {
+        "id": "5-7字古诗:7",
+        "bucket": "5-7字古诗",
+        "input": "更上一层楼",
+        "expected": "更上一層樓",
+        "accept": [
+          "更上一層樓"
+        ],
+        "copy_ok": true,
+        "rule_out": "更上一層樓",
+        "rule_ok": true,
+        "neural_out": "更上一層樓",
+        "neural_ok": true,
+        "latency_ms": 14.916
+      },
+      {
+        "id": "5-7字古诗:8",
+        "bucket": "5-7字古诗",
+        "input": "春眠不觉晓",
+        "expected": "春眠不覺曉",
+        "accept": [
+          "春眠不覺曉"
+        ],
+        "copy_ok": true,
+        "rule_out": "春眠不覺曉",
+        "rule_ok": true,
+        "neural_out": "春眠唔覺曉",
+        "neural_ok": false,
+        "latency_ms": 14.4825
+      },
+      {
+        "id": "5-7字古诗:9",
+        "bucket": "5-7字古诗",
+        "input": "处处闻啼鸟",
+        "expected": "處處聞啼鳥",
+        "accept": [
+          "處處聞啼鳥"
+        ],
+        "copy_ok": true,
+        "rule_out": "處處聞啼鳥",
+        "rule_ok": true,
+        "neural_out": "處處聞燶鳥",
+        "neural_ok": false,
+        "latency_ms": 15.7872
+      },
+      {
+        "id": "5-7字古诗:10",
+        "bucket": "5-7字古诗",
+        "input": "夜来风雨声",
+        "expected": "夜來風雨聲",
+        "accept": [
+          "夜來風雨聲"
+        ],
+        "copy_ok": true,
+        "rule_out": "夜嚟風雨聲",
+        "rule_ok": false,
+        "neural_out": "夜嚟風雨聲",
+        "neural_ok": false,
+        "latency_ms": 15.2328
+      },
+      {
+        "id": "5-7字古诗:11",
+        "bucket": "5-7字古诗",
+        "input": "花落知多少",
+        "expected": "花落知多少",
+        "accept": [
+          "花落知多少"
+        ],
+        "copy_ok": true,
+        "rule_out": "花落知幾多",
+        "rule_ok": false,
+        "neural_out": "花落知幾多",
+        "neural_ok": false,
+        "latency_ms": 16.0467
+      }
+    ]
   }
 }

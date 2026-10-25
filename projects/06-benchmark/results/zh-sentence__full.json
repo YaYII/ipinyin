@@ -1,0 +1,2708 @@
+{
+  "suite": "zh-sentence",
+  "suite_version": "1.1.0",
+  "spec": "projects/06-benchmark/schemas.md (envelope v1)",
+  "system": "ipinyin(内置)",
+  "status": "ok",
+  "quick": false,
+  "generated_at": "2026-10-26T06:57:20+08:00",
+  "duration_s": 2.35,
+  "params": {
+    "quick": false,
+    "out_dir": "/Users/yingyang/Documents/project/workbudyy/ipinyin/projects/06-benchmark/results",
+    "pairs": "/Users/yingyang/Documents/project/workbudyy/ipinyin/vendor/yue_pairs.json",
+    "model": "/Users/yingyang/Documents/project/workbudyy/ipinyin/experiments/yue_model_d256.pt",
+    "guard": "/Users/yingyang/Documents/project/workbudyy/ipinyin/data/yue_guard.eval.marshal",
+    "lm": "/Users/yingyang/Documents/project/workbudyy/ipinyin/data/lm_char.marshal",
+    "lm_weight": 0.6,
+    "limit": null,
+    "n": null,
+    "ctx_max": 5,
+    "show": 5,
+    "nn": "auto",
+    "device": "cpu",
+    "system": "ipinyin(内置)"
+  },
+  "environment": {
+    "python": "3.13.12",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "torch": "2.14.1"
+  },
+  "reason": null,
+  "results": {
+    "buckets": {
+      "2-4字": {
+        "n": 30,
+        "invalid": 35,
+        "top1": 0.9333,
+        "top9": 1.0,
+        "avg_keystrokes": 11.0667,
+        "wilson": {
+          "top1": {
+            "lo": 0.7868,
+            "hi": 0.9815
+          },
+          "top9": {
+            "lo": 0.8865,
+            "hi": 1.0
+          }
+        },
+        "fixed": 1,
+        "broken": 1
+      },
+      "5-7字": {
+        "n": 134,
+        "invalid": 166,
+        "top1": 0.9179,
+        "top9": 0.9776,
+        "avg_keystrokes": 17.4701,
+        "wilson": {
+          "top1": {
+            "lo": 0.859,
+            "hi": 0.9535
+          },
+          "top9": {
+            "lo": 0.9362,
+            "hi": 0.9924
+          }
+        },
+        "fixed": 9,
+        "broken": 1
+      },
+      "8-15字": {
+        "n": 64,
+        "invalid": 236,
+        "top1": 0.9219,
+        "top9": 0.9531,
+        "avg_keystrokes": 34.7031,
+        "wilson": {
+          "top1": {
+            "lo": 0.8298,
+            "hi": 0.9662
+          },
+          "top9": {
+            "lo": 0.871,
+            "hi": 0.9839
+          }
+        },
+        "fixed": 13,
+        "broken": 0
+      },
+      "16+字": {
+        "n": 28,
+        "invalid": 272,
+        "top1": 0.3214,
+        "top9": 0.3214,
+        "avg_keystrokes": 54.0357,
+        "wilson": {
+          "top1": {
+            "lo": 0.1793,
+            "hi": 0.5066
+          },
+          "top9": {
+            "lo": 0.1793,
+            "hi": 0.5066
+          }
+        },
+        "fixed": 0,
+        "broken": 0
+      }
+    },
+    "aggregate": {
+      "n": 256,
+      "top1": 0.8555,
+      "top9": 0.9023
+    },
+    "rerank": {
+      "lm": "/Users/yingyang/Documents/project/workbudyy/ipinyin/data/lm_char.marshal",
+      "lm_weight": 0.6,
+      "top1_no_lm": 0.7734,
+      "top1_lm": 0.8555,
+      "saved": 23,
+      "broken": 2,
+      "net": 21
+    },
+    "empty_buckets": [],
+    "questions_scanned": 12012,
+    "inputs": [
+      {
+        "path": "vendor/yue_pairs.json",
+        "sha256_16": "89e2056ffc6f76bc",
+        "bytes": 18995253
+      },
+      {
+        "path": "data/lexicon.tsv",
+        "sha256_16": "7824026cf547a93d",
+        "bytes": 3955390
+      },
+      {
+        "path": "data/lm_char.marshal",
+        "sha256_16": "ceca8639b76719f0",
+        "bytes": 3691348
+      }
+    ],
+    "question_set_hash": "31adcedce84b6ea5",
+    "per_item": [
+      {
+        "id": "2-4字:0",
+        "bucket": "2-4字",
+        "key": "nanguaile",
+        "expected": "难怪了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 9,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:1",
+        "bucket": "2-4字",
+        "key": "haiyouhenduo",
+        "expected": "还有很多",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:2",
+        "bucket": "2-4字",
+        "key": "dangranyaole",
+        "expected": "当然要了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:3",
+        "bucket": "2-4字",
+        "key": "wogaosuni",
+        "expected": "我告诉你",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 9,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:4",
+        "bucket": "2-4字",
+        "key": "zheyangyehang",
+        "expected": "这样也行",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 13,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:5",
+        "bucket": "2-4字",
+        "key": "zheyangcaihang",
+        "expected": "这样才行",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:6",
+        "bucket": "2-4字",
+        "key": "dangranyeshi",
+        "expected": "当然也是",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:7",
+        "bucket": "2-4字",
+        "key": "niwenwenta",
+        "expected": "你问问他",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 10,
+        "base_top1_ok": false
+      },
+      {
+        "id": "2-4字:8",
+        "bucket": "2-4字",
+        "key": "nixiaoxindian",
+        "expected": "你小心点",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 13,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:9",
+        "bucket": "2-4字",
+        "key": "choutayixia",
+        "expected": "抽他一下",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 11,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:10",
+        "bucket": "2-4字",
+        "key": "bieshangtadang",
+        "expected": "别上他当",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:11",
+        "bucket": "2-4字",
+        "key": "shiqukaoshan",
+        "expected": "失去靠山",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:12",
+        "bucket": "2-4字",
+        "key": "woyehenmang",
+        "expected": "我也很忙",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 11,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:13",
+        "bucket": "2-4字",
+        "key": "shizuoyoudao",
+        "expected": "是左右到",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:14",
+        "bucket": "2-4字",
+        "key": "butaihao",
+        "expected": "不太好",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 8,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:15",
+        "bucket": "2-4字",
+        "key": "dasita",
+        "expected": "打死他",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 6,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:16",
+        "bucket": "2-4字",
+        "key": "nixiangxiangkan",
+        "expected": "你想想看",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 15,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:17",
+        "bucket": "2-4字",
+        "key": "biefangaiwo",
+        "expected": "别妨碍我",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 11,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:18",
+        "bucket": "2-4字",
+        "key": "jinlesuidao",
+        "expected": "进了隧道",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 11,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:19",
+        "bucket": "2-4字",
+        "key": "wochiguole",
+        "expected": "我吃过了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 10,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:20",
+        "bucket": "2-4字",
+        "key": "zhenkexiao",
+        "expected": "真可笑",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 10,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:21",
+        "bucket": "2-4字",
+        "key": "womeiyou",
+        "expected": "我没有",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 8,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:22",
+        "bucket": "2-4字",
+        "key": "bushide",
+        "expected": "不是的",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 7,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:23",
+        "bucket": "2-4字",
+        "key": "nibitagao",
+        "expected": "你比他高",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 9,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:24",
+        "bucket": "2-4字",
+        "key": "xiaoxinhuozai",
+        "expected": "小心火灾",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 13,
+        "base_top1_ok": false
+      },
+      {
+        "id": "2-4字:25",
+        "bucket": "2-4字",
+        "key": "rangtajinlai",
+        "expected": "让他进来",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:26",
+        "bucket": "2-4字",
+        "key": "woyaodade",
+        "expected": "我要大的",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 9,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:27",
+        "bucket": "2-4字",
+        "key": "bunengshuajian",
+        "expected": "不能耍奸",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:28",
+        "bucket": "2-4字",
+        "key": "wobuxiangxin",
+        "expected": "我不相信",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "2-4字:29",
+        "bucket": "2-4字",
+        "key": "chiwanzaishuo",
+        "expected": "吃完再说",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 13,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:0",
+        "bucket": "5-7字",
+        "key": "quanbuyousanbaiduoren",
+        "expected": "全部有三百多人",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 21,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:1",
+        "bucket": "5-7字",
+        "key": "zhiyaomeiyouzhengju",
+        "expected": "只要没有证据",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:2",
+        "bucket": "5-7字",
+        "key": "tazherenhaoshangliang",
+        "expected": "他这人好商量",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 21,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:3",
+        "bucket": "5-7字",
+        "key": "jinwantazuotingzhang",
+        "expected": "今晚他做厅长",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:4",
+        "bucket": "5-7字",
+        "key": "jinwanbushihaoleng",
+        "expected": "今晚不是好冷",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:5",
+        "bucket": "5-7字",
+        "key": "houzhenxiangzhengzhi",
+        "expected": "后真相政治",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:6",
+        "bucket": "5-7字",
+        "key": "tianxiaderenmin",
+        "expected": "天下的人民",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 15,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:7",
+        "bucket": "5-7字",
+        "key": "zhenshihuojiangui",
+        "expected": "真是活见鬼",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:8",
+        "bucket": "5-7字",
+        "key": "mashangkeyichifanle",
+        "expected": "马上可以吃饭了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:9",
+        "bucket": "5-7字",
+        "key": "nizhidaotanaxingzi",
+        "expected": "你知道他那性子",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:10",
+        "bucket": "5-7字",
+        "key": "douguoleyigeyuele",
+        "expected": "都过了一个月了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:11",
+        "bucket": "5-7字",
+        "key": "qianwanbuyaoshui",
+        "expected": "千万不要说",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:12",
+        "bucket": "5-7字",
+        "key": "tingbudongdiandiantai",
+        "expected": "听不懂点电台",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 21,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:13",
+        "bucket": "5-7字",
+        "key": "suoyibuhuiliudi",
+        "expected": "所以不会留底",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 15,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:14",
+        "bucket": "5-7字",
+        "key": "tafuqinhenniaita",
+        "expected": "他父亲很溺爱他",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:15",
+        "bucket": "5-7字",
+        "key": "hanweixinwenziyou",
+        "expected": "捍卫新闻自由",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:16",
+        "bucket": "5-7字",
+        "key": "zhexieshenmelaide",
+        "expected": "这些什么来的",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:17",
+        "bucket": "5-7字",
+        "key": "yijingguoleliangguo",
+        "expected": "已经过了两过",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:18",
+        "bucket": "5-7字",
+        "key": "shizaifangjianlidea",
+        "expected": "是在房间里的啊",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 19,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:19",
+        "bucket": "5-7字",
+        "key": "fanzuixinlixue",
+        "expected": "犯罪心理学",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:20",
+        "bucket": "5-7字",
+        "key": "duliweiyuanhui",
+        "expected": "独立委员会",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:21",
+        "bucket": "5-7字",
+        "key": "likaigongzuogangwei",
+        "expected": "离开工作岗位",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:22",
+        "bucket": "5-7字",
+        "key": "biehushuobadao",
+        "expected": "别胡说八道",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:23",
+        "bucket": "5-7字",
+        "key": "dadaoyidingshuizhun",
+        "expected": "达到一定水准",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:24",
+        "bucket": "5-7字",
+        "key": "wozuijinbijiaomang",
+        "expected": "我最近比较忙",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:25",
+        "bucket": "5-7字",
+        "key": "nizaizheertaiqiaole",
+        "expected": "你在这儿太巧了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:26",
+        "bucket": "5-7字",
+        "key": "gupiaojiaoyisuo",
+        "expected": "股票交易所",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 15,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:27",
+        "bucket": "5-7字",
+        "key": "jiujingsheicaigangne",
+        "expected": "究竟谁才刚呢",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:28",
+        "bucket": "5-7字",
+        "key": "tigaoxingzhengxiaolv",
+        "expected": "提高行政效率",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:29",
+        "bucket": "5-7字",
+        "key": "kuaidiangeiwokan",
+        "expected": "快点给我看",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:30",
+        "bucket": "5-7字",
+        "key": "quedinghuiyiriqi",
+        "expected": "确定会议日期",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:31",
+        "bucket": "5-7字",
+        "key": "zaochengpangdadesunshi",
+        "expected": "造成庞大的损失",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 22,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:32",
+        "bucket": "5-7字",
+        "key": "wotinglejici",
+        "expected": "我听了几次",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:33",
+        "bucket": "5-7字",
+        "key": "shoudaokongjunxiji",
+        "expected": "受到空军袭击",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:34",
+        "bucket": "5-7字",
+        "key": "daguimoshiwei",
+        "expected": "大规模示威",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 13,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:35",
+        "bucket": "5-7字",
+        "key": "yingxianggerenxingxiang",
+        "expected": "影响个人形象",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 23,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:36",
+        "bucket": "5-7字",
+        "key": "yihuierzaishuo",
+        "expected": "一会儿再说",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:37",
+        "bucket": "5-7字",
+        "key": "zaixianggangbuhuixiaxue",
+        "expected": "在香港不会下雪",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 23,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:38",
+        "bucket": "5-7字",
+        "key": "qishinibuyongzheyang",
+        "expected": "其实你不用这样",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:39",
+        "bucket": "5-7字",
+        "key": "yishenzhuguangbaoqi",
+        "expected": "一身珠光宝气",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:40",
+        "bucket": "5-7字",
+        "key": "buhuizuowangzhan",
+        "expected": "不会做网站",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:41",
+        "bucket": "5-7字",
+        "key": "guojiangsanmingzhi",
+        "expected": "果酱三明治",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:42",
+        "bucket": "5-7字",
+        "key": "liangshendingzuodeyifu",
+        "expected": "量身定做的衣服",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 22,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:43",
+        "bucket": "5-7字",
+        "key": "qinglangdetiankong",
+        "expected": "晴朗的天空",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:44",
+        "bucket": "5-7字",
+        "key": "bienameduofeihua",
+        "expected": "别那么多废话",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:45",
+        "bucket": "5-7字",
+        "key": "nanerdangziqiang",
+        "expected": "男儿当自强",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:46",
+        "bucket": "5-7字",
+        "key": "wobushiguyide",
+        "expected": "我不是故意的",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 13,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:47",
+        "bucket": "5-7字",
+        "key": "xiaciwozhuyiyixia",
+        "expected": "下次我注意一下",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:48",
+        "bucket": "5-7字",
+        "key": "takuiledaben",
+        "expected": "他亏了大本",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:49",
+        "bucket": "5-7字",
+        "key": "jiedaomingmingdiangu",
+        "expected": "街道命名典故",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:50",
+        "bucket": "5-7字",
+        "key": "haianxunluodui",
+        "expected": "海岸巡逻队",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:51",
+        "bucket": "5-7字",
+        "key": "dangranshiniqule",
+        "expected": "当然是你去了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:52",
+        "bucket": "5-7字",
+        "key": "zuotianmeiyousheilaiguo",
+        "expected": "昨天没有谁来过",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 23,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:53",
+        "bucket": "5-7字",
+        "key": "tabuzenmebukanshu",
+        "expected": "他不怎么不看书",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:54",
+        "bucket": "5-7字",
+        "key": "yiwokannijiubiequ",
+        "expected": "依我看你就别去",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:55",
+        "bucket": "5-7字",
+        "key": "zhegenvhaihenchunzhen",
+        "expected": "这个女孩很纯真",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 21,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:56",
+        "bucket": "5-7字",
+        "key": "daguimocaiyuan",
+        "expected": "大规模裁员",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:57",
+        "bucket": "5-7字",
+        "key": "wojianjuebudaying",
+        "expected": "我坚决不答应",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:58",
+        "bucket": "5-7字",
+        "key": "xiaoerkeeryi",
+        "expected": "小儿科而已",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:59",
+        "bucket": "5-7字",
+        "key": "taiyangchulaile",
+        "expected": "太阳出来了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 15,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:60",
+        "bucket": "5-7字",
+        "key": "shifeidangrenqing",
+        "expected": "是非当人情",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:61",
+        "bucket": "5-7字",
+        "key": "sanjiaomaogongfu",
+        "expected": "三脚猫功夫",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:62",
+        "bucket": "5-7字",
+        "key": "jiuhuibijiaodidiao",
+        "expected": "就会比较低调",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:63",
+        "bucket": "5-7字",
+        "key": "tazhuwogebi",
+        "expected": "他住我隔壁",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 11,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:64",
+        "bucket": "5-7字",
+        "key": "paiyanleyici",
+        "expected": "排演了一次",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:65",
+        "bucket": "5-7字",
+        "key": "zheweishiwodemishu",
+        "expected": "这位是我的秘书",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:66",
+        "bucket": "5-7字",
+        "key": "zheshiwodemingpian",
+        "expected": "这是我的名片",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:67",
+        "bucket": "5-7字",
+        "key": "danwobuyongguochan",
+        "expected": "但我不用国产",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:68",
+        "bucket": "5-7字",
+        "key": "haishiyouwenti",
+        "expected": "还是有问题",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:69",
+        "bucket": "5-7字",
+        "key": "haiyounvpengyoude",
+        "expected": "还有女朋友的",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:70",
+        "bucket": "5-7字",
+        "key": "buxiangshuijiaoa",
+        "expected": "不想睡觉啊",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:71",
+        "bucket": "5-7字",
+        "key": "wotaitourule",
+        "expected": "我太投入了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:72",
+        "bucket": "5-7字",
+        "key": "nijinguanfangxinquzuo",
+        "expected": "你尽管放心去做",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 21,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:73",
+        "bucket": "5-7字",
+        "key": "woningyuanjiaoniquanming",
+        "expected": "我宁愿叫你全名",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 24,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:74",
+        "bucket": "5-7字",
+        "key": "rangminzhongchanshengchouhen",
+        "expected": "让民众产生仇恨",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 28,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:75",
+        "bucket": "5-7字",
+        "key": "zaizhongguoshangdao",
+        "expected": "在中国上到",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:76",
+        "bucket": "5-7字",
+        "key": "buhaokanjiuzou",
+        "expected": "不好看就走",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:77",
+        "bucket": "5-7字",
+        "key": "zitimeinengguifan",
+        "expected": "字体没能规范",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:78",
+        "bucket": "5-7字",
+        "key": "tabinikaixin",
+        "expected": "他比你开心",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:79",
+        "bucket": "5-7字",
+        "key": "quyihuixuanju",
+        "expected": "区议会选举",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 13,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:80",
+        "bucket": "5-7字",
+        "key": "yigejishoudewenti",
+        "expected": "一个棘手的问题",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:81",
+        "bucket": "5-7字",
+        "key": "guyoudezuofa",
+        "expected": "固有的做法",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 12,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:82",
+        "bucket": "5-7字",
+        "key": "quanguorendaweiyuanzhang",
+        "expected": "全国人大委员长",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 24,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:83",
+        "bucket": "5-7字",
+        "key": "buyonghuaiyile",
+        "expected": "不用怀疑了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:84",
+        "bucket": "5-7字",
+        "key": "yidingbuhuishuini",
+        "expected": "一定不会说你",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:85",
+        "bucket": "5-7字",
+        "key": "shuiyisimeiyouyong",
+        "expected": "说意思没有用",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:86",
+        "bucket": "5-7字",
+        "key": "zhegeshishenmeziti",
+        "expected": "这个是什么字体",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:87",
+        "bucket": "5-7字",
+        "key": "tazongshibukenting",
+        "expected": "他总是不肯听",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:88",
+        "bucket": "5-7字",
+        "key": "wobuxianglanchao",
+        "expected": "我不想揽炒",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:89",
+        "bucket": "5-7字",
+        "key": "nibiezheyangle",
+        "expected": "你别这样了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:90",
+        "bucket": "5-7字",
+        "key": "nimenkankantashishei",
+        "expected": "你们看看他是谁",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:91",
+        "bucket": "5-7字",
+        "key": "zhemehenqiguaideni",
+        "expected": "这么很奇怪的你",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:92",
+        "bucket": "5-7字",
+        "key": "shangkoujinrulekoule",
+        "expected": "伤口进入了口了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:93",
+        "bucket": "5-7字",
+        "key": "zifachoukuanzhenzai",
+        "expected": "自发筹款赈灾",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:94",
+        "bucket": "5-7字",
+        "key": "tashuidehuahenedu",
+        "expected": "他说的话很恶毒",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:95",
+        "bucket": "5-7字",
+        "key": "buyuanjiuladao",
+        "expected": "不愿就拉倒",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 14,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:96",
+        "bucket": "5-7字",
+        "key": "wodadianhuageini",
+        "expected": "我打电话给你",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:97",
+        "bucket": "5-7字",
+        "key": "jiushizheyangdele",
+        "expected": "就是这样的了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:98",
+        "bucket": "5-7字",
+        "key": "qingchaoshuailuodeyuanyin",
+        "expected": "清朝衰落的原因",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 25,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:99",
+        "bucket": "5-7字",
+        "key": "zhenshihenduomeikanguo",
+        "expected": "真是很多没看过",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 22,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:100",
+        "bucket": "5-7字",
+        "key": "tayijingzoule",
+        "expected": "他已经走了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 13,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:101",
+        "bucket": "5-7字",
+        "key": "taxianzaimeikong",
+        "expected": "他现在没空",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:102",
+        "bucket": "5-7字",
+        "key": "taganhuohenlisuo",
+        "expected": "他干活很利索",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:103",
+        "bucket": "5-7字",
+        "key": "yihuierwohuizhufan",
+        "expected": "一会儿我会煮饭",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:104",
+        "bucket": "5-7字",
+        "key": "cantongdejiaoxun",
+        "expected": "惨痛的教训",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:105",
+        "bucket": "5-7字",
+        "key": "renquanzouguangle",
+        "expected": "人全走光了",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:106",
+        "bucket": "5-7字",
+        "key": "haoxihaizaihoutou",
+        "expected": "好戏还在后头",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:107",
+        "bucket": "5-7字",
+        "key": "qianwanbuyaodaying",
+        "expected": "千万不要答应",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:108",
+        "bucket": "5-7字",
+        "key": "zenmekeyibujie",
+        "expected": "怎么可以不接",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:109",
+        "bucket": "5-7字",
+        "key": "xiaohaizibuxusahuang",
+        "expected": "小孩子不许撒谎",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:110",
+        "bucket": "5-7字",
+        "key": "tazijishuidehua",
+        "expected": "他自己说的话",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 15,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:111",
+        "bucket": "5-7字",
+        "key": "buyaocuoguojihui",
+        "expected": "不要错过机会",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 16,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:112",
+        "bucket": "5-7字",
+        "key": "naxieyinyuebuqianwei",
+        "expected": "那些音乐不前卫",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:113",
+        "bucket": "5-7字",
+        "key": "tagangganghuiqule",
+        "expected": "他刚刚回去了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:114",
+        "bucket": "5-7字",
+        "key": "huozhegangshangqude",
+        "expected": "或者刚上去的",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:115",
+        "bucket": "5-7字",
+        "key": "yaoyoudaochejingtou",
+        "expected": "要有倒车镜头",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:116",
+        "bucket": "5-7字",
+        "key": "xiashentanhuanderen",
+        "expected": "下身瘫痪的人",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:117",
+        "bucket": "5-7字",
+        "key": "yaozhuaigeshiyongzheming",
+        "expected": "要转个使用者名",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 24,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:118",
+        "bucket": "5-7字",
+        "key": "xiguanzaoshangdabian",
+        "expected": "习惯早上大便",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:119",
+        "bucket": "5-7字",
+        "key": "dulizhipianren",
+        "expected": "独立制片人",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:120",
+        "bucket": "5-7字",
+        "key": "cangyougongjixingwuqi",
+        "expected": "藏有攻击性武器",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 21,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:121",
+        "bucket": "5-7字",
+        "key": "tapianpianyaoqu",
+        "expected": "他偏偏要去",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 15,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:122",
+        "bucket": "5-7字",
+        "key": "lengcangqilaimanmanchi",
+        "expected": "冷藏起来慢慢吃",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 22,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:123",
+        "bucket": "5-7字",
+        "key": "nichongxinjisuanyixia",
+        "expected": "你重新计算一下",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 21,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:124",
+        "bucket": "5-7字",
+        "key": "queliqinglvguanxi",
+        "expected": "确立情侣关系",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:125",
+        "bucket": "5-7字",
+        "key": "womingtianhuiqule",
+        "expected": "我明天回去了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:126",
+        "bucket": "5-7字",
+        "key": "tahenbuaizuoshanhou",
+        "expected": "他很不爱做善后",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:127",
+        "bucket": "5-7字",
+        "key": "dengyihuirwojiuqu",
+        "expected": "等一会儿我就去",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 17,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:128",
+        "bucket": "5-7字",
+        "key": "daochuqiurenbangmang",
+        "expected": "到处求人帮忙",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 20,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:129",
+        "bucket": "5-7字",
+        "key": "yibaimidieyong",
+        "expected": "一百米蝶泳",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 14,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:130",
+        "bucket": "5-7字",
+        "key": "chougaodianduiwazi",
+        "expected": "抽高点对袜子",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 18,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:131",
+        "bucket": "5-7字",
+        "key": "liudingdelaitinghaokan",
+        "expected": "柳丁得来挺好看",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 22,
+        "base_top1_ok": false
+      },
+      {
+        "id": "5-7字:132",
+        "bucket": "5-7字",
+        "key": "woyekeyide",
+        "expected": "我也可以的",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 10,
+        "base_top1_ok": true
+      },
+      {
+        "id": "5-7字:133",
+        "bucket": "5-7字",
+        "key": "gonggongjiaotonggongju",
+        "expected": "公共交通工具",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 22,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:0",
+        "bucket": "8-15字",
+        "key": "shuangfangdexinzhijiebujiejinshichongdian",
+        "expected": "双方的心智接不接近是重点",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 41,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:1",
+        "bucket": "8-15字",
+        "key": "yingyugezishuxianzhibuyonglihui",
+        "expected": "英语个字数限制不用理会",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 31,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:2",
+        "bucket": "8-15字",
+        "key": "wotongchangzhijieyongxingdonglaizhengmingyouduoaita",
+        "expected": "我通常直接用行动来证明有多爱他",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 51,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:3",
+        "bucket": "8-15字",
+        "key": "yindaofeijizhengquejiangluodeluxian",
+        "expected": "引导飞机正确降落的路线",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 35,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:4",
+        "bucket": "8-15字",
+        "key": "danyuanlaibierenjiabenshenyouqian",
+        "expected": "但原来别人家本身有钱",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 33,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:5",
+        "bucket": "8-15字",
+        "key": "danmanmanzhangdayaliyulaiyuda",
+        "expected": "但慢慢长大压力愈来愈大",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 29,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:6",
+        "bucket": "8-15字",
+        "key": "paocaidailidejiejueshoufagenbenyouwenti",
+        "expected": "泡菜代理的解决手法根本有问题",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 39,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:7",
+        "bucket": "8-15字",
+        "key": "tazongshijuedexianzairenshinvshenghenrongyi",
+        "expected": "他总是觉得现在认识女生很容易",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 43,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:8",
+        "bucket": "8-15字",
+        "key": "wozaojiumingbaizijimeiyunqi",
+        "expected": "我早就明白自己没运气",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 27,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:9",
+        "bucket": "8-15字",
+        "key": "hezuizhuyaowoshibumingbaidiangainian",
+        "expected": "和最主要我是不明白点概念",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 36,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:10",
+        "bucket": "8-15字",
+        "key": "namejintianyinggaikanbudaowozaifeihua",
+        "expected": "那么今天应该看不到我在废话",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 37,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:11",
+        "bucket": "8-15字",
+        "key": "meishenmetebiedongxidoubuhuishuohua",
+        "expected": "没什么特别东西都不会说话",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 35,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:12",
+        "bucket": "8-15字",
+        "key": "quniantasuoyoukaoshidoushibai",
+        "expected": "去年他所有考试都失败",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 29,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:13",
+        "bucket": "8-15字",
+        "key": "huijuedebuxihuanjiushibuxihuan",
+        "expected": "会觉得不喜欢就是不喜欢",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 30,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:14",
+        "bucket": "8-15字",
+        "key": "biezuolejindelaichabuduole",
+        "expected": "别做了进得来差不多了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 26,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:15",
+        "bucket": "8-15字",
+        "key": "nihaoawomenxianzaizaizuochunjiyouhui",
+        "expected": "你好啊我们现在在做春季优惠",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 36,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:16",
+        "bucket": "8-15字",
+        "key": "zenmejiangjietadoubumingbai",
+        "expected": "怎么讲解他都不明白",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 27,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:17",
+        "bucket": "8-15字",
+        "key": "fuqinshihaijunshangjianghebitazuo",
+        "expected": "父亲是海军上将何必他做",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 33,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:18",
+        "bucket": "8-15字",
+        "key": "zhunbeihaomofakagentasiguo",
+        "expected": "准备好魔法卡跟他死过",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 26,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:19",
+        "bucket": "8-15字",
+        "key": "nashihouwomenjingchangzuodianhenaimeidedongxi",
+        "expected": "那时候我们经常做点很暧昧的东西",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 45,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:20",
+        "bucket": "8-15字",
+        "key": "nvrenshibushizhendekeyiliangxingqi",
+        "expected": "女人是不是真的可以两星期",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 34,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:21",
+        "bucket": "8-15字",
+        "key": "xianggangjiaoyuzhizaochulaidelajibienizhexie",
+        "expected": "香港教育制造出来的垃圾别你这些",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 44,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:22",
+        "bucket": "8-15字",
+        "key": "nikankandangnianhaimeiyoushumaxiangji",
+        "expected": "你看看当年还没有数码相机",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 37,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:23",
+        "bucket": "8-15字",
+        "key": "dandaqiantishitabenshenhaishiduiniyouhaogan",
+        "expected": "但大前提是他本身还是对你有好感",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 43,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:24",
+        "bucket": "8-15字",
+        "key": "tabuzaishiwoxiongdihemoshengrenyiyang",
+        "expected": "他不再是我兄弟和陌生人一样",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 37,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:25",
+        "bucket": "8-15字",
+        "key": "xuanchushihezijiyishengyishide",
+        "expected": "选出适合自己一生一世的",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 30,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:26",
+        "bucket": "8-15字",
+        "key": "kenengyinweitazhidaowohaishixuesheng",
+        "expected": "可能因为他知道我还是学生",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 36,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:27",
+        "bucket": "8-15字",
+        "key": "jinquhoudaxuehaizhemejinjinjijiao",
+        "expected": "进去后大学还这么斤斤计较",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 33,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:28",
+        "bucket": "8-15字",
+        "key": "chufeinagerenduinihenzhongyao",
+        "expected": "除非那个人对你很重要",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 29,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:29",
+        "bucket": "8-15字",
+        "key": "ruguoyourenzhendetingtashuibaoyinbaoshi",
+        "expected": "如果有人真的听他说暴饮暴食",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 39,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:30",
+        "bucket": "8-15字",
+        "key": "zhanlveshangdedongxibunengzhemekanbiaomian",
+        "expected": "战略上的东西不能这么看表面",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 42,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:31",
+        "bucket": "8-15字",
+        "key": "zhengtiankanjicilaixuezhongwenmiaoxie",
+        "expected": "整天看几次来学中文描写",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 37,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:32",
+        "bucket": "8-15字",
+        "key": "weishenmerenjiashuiguangdonghuazhemehaoting",
+        "expected": "为什么人家说广东话这么好听",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 43,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:33",
+        "bucket": "8-15字",
+        "key": "haiyaoshiduizhangaguolaizhiqian",
+        "expected": "还要是队长啊过来之前",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 31,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:34",
+        "bucket": "8-15字",
+        "key": "haiyouhenduopiaohaimeidaozuihoudouhaikeyimai",
+        "expected": "还有很多票还没到最后都还可以买",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 44,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:35",
+        "bucket": "8-15字",
+        "key": "bijingwomenyiqianshihaopengyou",
+        "expected": "毕竟我们以前是好朋友",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 30,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:36",
+        "bucket": "8-15字",
+        "key": "zhexiexiaohaizihenxihuanzhangshui",
+        "expected": "这些小孩子很喜欢涨水",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 33,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:37",
+        "bucket": "8-15字",
+        "key": "nimeiyouyongqijiantashiweishenmene",
+        "expected": "你没有勇气见他是为什么呢",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 34,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:38",
+        "bucket": "8-15字",
+        "key": "diyicijianyouzisederuniu",
+        "expected": "第一次见有紫色的乳牛",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 24,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:39",
+        "bucket": "8-15字",
+        "key": "youjigerenchulaiqumachangyiqilatouma",
+        "expected": "有几个人出来去马场一起拉头马",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 36,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:40",
+        "bucket": "8-15字",
+        "key": "renweikeyiganhuazhongguorenzhenshitaitianzhen",
+        "expected": "认为可以感化中国人真是太天真",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 45,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:41",
+        "bucket": "8-15字",
+        "key": "sijiaasijiadouzhemeduorenkan",
+        "expected": "私家啊私家都这么多人看",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 28,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:42",
+        "bucket": "8-15字",
+        "key": "qizhongyigehenyoukenengdeyuanyin",
+        "expected": "其中一个很有可能的原因",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 32,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:43",
+        "bucket": "8-15字",
+        "key": "suiranshitazijixuanzeshangzhanchang",
+        "expected": "虽然是他自己选择上战场",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 35,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:44",
+        "bucket": "8-15字",
+        "key": "guijiaobushilijiachengerzima",
+        "expected": "鬼叫不是李嘉诚儿子吗",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 28,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:45",
+        "bucket": "8-15字",
+        "key": "xianzaizhenggenpengyouchifan",
+        "expected": "现在正跟朋友吃饭",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 28,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:46",
+        "bucket": "8-15字",
+        "key": "daxiaojiekenengyinweizhemezaoleyaoming",
+        "expected": "大小姐可能因为这么早了要命",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 38,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:47",
+        "bucket": "8-15字",
+        "key": "yaokanpaocaidongxidoubuyongkantale",
+        "expected": "要看泡菜东西都不用看他了",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 34,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:48",
+        "bucket": "8-15字",
+        "key": "wozhenmeixiangdaoyuanyinweishenmehuiyourenzuo",
+        "expected": "我真没想到原因为什么会有人做",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 45,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:49",
+        "bucket": "8-15字",
+        "key": "pingshishangxuedoumeishenmegenrenjiaoliu",
+        "expected": "平时上学都没什么跟人交流",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 40,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:50",
+        "bucket": "8-15字",
+        "key": "danjintiankanjiantazhemehaoxingfen",
+        "expected": "但今天看见他这么好兴奋",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 34,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:51",
+        "bucket": "8-15字",
+        "key": "suoyidangsishizuihoutuiludeshihou",
+        "expected": "所以当死是最后退路的时候",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 33,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:52",
+        "bucket": "8-15字",
+        "key": "tabuzhidewobiwocongming",
+        "expected": "他不值得我比我聪明",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 23,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:53",
+        "bucket": "8-15字",
+        "key": "zongzhinengganmeiyoushanhougenjiuhang",
+        "expected": "总之能干没有善后跟就行",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 37,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:54",
+        "bucket": "8-15字",
+        "key": "haizhenhuiyouxieshenmejishua",
+        "expected": "还真会有些什么技术啊",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 28,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:55",
+        "bucket": "8-15字",
+        "key": "woshoujijiyitibugou",
+        "expected": "我手机记忆体不够",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 19,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:56",
+        "bucket": "8-15字",
+        "key": "shiyinweiyiqiandenizherenhenrongyimanzu",
+        "expected": "是因为以前的你这人很容易满足",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 39,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:57",
+        "bucket": "8-15字",
+        "key": "tadeputonghuashuibuzheng",
+        "expected": "他的普通话说不正",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 24,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:58",
+        "bucket": "8-15字",
+        "key": "lianggerenyiqibuduobushaodangranyoudianchongtu",
+        "expected": "两个人一起不多不少当然有点冲突",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 46,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:59",
+        "bucket": "8-15字",
+        "key": "zuihouzheyangdejieguoqishimeiyoushenmesuowei",
+        "expected": "最后这样的结果其实没有什么所谓",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 44,
+        "base_top1_ok": true
+      },
+      {
+        "id": "8-15字:60",
+        "bucket": "8-15字",
+        "key": "douzhidaodabufenrenkankaidianshenmesuzhi",
+        "expected": "都知道大部分人看开点什么素质",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 40,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:61",
+        "bucket": "8-15字",
+        "key": "wozijijiucengjingzhifubaoshidangde",
+        "expected": "我自己就曾经支付宝是当的",
+        "top1_ok": false,
+        "top9_ok": true,
+        "keystrokes": 34,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:62",
+        "bucket": "8-15字",
+        "key": "ganggangbushihenduorenshuichima",
+        "expected": "刚刚不是很多人说吃吗",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 31,
+        "base_top1_ok": false
+      },
+      {
+        "id": "8-15字:63",
+        "bucket": "8-15字",
+        "key": "suoyixianzaishuideshizhenxinhua",
+        "expected": "所以现在说的是真心话",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 31,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:0",
+        "bucket": "16+字",
+        "key": "meigexingqitianduhuihenbukaixinhendayaliyinweimingtianyaoshangban",
+        "expected": "每个星期天都会很不开心很大压力因为明天要上班",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 65,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:1",
+        "bucket": "16+字",
+        "key": "ruguoshuodeshihudiegangchudeshihoujiuliashuofa",
+        "expected": "如果说的是蝴蝶刚出的时候就俩说法",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 46,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:2",
+        "bucket": "16+字",
+        "key": "beirendasilejiubuhuisuibiannishuikaibukaifang",
+        "expected": "被人打死了就不会随便你说开不开放",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 45,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:3",
+        "bucket": "16+字",
+        "key": "chengquanqitarendexingfuxishengzijiheshenbianderendexingfu",
+        "expected": "成全其他人的幸福牺牲自己和身边的人的幸福",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 58,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:4",
+        "bucket": "16+字",
+        "key": "woyemeishenmexinxinkeyizuodaolouzhushuidedongxi",
+        "expected": "我也没什么信心可以做到楼主说的东西",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 47,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:5",
+        "bucket": "16+字",
+        "key": "woshiyaorenshiyigewoyouxingqudebuyidingshipiaoliangde",
+        "expected": "我是要认识一个我有兴趣的不一定是漂亮的",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 53,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:6",
+        "bucket": "16+字",
+        "key": "suoyixianggangyulequanyulaiyushibaijiushizheyang",
+        "expected": "所以香港娱乐圈愈来愈失败就是这样",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 48,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:7",
+        "bucket": "16+字",
+        "key": "haishinidenverdexingweirangnimeiyouanquangan",
+        "expected": "还是你的女儿的行为让你没有安全感",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 44,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:8",
+        "bucket": "16+字",
+        "key": "nidididuobuduopengyoupingshiyoumeiyouqitashihao",
+        "expected": "你弟弟多不多朋友平时有没有其他嗜好",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 47,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:9",
+        "bucket": "16+字",
+        "key": "shibushiyinweijinrongzhengcekuansongsuoyikeyiyouzhezhongnengliwaiguojianguanxiameinamerongyi",
+        "expected": "是不是因为金融政策宽松所以可以有这种能力外国监管下没那么容易",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 92,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:10",
+        "bucket": "16+字",
+        "key": "xianggangzhegeshehuiqiongrenhaishenghaizijieguobiezheyang",
+        "expected": "香港这个社会穷人还生孩子结果别这样",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 57,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:11",
+        "bucket": "16+字",
+        "key": "zuolegetaocishibaipindaodiyoushenmefangfawujinqiyong",
+        "expected": "做了个陶瓷失败品到底有什么方法物尽其用",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 52,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:12",
+        "bucket": "16+字",
+        "key": "xiaquyaozenyangcairenshidaonvshengyoumeiyoukaichangbai",
+        "expected": "下去要怎样才认识到女生有没有开场白",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 54,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:13",
+        "bucket": "16+字",
+        "key": "qishinigaishandaoyixiejiaolvqingkuangyijinghenhaole",
+        "expected": "其实你改善到一些焦虑情况已经很好了",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 51,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:14",
+        "bucket": "16+字",
+        "key": "ruguotabukangjugenniliaotiannikeyijixudengyouyitiantananpengyoufaxianziranjiuhuichaojiafenshou",
+        "expected": "如果他不抗拒跟你聊天你可以继续等有一天他男朋友发现自然就会吵架分手",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 94,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:15",
+        "bucket": "16+字",
+        "key": "zuigaokejidemaimaizenmekeyigenxianggangjiulougaitouhuanmianxiangtibinglun",
+        "expected": "最高科技的买卖怎么可以跟香港酒楼改头换面相提并论",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 73,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:16",
+        "bucket": "16+字",
+        "key": "wozijideyourouguaduanshikandongxibijiaofoxi",
+        "expected": "我自己的优柔寡断是看东西比较佛系",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 43,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:17",
+        "bucket": "16+字",
+        "key": "niyebuhuizhidaopangbiandeshenmeshihouyourendao",
+        "expected": "你也不会知道旁边的什么时候有人到",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 46,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:18",
+        "bucket": "16+字",
+        "key": "buguoniyounverjialiyoufudanwojianyinixuanzeqianzhe",
+        "expected": "不过你有女儿家里有负担我建议你选择前者",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 50,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:19",
+        "bucket": "16+字",
+        "key": "danxianzaibiqigangfaxiannashihouqingkuanghaoyidian",
+        "expected": "但现在比起刚发现那时候情况好一点",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 50,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:20",
+        "bucket": "16+字",
+        "key": "yemeiyoulingduicengjingbeirenyongxiaoxingfeijijiaozou",
+        "expected": "也没有领队曾经被人用小型飞机叫走",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 53,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:21",
+        "bucket": "16+字",
+        "key": "gaobaiyeshiheiandianyingdanshiganjueshanghaiyoulizhi",
+        "expected": "告白也是黑暗电影但是感觉上还有理智",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 52,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:22",
+        "bucket": "16+字",
+        "key": "namekenengshitouyinianmeizhangwodaoyigejiqiao",
+        "expected": "那么可能是头一年没掌握到一个技巧",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 45,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:23",
+        "bucket": "16+字",
+        "key": "namebutongshijiemeiyouliyouhuikandaoyadianna",
+        "expected": "那么不同世界没有理由会看到雅典娜",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 44,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:24",
+        "bucket": "16+字",
+        "key": "zhiyaoyounishidewulunzuoshenmedouzhemekaixin",
+        "expected": "只要有你是得无论做什么都这么开心",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 44,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:25",
+        "bucket": "16+字",
+        "key": "sanqiangezhengpidouhaikeyizaizhelifapiqihuibuhuitaiexin",
+        "expected": "三千个正皮都还可以在这里发脾气会不会太恶心",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 55,
+        "base_top1_ok": false
+      },
+      {
+        "id": "16+字:26",
+        "bucket": "16+字",
+        "key": "shibushiyinweiwozhegeshiwaiguomaidediannaoa",
+        "expected": "是不是因为我这个是外国买的电脑啊",
+        "top1_ok": true,
+        "top9_ok": true,
+        "keystrokes": 43,
+        "base_top1_ok": true
+      },
+      {
+        "id": "16+字:27",
+        "bucket": "16+字",
+        "key": "naichashixianggangrenrichangzaocanhexiawuchachangjiandeyinliao",
+        "expected": "奶茶是香港人日常早餐和下午茶常见的饮料",
+        "top1_ok": false,
+        "top9_ok": false,
+        "keystrokes": 62,
+        "base_top1_ok": false
+      }
+    ]
+  }
+}

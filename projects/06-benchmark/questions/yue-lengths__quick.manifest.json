@@ -1,0 +1,21 @@
+{
+  "suite": "yue-lengths",
+  "suite_version": "1.3.0",
+  "mode": "quick",
+  "created_at": "2026-10-26T06:57:44+08:00",
+  "question_count": 112,
+  "bucket_counts": {
+    "2字": 10,
+    "4字成语": 40,
+    "5-7字": 50,
+    "5-7字古诗": 12
+  },
+  "question_set_hash": "f89bd3e302bbc22e",
+  "answers_sha256_16": "8811e595cb703004",
+  "params": {
+    "quick": true,
+    "pairs": "/Users/yingyang/Documents/project/workbudyy/ipinyin/vendor/yue_pairs.json",
+    "limit": null
+  },
+  "note": "答案不随包分发；评分用仓库侧 score_submission.py 重算并核对本清单的 answers_sha256_16 / question_set_hash。口径版本随导出时的 suite 模块（见 schemas.md 的版本化规则）。"
+}

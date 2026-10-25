@@ -1,0 +1,22 @@
+{
+  "suite": "yue-guard",
+  "suite_version": "1.3.0",
+  "mode": "full",
+  "created_at": "2026-10-26T06:57:52+08:00",
+  "question_count": 677,
+  "bucket_counts": {
+    "2字": 25,
+    "4字成语": 40,
+    "5-7字": 300,
+    "5-7字古诗": 12,
+    "8-15字": 300
+  },
+  "question_set_hash": "e315b1d82f4cb66b",
+  "answers_sha256_16": "54d3988e14ba42d3",
+  "params": {
+    "quick": false,
+    "pairs": "/Users/yingyang/Documents/project/workbudyy/ipinyin/vendor/yue_pairs.json",
+    "limit": null
+  },
+  "note": "答案不随包分发；评分用仓库侧 score_submission.py 重算并核对本清单的 answers_sha256_16 / question_set_hash。口径版本随导出时的 suite 模块（见 schemas.md 的版本化规则）。"
+}
