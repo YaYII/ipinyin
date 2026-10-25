@@ -112,3 +112,29 @@ $PY -m pytest projects/01-yue2zh/test_convert.py
 - 本目录的 `yue2zh_model.pt`（34.9 MB）与 `*.log` 为本地训练产物，**不提交**——
   由目录内 `.gitignore` 拦截；重跑上面的训练命令即可按同一种子复现（`random.seed(0)` + `torch.manual_seed(0)`）。
 - 未改动 `src/`、`experiments/`、`tools/`、`Makefile` 中的任何文件。
+
+
+## 语料扩容重训（2026-10-26）
+
+`fetch_extra_corpus.py` 合并三源：repo 167,562 + msgchi（raptorkwok/
+cantonese-chinese-parallel-corpus-base，zh 侧繁体已归一简体）93,782 +
+botisan 6,552 = **267,896 对**（+60%）。
+勘误：调研时把 indiejoseph/yue-zh-translation 当新增量，实测与现有语料
+**逐对相同**（169,949 对 100% 重合），真增量是 msgchi/botisan。
+
+同卷对比（合并语料 held-out 12,000 句，两模型同卷同解码）：
+
+| 桶 | 旧模型（17 万训） | 新模型（24 万训） | Δ |
+|---|---:|---:|---:|
+| ≤8 | 20.2% | 23.5% | +3.3 |
+| 9-15 | 32.0% | 37.4% | +5.4 |
+| 16+ | 15.6% | **22.8%** | **+7.2** |
+| 全部整句 | 24.6% | **30.0%** | **+5.4** |
+| 全部字符 | 59.4% | 61.7% | +2.3 |
+
+预测兑现：**语料扩在最弱的长句桶上收益最大（+7.2pt）**。训练 15.2 分钟
+（MPS fp16，240k 句 × 3 epochs）。注意旧 README 的 31.0% 是旧语料 held-out
+上的数，新卷更杂（照抄基线 0.3%→0.8%），跨卷不可比。
+
+下一步：语气词专项（囉/噉 类与语境词典融合）、beam search、输入法第四模式
+接入（长句走本模型、短句走规则）。
