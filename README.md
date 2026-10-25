@@ -56,6 +56,13 @@ python3 tools/build_s2t.py
 
 装完 `Super+Space` 切到「IPinyin 拼音」。
 
+粤语神经模型（int8，12MB）随仓库分发，`install.sh` 自动装好。想启用它再装一个运行时
+（没有时引擎自动退回「规则 + 守卫」模式，功能不受损）：
+
+```bash
+pip3 install --user onnxruntime    # 然后重跑一次 ./install.sh
+```
+
 ### macOS
 
 ```bash

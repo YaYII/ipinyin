@@ -62,6 +62,11 @@ def get_yue() -> YueConverter:
                     break
             if _YUE.nn is not None:
                 LOG.info("粤语神经模型已加载（%d 字表）", len(_YUE.nn))
+            elif any(os.path.exists(os.path.join(d, "yue_nn.onnx"))
+                     for d in (os.path.join(config.data_home(), "data"), config.SYSTEM_DATA)):
+                # 模型在但运行时缺：告诉用户怎么启用，而不是悄悄退回规则版
+                LOG.warning("找到 yue_nn.onnx 但缺 onnxruntime —— pip3 install --user onnxruntime "
+                            "后重启引擎即可启用神经粤语转换")
         from .yue_guard import YueGuard
 
         _YUE.guard = YueGuard.load(config.yue_guard_path())

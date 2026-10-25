@@ -30,6 +30,13 @@ from gi.repository import IBus
 PY
 command -v ibus >/dev/null || die "没装 ibus"
 
+# 粤语神经模型的可选依赖：没有就退回规则+守卫，引擎照常工作
+if python3 -c "import onnxruntime" 2>/dev/null; then
+    NN_MODE="神经模型已就绪（int8，12MB）"
+else
+    NN_MODE="未启用 —— 想启用执行: pip3 install --user onnxruntime（然后 ./install.sh 重装一次）"
+fi
+
 if [ ! -f "$ROOT/data/s2t.marshal" ]; then
     say "简繁映射缺失，尝试生成"
     [ -f "$ROOT/vendor/STCharacters.txt" ] || curl -fsSL -o "$ROOT/vendor/STCharacters.txt" \
@@ -143,6 +150,12 @@ if ibus list-engine 2>/dev/null | grep -q "ipinyin"; then
     ibus list-engine | grep ipinyin
 else
     die "ibus list-engine 里没有 ipinyin，检查 $HOME/.cache/ipinyin/engine.log"
+fi
+
+if [ -f "$PREFIX/data/yue_nn.onnx" ]; then
+    say "粤语转换: $NN_MODE"
+else
+    say "粤语转换: 神经模型文件缺失（仓库 data/yue_nn.onnx）"
 fi
 
 cat <<'EOF'
