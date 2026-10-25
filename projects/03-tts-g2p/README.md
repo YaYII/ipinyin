@@ -115,3 +115,29 @@ Piper 占位方案：每个音节 → `[声母 IPA?, 韵母 IPA, T<调>]`（如 
 - **数据瑕疵**：`円→jen1` 一处非法音节（2 个词条），管线会报告并跳过，可顺手修表。
 - **语速/停顿**：标点归一为 `, . ! ?` 四档停顿 token，粒度粗（逗号内小停顿未分）。
 - **神经模式**：`--nn` 依赖 onnxruntime + `data/yue_nn.onnx`；加载失败会警告并退回规则版，不影响确定性测试。
+
+
+## yue-g2p-benchmark 送测成绩（2026-10-26）
+
+`benchmark_adapter.py` 把本项目 G2P 送测 [hon9kon9ize/yue-g2p-benchmark](https://github.com/hon9kon9ize/yue-g2p-benchmark)
+（评分器同口径复刻，数据在 vendor/yue_g2p_benchmark/，2128 题）：
+
+| 数据集 | n | Accuracy | PER |
+|---|---:|---:|---:|
+| wordshk（词头） | 1528 | 0.7723 | 0.0921 |
+| classical（古文） | 100 | 0.8200 | 0.0925 |
+| colloquial（口语） | 500 | 0.6540 | 0.1150 |
+| 加权合计 | 2128 | **0.7467** | **0.0975** |
+
+对照其排行榜（总体 Accuracy）：PyCantonese 0.8383 / ToJyutping 0.9079 /
+g2pW-Cantonese（神经）0.9117。我们落后 PyCantonese 9pt、神经方案 16pt——
+**纯词表 + 常用读音的合理位置**，差距来源已量化（529 个错误分解）：
+
+- **205 个仅声调错（39%）**：声韵全对、只是调号（賀 ho3→ho6 类）。变调规则
+  / 词频调序可批量救回，是性价比最高的下一步；
+- **333 个真换读音**：多音字消歧（睇 tai2/dai6、正 zeng3/zing3），词表
+  永远解不了，要上语境模型（g2pW 式 BERT）——与输入法侧「上下文重排」
+  同构，字级 LM 可先顶一版。
+
+下一步：① 声调错误专项（变调规则 + 高频词调序）；② 字级 LM 消歧 MVP；
+③ 给上游提 PR（实现其 G2PModel 接口即可进榜）。
