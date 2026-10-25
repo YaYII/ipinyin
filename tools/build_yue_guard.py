@@ -43,6 +43,38 @@ def is_cjk(text: str) -> bool:
     return all("\u4e00" <= ch <= "\u9fff" for ch in text)
 
 
+def load_classical() -> set[str]:
+    """典籍白名单：成语/古诗——经典文本的粤语渲染就是繁体外壳。
+
+    口语语料统计在文言语域不适用（不觉→唔覺 在口语里是真转换），
+    这类输入由守卫按白名单直接给繁体外壳。列表随仓库维护，可扩展。
+    """
+    lines: set[str] = set()
+    for name in ("idioms.txt", "poems.txt"):
+        p = os.path.join(ROOT, "tools", name)
+        if os.path.exists(p):
+            for ln in open(p, encoding="utf-8"):
+                s = ln.strip()
+                if s and not s.startswith("#"):
+                    lines.add(s)
+    return lines
+
+
+def load_trad_shell() -> dict[str, str]:
+    """s2t 表的单字映射：纯简→繁外壳，守卫免实证放行（写→寫 这类）。"""
+    import zlib
+    path = os.path.join(ROOT, "data", "s2t.marshal")
+    raw = open(path, "rb").read()
+    try:
+        raw = zlib.decompress(raw)
+    except zlib.error:
+        pass
+    table = marshal.loads(raw)
+    return {s: t for s, t in table.items()
+            if len(s) == 1 and len(t) == 1 and s != t
+            and is_cjk(s) and is_cjk(t)}
+
+
 def load_yue_tsv() -> tuple[dict[str, str], dict[str, str]]:
     """返回（全部映射，单字映射）。"""
     mapping: dict[str, str] = {}
@@ -224,6 +256,8 @@ def main() -> int:
         "right": prune_counter(right, args.min_ctx),
         "vocab": sorted(vocab),
         "colloquial": "".join(sorted(CANTONESE)),
+        "trad": load_trad_shell(),
+        "classical": sorted(load_classical()),
         "meta": {
             "pairs": len(train),
             "min_pair": args.min_pair,

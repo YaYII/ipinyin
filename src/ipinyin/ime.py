@@ -90,7 +90,7 @@ class ImeState:
         self.converter = converter
         self.yue = yue
         self.lm = None             # 可选：字级语言模型（有 logp(text) 即可，可以是神经模型）
-        self.lm_weight = 0.4
+        self.lm_weight = 0.6
         self.mode = "simp"          # simp / trad / yue
         self.page_size = page_size
         self.user_model = user_model
@@ -227,7 +227,7 @@ class ImeState:
         return True
 
     # ---------- 视图 ----------
-    def attach_lm(self, lm, weight: float = 0.4) -> None:
+    def attach_lm(self, lm, weight: float = 0.6) -> None:
         """挂上上下文语言模型：整句候选会按「词库先验 + λ·上下文分」重排。
 
         lm 只需要实现 logp(text) -> float（对数概率）。神经 LM 用同样的接口直接替换。
@@ -330,7 +330,9 @@ class ImeState:
         keyed = self.lexicon.prefix_entries(text)
         paths = best_paths_scored(self.lexicon, text, k=SENTENCE_CANDIDATES)
         if self.lm is not None and len(paths) > 1:
-            # 词库先验 + 上下文分插值，按字数归一。λ=0.4 是「通用 81.0% / 领域 93.0%」的折中：
+            # 词库先验 + 上下文分插值，按字数归一。λ=0.6 是基准全量扫描（0.3~1.0）的
+            # 甜点：重排 83.2%→85.5%（救回 17→23、弄坏 2 不变）；λ=1.0 开始弄坏增多。
+            # 领域语料仍按 nn-chinese.md §八 的结论单独调 λ（attach_lm 传参覆盖）：
             # 不归一的话对数概率求和会让最短的候选永远排第一（与质量无关）——
             # 这是 chinese-ime-lm 的 docs/measurements.md 点名的两个测量陷阱之一。
             weight = self.lm_weight

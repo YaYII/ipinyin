@@ -89,6 +89,20 @@ def mine_phrases(pairs: list[dict], min_count: int = 5) -> dict[str, str]:
             parts = line.split()
             if parts:
                 jieba.add(parts[0])
+    else:
+        # jieba 词表缺失时回退到输入法词库（data/lexicon.tsv 的真词）。
+        # 静默跳过过滤会让挖矿混入跨界碎片（得他/了很/的机 这类句子中段），
+        # 评测题面和短语表都被污染——2026-10-25 实测 2 字桶 265 题里大量碎片。
+        lex: set[str] = set()
+        lf = os.path.join(ROOT, "data", "lexicon.tsv")
+        if os.path.exists(lf):
+            for line in open(lf, encoding="utf-8"):
+                if "\t" in line and not line.startswith("#"):
+                    for w in line.rstrip("\n").split("\t")[1].split():
+                        if len(w) >= 2:
+                            lex.add(w)
+            jieba = lex
+            print(f"vendor/jieba.txt 缺失，回退 data/lexicon.tsv 词表过滤（{len(lex)} 词）")
     manual: set[str] = set()
     tsv = os.path.join(ROOT, "data", "yue.tsv")
     if os.path.exists(tsv):

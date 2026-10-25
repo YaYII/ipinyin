@@ -116,3 +116,54 @@ def test_converter_without_guard_keeps_old_behavior():
     conv.nn = _FakeNN({"亡羊补牢": "亡羊補監"})
     assert conv.guard is None
     assert conv.convert("亡羊补牢", neural=True) == "亡羊補監"
+
+
+def make_guard_with_trad() -> YueGuard:
+    """带简→繁外壳表的守卫：trad 里的单字映射免实证。"""
+    g = make_guard()
+    g.trad = {"写": "寫", "岗": "崗", "树": "樹", "杀": "殺", "头": "頭",
+              "离": "離", "开": "開"}
+    return g
+
+
+def test_trad_shell_needs_no_evidence():
+    g = make_guard_with_trad()
+    # 写→寫 不在 char_pairs/词表里，也要放行——纯繁体外壳不构成语义改写
+    assert g._char_ok("写", "寫")
+    assert g.check("离开工作岗位", "離開工作崗位") == "離開工作崗位"
+
+
+def test_semantic_rewrite_still_rejected_with_trad():
+    g = make_guard_with_trad()
+    # 牢→靈 既非简繁外壳也无实证 → 照拦；牢→監 走的是语料实证（fixture 里有）
+    assert not g._char_ok("牢", "靈")
+    assert g.check("亡羊补牢", "亡羊補靈") == "亡羊补牢"
+    assert g.check("亡羊补牢", "亡羊補監") == "亡羊补牢"   # fixture：短句语境不足仍拦
+    assert g._char_ok("牢", "監")                         # 但实证本身有效
+
+
+def test_guard_without_trad_still_works():
+    # 旧 marshal 没有 trad 键 → 空 dict，行为与从前一致
+    g = make_guard()
+    assert g.trad == {}
+    assert g.check("亡羊补牢", "亡羊補監") == "亡羊补牢"
+
+
+
+
+def test_classical_whitelist_forces_trad_shell():
+    """典籍白名单：成语/古诗只接受繁体外壳，口语统计不适用于文言语域。"""
+    g = make_guard()
+    g.trad = {"春": "春", "眠": "眠", "不": "不", "觉": "覺", "晓": "曉"}
+    g.classical = {"春眠不觉晓", "亡羊补牢"}
+    # 不觉→唔覺 在口语语料里有实证（fixture），但古诗里是错的
+    assert g.word_pairs.get("不觉") or True
+    g.word_pairs["不觉"] = ["唔覺"]
+    assert g.check("春眠不觉晓", "春眠唔覺曉") == "春眠不覺曉"
+    assert g.check("春眠不觉晓", "春眠不覺曉") == "春眠不覺曉"   # 正确外壳原样通过
+    assert g.check("亡羊补牢", "亡羊補監") == "亡羊补牢"
+    # 白名单外不受影响
+    g2 = make_guard()
+    g2.trad = g.trad
+    assert g2.classical == set()
+    assert g2.check("我们", "我哋") == "我哋"

@@ -51,7 +51,7 @@ class Session:
         self._load_data_home()
         self.ime = ImeState(self.lexicon, user_model=self.model)
         self._load_lm()
-        self.ime.attach_lm(self.lm, 0.4)
+        self.ime.attach_lm(self.lm, 0.6)
         self._load_yue()
         self._last_commit = ""       # 上一次上屏的词（词对学习用）
         self._last_commit_info: tuple[str, str, float] | None = None

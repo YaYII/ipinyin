@@ -253,7 +253,10 @@ def test_parity_with_real_engine():
 def test_real_engine_guard_fixes_poem():
     conv = convert.load_engine()
     out, _, fixes = convert.convert_one(conv, "春眠不觉晓")
-    assert out == "春眠不觉晓"        # 古诗不该被改：神经输出 春眠唔覺曉 被拦
+    # 古诗不该被口语化：神经输出 春眠唔覺曉 被拦。守卫的典籍白名单
+    # （yue_guard.classical，2026-10-26）给出正确的繁体外壳而非简体原文
+    # ——与基准期望答案 t2s(原文) 一致。
+    assert out == "春眠不覺曉"
     assert fixes == 1
 
 

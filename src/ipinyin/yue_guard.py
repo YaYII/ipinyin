@@ -7,6 +7,12 @@
 替换要么是**有实证的**（人工词表 / 短语表 / 平行语料对齐里反复出现），
 要么整段否掉，回退规则版。语料里从没出现过的改法（牢→監）过不去。
 
+例外：纯简→繁外壳的单字映射（写→寫、岗→崗）**不需要语料实证**——
+它不构成语义改写，守卫要防的「改坏」在繁体外壳这一层不可能发生。
+语料对齐统计对低频字的覆盖天然稀疏，要求这类字也攒实证，
+结果就是神经输出正确的 繁体字 被块级修复换回规则版漏转的 简体字
+（全量 5-7 字桶实测净弄丢 23 条，多为 写/岗/树/杀 一类）。
+
 数据由 tools/build_yue_guard.py 生成（data/yue_guard.marshal）；
 没有数据文件时 check() 恒真，行为与无守卫完全一致。
 """
@@ -25,7 +31,8 @@ def _is_cjk(ch: str) -> bool:
 
 class YueGuard:
     __slots__ = ("word_pairs", "singles", "char_pairs", "left", "right", "vocab",
-                 "colloquial", "min_char", "min_ctx", "ctx_max_len")
+                 "colloquial", "min_char", "min_ctx", "ctx_max_len", "trad",
+                 "classical")
 
     def __init__(self, data: dict, min_char: int = 10, min_ctx: int = 3,
                  ctx_max_len: int = 5):
@@ -36,6 +43,8 @@ class YueGuard:
         self.right: dict = data.get("right", {})
         self.vocab: set[str] = set(data.get("vocab", ()))
         self.colloquial: set[str] = set(data.get("colloquial", ""))
+        self.trad: dict[str, str] = data.get("trad", {})
+        self.classical: set[str] = set(data.get("classical", ()))
         self.min_char = min_char
         self.min_ctx = min_ctx
         # 语境实证只对短输入生效（≤5 字：词/成语/古诗这一档）。长句是口语流，
@@ -63,7 +72,12 @@ class YueGuard:
     # ---- 单个改动的判定 -------------------------------------------------
 
     def _char_ok(self, s: str, d: str) -> bool:
+        if self.trad.get(s) == d:
+            return True                       # 纯简→繁外壳：无语义改写，免实证
         return self.char_pairs.get((s, d), 0) >= self.min_char
+
+    def _is_trad(self, s: str, d: str) -> bool:
+        return self.trad.get(s) == d
 
     def _word_ok(self, s_seg: str, d_seg: str) -> bool:
         targets = self.word_pairs.get(s_seg)
@@ -102,7 +116,7 @@ class YueGuard:
                     ok = False
                     if k == 1 and l == 1:
                         ok = self._char_ok(sp, dp_)
-                        if ok and strict_ctx:
+                        if ok and strict_ctx and not self._is_trad(sp, dp_):
                             ok = self._piece_ctx_ok(src, i1 + i, sp, dp_)
                     else:
                         ok = self._word_ok(sp, dp_)
@@ -154,7 +168,8 @@ class YueGuard:
                         continue
                     if k == 1 and l == 1:
                         ok = self._char_ok(sp, dp_) and (
-                            not short or self._piece_ctx_ok(src, i, sp, dp_))
+                            not short or self._is_trad(sp, dp_)
+                            or self._piece_ctx_ok(src, i, sp, dp_))
                     else:
                         ok = self._word_ok(sp, dp_)
                     if ok:
@@ -203,9 +218,17 @@ class YueGuard:
         否则按 difflib 对齐找无实证的块，只把这些片段替换成
         repair(原文片段)（默认还原原文），其余保留神经输出 ——
         块级修复，不整句否决（整句否决实测会把长句从 44.3% 杀到 25.3%）。
+
+        典籍白名单（成语/古诗，data 里的 classical 集）：经典文本的粤语
+        渲染就是繁体外壳，口语语料统计在文言语域不适用（春眠不觉晓 的
+        不觉→唔覺 在口语语料里是真转换，邻接实证也齐全——统计上无法
+        与古诗区分）。这类输入只接受繁体外壳输出，其余直接还原外壳。
         """
         if not dst or src == dst:
             return dst
+        if self.classical and src in self.classical:
+            shell = "".join(self.trad.get(c, c) for c in src)
+            return dst if dst == shell else shell
         if self._covers(src, dst):
             return dst
         if repair is None:
