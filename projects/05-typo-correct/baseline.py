@@ -113,13 +113,14 @@ def main() -> int:
     ap.add_argument("--input", required=True, help="gold JSONL（data_gen.py 产物）")
     ap.add_argument("--output", required=True)
     ap.add_argument("--lm", default=None, help="CharLM marshal 路径（默认评测 LM，回退产品 LM）")
+    ap.add_argument("--confusion", default=CONFUSION, help="混淆表 JSON（默认原表，可指 confusion_merged.json）")
     ap.add_argument("--threshold", type=float, default=2.0, help="logp 增益阈值（stat 模式）")
     ap.add_argument("--topk", type=int, default=8, help="每字最多考察几个同音候选")
     ap.add_argument("--tune", action="store_true",
                     help="在输入集上网格搜阈值（按纠正级 F1），用最优阈值出最终预测")
     args = ap.parse_args()
 
-    with open(CONFUSION, encoding="utf-8") as fh:
+    with open(args.confusion, encoding="utf-8") as fh:
         conf = json.load(fh)
     homophone, shape = conf["homophone"], conf["shape"]
 

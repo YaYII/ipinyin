@@ -120,3 +120,24 @@ docs/nn-upgrade.md P4 的判断：任务本质是「77% 字符不动」，seq2se
   比严格普通话同音更宽。
 - 只覆盖「替换」类错误，不覆盖漏字/多字/语序；P4 假设下这是有意的简化。
 - 形近桶占比仅 ~12%（82 个字的覆盖率决定），该桶指标方差较大。
+
+
+## 混淆集扩展（pycorrector 合并，2026-10-26）
+
+合并 `vendor/pycorrector_data/`（shibing624/pycorrector 的 same_pinyin.txt 3401 字 +
+same_stroke.txt 814 字）进混淆表：`merge_confusion.py` → `data/confusion_merged.json`
+（同音 8209 字 / 形近 2480 字，较原表 +209/+787 字，候选 +3 万）。
+
+**两个实测发现**：
+
+1. **pycorrector 的表是单向的**：新增同音对里只有 1.2% 带反向映射，而纠错器查
+   「错字→候选」——直接合并后分数纹丝不动（考卷 0.019 F1）。同音/形近关系本身
+   对称（本仓库自建表从拼音键组挖出，天然双向），合并时补反向是修数据不是造数据。
+   对称化后：同表考卷 F1 0.019 → 0.284。
+2. **合成考卷量不到扩表价值**：原 test.jsonl 用原混淆表生成，金标纠正在旧表里
+   本来可达——合并表在其上持平（0.6367 vs 0.637）是口径限制，不是扩表无用。
+   用「只用新增对造错」的考卷（`eval_new_coverage.py`）才量得到：
+   召回 0.451→0.521、F1 0.259→0.284，且原 test 无回归。
+
+用法：`baseline.py --confusion data/confusion_merged.json`；新增覆盖口径
+`python3 eval_new_coverage.py`。

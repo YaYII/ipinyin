@@ -1,0 +1,600 @@
+{"sentence": "经理放病假，他的职务暂时会由副经理代行。", "predictions": [{"position": 13, "char": "由", "correct": "有"}, {"position": 14, "char": "副", "correct": "被"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "起码告诉别人听除了英文，你最少还儿识另一种语言", "predictions": [{"position": 16, "char": "儿", "correct": "认"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "对不起啊兄弟我不小心走了需死角位他喷火走不了", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你们这么多个我一个渡吃不到", "predictions": [{"position": 9, "char": "渡", "correct": "都"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我胖了之后，我劳公就嫌弃我了。", "predictions": [{"position": 7, "char": "劳", "correct": "老"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "显在怎么二手当全新恰你不制导价", "predictions": [{"position": 0, "char": "显", "correct": "现"}, {"position": 9, "char": "恰", "correct": "客"}, {"position": 12, "char": "制", "correct": "知"}, {"position": 13, "char": "导", "correct": "道"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因为我以前玩，现在玩回来，但变了我做会长，别想者找人下一起玩。", "predictions": [{"position": 23, "char": "者", "correct": "这"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "什么话都说湾了，他就是不听", "predictions": [{"position": 5, "char": "湾", "correct": "完"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这一场多了是中问做，好了很多", "predictions": [{"position": 7, "char": "问", "correct": "间"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "没什么做又精神德化没上来吹下水", "predictions": [{"position": 7, "char": "德", "correct": "的"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "又甚么事，不是说了星期六日休息吗", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "汤太烫，等稍领后再喝", "predictions": [{"position": 5, "char": "稍", "correct": "少"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "上不了飞机和两个老家伙过马路都很好消", "predictions": [{"position": 17, "char": "消", "correct": "笑"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "个贼用把力降著我的脖子。", "predictions": [{"position": 5, "char": "降", "correct": "向"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "明田会继续用法承常时序", "predictions": [{"position": 1, "char": "田", "correct": "天"}, {"position": 7, "char": "承", "correct": "正"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "体形回大家，戏院里不能吃东西、渴嘢。", "predictions": [{"position": 0, "char": "体", "correct": "是"}, {"position": 15, "char": "渴", "correct": "可"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但说实话之前看错基体面才不断看错", "predictions": [{"position": 9, "char": "体", "correct": "本"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "把平时他们是赢国的分青论坛", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这家餐厅每夫都要睬购很多鲜鱼。", "predictions": [{"position": 5, "char": "夫", "correct": "天"}, {"position": 8, "char": "睬", "correct": "采"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其实他们分开做真好食颠", "predictions": [{"position": 9, "char": "食", "correct": "一"}, {"position": 10, "char": "颠", "correct": "点"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我也是，由些实践走过去", "predictions": [{"position": 4, "char": "由", "correct": "有"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你想去那里喝杯咖啡？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "昨晚无聊翻看回外景茨城篇", "predictions": [{"position": 9, "char": "茨", "correct": "差"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "跟家里人总是吵宗室被父亲打", "predictions": [{"position": 8, "char": "室", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不过他再怎么渣意不会淘汰", "predictions": [{"position": 7, "char": "意", "correct": "也"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "可乃是他心礼里面没了我他会更高兴？", "predictions": [{"position": 1, "char": "乃", "correct": "能"}, {"position": 5, "char": "礼", "correct": "里"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这篇让我响起以前的东西", "predictions": [{"position": 4, "char": "响", "correct": "想"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但看你情况你制式喜欢别人外表", "predictions": [{"position": 7, "char": "式", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "啦啦辣应该没机会再去回以前个水准", "predictions": [{"position": 2, "char": "辣", "correct": "啦"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不是那么清楚每个人对于程式的要求是不是一样", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "真心祝福他，就算做错事，只要不是大奸大恶，都值得有幸福的机会", "predictions": [{"position": 17, "char": "奸", "correct": "前"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "走著走著就迷料路", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但说了元音都做不到的东西", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他借了恨多钱过我", "predictions": [{"position": 3, "char": "恨", "correct": "很"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "令晚收工先去搞搞他。", "predictions": [{"position": 0, "char": "令", "correct": "今"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "时不时又话移民来香港找得少", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "问你们没了吧被人黑面，是不是都没问题又没人回答", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那家伙眼睛定定这么打量了我们很久，会不会有什么企图？", "predictions": [{"position": 9, "char": "打", "correct": "大"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但新上未的又不敢积极", "predictions": [{"position": 3, "char": "未", "correct": "位"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我搬了寻屋了，在沙田啊。", "predictions": [{"position": 3, "char": "寻", "correct": "新"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "现在人们的爱轻观也是这样男人扮女入上网认识男人", "predictions": [{"position": 6, "char": "轻", "correct": "情"}, {"position": 16, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这敢其实日校是不是没教过", "predictions": [{"position": 1, "char": "敢", "correct": "个"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不要怕类固醇，石疹起是一定要搽", "predictions": [{"position": 7, "char": "石", "correct": "但"}, {"position": 8, "char": "疹", "correct": "真"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因为古代的心会原住民是瑶人再加上宋朝末年那些逃难下来的人", "predictions": [{"position": 11, "char": "瑶", "correct": "要"}, {"position": 16, "char": "宋", "correct": "送"}, {"position": 18, "char": "末", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "卫斯理真要罗嘉良和蒙加慧才好看", "predictions": [{"position": 11, "char": "慧", "correct": "回"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其实我最不喜欢吃东西时有人跑来问你好不好吃", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你感冒了，就要流在家里休息，别出去了。", "predictions": [{"position": 7, "char": "流", "correct": "留"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "都看得出这家伙处事是怎样", "predictions": [{"position": 7, "char": "处", "correct": "出"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "说实话要不要，除了切个脑畜来", "predictions": [{"position": 12, "char": "畜", "correct": "出"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我还是不想跟入们围威喂", "predictions": [{"position": 6, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他这一场真的是一口砂糖一口屎", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我反而没有甚么看到冤枉钱党，", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那是你夹著班家伙麻烦", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "现实得来承认自己现实的是成熟女孩", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他的为入很严肃，熟起来都不笑", "predictions": [{"position": 3, "char": "入", "correct": "人"}, {"position": 8, "char": "熟", "correct": "收"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "弹道已经炒了这样都进得回来", "predictions": [{"position": 0, "char": "弹", "correct": "但"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我想应该好过在学笑弟", "predictions": [{"position": 8, "char": "笑", "correct": "校"}, {"position": 9, "char": "弟", "correct": "的"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "还没靠虑呢，腻有什么好建议吗？", "predictions": [{"position": 2, "char": "靠", "correct": "考"}, {"position": 6, "char": "腻", "correct": "你"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "行动不便的认，可以找职员协助。", "predictions": [{"position": 5, "char": "认", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "虽则真有点贵不过你会看多稍钱吗？", "predictions": [{"position": 12, "char": "稍", "correct": "少"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但自巳还沉醉是自己的幻想里面", "predictions": [{"position": 2, "char": "巳", "correct": "己"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "老实说他以前的英子整个抡下妹那样", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "钓欲真停说耐性。", "predictions": [{"position": 1, "char": "欲", "correct": "鱼"}, {"position": 3, "char": "停", "correct": "听"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你应该相信我，乙些照片全部都是我拍的，没花没假", "predictions": [{"position": 7, "char": "乙", "correct": "这"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你近机房的话其实没有师么分别", "predictions": [{"position": 1, "char": "近", "correct": "今"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你看起来痕不淡好了啊", "predictions": [{"position": 4, "char": "痕", "correct": "很"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "制药看不岛样，大家就变得很原始，全部都是求交配，连这些女孩都一样，开宗名义想开房", "predictions": [{"position": 0, "char": "制", "correct": "只"}, {"position": 1, "char": "药", "correct": "要"}, {"position": 4, "char": "岛", "correct": "到"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这各人好不了多少", "predictions": [{"position": 1, "char": "各", "correct": "个"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "完拳不觉得他是有心听", "predictions": [{"position": 1, "char": "拳", "correct": "全"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我家是潮州人，索以我也懂点潮州话。", "predictions": [{"position": 7, "char": "索", "correct": "所"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "快找回个女朋友就不用自给过", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "找万一不是问题，但找万一又买运动鞋又买模型就很待问题", "predictions": [{"position": 12, "char": "又", "correct": "有"}, {"position": 23, "char": "待", "correct": "大"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "问题是条女一开始已经判了你死刑", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "几经波折之后发觉元来一生极乐并不是那短暂的刺激，而是那份一直都在这里的真情", "predictions": [{"position": 8, "char": "元", "correct": "原"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我经常吃晚饭吃得很饱，但到半夜都会嘴馋，想吃零食。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我说漏了最后一条规矩", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "难怪他愿意脱衣服拍这套脱片，的导演和他说府有多一点钱了", "predictions": [{"position": 20, "char": "府", "correct": "还"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我也捕食很认同但是看完了这条片", "predictions": [{"position": 2, "char": "捕", "correct": "不"}, {"position": 3, "char": "食", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你吃过传统的九大篏没有啊？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不过是就这样拿一斜零件拼起来", "predictions": [{"position": 8, "char": "斜", "correct": "些"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "蟹啊包有很多海鲜都不吃得", "predictions": [{"position": 2, "char": "包", "correct": "还"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "当地文获根本没有涅盘概念", "predictions": [{"position": 3, "char": "获", "correct": "化"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "夫蒙蒙光他就要起来做饭", "predictions": [{"position": 0, "char": "夫", "correct": "天"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "明夫会去，看天气说会下大雨，和好像很冷", "predictions": [{"position": 1, "char": "夫", "correct": "天"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不划算了盲反都是这些素质", "predictions": [{"position": 1, "char": "划", "correct": "过"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "拉完殊殊回来再玩吧。", "predictions": [{"position": 2, "char": "殊", "correct": "书"}, {"position": 3, "char": "殊", "correct": "书"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你睡觉之兼一定要刷牙。", "predictions": [{"position": 4, "char": "兼", "correct": "前"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "日本人至不知道肥猪肉好难吃", "predictions": [{"position": 3, "char": "至", "correct": "知"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我也不明白你班垃圾在这里院点吗", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "现在我不方便，晚点行不行", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "之后中午吃完饭都绘跟他走逛街", "predictions": [{"position": 8, "char": "绘", "correct": "会"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我不太喜唤这各人", "predictions": [{"position": 4, "char": "唤", "correct": "欢"}, {"position": 6, "char": "各", "correct": "个"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不是很多人可以忍到手不买制不", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "看曰本片告白是真正绝望", "predictions": [{"position": 1, "char": "曰", "correct": "日"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "剪指甲就刚先有假啊婶在我隔离剪得啪啪声", "predictions": [{"position": 7, "char": "假", "correct": "个"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "小时候的时候觉得很控怖不敢看", "predictions": [{"position": 9, "char": "控", "correct": "恐"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "喜欢足球的入迷云是很正常", "predictions": [{"position": 5, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但是他意志不覆你也不是伴法", "predictions": [{"position": 11, "char": "伴", "correct": "办"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "人生就像喝净那半口咖菲那样", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他有一种很独特的吸引刀。", "predictions": [{"position": 10, "char": "刀", "correct": "力"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这些罐全部都刻意回收。", "predictions": [{"position": 2, "char": "罐", "correct": "果"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "牢实说我真的有点保留", "predictions": [{"position": 0, "char": "牢", "correct": "老"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但不过再看当年的新闻真的姟善了征服财政", "predictions": [{"position": 12, "char": "姟", "correct": "改"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "好象倍人永久性标签那", "predictions": [{"position": 1, "char": "象", "correct": "像"}, {"position": 2, "char": "倍", "correct": "被"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "只有一件加剧，就是吃饭拙子。", "predictions": [{"position": 11, "char": "拙", "correct": "桌"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "如果有哪一样是头一页易经回答到了的话回给我我知道我自己去找都得", "predictions": [{"position": 10, "char": "易", "correct": "已"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "直接坐落地下是这养磨部断磨", "predictions": [{"position": 8, "char": "养", "correct": "样"}, {"position": 9, "char": "磨", "correct": "么"}, {"position": 10, "char": "部", "correct": "不"}, {"position": 12, "char": "磨", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有没有巴丝有去黑头介绍？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其实可能你也今人讨厌但你自己不知道？", "predictions": [{"position": 6, "char": "今", "correct": "令"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "礼月难忍有的是都是这样移民香港", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他来到搭妃糖之后到底有什么建树", "predictions": [{"position": 3, "char": "搭", "correct": "他"}, {"position": 4, "char": "妃", "correct": "费"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "现在又不是要怪呢，你着么烦躁干嘛唧？", "predictions": [{"position": 10, "char": "着", "correct": "这"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "中国人的血统人炼就是专是出汉奸", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "看著他愈做愈坏已经没用以阵", "predictions": [{"position": 11, "char": "以", "correct": "一"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "平时上学都没甚么跟人交瘤", "predictions": [{"position": 11, "char": "瘤", "correct": "流"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "没查国我是不块乱说的", "predictions": [{"position": 2, "char": "国", "correct": "过"}, {"position": 6, "char": "块", "correct": "会"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不过花生的孩子妨矮了", "predictions": [{"position": 8, "char": "矮", "correct": "呆"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "赚不了钱，都坚持要开门，跟天有眼有什么关系？人家洗钱巳经得罪了你？", "predictions": [{"position": 26, "char": "巳", "correct": "已"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "黄大仙和彩虹是啵钻石山两骰不到厂那", "predictions": [{"position": 3, "char": "和", "correct": "合"}, {"position": 12, "char": "骰", "correct": "头"}, {"position": 15, "char": "厂", "correct": "场"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你提溜著这么多东西，让我来蚌帮你巴", "predictions": [{"position": 13, "char": "蚌", "correct": "帮"}, {"position": 16, "char": "巴", "correct": "吧"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "输了别无呗楠道要被安慰奖你吗", "predictions": [{"position": 5, "char": "楠", "correct": "难"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "手头上有很多工作要做，一天不开始做它天都是很多事情要做，做完一样就少一样", "predictions": [{"position": 17, "char": "它", "correct": "一"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "别咿动啊，你要乖乖们做攻克", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "比心机是自给有兴趣的地方更有意义", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你这样的小角色，怎么比得晌我呢？", "predictions": [{"position": 12, "char": "晌", "correct": "上"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "堆填曲快要饱和。", "predictions": [{"position": 2, "char": "曲", "correct": "区"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "银行很多东西都电子化，有些东西就又要分形搞", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那次是我第一次远女妆", "predictions": [{"position": 9, "char": "妆", "correct": "装"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "值钱叫了个朋友帮忙出了机", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他说警王会安排一合给我们", "predictions": [{"position": 3, "char": "王", "correct": "方"}, {"position": 8, "char": "合", "correct": "个"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有飞行员被人炒了之后，改行做计程车司机。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "交得他来到教班英冠几子让他重拾教球乐趣那", "predictions": [{"position": 0, "char": "交", "correct": "觉"}, {"position": 9, "char": "几", "correct": "儿"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那么有些人又真的可以很快放到手的", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "明火煮食始终都是比微波炉美昧点。", "predictions": [{"position": 13, "char": "昧", "correct": "味"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "为什么我一直看那队惹刺这么稳钉的", "predictions": [{"position": 9, "char": "惹", "correct": "热"}, {"position": 14, "char": "钉", "correct": "定"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "鉴干疫情加剧，英国决定提升防疫级别，全国封城。", "predictions": [{"position": 0, "char": "鉴", "correct": "前"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不是不想用钱，石没什么何时", "predictions": [{"position": 7, "char": "石", "correct": "但"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我是曼就放水比脱护级", "predictions": [{"position": 7, "char": "脱", "correct": "他"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你能干对国家人民好人们贯你是什么人", "predictions": [{"position": 11, "char": "贯", "correct": "果"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "唯一解脱就是顿五涅盘", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "打了就别想了，想著下牛买什么更好", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是不事等等生放送保险点", "predictions": [{"position": 2, "char": "事", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "找到目标方向就会清晰", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他签了台湾的唱片宫司。", "predictions": [{"position": 8, "char": "宫", "correct": "公"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "讯飞输入法现时与手机无法连结", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "看看你想仅想出来干活", "predictions": [{"position": 4, "char": "仅", "correct": "不"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "善是不是其实一之都没有速度", "predictions": [{"position": 7, "char": "之", "correct": "直"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "打架觉得那个皇妃更漂亮", "predictions": [{"position": 7, "char": "妃", "correct": "飞"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不会要求你们坎文章就认得我没有甚么可能", "predictions": [{"position": 6, "char": "坎", "correct": "看"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不是发表讲话。使演浆", "predictions": [{"position": 9, "char": "浆", "correct": "讲"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因为我纪得好像有一阵子好像说要废了他", "predictions": [{"position": 3, "char": "纪", "correct": "记"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我可以明天走之喊来见你。", "predictions": [{"position": 7, "char": "喊", "correct": "前"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "然后你们可以仪器看玩下戏院邱比特", "predictions": [{"position": 13, "char": "邱", "correct": "球"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这次见你们仇好像没那么伏", "predictions": [{"position": 5, "char": "仇", "correct": "球"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那么多人在那儿吵吵闹闹，布置道为什么", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "敌意名冲线是挺开心的，很多同削看著，为我高兴，女朋友跑过来祝贺", "predictions": [{"position": 14, "char": "削", "correct": "学"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "宁远错过这个也不要错过另一个对你好的人", "predictions": [{"position": 1, "char": "远", "correct": "愿"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他有说自己不喜欢去饭聚着些", "predictions": [{"position": 11, "char": "着", "correct": "这"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "著辆相机标价三干块。", "predictions": [{"position": 0, "char": "著", "correct": "这"}, {"position": 7, "char": "干", "correct": "千"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "单蹄地这么下下转身就回只右脚再给到球", "predictions": [{"position": 0, "char": "单", "correct": "但"}, {"position": 1, "char": "蹄", "correct": "是"}, {"position": 14, "char": "再", "correct": "才"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "根据我这么久依赖授到的风", "predictions": [{"position": 8, "char": "授", "correct": "受"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "想买大小小的东西都不幸", "predictions": [{"position": 10, "char": "幸", "correct": "行"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "每次上到朋友皆豆很葡萄", "predictions": [{"position": 6, "char": "皆", "correct": "家"}, {"position": 7, "char": "豆", "correct": "都"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "骑马不是一看就制导打手文", "predictions": [{"position": 7, "char": "制", "correct": "知"}, {"position": 8, "char": "导", "correct": "道"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "就会找到一点真好心做又做得好的歌毛", "predictions": [{"position": 16, "char": "毛", "correct": "手"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "弹很多方面都不行狗怎么可以跟人给？", "predictions": [{"position": 0, "char": "弹", "correct": "但"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "甚么人种黎，难怪生意做到旧屎那样", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "哪意见油站加油最便宜？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "竟然问得出没睡好会不会影响殿药效用真实个好东西", "predictions": [{"position": 13, "char": "殿", "correct": "点"}, {"position": 18, "char": "实", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "人家会贪你这家认些甚么", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "人家是买个名字而已还要字迹研发", "predictions": [{"position": 11, "char": "字", "correct": "自"}, {"position": 12, "char": "迹", "correct": "其"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他说的东西挺又道理。", "predictions": [{"position": 6, "char": "又", "correct": "有"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我也有想过啊没办法吧看嵌有没有兄弟有兴趣了", "predictions": [{"position": 11, "char": "嵌", "correct": "看"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他半夜突然不舒复，唯有去医院看急症。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "和很朵时候给了这么多钱都会不甘跟人说", "predictions": [{"position": 2, "char": "朵", "correct": "多"}, {"position": 14, "char": "甘", "correct": "敢"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "香共人很需要健康的速食", "predictions": [{"position": 1, "char": "共", "correct": "港"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有没有昨晚是上水登记了的兄弟？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但这吗巧看到他发广告想找租客", "predictions": [{"position": 2, "char": "吗", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这条女儿做到很机械式，吹功不是太好，好象不原意吹我的东西一样", "predictions": [{"position": 3, "char": "儿", "correct": "人"}, {"position": 19, "char": "象", "correct": "像"}, {"position": 21, "char": "原", "correct": "愿"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但最近真的质接买恒指好一点", "predictions": [{"position": 5, "char": "质", "correct": "直"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你们相信他？塔钝化人而已", "predictions": [{"position": 6, "char": "塔", "correct": "他"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "把问题放大来间试图合理化剧透", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "香港人从小就很享到被人县脑", "predictions": [{"position": 7, "char": "享", "correct": "想"}, {"position": 11, "char": "县", "correct": "现"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "和你吗常度通常不是太长才会有扎那个痕迹", "predictions": [{"position": 4, "char": "度", "correct": "都"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这问商店有很多变异货卖", "predictions": [{"position": 1, "char": "问", "correct": "间"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他已经过了退休年龄两年，但师师是根本没有动武可以退休。", "predictions": [{"position": 13, "char": "师", "correct": "是"}, {"position": 14, "char": "师", "correct": "是"}, {"position": 21, "char": "武", "correct": "物"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你觉得人家需要连登孩紫的认同吗", "predictions": [{"position": 10, "char": "紫", "correct": "子"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "对啊他闷的评分很随便", "predictions": [{"position": 3, "char": "闷", "correct": "们"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他手车很好，很顺利地过了这个急丸。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "大能但是丑你又对不兑", "predictions": [{"position": 9, "char": "兑", "correct": "对"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "真的很想指导在他的角度，割让的意是吗", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "缝尾有时比个风最津还大风大雨。", "predictions": [{"position": 1, "char": "尾", "correct": "以"}, {"position": 8, "char": "津", "correct": "近"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "所以汗情的东西震的很恐怖", "predictions": [{"position": 2, "char": "汗", "correct": "感"}, {"position": 7, "char": "震", "correct": "真"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "推既经理人这下真极低智的表现", "predictions": [{"position": 1, "char": "既", "correct": "给"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "大家有没想过小星星火美斯巴都很值得大家尊重", "predictions": [{"position": 9, "char": "火", "correct": "和"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是不是因为金融政策宽松所以可以有这种能力外国建管下没那么容易", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "让这些勇气走近去地产铺里说要找判吧", "predictions": [{"position": 6, "char": "近", "correct": "进"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他说这些东西我都不明白，让沃撸了骰", "predictions": [{"position": 13, "char": "沃", "correct": "我"}, {"position": 16, "char": "骰", "correct": "头"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "著样也算自爆过海不搭他刻意搭什么车", "predictions": [{"position": 0, "char": "著", "correct": "这"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这个毛动换档装制有几档呀？", "predictions": [{"position": 7, "char": "制", "correct": "只"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "用腌肉来想就知道为甚么这么臭，吃几时年这么臭的东西", "predictions": [{"position": 1, "char": "腌", "correct": "啊"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我想是我身休弱，特别怕冷", "predictions": [{"position": 5, "char": "休", "correct": "体"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他一个人都带起了成追的大陆人气", "predictions": [{"position": 9, "char": "追", "correct": "队"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这个开场简单直白想说的东西观众都容易接收到气势不差", "predictions": [{"position": 19, "char": "收", "correct": "受"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这个保龄球太重，部队我打", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "唯一一个碑赛希望不要赌气了", "predictions": [{"position": 4, "char": "碑", "correct": "杯"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你疯狂帮我扣冒子干嘛？", "predictions": [{"position": 6, "char": "冒", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "从台更轿替到下一更", "predictions": [{"position": 3, "char": "轿", "correct": "觉"}, {"position": 8, "char": "更", "correct": "便"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我很讨厌校孩，不用我老婆生", "predictions": [{"position": 4, "char": "校", "correct": "小"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "爱你远赴非洲参加会议，真实辛苦了。", "predictions": [{"position": 3, "char": "赴", "correct": "不"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "看来是感觉到时间一经复够", "predictions": [{"position": 8, "char": "一", "correct": "已"}, {"position": 10, "char": "复", "correct": "不"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "捞家现在的声音唱不唱得都不直到", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "喂，你觉不觉得他痕 man 吗？", "predictions": [{"position": 8, "char": "痕", "correct": "很"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "甚么时候会知道？应该不会丢他和条女都不想", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我也是这么想，他当自己是难忍时同时是喜欢女人，那算不蒜是同性恋", "predictions": [{"position": 26, "char": "蒜", "correct": "算"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "还是温哥华有吉野家窝不知道", "predictions": [{"position": 9, "char": "窝", "correct": "我"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "科学家相信这些就不适科学家吧", "predictions": [{"position": 9, "char": "适", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因为怕打架认不出来他是太公望", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我就这么读也无搭这么清这吗准", "predictions": [{"position": 4, "char": "读", "correct": "都"}, {"position": 7, "char": "搭", "correct": "他"}, {"position": 12, "char": "吗", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他不明怕看故不要驳故的道里", "predictions": [{"position": 3, "char": "怕", "correct": "白"}, {"position": 12, "char": "里", "correct": "理"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "昨晚家总开关无缘无故跳闸，电奇师傅说厨房第冰箱短路", "predictions": [{"position": 14, "char": "奇", "correct": "骑"}, {"position": 20, "char": "第", "correct": "的"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "想著约他出来县个时说什么好", "predictions": [{"position": 6, "char": "县", "correct": "见"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "很紧张好想快点指导所未东西", "predictions": [{"position": 10, "char": "未", "correct": "有"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其实一直会以为会有说他起源人们", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不理外追柏宝又拿外面冲的话就石能收皮", "predictions": [{"position": 14, "char": "石", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这张图画式这三个死塞豆洞画给你德", "predictions": [{"position": 4, "char": "式", "correct": "是"}, {"position": 10, "char": "豆", "correct": "都"}, {"position": 11, "char": "洞", "correct": "动"}, {"position": 15, "char": "德", "correct": "的"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我已到他说无鬼的什么吗", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "值钱是平保得赢了不少", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "全盛时期的曼王和红姑真的很隐藏机", "predictions": [{"position": 9, "char": "姑", "correct": "家"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "现在有多少忍认为礼法会的确可以帮香港前途改变什么", "predictions": [{"position": 5, "char": "忍", "correct": "人"}, {"position": 8, "char": "礼", "correct": "立"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "唉，有种个觉真只有他才给到，", "predictions": [{"position": 4, "char": "个", "correct": "感"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "打针这么痛，卧躲大都不打啦！", "predictions": [{"position": 6, "char": "卧", "correct": "我"}, {"position": 7, "char": "躲", "correct": "多"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "早走就没有什么的个人人为", "predictions": [{"position": 10, "char": "人", "correct": "认"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我是一个琵琶约毛。", "predictions": [{"position": 4, "char": "琵", "correct": "比"}, {"position": 5, "char": "琶", "correct": "吧"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这些消狗又这么有空住个负评", "predictions": [{"position": 2, "char": "消", "correct": "小"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因为各国都心知根本没有可能有合理的权刀平衡", "predictions": [{"position": 18, "char": "刀", "correct": "力"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "松他这么姐手姐脚，好难要他亲身拍的那段戏了啊。阿明身手好很多，找他做替身拍吧。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "税呢单东西和林子健个单的爆笑程度一样", "predictions": [{"position": 0, "char": "税", "correct": "他"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你找条淘气ken来跟我说数？你当我小角色吗？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "提了你的了，是不是呢？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "计程句下个女会加价，落旗加1元", "predictions": [{"position": 2, "char": "句", "correct": "车"}, {"position": 11, "char": "旗", "correct": "其"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "在接二连三的丑闻蚕食市敏对政府的信心。", "predictions": [{"position": 1, "char": "接", "correct": "家"}, {"position": 11, "char": "敏", "correct": "民"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "看了一下整个群，五百仁都不了", "predictions": [{"position": 10, "char": "仁", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不过可那是下了滴滴响", "predictions": [{"position": 3, "char": "那", "correct": "能"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "补救不县枳，确实狼被！", "predictions": [{"position": 3, "char": "县", "correct": "见"}, {"position": 8, "char": "狼", "correct": "行"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "来来去去还是的一张图", "predictions": [{"position": 6, "char": "的", "correct": "第"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "如果当年旺角淋镯水是发声是现在，应该会很多民意支援！", "predictions": [{"position": 7, "char": "镯", "correct": "著"}, {"position": 8, "char": "水", "correct": "说"}, {"position": 11, "char": "声", "correct": "生"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "个佬太婆很入卦，没人喜欢他", "predictions": [{"position": 1, "char": "佬", "correct": "老"}, {"position": 5, "char": "入", "correct": "八"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其实有没有兄弟跟我异样不喜欢二手", "predictions": [{"position": 9, "char": "异", "correct": "一"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "无啦啦无犯法抄人家就是放弃私有产权，就是放弃资本主义的根", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有时想是不是自己不应该放那末多时间读书", "predictions": [{"position": 13, "char": "末", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "以为这些间题在屯元夫北区才会大点机会发生", "predictions": [{"position": 4, "char": "间", "correct": "问"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你逗逗他，他准曰出来", "predictions": [{"position": 1, "char": "逗", "correct": "都"}, {"position": 7, "char": "曰", "correct": "说"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "每次都在我们这边结束了骂战几个消失才再来吵", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "没有拉闸代表他们听说了，或者是同行耍花招", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是不是要到处贴这张图人们先住手", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "只是看见他好毫抽边到有资源变得出来", "predictions": [{"position": 6, "char": "毫", "correct": "好"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "始终平海赢的时间不快对手也知识星洲之陆", "predictions": [{"position": 9, "char": "快", "correct": "会"}, {"position": 18, "char": "陆", "correct": "流"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这意集处镜喜剧的剧情峰回路转。", "predictions": [{"position": 1, "char": "意", "correct": "一"}, {"position": 4, "char": "镜", "correct": "惊"}, {"position": 10, "char": "峰", "correct": "封"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "难道喜欢一个好恶女入吗", "predictions": [{"position": 9, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不够想象如果找到下一个都是那么为什么", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "奥脱福没什么做嫁，乡下来，你导朝圣就可以返归，市里人丁单薄，酒鬼很多，小心点", "predictions": [{"position": 1, "char": "脱", "correct": "他"}, {"position": 2, "char": "福", "correct": "不"}, {"position": 23, "char": "市", "correct": "不"}, {"position": 26, "char": "丁", "correct": "订"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不过兴起一都是高开的吧放心", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "达总是很担心我被人坑人", "predictions": [{"position": 0, "char": "达", "correct": "他"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他每次输了都不服气底", "predictions": [{"position": 9, "char": "底", "correct": "的"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不过还是那句，我不明白法官凭些什么话性交换运是假的？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "出来做自应该会抑玉得更严重", "predictions": [{"position": 3, "char": "自", "correct": "事"}, {"position": 7, "char": "抑", "correct": "以"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "哪有这么大之个母到处跳", "predictions": [{"position": 5, "char": "之", "correct": "只"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他任子在英华书院读书", "predictions": [{"position": 1, "char": "任", "correct": "儿"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "也没想过要为自己下一代付出下半生", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "今天是咯咯的大日子，我赏脸他，不跟你吵著。", "predictions": [{"position": 3, "char": "咯", "correct": "假"}, {"position": 4, "char": "咯", "correct": "假"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我耻笑上面说入民族主义上身那件旦散", "predictions": [{"position": 6, "char": "入", "correct": "人"}, {"position": 15, "char": "旦", "correct": "蛋"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "糟晚都用没生暗粒喝青春痘", "predictions": [{"position": 0, "char": "糟", "correct": "早"}, {"position": 4, "char": "没", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我刚才睡回来现在终于醒", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是他自己走帝，他安静点等使间过了就没事了", "predictions": [{"position": 5, "char": "帝", "correct": "的"}, {"position": 12, "char": "使", "correct": "时"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "再简单点未参考其他国家有条件限制拍照这哥行为例如地铁里面不比拍照之类又德", "predictions": [{"position": 4, "char": "未", "correct": "有"}, {"position": 19, "char": "哥", "correct": "个"}, {"position": 35, "char": "德", "correct": "得"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "什么？有这冲事？", "predictions": [{"position": 5, "char": "冲", "correct": "种"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "澳门狗平时这么乃国，请问现在怎么看？", "predictions": [{"position": 7, "char": "乃", "correct": "爱"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我晨造就要起来上学袅。", "predictions": [{"position": 2, "char": "造", "correct": "操"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是可能数学点看你本身熟哪个房法", "predictions": [{"position": 13, "char": "房", "correct": "方"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "为什么他不而改变佐战物件继续运作？", "predictions": [{"position": 8, "char": "佐", "correct": "作"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "路这么徒，走上去也挺累的", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "之前买了这个准备娶湖边吃！", "predictions": [{"position": 8, "char": "娶", "correct": "去"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "简而厂之，想读这所大雪要有钱才行。", "predictions": [{"position": 2, "char": "厂", "correct": "言"}, {"position": 8, "char": "所", "correct": "些"}, {"position": 10, "char": "雪", "correct": "学"}, {"position": 11, "char": "要", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "今晚世界杯总决赛电视现常直播。", "predictions": [{"position": 11, "char": "常", "correct": "场"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其时卧还没看得平海很高著，过了这场才也不晚", "predictions": [{"position": 2, "char": "卧", "correct": "我"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "原来不同场次卖的手环眼色会有不一样", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是啊现在又话掉五百亿出来读资", "predictions": [{"position": 12, "char": "读", "correct": "投"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "谁疯子又再一次把老娘逐个留言负评娥", "predictions": [{"position": 16, "char": "娥", "correct": "啊"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "觉得他们入生除了打电动就是读书", "predictions": [{"position": 4, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "比下车还小件还要网球袋都不小件，在后座拿毒不麻烦了，怎么会方便过下车去车象", "predictions": [{"position": 20, "char": "毒", "correct": "都"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "只是露对球出来就升至", "predictions": [{"position": 9, "char": "至", "correct": "到"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你想说是中国的问话？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你知道他什么的啊？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这个再看日文原文副易明", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "再加赏阿森纳签辽前多特蒙德总监，", "predictions": [{"position": 2, "char": "赏", "correct": "上"}, {"position": 7, "char": "辽", "correct": "了"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "真的这么编译的话间公司早就捡了吧", "predictions": [{"position": 4, "char": "编", "correct": "便"}, {"position": 5, "char": "译", "correct": "以"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我想试试看买，猜猜他口昧", "predictions": [{"position": 11, "char": "昧", "correct": "味"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "之前还整班人水看多季", "predictions": [{"position": 6, "char": "水", "correct": "说"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "2003年非典可谓严重摧毁香港荆棘。虽然如此，香港人亦十分勇敢面对逆境。", "predictions": [{"position": 15, "char": "荆", "correct": "经"}, {"position": 16, "char": "棘", "correct": "其"}, {"position": 26, "char": "亦", "correct": "一"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有没有人想听我创造天地的古诗？", "predictions": [{"position": 12, "char": "古", "correct": "圣"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "麻烦你之后不要用居千字慢慢兜慢慢渗", "predictions": [{"position": 13, "char": "兜", "correct": "都"}, {"position": 16, "char": "渗", "correct": "身"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "自给未深究就归究他人", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "尖沙咀令天发生警匪枪战。", "predictions": [{"position": 3, "char": "令", "correct": "今"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "所以他们进化永远快过人类", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "发现自己对彭友那男朋友还有好感", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "事实是你没用心驱理解", "predictions": [{"position": 7, "char": "驱", "correct": "去"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有市价盘的老散证券行好象不多", "predictions": [{"position": 11, "char": "象", "correct": "像"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "现在不用了，放在这里后背", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这些故真勾起很多回亿", "predictions": [{"position": 9, "char": "亿", "correct": "忆"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "随时让入五会制毒添啊", "predictions": [{"position": 3, "char": "入", "correct": "人"}, {"position": 7, "char": "毒", "correct": "度"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "骂会博你新手不懂东西想吃你钱", "predictions": [{"position": 0, "char": "骂", "correct": "么"}, {"position": 2, "char": "博", "correct": "怕"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "无事无事他最后都没了件哦", "predictions": [{"position": 1, "char": "事", "correct": "时"}, {"position": 11, "char": "哦", "correct": "啊"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是宝贝儿子就制导父亲说甚么", "predictions": [{"position": 6, "char": "制", "correct": "知"}, {"position": 7, "char": "导", "correct": "道"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "为什么不选择生活向瀑布河边和地下", "predictions": [{"position": 9, "char": "瀑", "correct": "保"}, {"position": 10, "char": "布", "correct": "不"}, {"position": 11, "char": "河", "correct": "合"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "又说到称生被逼拍他这样", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "自非典以来，香港的楼价意旨都没有跌过。", "predictions": [{"position": 12, "char": "旨", "correct": "直"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "白天检查过没事晚上就不知道了", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "网上间别人不可能完全挥答到你", "predictions": [{"position": 10, "char": "挥", "correct": "回"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "刚好是九龙区一间戏院看完了", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那支笔刚才明明在这儿，为什么一下子就不见了？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "即实装不我觉得是看你觉得流不流畅", "predictions": [{"position": 0, "char": "即", "correct": "其"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "喜欢别人不敢壬要欺负人家", "predictions": [{"position": 6, "char": "壬", "correct": "认"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "乙条路的辆旁放了很多雪糕筒。", "predictions": [{"position": 0, "char": "乙", "correct": "这"}, {"position": 4, "char": "辆", "correct": "两"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我听别人说，金银衣纸议定要白天折，但朋友说晚上都折得，不过要点香来折", "predictions": [{"position": 10, "char": "议", "correct": "一"}, {"position": 24, "char": "折", "correct": "是"}, {"position": 33, "char": "折", "correct": "这"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他根本没想过要讨论标准", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不对时间的话脱十全十美你也府想结婚", "predictions": [{"position": 6, "char": "脱", "correct": "他"}, {"position": 7, "char": "十", "correct": "是"}, {"position": 9, "char": "十", "correct": "是"}, {"position": 13, "char": "府", "correct": "不"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "晚些时候会去福冈旅行有没有兄弟有买鞋的好提防介绍？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有没有看过他们占中时啦完打人费老转头护送他们走？", "predictions": [{"position": 14, "char": "费", "correct": "废"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "加不加女厕我无所谓是有时要入等我不是那么好意思了香港商场又没位坐", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其实跟你现有角色没有什吗分别", "predictions": [{"position": 11, "char": "吗", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他是专门研究历史的。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我小学找他买卡，那时候他已经是大学生还是不知道在工作，这些真赚到笑", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这氧也叫排到最后要改进，你接受能刀真高吧", "predictions": [{"position": 1, "char": "氧", "correct": "样"}, {"position": 16, "char": "刀", "correct": "力"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "如果要整死他，那就不根漫画剧情？", "predictions": [{"position": 10, "char": "根", "correct": "跟"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "拟有儿个兄弟姐妹？", "predictions": [{"position": 0, "char": "拟", "correct": "你"}, {"position": 2, "char": "儿", "correct": "几"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "教训了税，究听过", "predictions": [{"position": 3, "char": "税", "correct": "他"}, {"position": 5, "char": "究", "correct": "就"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我打电话去质问他他来来去去个儿句", "predictions": [{"position": 14, "char": "儿", "correct": "几"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我也是乖乖地打点每夫碎片算", "predictions": [{"position": 7, "char": "点", "correct": "电"}, {"position": 9, "char": "夫", "correct": "天"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "要不要算上球证收了多少钱？不要以为自己说这句就很懂球", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他走近更衣室整个英雄那", "predictions": [{"position": 2, "char": "近", "correct": "进"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你闷是中学还是大学时期", "predictions": [{"position": 1, "char": "闷", "correct": "们"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "芥天我结婚的时候，你会不会做我的伴娘啊？", "predictions": [{"position": 0, "char": "芥", "correct": "改"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "还有说未出文怀念爷爷", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是满清皇恩浩荡用来安置点蛮族", "predictions": [{"position": 5, "char": "浩", "correct": "好"}, {"position": 9, "char": "安", "correct": "干"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其他续个国家计帝就任打", "predictions": [{"position": 7, "char": "帝", "correct": "的"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不要让他做，他肯定做得布糖不水", "predictions": [{"position": 11, "char": "布", "correct": "不"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "昨天考完试，岗下班，准备明夫又考试", "predictions": [{"position": 6, "char": "岗", "correct": "刚"}, {"position": 13, "char": "夫", "correct": "天"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "到目前为止，医生对这种新病依然束手么策。", "predictions": [{"position": 17, "char": "么", "correct": "无"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "至干为什么咬字声楚会有帮助，这个和面部肌肉无关", "predictions": [{"position": 1, "char": "干", "correct": "于"}, {"position": 7, "char": "声", "correct": "清"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你不相信我就算了", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "一些纪者撸了成朝，但是也还没见特首出来。", "predictions": [{"position": 2, "char": "纪", "correct": "记"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "直接比冠军横马吧他们就合理", "predictions": [{"position": 5, "char": "横", "correct": "皇"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不好意思，挑起矛盾是政府带头而不是本士派", "predictions": [{"position": 18, "char": "士", "correct": "土"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你这入很容易说为？", "predictions": [{"position": 2, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "刚才垂头丧气，现在笑逐颜开", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "明白个理论都抓不了别人的眼光同时机最重由是胆色", "predictions": [{"position": 19, "char": "由", "correct": "要"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "毛提又未，电脑都有", "predictions": [{"position": 0, "char": "毛", "correct": "手"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "算了我还是拿回赖出来收毛算", "predictions": [{"position": 7, "char": "赖", "correct": "来"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "旧登已经有找五毛做靶，拱只五手洪非凡上位的战术", "predictions": [{"position": 9, "char": "靶", "correct": "吧"}, {"position": 11, "char": "拱", "correct": "且"}, {"position": 14, "char": "手", "correct": "毛"}, {"position": 15, "char": "洪", "correct": "港"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有没想过之前的业主卖了楼也可能租放子", "predictions": [{"position": 16, "char": "放", "correct": "房"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那里税重，我一各月工资有七成进袋已经偷笑", "predictions": [{"position": 2, "char": "税", "correct": "说"}, {"position": 7, "char": "各", "correct": "个"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "先想了女儿送什么再象著儿子送吗", "predictions": [{"position": 9, "char": "象", "correct": "想"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "即曰来回得觉得邮电赶", "predictions": [{"position": 1, "char": "曰", "correct": "日"}, {"position": 4, "char": "得", "correct": "地"}, {"position": 7, "char": "邮", "correct": "有"}, {"position": 8, "char": "电", "correct": "点"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因为这个是一个父权社会，生几子畜来还是跟父亲姓吧", "predictions": [{"position": 13, "char": "几", "correct": "儿"}, {"position": 15, "char": "畜", "correct": "出"}, {"position": 22, "char": "姓", "correct": "生"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "最近最烦听定是刘浩龙的没得说明", "predictions": [{"position": 4, "char": "听", "correct": "一"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "之后整个厨房一起加料下去他们的东西吃到，", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "分了毛还是这样找人，哪个画面很恶心。", "predictions": [{"position": 2, "char": "毛", "correct": "手"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你抽烟吃到球都没得替", "predictions": [{"position": 9, "char": "替", "correct": "踢"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "又如果个师傅有能力他闪走了都打得只鬼，那么为什么个师父还要去现场？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "爷爷一早果端放弃了联赛吧", "predictions": [{"position": 5, "char": "端", "correct": "断"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "没有次由资金吸听不了外资", "predictions": [{"position": 2, "char": "次", "correct": "自"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不是，是看了一阵终为受不了", "predictions": [{"position": 9, "char": "为", "correct": "于"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那么不详接受这个游戏规则", "predictions": [{"position": 3, "char": "详", "correct": "想"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "唷，这么诚信，专门来探望我", "predictions": [{"position": 0, "char": "唷", "correct": "哟"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "敌钧成功占领大桥。", "predictions": [{"position": 1, "char": "钧", "correct": "军"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "钢材一毒饭贵得我花了点钱。", "predictions": [{"position": 0, "char": "钢", "correct": "刚"}, {"position": 1, "char": "材", "correct": "才"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你说现在不搭挽些时候就没机会", "predictions": [{"position": 6, "char": "挽", "correct": "晚"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "下完雨到处都很湿，不玩得滑滑梯住了。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我明白，是你就是你的，不失你的强求很武威", "predictions": [{"position": 12, "char": "失", "correct": "是"}, {"position": 18, "char": "武", "correct": "无"}, {"position": 19, "char": "威", "correct": "位"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他有很多稀奇古怪的年头。", "predictions": [{"position": 9, "char": "年", "correct": "念"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "大人起伏小孩，不害臭！", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因为还没看还是哪步啊所以想看看那里多一次性试试看", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "直接说接过吧没人想看爪片", "predictions": [{"position": 10, "char": "爪", "correct": "照"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不过他这人厚道灸不怎么说这样的一丝", "predictions": [{"position": 7, "char": "灸", "correct": "就"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "三电钟开会，两点半钟出门口也不晚", "predictions": [{"position": 1, "char": "电", "correct": "点"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "嗗你不说是不知道他们在耍花样", "predictions": [{"position": 0, "char": "嗗", "correct": "哇"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有没为新的东戏？", "predictions": [{"position": 2, "char": "为", "correct": "有"}, {"position": 6, "char": "戏", "correct": "西"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "紧接之会再有一次，有兴趣自巳报名来吧", "predictions": [{"position": 13, "char": "巳", "correct": "己"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "最近个故事升得这么急，大家喊路啊！", "predictions": [{"position": 13, "char": "喊", "correct": "看"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "谁知拟想友达以上但别人不想", "predictions": [{"position": 2, "char": "拟", "correct": "你"}, {"position": 5, "char": "达", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我想我需朋友淫点就好了", "predictions": [{"position": 3, "char": "需", "correct": "女"}, {"position": 6, "char": "淫", "correct": "听"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "帮塔补下习，好项对牛弹琴那样", "predictions": [{"position": 1, "char": "塔", "correct": "他"}, {"position": 7, "char": "项", "correct": "像"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不考驾使证怎么开车？", "predictions": [{"position": 2, "char": "驾", "correct": "价"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因为看完了要思考自及为什么会付钱入场", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "笑都有间题？你这么无私不想影响别人，会不会忍住个屁，忍一场啊？", "predictions": [{"position": 3, "char": "间", "correct": "问"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但如果他滞后也打多你一拳你一定会记得回他不是第一次", "predictions": [{"position": 4, "char": "滞", "correct": "之"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "所以哪存在英语等于西方的伪铭题", "predictions": [{"position": 13, "char": "铭", "correct": "明"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不要总是想为什么做不到，试试看想办法僭么让自己做到", "predictions": [{"position": 18, "char": "僭", "correct": "怎"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你治坏人，人家会来拆你招牌弟", "predictions": [{"position": 1, "char": "治", "correct": "知"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其时我也是那些大男人来", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "想出白色，现在哪里卖便宜", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你难道是年皮丁笼？老点不透的！", "predictions": [{"position": 6, "char": "丁", "correct": "灯"}, {"position": 9, "char": "老", "correct": "落"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "自此兑港女煮的东西吃有恐距", "predictions": [{"position": 2, "char": "兑", "correct": "对"}, {"position": 11, "char": "恐", "correct": "空"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "天天听开得今天没听这么大获", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那时在想如果他是我男朋友就好僭么知道真的做了我男朋友", "predictions": [{"position": 14, "char": "僭", "correct": "怎"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "鸟！原来是笤花呗ken.", "predictions": [{"position": 5, "char": "笤", "correct": "条"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "可能他置是觉得你交戏想拿假", "predictions": [{"position": 3, "char": "置", "correct": "只"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这次对著强队都赢球，真够运气啊！", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这些材寮零零星星的，很难整理", "predictions": [{"position": 3, "char": "寮", "correct": "料"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这些位置不为自己打算，拿烩自主权", "predictions": [{"position": 12, "char": "烩", "correct": "回"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "黑涩好啊，有脏东西也不觉得", "predictions": [{"position": 1, "char": "涩", "correct": "色"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "沙土时，有药房把口罩和消毒药水吊高来卖。", "predictions": [{"position": 1, "char": "土", "correct": "士"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我不是月这一搞一定行，但可行性不低，", "predictions": [{"position": 3, "char": "月", "correct": "说"}, {"position": 6, "char": "搞", "correct": "招"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "担心他一波末平一波叹跌", "predictions": [{"position": 5, "char": "末", "correct": "么"}, {"position": 9, "char": "叹", "correct": "也"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你怕的是什么？是不是怕被人笑？不让人接道？", "predictions": [{"position": 19, "char": "道", "correct": "受"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "大家世界杯干万别玄择塞尔维亚", "predictions": [{"position": 5, "char": "干", "correct": "千"}, {"position": 8, "char": "玄", "correct": "选"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "敌意件事不要相信英国国内排名榜。而世界排名也只能当作级数参考。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "大打翻起其实他也有技术", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "本身的性格吸引不辽人加上不够主动挂？", "predictions": [{"position": 8, "char": "辽", "correct": "了"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "命名现在做饮食最难雇人", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "天道不过是长命小小的生命有什么那没特别", "predictions": [{"position": 16, "char": "没", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "存了居兴起钱就消走了一半", "predictions": [{"position": 2, "char": "居", "correct": "即"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "怕那些东西拿出来", "predictions": [{"position": 0, "char": "怕", "correct": "把"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "尼们两个女孩吱吱倒地在说甚么啊？", "predictions": [{"position": 0, "char": "尼", "correct": "你"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他这样会束缚点儿", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这么里海准杯进来进来开下眼界", "predictions": [{"position": 5, "char": "杯", "correct": "备"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "巴基全程想吃了前面只马这样！", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "为什么面神那约多只不搞要搞这只", "predictions": [{"position": 6, "char": "约", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "现在摸人理会外国怎么看", "predictions": [{"position": 2, "char": "摸", "correct": "没"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有很多女孩说自给不靠男人的", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "亦无半点七骗是你面前赤裸裸地表现过自己最真实的一面", "predictions": [{"position": 13, "char": "地", "correct": "的"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "会不会愿听为对方而改变？", "predictions": [{"position": 4, "char": "听", "correct": "意"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "握觉得这个袋相当平靓棒", "predictions": [{"position": 0, "char": "握", "correct": "我"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "自然地就疏勒但都还叫做是朋忧", "predictions": [{"position": 5, "char": "勒", "correct": "了"}, {"position": 13, "char": "忧", "correct": "有"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "由没有人吃过东海堂只布丁？", "predictions": [{"position": 0, "char": "由", "correct": "有"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "喊蛋那些垃圾我家煮不好", "predictions": [{"position": 0, "char": "喊", "correct": "看"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这场我纪得我是现场看", "predictions": [{"position": 3, "char": "纪", "correct": "记"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "如果真得哩该很鸠吹棒", "predictions": [{"position": 3, "char": "得", "correct": "的"}, {"position": 4, "char": "哩", "correct": "应"}, {"position": 7, "char": "鸠", "correct": "久"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "最麻烦是只式大黑猩猩，完成到他应该就没有难躲", "predictions": [{"position": 5, "char": "式", "correct": "是"}, {"position": 21, "char": "躲", "correct": "度"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这仰吧软性矗立这个毒瘤", "predictions": [{"position": 1, "char": "仰", "correct": "样"}, {"position": 5, "char": "矗", "correct": "出"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我不介意入们看到我很傻孩子使得", "predictions": [{"position": 4, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有没有打得没什么心情的感觉？", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不可能，这是香港入特色", "predictions": [{"position": 8, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "人家是无给他考试成绩", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他最接近神射的意次大好机灰", "predictions": [{"position": 12, "char": "灰", "correct": "会"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "很多老人家都是靠捡垃圾维生。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "没有了牙石和心圆已经捕食牙石机", "predictions": [{"position": 7, "char": "圆", "correct": "院"}, {"position": 10, "char": "捕", "correct": "不"}, {"position": 11, "char": "食", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "正是缸刚才更新的最新版", "predictions": [{"position": 2, "char": "缸", "correct": "刚"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "很感恩最近我肿于师爷，所以多了时间在家休息，原来不用做事的生活相当爽。", "predictions": [{"position": 6, "char": "肿", "correct": "终"}, {"position": 9, "char": "爷", "correct": "也"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "揈头场棕是有入吸毒打架。", "predictions": [{"position": 3, "char": "棕", "correct": "总"}, {"position": 6, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "听说普洱茶可以止泻的！", "predictions": [{"position": 8, "char": "泻", "correct": "血"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "现实不相信你会这样，如果有个漂亮的同样一般系你选", "predictions": [{"position": 21, "char": "系", "correct": "给"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "还要啪完手指之后坐在这里看夕阳，样子星到", "predictions": [{"position": 2, "char": "啪", "correct": "把"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "要学德化，很快可以单字说到跟英国人没分别，这是很多外国入都做不到", "predictions": [{"position": 2, "char": "德", "correct": "的"}, {"position": 3, "char": "化", "correct": "话"}, {"position": 27, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "希望跟著这一个兴起会有好消息", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你找到我我帮你含又僭么说", "predictions": [{"position": 9, "char": "僭", "correct": "怎"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我很理解你现载的处境。", "predictions": [{"position": 6, "char": "载", "correct": "在"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "还在他圣曰祝他生日快乐？！", "predictions": [{"position": 4, "char": "曰", "correct": "说"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其他可以是看行为会不会拢乱公众秩序等", "predictions": [{"position": 11, "char": "拢", "correct": "扰"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "今天跌到这样真的很恐怖", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "没事敢，在家憋得慌", "predictions": [{"position": 6, "char": "憋", "correct": "别"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有没有礼和是不是舱著掖著是两回事？", "predictions": [{"position": 8, "char": "舱", "correct": "藏"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "又话我因为窝迟到给他骂生气他梭以不通知他", "predictions": [{"position": 5, "char": "窝", "correct": "我"}, {"position": 10, "char": "骂", "correct": "么"}, {"position": 14, "char": "梭", "correct": "所"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不好意思入家没放过你是心里", "predictions": [{"position": 4, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "夫天不是传前锋就中坚", "predictions": [{"position": 0, "char": "夫", "correct": "天"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "给晒你的菜楼主，他帮腻付钱转特喝", "predictions": [{"position": 10, "char": "腻", "correct": "你"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "健康真要自巳去检察", "predictions": [{"position": 5, "char": "巳", "correct": "己"}, {"position": 8, "char": "察", "correct": "查"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "到吗来西亚竟然混欧美", "predictions": [{"position": 1, "char": "吗", "correct": "马"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "进了这间学校就什么顿很整洁", "predictions": [{"position": 9, "char": "顿", "correct": "都"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "集资太大，反而我怕他会像曰清那", "predictions": [{"position": 12, "char": "曰", "correct": "说"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "搞错推这么久还没找到一个女孩叫什么名每次看到他的广告食要停一停看著他笑", "predictions": [{"position": 26, "char": "食", "correct": "也"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "闪电侠一开波就虫出场可以很威威地跟男朋友是戏院说", "predictions": [{"position": 7, "char": "虫", "correct": "会"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他曾经在加拿大住过。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "看欧联是赴是每个人都中产？", "predictions": [{"position": 4, "char": "赴", "correct": "不"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其实可以把嘟嘟鹿的嘟嘟噜和凶真的中二病比较", "predictions": [{"position": 13, "char": "凶", "correct": "能"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我也有儿年没见过自己滚动尻。", "predictions": [{"position": 3, "char": "儿", "correct": "几"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "公道自在人心不要当人白痴", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你当初没拿订主意，现在是陪了夫人又折兵啊", "predictions": [{"position": 5, "char": "订", "correct": "定"}, {"position": 17, "char": "折", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "又没为任何一个都虐这么夸杖的", "predictions": [{"position": 2, "char": "为", "correct": "有"}, {"position": 12, "char": "杖", "correct": "张"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "中间我只是转了依次班。", "predictions": [{"position": 7, "char": "依", "correct": "一"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我很急啊！你快出来让我用厕所！", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "窝想我懂，但是不项猜", "predictions": [{"position": 0, "char": "窝", "correct": "我"}, {"position": 8, "char": "项", "correct": "想"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "现在四点一个骨偷", "predictions": [{"position": 7, "char": "偷", "correct": "头"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "谁知钻之友吃了春药地追足整条直路", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是啊所以我最拍就是这样唉为什么这骂难找到聊得来的人", "predictions": [{"position": 6, "char": "拍", "correct": "怕"}, {"position": 16, "char": "骂", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "麻，你别棺我了！", "predictions": [{"position": 4, "char": "棺", "correct": "管"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "中国社会思想都是适合用来打飞机", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是教士我们很少聊对方聊天，像装不懂这样", "predictions": [{"position": 2, "char": "士", "correct": "是"}, {"position": 7, "char": "聊", "correct": "了"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "反共酸不算不好的事？", "predictions": [{"position": 2, "char": "酸", "correct": "算"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "只有那两块并还不够塞牙缝。", "predictions": [{"position": 5, "char": "并", "correct": "饼"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我买到他都问我要不要加多粉咖啡", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "又攻击昨夫坎那阵也没有什么嫁", "predictions": [{"position": 4, "char": "夫", "correct": "天"}, {"position": 5, "char": "坎", "correct": "看"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我反而想知道你有没有砍球思", "predictions": [{"position": 10, "char": "砍", "correct": "看"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "可能不想面对这个残酷第现实", "predictions": [{"position": 10, "char": "第", "correct": "的"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "自小培养它们的学习兴趣", "predictions": [{"position": 4, "char": "它", "correct": "他"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因微要开始想成家立室", "predictions": [{"position": 1, "char": "微", "correct": "为"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "全夫然就什么来说可以比到薄荷有爽的感觉实在太棒", "predictions": [{"position": 1, "char": "夫", "correct": "不"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你穿这件一服特别潇湘", "predictions": [{"position": 8, "char": "潇", "correct": "小"}, {"position": 9, "char": "湘", "correct": "象"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "第饵次用不用都没分别", "predictions": [{"position": 1, "char": "饵", "correct": "二"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "又华袭左后卫，哭处来", "predictions": [{"position": 1, "char": "华", "correct": "话"}, {"position": 3, "char": "左", "correct": "做"}, {"position": 8, "char": "处", "correct": "出"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你别让我是街刊到你啊", "predictions": [{"position": 6, "char": "刊", "correct": "看"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "如果你想进区，打给他吧", "predictions": [{"position": 5, "char": "区", "correct": "去"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但我即使直到他是有压刀", "predictions": [{"position": 10, "char": "刀", "correct": "力"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "毁大陆也敢叫精英地去美国算是吗", "predictions": [{"position": 0, "char": "毁", "correct": "回"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "所以打架真的不要怪我们这些受害者", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "角音不是很清晰，可能香港多一点吧", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那么揪是我应该覆他说会跟他看电影？", "predictions": [{"position": 2, "char": "揪", "correct": "就"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "入一老就开始健忘了。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "而且可能一员间间都不同真", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "就算无，也要踢好一点照全家", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "每一次像期来都会拉扯的矛盾", "predictions": [{"position": 4, "char": "期", "correct": "起"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那又别谁自己不熟香红文化", "predictions": [{"position": 3, "char": "谁", "correct": "说"}, {"position": 9, "char": "红", "correct": "港"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "打起他火箭一定差辛苦", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "塔自然会想起自己孩子", "predictions": [{"position": 0, "char": "塔", "correct": "他"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "所以才估居他当年因为要保持歌手形象", "predictions": [{"position": 3, "char": "估", "correct": "家"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "原来不是硬体台的入就不是香港入", "predictions": [{"position": 8, "char": "入", "correct": "人"}, {"position": 14, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不是规片毫像有点查案成份", "predictions": [{"position": 2, "char": "规", "correct": "鬼"}, {"position": 4, "char": "毫", "correct": "好"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "班小孩倒到满地都是浆糊，看锝我燕京也凸了。", "predictions": [{"position": 9, "char": "浆", "correct": "强"}, {"position": 13, "char": "锝", "correct": "得"}, {"position": 15, "char": "燕", "correct": "眼"}, {"position": 18, "char": "凸", "correct": "吐"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "打架夹手夹脚先把这些胜李搬上车。", "predictions": [{"position": 10, "char": "胜", "correct": "行"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "之后就，进了医院还无出回莱", "predictions": [{"position": 9, "char": "无", "correct": "没"}, {"position": 12, "char": "莱", "correct": "来"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是政总出面裤到猪偷那样", "predictions": [{"position": 5, "char": "裤", "correct": "哭"}, {"position": 8, "char": "偷", "correct": "头"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这些就是传说中帝内弓心法", "predictions": [{"position": 7, "char": "帝", "correct": "的"}, {"position": 9, "char": "弓", "correct": "公"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我过去十年都有做义工，从中得盗很多宝贵的经验。", "predictions": [{"position": 14, "char": "盗", "correct": "到"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "步入去吃曰本东西吧，好没唧？", "predictions": [{"position": 0, "char": "步", "correct": "不"}, {"position": 1, "char": "入", "correct": "如"}, {"position": 4, "char": "曰", "correct": "日"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "肯肯定是约了几子才要早走", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "好奇问下，有没有丝打用过月经杯买了很久也不会用", "predictions": [{"position": 14, "char": "杯", "correct": "被"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这套真的是敌意套幕幕都看到哗哗声", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不用慢慢从什么资源独没玩起", "predictions": [{"position": 9, "char": "独", "correct": "都"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "一时两个中坚刊廖同一个前锋", "predictions": [{"position": 6, "char": "刊", "correct": "看"}, {"position": 7, "char": "廖", "correct": "了"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "外国菜我真的没想到有什么猪的菜式好吃，什么性骚扰，猪排尼的真一般般", "predictions": [{"position": 27, "char": "尼", "correct": "你"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是街随便化个都可能好过他", "predictions": [{"position": 4, "char": "化", "correct": "找"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "一份卷第一题没入做得对。", "predictions": [{"position": 7, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但是是男人围住的圈子强调自己丝不丝真好烦", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "就算面对街肢也不会自暴自弃", "predictions": [{"position": 5, "char": "肢", "correct": "之"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "是不够熟，又酸有袅", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "问那么多间题干嘛？", "predictions": [{"position": 4, "char": "间", "correct": "问"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "真在很棒从一每夫追到完", "predictions": [{"position": 7, "char": "夫", "correct": "天"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "最后看日出个里好香已经没了手套", "predictions": [{"position": 8, "char": "香", "correct": "像"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我就又是毒是家里塔电动", "predictions": [{"position": 8, "char": "塔", "correct": "打"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有的是证据真不明白为什么放生他", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "读位史没说解放军意境出动了窝", "predictions": [{"position": 2, "char": "史", "correct": "是"}, {"position": 13, "char": "窝", "correct": "我"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "可能你妖整容他才接受跟你做", "predictions": [{"position": 3, "char": "妖", "correct": "要"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有市就看病，瘪相信偏方。", "predictions": [{"position": 1, "char": "市", "correct": "时"}, {"position": 6, "char": "瘪", "correct": "别"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "中国是全球最友善的国家", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "外国读书家人是那边买了蹭楼花打算给我住", "predictions": [{"position": 11, "char": "蹭", "correct": "层"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "为了养打消朋友，很多父母都赦弃了自己的理想。", "predictions": [{"position": 4, "char": "消", "correct": "小"}, {"position": 13, "char": "赦", "correct": "舍"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "希望你能很肯定地让他知道你只得他等待", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但是最里海那儿季就拍马追不上了", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "很好奇你整这仗图那时自己觉不觉得尴尬", "predictions": [{"position": 6, "char": "仗", "correct": "张"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你搞我不仅仅，还搞了我朋友和家人？贞佛都有火！别以为我很恰！", "predictions": [{"position": 17, "char": "贞", "correct": "真"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "还过李嘉诚是这样买长实", "predictions": [{"position": 0, "char": "还", "correct": "不"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "以家他学会了大阪开始漂亮了点救很多公狗靠近", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "金色车这么显眼个到应该不绘太多架", "predictions": [{"position": 12, "char": "绘", "correct": "会"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "之前下低于点图挺搞笑", "predictions": [{"position": 4, "char": "于", "correct": "有"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "玩了儿次见毫像打不进就放弃了", "predictions": [{"position": 2, "char": "儿", "correct": "几"}, {"position": 5, "char": "毫", "correct": "好"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "收账公司天天派人来恐吓，吓得他链家里都不敢回。", "predictions": [{"position": 15, "char": "链", "correct": "连"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "由他交了顶草帽俾路飞，一经留了伏笔", "predictions": [{"position": 7, "char": "俾", "correct": "被"}, {"position": 11, "char": "一", "correct": "已"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "因为是这样，所以我就有被骗之嫌，亦有被人找之数的感觉", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我们可以梅甜都很多东西谈", "predictions": [{"position": 4, "char": "梅", "correct": "没"}, {"position": 5, "char": "甜", "correct": "天"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "那只苯大时不时狗圈子的人啊？搞三搞四", "predictions": [{"position": 2, "char": "苯", "correct": "体"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "带陆妹妹在家都穿得这么漂亮", "predictions": [{"position": 0, "char": "带", "correct": "大"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "太临场发挥开玩笑，无度过稿子。", "predictions": [{"position": 0, "char": "太", "correct": "他"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "但进取后的格调和食物品质超高水准", "predictions": [{"position": 2, "char": "取", "correct": "去"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他们结撑婚是我拨大黑桃的", "predictions": [{"position": 3, "char": "撑", "correct": "成"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "七球当然一扎就爆", "predictions": [{"position": 0, "char": "七", "correct": "其"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "很多人傻傻傻的，一味万事大吉，放松晶体", "predictions": [{"position": 10, "char": "万", "correct": "么"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不过不要像我这样出了阴英都望回头", "predictions": [{"position": 10, "char": "阴", "correct": "烟"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "其实哲个主题本身很好，为什么会变成这样", "predictions": [{"position": 2, "char": "哲", "correct": "这"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "见在书了上班收工就是在家对著点毛绒玩具", "predictions": [{"position": 0, "char": "见", "correct": "现"}, {"position": 2, "char": "书", "correct": "除"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "每各人都想做奇异博士，但是不会有两个", "predictions": [{"position": 1, "char": "各", "correct": "个"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "有个帅哥请你出去吃饭，但是你装咕，说要考虑一会几才回答他", "predictions": [{"position": 15, "char": "咕", "correct": "骨"}, {"position": 23, "char": "几", "correct": "儿"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "都好啊，先生帮忙间下", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "原来他什么都指导他真的很好", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "哪个球弹回来的时候你就接著他吧。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "清，什么事后来找我拿回一台弃置了的熊孩子", "predictions": [{"position": 14, "char": "置", "correct": "治"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "今天那场挺好，是坏烂尾", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "赶快推驱一旁吧！", "predictions": [{"position": 3, "char": "驱", "correct": "去"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "衣服被油渍詹污了。", "predictions": [{"position": 5, "char": "詹", "correct": "战"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不过欧洲的机场酒店通常都不时真的很近机场", "predictions": [{"position": 13, "char": "时", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这个是不是真的很美味夏？得旧饭", "predictions": [{"position": 10, "char": "夏", "correct": "下"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你能援助以下我这个月的洗费？", "predictions": [{"position": 4, "char": "以", "correct": "听"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "耽误到你真不好听思。", "predictions": [{"position": 7, "char": "听", "correct": "意"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他整天都是奥运滞后个年就黎料", "predictions": [{"position": 7, "char": "滞", "correct": "之"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我们将控告他危险驾驶引致他入死亡。", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我打篮球打得很接劲", "predictions": [{"position": 8, "char": "劲", "correct": "近"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "拜仁是德甲起伏别人对著这些垃圾就很棒", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "非洲班小孩够高兴了你和不意样他们交换？", "predictions": [{"position": 12, "char": "意", "correct": "一"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "妖他笋干点兵儿子钱再给你零用遣", "predictions": [{"position": 0, "char": "妖", "correct": "叫"}, {"position": 14, "char": "遣", "correct": "钱"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "你尽人世救下我儿子吧！", "predictions": [{"position": 1, "char": "尽", "correct": "今"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "最低公子之下请市到人那题", "predictions": [{"position": 7, "char": "市", "correct": "不"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "这件事被他直到了，你就杰过芝麻糊", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "不用轮班的猪头骨有的是入做吧", "predictions": [{"position": 11, "char": "入", "correct": "人"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "买虫来捕食吃拿来摆？", "predictions": [{"position": 1, "char": "虫", "correct": "回"}, {"position": 3, "char": "捕", "correct": "不"}, {"position": 4, "char": "食", "correct": "是"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "他痕喜欢约朋友我就喜欢在家里", "predictions": [{"position": 1, "char": "痕", "correct": "很"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "可以看到发生在他们俩的新鲜事", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "如有必么，再加一点佐了", "predictions": [{"position": 3, "char": "么", "correct": "要"}, {"position": 9, "char": "佐", "correct": "做"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "兑著罗马不见你这么有火", "predictions": [{"position": 0, "char": "兑", "correct": "对"}], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "再看一看这些新闻发现七十他也有借马国鸣上位", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
+{"sentence": "我记得之后他跟人表白失败", "predictions": [], "meta": {"mode": "stat", "threshold": 4.0}}
