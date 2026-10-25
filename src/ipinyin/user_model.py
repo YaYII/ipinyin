@@ -140,14 +140,25 @@ class UserModel:
 
     # ---------- 学 ----------
     def observe(self, key: str, words: list[str]) -> None:
-        """候选展示给用户时记一次曝光（只记内存，压缩时落盘）。"""
+        """候选展示给用户时记一次曝光（只记内存，压缩时落盘）。
+
+        只记「已知的词」（种子/学过的）：从未选中的词不会落盘、得分恒为 0，
+        给它们建 cell 纯属泄漏 —— 每次按键都会调这里，评测脚本全量跑
+        曾因此 OOM（每 400 句 ~3.4MB 线性增长）。
+        """
         if not key or not words:
             return
-        bucket = self._data.setdefault(key, {})
+        bucket = self._data.get(key)
+        if not bucket:
+            return
+        changed = False
         for word in words:
-            cell = bucket.setdefault(word, [0, 0, 0])
-            cell[1] += 1
-        self._dirty = True
+            cell = bucket.get(word)
+            if cell is not None:
+                cell[1] += 1
+                changed = True
+        if changed:
+            self._dirty = True
 
     def learn(self, key: str, word: str, weight: int = 1) -> None:
         if not key or not word or key == word:

@@ -101,3 +101,21 @@ def test_picked_word_survives_fuzzy(lexicon, tmp_path):
     for char in "caidui":
         ime.insert(char)
     assert ime.view().words[0] == target
+
+
+def test_observe_does_not_grow_on_unknown_words(tmp_path):
+    """曝光只记已知的词：从未选中的候选不建 cell（每次按键都调 observe，
+    之前会给所有候选建记录，评测全量跑曾因此 OOM）。"""
+    from ipinyin.user_model import UserModel
+
+    model = UserModel(str(tmp_path / "m.tsv"), None, None, None,
+                      validator=lambda key, word: True)
+    model.learn("nihao", "你好")
+    model.observe("nihao", ["你好", "你号", "尼豪"])
+    assert len(model) == 1                    # 只有学过的词有记录
+    assert model.exposures("nihao", "你好") == 2   # learn 置 1 + 展示 1 次
+    model.observe("nihao", ["你号"])          # 键存在但词未知 → 什么都不记
+    assert len(model) == 1
+    assert model.exposures("nihao", "你好") == 2
+    model.observe("zenme", ["怎么"])           # 键都不存在 → 不建键
+    assert len(model) == 1
