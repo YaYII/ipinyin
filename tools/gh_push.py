@@ -85,7 +85,9 @@ def main() -> None:
     if parent != remote_sha:
         raise SystemExit(f"不能快进：本地父提交 {parent[:8]} != 远端 {remote_sha[:8]}，需先处理分歧")
 
-    changed = git("diff-tree", "--no-commit-id", "--name-status", "-r", commit_sha).splitlines()
+    # core.quotepath=false：中文路径不转义，否则 ls-tree 按带引号的字面量查不到
+    changed = git("-c", "core.quotepath=false", "diff-tree", "--no-commit-id",
+                  "--name-status", "-r", commit_sha).splitlines()
     print(f"变更 {len(changed)} 个文件：{[l.split(chr(9))[-1] for l in changed]}")
 
     tree_items = []
