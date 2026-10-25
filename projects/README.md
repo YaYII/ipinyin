@@ -7,7 +7,7 @@
 | # | 项目 | 目录 | 一句话 | 基线成绩 |
 |---|---|---|---|---|
 | 01 | [粤语→普通话阅读助手](01-yue2zh/) | `projects/01-yue2zh/` | 反向 seq2seq，粤语消息/文章转普通话 | held-out 整句 31.0%、字符 73.0%（照抄 0.3%）；MPS 训练 4.2 分钟 |
-| 02 | [批量转换 CLI](02-batch-convert/) | `projects/02-batch-convert/` | 文章/字幕逐句转粤语，守卫+神经，时间轴不动 | demo 守卫修复 1/17 句；长句漏拦成语已记录 |
+| 02 | [批量转换 CLI](02-batch-convert/) | `projects/02-batch-convert/` | 文章/字幕逐句转粤语，守卫+神经，时间轴不动，带术语表/QC | held-out：2字 92.1%、成语 95%、古诗 75%、8-15字 34.0%（7字单位；整句36 44.3%、规则 17.7%）；长句漏拦已根治 |
 | 03 | [粤语 TTS 读音前端](03-tts-g2p/) | `projects/03-tts-g2p/` | 普通话→粤语→粤拼→IPA，接 Piper 的 G2P | 样例字级覆盖 100%；声母19/韵母59/声调6 |
 | 04 | [中文地区用语转换](04-locale-convert/) | `projects/04-locale-convert/` | zh-CN↔zh-TW 用词转换（OpenCC 词表 + 歧义报告） | cn→tw 整词 83.4%；一词多义（程序/质量/土豆）是词表盲区 |
 | 05 | [中文错别字纠正](05-typo-correct/) | `projects/05-typo-correct/` | SIGHAN 风格评测 + CharLM 统计基线 | 检测 F1 0.727 / 纠正 F1 0.637（诚实口径，无污染） |

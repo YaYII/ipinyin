@@ -16,6 +16,7 @@ import sys
 import pytest
 
 import convert
+import particles
 import sentences
 from ipinyin.yue import YueConverter
 from ipinyin.yue_guard import YueGuard
@@ -183,8 +184,8 @@ def test_srt_convert_timeline_untouched():
     conv.nn = FakeNN({"不懂。": "唔識。"})
     conv.guard = stub_guard()
     srt = SRT_SAMPLE.replace("大家好。", "不懂。")
-    pipe = convert.Pipeline(conv)
-    out = convert.convert_subtitle(srt, pipe)
+    pipe = convert.Pipeline(conv, words=set())
+    out, _ = convert.convert_subtitle(srt, pipe)
     timings_in = [ln for ln in srt.splitlines() if "-->" in ln]
     timings_out = [ln for ln in out.splitlines() if "-->" in ln]
     assert timings_out == timings_in                     # 时间轴一个字符都不动
@@ -281,3 +282,116 @@ def test_cli_srt_end_to_end():
     timings_out = [ln for ln in proc.stdout.splitlines() if "-->" in ln]
     assert timings_out == timings_in
     assert "歡迎嚟睇我嘅頻道" in proc.stdout      # 真引擎产出
+
+
+# ---- 语气词兜底 ---------------------------------------------------------------
+
+def test_particle_fix_converts_blocked_final_particle():
+    out, fixed = particles.fix_final_particle("好吗？", "好嗎？")
+    assert (out, fixed) == ("好咩？", True)
+
+
+def test_particle_fix_skips_already_converted():
+    out, fixed = particles.fix_final_particle("走吧。", "走啦。")
+    assert (out, fixed) == ("走啦。", False)
+
+
+def test_particle_fix_ignores_non_final_particle():
+    _, fixed = particles.fix_final_particle("问吗他说", "问吗佢講")
+    assert fixed is False
+
+
+def test_pipeline_particle_bottoms_out_guard_repair():
+    # 神经输出 吗→嗎 被桩守卫拦回 → 语气词兜底接手 → 咩
+    pipe = convert.Pipeline(stub_conv({"好吗？": "好嗎？"}), words=set())
+    out = pipe.convert_line("好吗？")
+    assert out == "好咩？"
+    assert pipe.records[0].particle == 1
+
+
+# ---- 保护片段 / 术语表 --------------------------------------------------------
+
+def test_split_protected_tags_urls_text():
+    line = "<i>大家好</i>，看 https://a.b/c 吧"
+    spans = convert.split_protected(line, [])
+    kinds = "".join("P" if prot else "." for _, prot in spans)
+    assert kinds == "P.P.P."                          # 标签与 URL 被保护
+    assert dict(convert.split_protected(line, []))["https://a.b/c"] is True
+
+
+def test_glossary_protect_and_force(tmp_path):
+    gl = tmp_path / "glossary.tsv"
+    gl.write_text("# 注释\n阿明\n外卖\t叫外卖\n", encoding="utf-8")
+    force, protect = convert.load_glossary(str(gl))
+    assert force == {"外卖": "叫外卖"}
+    assert sorted(protect) == ["叫外卖", "阿明"]
+    pipe = convert.Pipeline(stub_conv({}), words=set(),
+                            force=force, protect_words=protect)
+    out = pipe.convert_line("阿明点了外卖。")
+    assert out == "阿明点了叫外卖。"                  # 阿明保护；外卖→叫外卖 强制
+
+
+def test_subtitle_tags_survive_conversion():
+    conv = YueConverter({})
+    conv.nn = FakeNN({"不懂。": "唔識。"})
+    conv.guard = stub_guard()
+    pipe = convert.Pipeline(conv, words=set())
+    srt = "1\n00:00:01,000 --> 00:00:02,000\n<i>不懂。</i>\n\n"
+    out, _ = convert.convert_subtitle(srt, pipe)
+    assert "<i>唔識。</i>" in out.splitlines()        # 标签原样、正文已转
+
+
+# ---- 可疑片段 QC（--flag） ----------------------------------------------------
+
+def test_qc_flags_cps_and_width_on_short_cue():
+    cfg = convert.QCConfig(enabled=True)
+    recs = [convert.Record("字幕1", "a", "b", "neural", 1, 0.5)]
+    f = convert.score_records(
+        "字幕1", recs, cfg,
+        text_lines=["这一行字幕又长又密字数超过限制了啊"],
+        timing="00:00:00,000 --> 00:00:01,000")
+    assert f is not None
+    assert any(r.startswith("CPS") for r in f.reasons)
+    assert any(r.startswith("行宽") for r in f.reasons)
+    assert any("守卫" in r for r in f.reasons)
+
+
+def test_qc_text_path_skips_layout_checks():
+    cfg = convert.QCConfig(enabled=True)
+    recs = [convert.Record("行1", "a", "b", "neural", 0, 0.1, 1)]
+    f = convert.score_records("行1", recs, cfg, preview="很长的纯文本行不做排版检查")
+    assert f is not None
+    assert not any("行宽" in r for r in f.reasons)
+    assert any("语气词" in r for r in f.reasons)
+
+
+def test_timing_span_parses_srt_and_vtt():
+    assert convert._timing_span("00:00:01,000 --> 00:00:04,000") == (1.0, 4.0)
+    assert convert._timing_span("00:01.000 --> 00:03.500") == (1.0, 3.5)
+    assert convert._timing_span("1:02:03.5 --> 1:02:06.5") == (3723.5, 3726.5)
+    assert convert._timing_span("not a timing") is None
+    assert convert._timing_span("00:00:05,000 --> 00:00:05,000") is None  # 倒挂/零长
+
+
+# ---- 已是粤语检测 --------------------------------------------------------------
+
+def test_yue_detect_skips_cantonese_segments():
+    pipe = convert.Pipeline(stub_conv({}), words=set(), skip_yue=True)
+    out = pipe.convert_line("佢哋唔識。")
+    assert out == "佢哋唔識。"                        # 已是粤语，不动
+    assert pipe.records == [] and pipe.skipped == 1
+    pipe.convert_line("我们不懂。")                    # 普通话照常走管线
+    assert len(pipe.records) == 1
+
+
+@pytest.mark.skipif(not os.path.exists(os.path.join(HERE, "samples", "demo.srt")),
+                    reason="样例缺失")
+def test_cli_glossary_and_flag():
+    src = os.path.join(HERE, "samples", "demo.srt")
+    gl = os.path.join(HERE, "samples", "glossary.tsv")
+    proc = subprocess.run([PY, os.path.join(HERE, "convert.py"), src,
+                           "--glossary", gl, "--flag", "5"],
+                          capture_output=True, text=True, timeout=120)
+    assert proc.returncode == 0, proc.stderr
+    assert "拜拜" in proc.stdout                      # 术语表强制条目生效
+    assert ("可疑片段" in proc.stderr) or ("无可疑片段" in proc.stderr)
