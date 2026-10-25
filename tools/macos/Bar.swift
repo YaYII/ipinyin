@@ -88,6 +88,10 @@ final class BarView: NSView {
 
     override var acceptsFirstResponder: Bool { true }
 
+    // 关键：不挂输入上下文 —— 否则系统输入法（如苹果拼音）会经由此视图的
+    // 输入上下文偷偷合成、抢走空格（它的「选第一候选」键），双份拼音互相打架。
+    override var inputContext: NSTextInputContext? { return nil }
+
     func summon() {
         NSLog("ipinyin-bar: hotkey 触发，唤出输入条")
         previousApp = NSWorkspace.shared.frontmostApplication
