@@ -1,4 +1,4 @@
-.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs eval-coverage sogou-dict yue-guard eval-yue-guard push
+.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs eval-coverage sogou-dict yue-guard eval-yue-guard macos macos-testpad push
 
 install:
 	./install.sh
@@ -71,6 +71,14 @@ eval-yue-guard:
 # 推 GitHub（大陆网络：github.com 直连不通，走 api.github.com 的 git-data API）
 push:
 	python3 tools/gh_push.py HEAD master
+
+# macOS 输入法（构建 + 装机 + 注册；激活需注销重登，见 docs/macos.md）
+macos:
+	./tools/macos/build_macos_app.sh
+
+# macOS 测试垫（不依赖系统输入源，直接体验引擎）
+macos-testpad:
+	/usr/bin/python3 tools/macos_testpad.py
 
 clean:
 	rm -rf .pytest_cache src/ipinyin/__pycache__ tests/__pycache__ tools/__pycache__

@@ -55,6 +55,15 @@ python3 tools/build_s2t.py
 
 装完 `Super+Space` 切到「IPinyin 拼音」。
 
+### macOS
+
+```bash
+make macos              # 构建 IPinyin.app 装入 ~/Library/Input Methods（激活需注销重登）
+make macos-testpad      # 不注销也能先试：测试垫窗口直接体验引擎
+```
+
+见 [docs/macos.md](docs/macos.md)：Linux 引擎原样复用（纯标准库）+ JSON 桥 + InputMethodKit 外壳。
+
 ## 用法
 
 | 键 | 作用 |
