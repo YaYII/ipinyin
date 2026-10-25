@@ -35,9 +35,28 @@ make macos        # 打包引擎 → 编译 IMKit 外壳 → 签名 → 装入 ~
 
 1. **公证**：加入 Apple Developer Program（$99/年）后 `xcrun notarytool submit`
    公证 IPinyin.app，注册即通（这是长期正解）；
-2. **测试垫**：`make macos-testpad` —— 不依赖系统输入源，同一条引擎链路直接体验。
+2. **打字条**（无需公证）：见下一节。
 
 （系统设置「+」面板枚举的也是 TIS 注册表，未公证 app 同样不出现，已实测。）
+
+## 打字条：不公证也能在任意 App 打字
+
+Apple 只拦「系统输入源」注册，不拦本地 app 往前台应用注入文字
+（Espanso / CapslockWriter 同款思路）：
+
+```bash
+make macos-bar        # 启动打字条（常驻后台）
+```
+
+- 首次启动系统会弹「辅助功能」授权：系统设置 → 隐私与安全性 → 辅助功能 →
+  打开 IPinyin，然后重新 `make macos-bar` 一次；
+- 任意 App 光标处按 **⌃⌥空格** 唤出悬浮输入条 → 打拼音 → 空格/数字上屏，
+  文字直接打进那个 App 的光标处（CGEvent 注入，剪贴板不动）；
+- Esc 关闭；空缓冲时按空格/回车会原样转给前台应用；
+- 日志：`~/Library/Application Support/ipinyin/bar.log`。
+
+与系统输入法相比少了「光标跟随」（输入条固定在屏幕上方）和直接聚焦输入，
+但打字体验（整句切分、简繁粤、个人化学习）完全一致 —— 同一条引擎链路。
 
 ## 不注销也能先试：测试垫
 

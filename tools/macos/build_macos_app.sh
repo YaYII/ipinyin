@@ -22,7 +22,8 @@ echo "==> 编译 IMKit 外壳"
 cp "$ROOT/tools/macos/Info.plist" "$APP/Contents/Info.plist"
 cp "$ROOT/tools/macos/ipinyin.pdf" "$APP/Contents/Resources/ipinyin.pdf"
 swiftc -O -o "$APP/Contents/MacOS/$APP_NAME" \
-    "$ROOT/tools/macos/main.swift" "$ROOT/tools/macos/Controller.swift" "$ROOT/tools/macos/Engine.swift" \
+    "$ROOT/tools/macos/main.swift" "$ROOT/tools/macos/Controller.swift" \
+    "$ROOT/tools/macos/Engine.swift" "$ROOT/tools/macos/Bar.swift" \
     -framework Cocoa -framework Carbon -framework InputMethodKit
 
 echo "==> 签名"

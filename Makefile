@@ -80,5 +80,11 @@ macos:
 macos-testpad:
 	/usr/bin/python3 tools/macos_testpad.py
 
+# macOS 打字条（⌃⌥空格唤出，文字注入任意 App；首次要授权「辅助功能」）
+macos-bar:
+	pkill -f "IPinyin --bar" 2>/dev/null || true
+	nohup "$$HOME/Library/Input Methods/IPinyin.app/Contents/MacOS/IPinyin" --bar \
+		>> "$$HOME/Library/Application Support/ipinyin/bar.log" 2>&1 &
+
 clean:
 	rm -rf .pytest_cache src/ipinyin/__pycache__ tests/__pycache__ tools/__pycache__

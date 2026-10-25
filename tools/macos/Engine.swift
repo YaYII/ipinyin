@@ -11,6 +11,7 @@ struct EngineReply {
     let highlight: Int
     let page: Int
     let pageSize: Int
+    let passthrough: Bool
 
     init(_ dict: [String: Any]) {
         handled = dict["handled"] as? Bool ?? false
@@ -22,6 +23,7 @@ struct EngineReply {
         highlight = dict["highlight"] as? Int ?? 0
         page = dict["page"] as? Int ?? 0
         pageSize = dict["page_size"] as? Int ?? 9
+        passthrough = dict["passthrough"] as? Bool ?? false
     }
 }
 
@@ -37,6 +39,10 @@ final class EngineClient {
 
     func event(keyval: Int, state: Int) -> EngineReply? {
         return request(["t": "event", "keyval": keyval, "state": state])
+    }
+
+    func reset() -> EngineReply? {
+        return request(["t": "reset"])
     }
 
     func select(index: Int) -> EngineReply? {

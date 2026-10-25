@@ -60,6 +60,12 @@ if CommandLine.arguments.contains("--register") {
     exit(0)
 }
 
+// --bar：打字条模式（不公证也能在任意 App 里打字，见 Bar.swift）
+if CommandLine.arguments.contains("--bar") {
+    BarApp.run()
+    exit(0)
+}
+
 let app = NSApplication.shared
 let delegate = AppDelegate()
 app.delegate = delegate
