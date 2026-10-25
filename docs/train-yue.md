@@ -70,6 +70,10 @@ python3 tools/quantize_yue_nn.py experiments/yue_nn.onnx
 ## 4. 启用
 
 ```bash
+# int8 生产版已入库为 data/yue_nn.onnx（install.sh 会自动装）；
+# 重训后同步进仓库：
+cp experiments/yue_nn_int8.onnx data/yue_nn.onnx && git add data/yue_nn.onnx
+# 本机快速试用（不经 install.sh）：
 cp experiments/yue_nn_int8.onnx ~/.local/share/ipinyin/data/yue_nn.onnx
 cp experiments/yue_nn_vocab.json ~/.local/share/ipinyin/data/
 systemctl --user restart ipinyin-engine

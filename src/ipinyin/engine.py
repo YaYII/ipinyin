@@ -55,7 +55,11 @@ def get_yue() -> YueConverter:
         if os.environ.get("IPINYIN_YUE_NN", "1") != "0":
             from .yue_nn import NeuralYue
 
-            _YUE.nn = NeuralYue.load(os.path.join(config.data_home(), "data"))
+            # 神经模型：优先用户目录（可单独换新模型），deb 装机退回系统目录
+            for nn_dir in (os.path.join(config.data_home(), "data"), config.SYSTEM_DATA):
+                _YUE.nn = NeuralYue.load(nn_dir)
+                if _YUE.nn is not None:
+                    break
             if _YUE.nn is not None:
                 LOG.info("粤语神经模型已加载（%d 字表）", len(_YUE.nn))
         from .yue_guard import YueGuard
