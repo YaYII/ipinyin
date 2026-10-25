@@ -1,0 +1,46 @@
+# 项目基线：神经模型的六个延伸方向
+
+> 2026-10-25 用六个并行子智能体构建的基准（baseline）。每个项目自成一格：
+> 能跑的最小产物 + 评测口径 + 已知局限 + 下一步，方便逐个深挖。
+> 共同约束：不改 `src/` 核心（只读复用）、测试用隔离环境、可再生大产物不入库。
+
+| # | 项目 | 目录 | 一句话 | 基线成绩 |
+|---|---|---|---|---|
+| 01 | [粤语→普通话阅读助手](01-yue2zh/) | `projects/01-yue2zh/` | 反向 seq2seq，粤语消息/文章转普通话 | held-out 整句 31.0%、字符 73.0%（照抄 0.3%）；MPS 训练 4.2 分钟 |
+| 02 | [批量转换 CLI](02-batch-convert/) | `projects/02-batch-convert/` | 文章/字幕逐句转粤语，守卫+神经，时间轴不动 | demo 守卫修复 1/17 句；长句漏拦成语已记录 |
+| 03 | [粤语 TTS 读音前端](03-tts-g2p/) | `projects/03-tts-g2p/` | 普通话→粤语→粤拼→IPA，接 Piper 的 G2P | 样例字级覆盖 100%；声母19/韵母59/声调6 |
+| 04 | [中文地区用语转换](04-locale-convert/) | `projects/04-locale-convert/` | zh-CN↔zh-TW 用词转换（OpenCC 词表 + 歧义报告） | cn→tw 整词 83.4%；一词多义（程序/质量/土豆）是词表盲区 |
+| 05 | [中文错别字纠正](05-typo-correct/) | `projects/05-typo-correct/` | SIGHAN 风格评测 + CharLM 统计基线 | 检测 F1 0.727 / 纠正 F1 0.637（诚实口径，无污染） |
+| 06 | [公开基准包](06-benchmark/) | `projects/06-benchmark/` | 三套评测口径统一入口 + JSON 规范 + 方法学 | `--suite all --quick` 约 9 秒，16 个单测 |
+
+## 共同架构
+
+```
+src/ipinyin（核心，只读）
+  ├─ yue.py + yue_guard.py + yue_nn.py   ← 01/02/03 直接复用
+  ├─ lm.py（CharLM）                      ← 05 复用
+  └─ 评测脚本 tools/experiments           ← 06 import 原口径（零漂移）
+```
+
+## 提交口径
+
+- **入库**：代码、测试、README、小体积评测集（04 的 `opencc_pairs.json` 3.4MB、
+  05 的 `data/{confusion.json,dev.jsonl,test.jsonl}`、06 的 `results/`）
+- **不入库**（可再生）：01 的模型检查点（`train.py` 4 分钟重训）、04 的 OpenCC 原始
+  词典（`fetch_opencc.py` 重拉）、05 的 `train_typos.jsonl`（2 万句，`data_gen.py`
+  确定性合成）与 `lm_eval.marshal`（评测 LM）
+
+## 统一跑测试
+
+```bash
+make projects-test
+```
+
+## 深挖优先级建议
+
+1. **01 反向模型**：接输入法第四模式（长句走神经、短句走规则）+ 粤拼注音融合
+2. **02 批量转换**：`--flag` 可疑句标记（logit 置信度 × 守卫记录）→ 术语表 → 编辑式模型根治长句漏拦
+3. **04 地区用语**：一词多义（程序/质量/土豆）是词表永远解不了的 —— neural + `tw_guard.marshal` 的核心增量，16 句语境考卷已备好
+4. **05 错别字**：P4 编辑式模型上秤（训练数据 2 万句已备好），目标纠正 F1 > 0.64、3~5ms/句
+5. **03 TTS 前端**：语料过 G2P 得 (文本，音素) 对 → Piper 训声；多音字消歧与变调是质量分水岭
+6. **06 基准**：全量口径存档为对外基线 → 接受外部系统提交

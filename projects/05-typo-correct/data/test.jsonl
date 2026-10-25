@@ -1,0 +1,1200 @@
+{"sentence": "他不抢颠话我怎么知道他这么有火", "errors": [{"char": "颠", "correct": "电", "position": 3, "type": "homophone"}]}
+{"sentence": "他希望在三十岁值钱置业。", "errors": [{"char": "值", "correct": "之", "position": 7, "type": "homophone"}, {"char": "钱", "correct": "前", "position": 8, "type": "homophone"}]}
+{"sentence": "这位医生被指控和病人发生性关系。", "errors": []}
+{"sentence": "咀后都是身手不要反手的像了一巴右一巴掌", "errors": [{"char": "咀", "correct": "最", "position": 0, "type": "homophone"}]}
+{"sentence": "文学不是要雪赏析吗？在做赏析果时已经加深你的阅读理解能力啦", "errors": [{"char": "雪", "correct": "学", "position": 5, "type": "homophone"}]}
+{"sentence": "气势澳门除了读法律，学葡文也没甚么用", "errors": [{"char": "气", "correct": "其", "position": 0, "type": "homophone"}, {"char": "势", "correct": "实", "position": 1, "type": "homophone"}, {"char": "甚", "correct": "什", "position": 15, "type": "homophone"}]}
+{"sentence": "沃也不知道谁是手球儿子", "errors": [{"char": "沃", "correct": "我", "position": 0, "type": "homophone"}]}
+{"sentence": "有没想果不是发型师出问题", "errors": [{"char": "果", "correct": "过", "position": 3, "type": "homophone"}]}
+{"sentence": "真的很想堂堂都去听审", "errors": []}
+{"sentence": "罗湖进义颗给我赚回三百", "errors": [{"char": "义", "correct": "一", "position": 3, "type": "homophone"}]}
+{"sentence": "再看好像说有英联邦护照的入签都行？", "errors": [{"char": "入", "correct": "人", "position": 12, "type": "shape"}]}
+{"sentence": "他也可以说你是做出来跟人夹好了", "errors": []}
+{"sentence": "我不敢说自已能打好我都死了几次", "errors": [{"char": "已", "correct": "己", "position": 5, "type": "shape"}]}
+{"sentence": "你现回去自系位。", "errors": [{"char": "系", "correct": "己", "position": 5, "type": "homophone"}, {"char": "现", "correct": "先", "position": 1, "type": "homophone"}]}
+{"sentence": "不限制别酒跟安卓一样？", "errors": [{"char": "酒", "correct": "就", "position": 4, "type": "homophone"}]}
+{"sentence": "走位很可呆会主动跑过来接应", "errors": [{"char": "呆", "correct": "爱", "position": 4, "type": "homophone"}]}
+{"sentence": "下赶星期去告雄顺便是高雄看了", "errors": [{"char": "告", "correct": "高", "position": 5, "type": "homophone"}, {"char": "赶", "correct": "个", "position": 1, "type": "homophone"}]}
+{"sentence": "三兴起开始有明显点的成果", "errors": [{"char": "兴", "correct": "星", "position": 1, "type": "homophone"}, {"char": "起", "correct": "期", "position": 2, "type": "homophone"}]}
+{"sentence": "他卖了做幕后间公已", "errors": [{"char": "已", "correct": "司", "position": 8, "type": "homophone"}]}
+{"sentence": "然后结束盗他俩大沾", "errors": [{"char": "盗", "correct": "到", "position": 4, "type": "homophone"}, {"char": "沾", "correct": "战", "position": 8, "type": "homophone"}]}
+{"sentence": "不郭我角计他不知道我谁", "errors": [{"char": "郭", "correct": "过", "position": 1, "type": "homophone"}, {"char": "角", "correct": "估", "position": 3, "type": "homophone"}]}
+{"sentence": "但玩了又可以加深对北欧神话汤的一点认识", "errors": [{"char": "汤", "correct": "上", "position": 13, "type": "homophone"}]}
+{"sentence": "夫时地利人和好难不是他拿", "errors": [{"char": "夫", "correct": "天", "position": 0, "type": "shape"}]}
+{"sentence": "不要再说什么认识葡文读法律", "errors": []}
+{"sentence": "我又要上街，这家伙嗒回来说送错能不抬上来拿回来", "errors": [{"char": "嗒", "correct": "打", "position": 9, "type": "homophone"}, {"char": "抬", "correct": "能", "position": 17, "type": "homophone"}]}
+{"sentence": "这场总得看净化，赌球这么久没见过", "errors": [{"char": "净", "correct": "精", "position": 5, "type": "homophone"}, {"char": "化", "correct": "华", "position": 6, "type": "homophone"}]}
+{"sentence": "很躲场没见过他，深经病", "errors": [{"char": "躲", "correct": "多", "position": 1, "type": "homophone"}, {"char": "深", "correct": "神", "position": 8, "type": "homophone"}]}
+{"sentence": "谢谢，让我试试堪先！", "errors": [{"char": "堪", "correct": "看", "position": 7, "type": "homophone"}]}
+{"sentence": "你拿件猪皮区东京找谁拿签名", "errors": [{"char": "区", "correct": "去", "position": 5, "type": "homophone"}]}
+{"sentence": "他这人这么鸠屎，怎么跟他合作呢？", "errors": []}
+{"sentence": "还没开战前他国内艮本没什么问题", "errors": [{"char": "艮", "correct": "根", "position": 8, "type": "homophone"}]}
+{"sentence": "犯入全杀死他全家。", "errors": [{"char": "入", "correct": "人", "position": 1, "type": "shape"}]}
+{"sentence": "其实班人指示怕搞得他", "errors": [{"char": "指", "correct": "只", "position": 4, "type": "homophone"}, {"char": "示", "correct": "是", "position": 5, "type": "homophone"}]}
+{"sentence": "访心，他做事很干净的。", "errors": [{"char": "访", "correct": "放", "position": 0, "type": "homophone"}]}
+{"sentence": "我打算买己经到验身那部", "errors": [{"char": "己", "correct": "已", "position": 4, "type": "shape"}]}
+{"sentence": "教师，以为每个人都学富五车，道德高尚，生活有品味，说话斯文大方", "errors": []}
+{"sentence": "你最好跟他们四四六六折触摸他", "errors": []}
+{"sentence": "他单丁一个人去美国", "errors": []}
+{"sentence": "这次我这手牌却是不搓", "errors": [{"char": "却", "correct": "确", "position": 6, "type": "homophone"}, {"char": "是", "correct": "实", "position": 7, "type": "homophone"}, {"char": "搓", "correct": "错", "position": 9, "type": "homophone"}]}
+{"sentence": "当年滨崎步单东西易经知道他拿种自大", "errors": [{"char": "易", "correct": "已", "position": 8, "type": "homophone"}, {"char": "拿", "correct": "那", "position": 13, "type": "homophone"}]}
+{"sentence": "我每次上台说话，也一定要准备 cue 卡猜行。", "errors": [{"char": "猜", "correct": "才", "position": 20, "type": "homophone"}]}
+{"sentence": "现在香共地有人穷到这个地步", "errors": [{"char": "共", "correct": "港", "position": 3, "type": "homophone"}]}
+{"sentence": "要不要看到买了才不算很适合人们脚但都可接受", "errors": []}
+{"sentence": "这样真的很差，但这两个约开始准时送", "errors": [{"char": "约", "correct": "月", "position": 11, "type": "homophone"}]}
+{"sentence": "打任何双打最中药合拍。", "errors": [{"char": "中", "correct": "重", "position": 6, "type": "homophone"}, {"char": "药", "correct": "要", "position": 7, "type": "homophone"}]}
+{"sentence": "很期待奇异博士到底看到吗", "errors": []}
+{"sentence": "这次准备专门放大来找个黑没", "errors": [{"char": "没", "correct": "妹", "position": 12, "type": "homophone"}]}
+{"sentence": "但跟著加息肘期不看好他住和现价高了小小", "errors": [{"char": "肘", "correct": "周", "position": 5, "type": "homophone"}]}
+{"sentence": "我也是极度喜欢被人掏耳朵", "errors": []}
+{"sentence": "你爬上去这吗危险，是不失活腻了，嫌命长吗？", "errors": [{"char": "失", "correct": "是", "position": 11, "type": "homophone"}, {"char": "吗", "correct": "么", "position": 5, "type": "homophone"}]}
+{"sentence": "说立时间就上到人们智商真优点问题", "errors": [{"char": "立", "correct": "有", "position": 1, "type": "homophone"}, {"char": "优", "correct": "有", "position": 12, "type": "homophone"}]}
+{"sentence": "红字没错所以真看个人舍不德洗钱", "errors": [{"char": "德", "correct": "得", "position": 12, "type": "homophone"}]}
+{"sentence": "想问这些植物蛋白是不是不适宜吃那么多？", "errors": []}
+{"sentence": "因为他不想人是得占著个位睡觉", "errors": []}
+{"sentence": "因为一分说明书都交毒了很多东西，所以我也故意停了条片看。", "errors": [{"char": "分", "correct": "份", "position": 3, "type": "homophone"}, {"char": "毒", "correct": "代", "position": 9, "type": "homophone"}]}
+{"sentence": "这双鞋放了在你可locker 。", "errors": [{"char": "可", "correct": "个", "position": 7, "type": "homophone"}]}
+{"sentence": "毁找到个纯品处女做老婆", "errors": [{"char": "毁", "correct": "会", "position": 0, "type": "homophone"}]}
+{"sentence": "证明香港教育多药失百", "errors": [{"char": "药", "correct": "么", "position": 7, "type": "homophone"}, {"char": "百", "correct": "败", "position": 9, "type": "homophone"}]}
+{"sentence": "你丢了枝铅笔落底下啊。", "errors": [{"char": "底", "correct": "地", "position": 7, "type": "homophone"}]}
+{"sentence": "和修草也算烂生的", "errors": [{"char": "修", "correct": "羞", "position": 1, "type": "homophone"}, {"char": "和", "correct": "害", "position": 0, "type": "homophone"}]}
+{"sentence": "又真强虽然的新仁都满满废", "errors": [{"char": "仁", "correct": "人", "position": 7, "type": "homophone"}, {"char": "满", "correct": "慢", "position": 9, "type": "homophone"}, {"char": "满", "correct": "慢", "position": 10, "type": "homophone"}]}
+{"sentence": "不是因为同样数量拿去抽也末必中", "errors": [{"char": "末", "correct": "未", "position": 12, "type": "shape"}]}
+{"sentence": "你年记也不小了，找回个伴互相照应吧。", "errors": [{"char": "记", "correct": "纪", "position": 2, "type": "shape"}]}
+{"sentence": "和他一起起码会因为想起将来而努刀", "errors": [{"char": "刀", "correct": "力", "position": 15, "type": "shape"}]}
+{"sentence": "打架说点负眠的超能力出来", "errors": [{"char": "打", "correct": "大", "position": 0, "type": "homophone"}, {"char": "架", "correct": "家", "position": 1, "type": "homophone"}, {"char": "眠", "correct": "面", "position": 5, "type": "homophone"}]}
+{"sentence": "你女朋友生气乐，还不赶快补救！", "errors": [{"char": "乐", "correct": "了", "position": 6, "type": "homophone"}]}
+{"sentence": "你想他吃回正常餐就试试看要求转介言语治疗师", "errors": []}
+{"sentence": "坚迅速我上星期寄暂使还没得", "errors": [{"char": "使", "correct": "时", "position": 9, "type": "homophone"}]}
+{"sentence": "比赚没风险，不买就笨", "errors": [{"char": "比", "correct": "必", "position": 0, "type": "homophone"}]}
+{"sentence": "但是接务死外的东西呢？", "errors": [{"char": "死", "correct": "以", "position": 4, "type": "homophone"}, {"char": "接", "correct": "家", "position": 2, "type": "homophone"}]}
+{"sentence": "动作片就什么来说浙套可观性很高", "errors": [{"char": "浙", "correct": "这", "position": 8, "type": "homophone"}]}
+{"sentence": "给点茶浸泡武分钟就够了。", "errors": [{"char": "武", "correct": "五", "position": 5, "type": "homophone"}]}
+{"sentence": "难倒这次又是失望而归？", "errors": [{"char": "倒", "correct": "道", "position": 1, "type": "homophone"}]}
+{"sentence": "等他出专辑回家满满嵌", "errors": [{"char": "满", "correct": "慢", "position": 7, "type": "homophone"}, {"char": "满", "correct": "慢", "position": 8, "type": "homophone"}, {"char": "嵌", "correct": "看", "position": 9, "type": "homophone"}]}
+{"sentence": "我要列印几份 notes 。", "errors": []}
+{"sentence": "我们步入夹计弄弄他", "errors": [{"char": "步", "correct": "不", "position": 2, "type": "homophone"}, {"char": "入", "correct": "如", "position": 3, "type": "homophone"}]}
+{"sentence": "只是你买进那时候时不时自己能力承担到", "errors": [{"char": "时", "correct": "是", "position": 8, "type": "homophone"}, {"char": "时", "correct": "是", "position": 10, "type": "homophone"}]}
+{"sentence": "正一大宫薯，褶样也被骗", "errors": [{"char": "宫", "correct": "红", "position": 3, "type": "homophone"}, {"char": "褶", "correct": "这", "position": 6, "type": "homophone"}]}
+{"sentence": "这祭天天气相当师合放风鹞", "errors": [{"char": "祭", "correct": "几", "position": 1, "type": "homophone"}, {"char": "师", "correct": "适", "position": 7, "type": "homophone"}]}
+{"sentence": "与其抱著点票变废之，为什么不拆出来卖，亏少一张只有一张？", "errors": [{"char": "之", "correct": "纸", "position": 8, "type": "homophone"}]}
+{"sentence": "现在跳单层巴角线也常常差点飞落山", "errors": [{"char": "跳", "correct": "条", "position": 2, "type": "homophone"}, {"char": "角", "correct": "路", "position": 6, "type": "homophone"}]}
+{"sentence": "一会儿放回他出去又饿又冷你看看死不死啊", "errors": []}
+{"sentence": "随便他怎无说吧，我们始终都是相信你的", "errors": [{"char": "无", "correct": "么", "position": 4, "type": "homophone"}]}
+{"sentence": "是这样受不了条女千嘛不分手", "errors": [{"char": "千", "correct": "干", "position": 8, "type": "shape"}]}
+{"sentence": "以前黑长发真觉得他平平无及", "errors": [{"char": "及", "correct": "奇", "position": 12, "type": "homophone"}]}
+{"sentence": "事名抽签限票是可行，不过这个分配方法识别不了谁嚷谁更想要张票。", "errors": [{"char": "嚷", "correct": "让", "position": 23, "type": "homophone"}, {"char": "事", "correct": "实", "position": 0, "type": "homophone"}]}
+{"sentence": "病得手软脚软似的，怎么于活呢？", "errors": [{"char": "于", "correct": "干", "position": 11, "type": "shape"}]}
+{"sentence": "没钱去块呢只有看没有行动的", "errors": [{"char": "块", "correct": "说", "position": 3, "type": "homophone"}]}
+{"sentence": "玩这个游戏首先要被上眼。", "errors": [{"char": "被", "correct": "闭", "position": 8, "type": "homophone"}]}
+{"sentence": "不过先跟了，上年的东西近年推回来肯定被人骂", "errors": [{"char": "近", "correct": "今", "position": 11, "type": "homophone"}]}
+{"sentence": "前面那末多留言都有负评", "errors": [{"char": "末", "correct": "么", "position": 3, "type": "homophone"}]}
+{"sentence": "唯一是等沙中线后大执位有得想著", "errors": []}
+{"sentence": "乙些青菜都沤得发黄了", "errors": [{"char": "乙", "correct": "这", "position": 0, "type": "homophone"}]}
+{"sentence": "太阳核心炽热并不奇怪，但原来原理表面的日冕温度也很高。", "errors": [{"char": "原", "correct": "远", "position": 14, "type": "homophone"}, {"char": "理", "correct": "离", "position": 15, "type": "homophone"}]}
+{"sentence": "何止忙啊？沓飞机都没时间呢啊", "errors": [{"char": "沓", "correct": "打", "position": 5, "type": "homophone"}]}
+{"sentence": "好声娄！小心掉道地！", "errors": [{"char": "娄", "correct": "喽", "position": 2, "type": "homophone"}, {"char": "道", "correct": "到", "position": 7, "type": "homophone"}]}
+{"sentence": "约会之后，男朋友好像变了个人那阳", "errors": [{"char": "阳", "correct": "样", "position": 15, "type": "homophone"}]}
+{"sentence": "说他自己的圣火点点点", "errors": [{"char": "圣", "correct": "生", "position": 5, "type": "homophone"}, {"char": "火", "correct": "活", "position": 6, "type": "homophone"}]}
+{"sentence": "我看人意向准话了他不差得过利温", "errors": [{"char": "意", "correct": "一", "position": 3, "type": "homophone"}, {"char": "温", "correct": "云", "position": 14, "type": "homophone"}]}
+{"sentence": "我已经失去他们十几年", "errors": []}
+{"sentence": "找另一班黑帮来整只黑帮", "errors": [{"char": "只", "correct": "治", "position": 8, "type": "homophone"}]}
+{"sentence": "摸警距是复是不用车牌？", "errors": [{"char": "复", "correct": "不", "position": 4, "type": "homophone"}, {"char": "距", "correct": "车", "position": 2, "type": "homophone"}]}
+{"sentence": "其实我都不知道自己除了护士还可以做什么好", "errors": []}
+{"sentence": "他确实是比到关中多共呜很多", "errors": [{"char": "关", "correct": "观", "position": 6, "type": "homophone"}, {"char": "中", "correct": "众", "position": 7, "type": "homophone"}]}
+{"sentence": "人家根本不当你次己认", "errors": [{"char": "认", "correct": "人", "position": 9, "type": "homophone"}, {"char": "次", "correct": "自", "position": 7, "type": "homophone"}]}
+{"sentence": "安慰他他又部领情自己想宰一边", "errors": [{"char": "宰", "correct": "在", "position": 11, "type": "homophone"}, {"char": "部", "correct": "不", "position": 5, "type": "homophone"}]}
+{"sentence": "会复会是上班太辛苦？", "errors": [{"char": "复", "correct": "不", "position": 1, "type": "homophone"}]}
+{"sentence": "她精神不正常，别力她", "errors": [{"char": "力", "correct": "理", "position": 8, "type": "homophone"}]}
+{"sentence": "税出了街去买菜，还没回来", "errors": [{"char": "税", "correct": "他", "position": 0, "type": "homophone"}]}
+{"sentence": "以前都喜患走旺角，但现在愈愈乌烟瘴气，很少走", "errors": [{"char": "患", "correct": "欢", "position": 4, "type": "homophone"}]}
+{"sentence": "兄弟要再写点高质故啊", "errors": []}
+{"sentence": "又不失牵涉到股市这么庞大的数据", "errors": [{"char": "失", "correct": "是", "position": 2, "type": "homophone"}]}
+{"sentence": "如果没有意见，请在这哩遣字", "errors": [{"char": "遣", "correct": "签", "position": 11, "type": "homophone"}, {"char": "哩", "correct": "里", "position": 10, "type": "homophone"}]}
+{"sentence": "农舍门外放制了一堆禾个草，动物小心翼翼地走过去。", "errors": [{"char": "个", "correct": "秆", "position": 10, "type": "homophone"}, {"char": "制", "correct": "置", "position": 5, "type": "homophone"}]}
+{"sentence": "这样琢法死定的。", "errors": [{"char": "琢", "correct": "做", "position": 2, "type": "homophone"}]}
+{"sentence": "她有把豆沙喉，所以唱歌不好听。", "errors": [{"char": "她", "correct": "他", "position": 0, "type": "homophone"}]}
+{"sentence": "最近的港女一条龙地骗上去，如果他不是贪心衰收尾，随时成为成功人世没人知道。", "errors": [{"char": "世", "correct": "士", "position": 31, "type": "homophone"}]}
+{"sentence": "更新完不知道会不会马上没了云爷爷呢", "errors": []}
+{"sentence": "他真的很可爱不明白为甚么市这得被人反", "errors": [{"char": "甚", "correct": "什", "position": 10, "type": "homophone"}, {"char": "市", "correct": "是", "position": 12, "type": "homophone"}]}
+{"sentence": "这家伙说要袍点海豹脂肪才会暖胃", "errors": [{"char": "袍", "correct": "泡", "position": 5, "type": "homophone"}]}
+{"sentence": "你都说不既欢小朋友，何来有取戴的需要？", "errors": [{"char": "既", "correct": "喜", "position": 4, "type": "homophone"}, {"char": "戴", "correct": "代", "position": 14, "type": "homophone"}]}
+{"sentence": "不说真以机在看电影", "errors": [{"char": "机", "correct": "为", "position": 4, "type": "homophone"}]}
+{"sentence": "可能是自己没有什么地风只得别人欣赏。", "errors": [{"char": "风", "correct": "方", "position": 10, "type": "homophone"}, {"char": "只", "correct": "值", "position": 11, "type": "homophone"}]}
+{"sentence": "还是他在玩美极育乘游戏", "errors": [{"char": "乘", "correct": "成", "position": 8, "type": "homophone"}]}
+{"sentence": "不开名的地方都不要得去哪里", "errors": []}
+{"sentence": "可乃是爱他就怎么都包容到", "errors": [{"char": "乃", "correct": "能", "position": 1, "type": "homophone"}]}
+{"sentence": "不用在我面前卖生藕，有甚么事要帮忙就说啊！", "errors": [{"char": "甚", "correct": "什", "position": 11, "type": "homophone"}]}
+{"sentence": "他的东西全部一此性，清洁不到", "errors": [{"char": "此", "correct": "次", "position": 7, "type": "homophone"}]}
+{"sentence": "蜜掏尻是精神的，但水滴胸也很中药", "errors": [{"char": "中", "correct": "重", "position": 14, "type": "homophone"}, {"char": "药", "correct": "要", "position": 15, "type": "homophone"}, {"char": "掏", "correct": "桃", "position": 1, "type": "homophone"}]}
+{"sentence": "唱安眠曲给妮听快点说", "errors": [{"char": "妮", "correct": "你", "position": 5, "type": "homophone"}, {"char": "说", "correct": "睡", "position": 9, "type": "homophone"}]}
+{"sentence": "最后日落那下其实他衅情是怎样", "errors": [{"char": "衅", "correct": "心", "position": 9, "type": "homophone"}]}
+{"sentence": "你应该覆他，有啊，给他那边美国大使馆的电话位址搭嘛", "errors": [{"char": "搭", "correct": "他", "position": 23, "type": "homophone"}]}
+{"sentence": "不过我个人想为香港人痕多其实不是口音问题", "errors": [{"char": "痕", "correct": "很", "position": 10, "type": "homophone"}]}
+{"sentence": "手机的销售数据卧也不是那么相信", "errors": [{"char": "卧", "correct": "我", "position": 7, "type": "homophone"}]}
+{"sentence": "为什么美个留言都有负皮", "errors": [{"char": "美", "correct": "每", "position": 3, "type": "homophone"}]}
+{"sentence": "上季最后宜昌根本就是踢假球", "errors": [{"char": "宜", "correct": "一", "position": 4, "type": "homophone"}, {"char": "昌", "correct": "场", "position": 5, "type": "homophone"}]}
+{"sentence": "我可以解东西上区啦", "errors": [{"char": "区", "correct": "去", "position": 7, "type": "homophone"}, {"char": "解", "correct": "写", "position": 3, "type": "homophone"}]}
+{"sentence": "想使香港做楼奴以有点难度。", "errors": [{"char": "以", "correct": "也", "position": 7, "type": "homophone"}, {"char": "使", "correct": "是", "position": 1, "type": "homophone"}]}
+{"sentence": "遮些警犬收完第二次电话都有去过看", "errors": [{"char": "遮", "correct": "这", "position": 0, "type": "homophone"}]}
+{"sentence": "我上次意味捐血这么不吃得东西", "errors": [{"char": "意", "correct": "以", "position": 3, "type": "homophone"}, {"char": "味", "correct": "为", "position": 4, "type": "homophone"}]}
+{"sentence": "说完第二次又没入认同", "errors": [{"char": "入", "correct": "人", "position": 7, "type": "shape"}]}
+{"sentence": "但经过这次被甩我就决定以后约会的话不会再跟条儿子说我的问题", "errors": []}
+{"sentence": "港人善忘也不是敌意夫的事了", "errors": [{"char": "敌", "correct": "第", "position": 7, "type": "homophone"}, {"char": "意", "correct": "一", "position": 8, "type": "homophone"}, {"char": "夫", "correct": "天", "position": 9, "type": "shape"}]}
+{"sentence": "我脉了件羽绒去日本旅行。", "errors": [{"char": "脉", "correct": "买", "position": 1, "type": "homophone"}]}
+{"sentence": "不分手留回来过端牛节？", "errors": [{"char": "牛", "correct": "午", "position": 8, "type": "shape"}]}
+{"sentence": "为什么这些大陆男人会接受到王晶拍了些这种垃圾", "errors": []}
+{"sentence": "小王子觉得很奇怪，这颗行醒明明很小，其实国王可以统治些什么呢？", "errors": [{"char": "醒", "correct": "星", "position": 12, "type": "homophone"}]}
+{"sentence": "画眠不用说还是很好帝大场景像拍戏那么挺紧张", "errors": [{"char": "眠", "correct": "面", "position": 1, "type": "homophone"}, {"char": "帝", "correct": "的", "position": 9, "type": "homophone"}]}
+{"sentence": "我一味女生都喜欢牌子东西", "errors": [{"char": "一", "correct": "以", "position": 1, "type": "homophone"}, {"char": "味", "correct": "为", "position": 2, "type": "homophone"}]}
+{"sentence": "买新屋附送全母电器。", "errors": [{"char": "母", "correct": "屋", "position": 6, "type": "homophone"}]}
+{"sentence": "别说议会儿护狗马出来吠", "errors": [{"char": "议", "correct": "一", "position": 2, "type": "homophone"}]}
+{"sentence": "有没友人有看审木套学校律师？", "errors": [{"char": "友", "correct": "有", "position": 2, "type": "homophone"}, {"char": "审", "correct": "神", "position": 6, "type": "homophone"}]}
+{"sentence": "一中各表不是解决方案吗", "errors": []}
+{"sentence": "复是摆使他家门口算", "errors": [{"char": "使", "correct": "是", "position": 3, "type": "homophone"}, {"char": "复", "correct": "还", "position": 0, "type": "homophone"}]}
+{"sentence": "主位菩萨你又认定是观世音", "errors": [{"char": "主", "correct": "诸", "position": 0, "type": "homophone"}]}
+{"sentence": "这样理解行不行？", "errors": []}
+{"sentence": "因立有没有神都不是佛教的重心", "errors": [{"char": "立", "correct": "为", "position": 1, "type": "homophone"}]}
+{"sentence": "现在的巴土司机真挺疯", "errors": [{"char": "土", "correct": "士", "position": 4, "type": "shape"}]}
+{"sentence": "假能你看自己以为很成熟", "errors": [{"char": "假", "correct": "可", "position": 0, "type": "homophone"}]}
+{"sentence": "虽然这么做想是壬之常情", "errors": [{"char": "壬", "correct": "人", "position": 7, "type": "homophone"}]}
+{"sentence": "去红磡的殡仪馆，随便一个灵堂大喊，别人不认识你也没关系，只会以为你是先人的朋友", "errors": []}
+{"sentence": "虽然说有想像空间也是我想做到的其中一个小国，", "errors": [{"char": "小", "correct": "效", "position": 19, "type": "homophone"}, {"char": "国", "correct": "果", "position": 20, "type": "homophone"}]}
+{"sentence": "因为他约过要对外开放", "errors": [{"char": "约", "correct": "说", "position": 3, "type": "homophone"}]}
+{"sentence": "以家的中国入不就是最浩例子", "errors": [{"char": "入", "correct": "人", "position": 5, "type": "shape"}, {"char": "浩", "correct": "好", "position": 10, "type": "homophone"}]}
+{"sentence": "问题：和他有没有机会发战到？", "errors": [{"char": "战", "correct": "展", "position": 11, "type": "homophone"}]}
+{"sentence": "他小心翼翼地把个花瓶放八个盒里。", "errors": [{"char": "八", "correct": "入", "position": 11, "type": "shape"}]}
+{"sentence": "按理说他副营该这样做", "errors": [{"char": "营", "correct": "应", "position": 5, "type": "homophone"}, {"char": "副", "correct": "不", "position": 4, "type": "homophone"}]}
+{"sentence": "可能是小侍候没了童牛没了青春长大才来找回", "errors": [{"char": "侍", "correct": "时", "position": 4, "type": "homophone"}, {"char": "牛", "correct": "年", "position": 9, "type": "shape"}]}
+{"sentence": "在方何里打斜画一条线。", "errors": [{"char": "何", "correct": "格", "position": 2, "type": "homophone"}]}
+{"sentence": "着些是一个球玉要有的东西", "errors": [{"char": "玉", "correct": "王", "position": 6, "type": "shape"}, {"char": "着", "correct": "这", "position": 0, "type": "homophone"}]}
+{"sentence": "又点不明白为什么鹿乱得这样", "errors": [{"char": "又", "correct": "有", "position": 0, "type": "homophone"}]}
+{"sentence": "所以才有知遇之恩想见恨晚这些的说法", "errors": [{"char": "想", "correct": "相", "position": 8, "type": "homophone"}]}
+{"sentence": "不小心而已他也在调头走", "errors": []}
+{"sentence": "政府拨款赈济灾民。", "errors": []}
+{"sentence": "不是做事技能上那么简单，是人情世故野", "errors": []}
+{"sentence": "没有前人的付出，又怎么会有今天的我们呢？", "errors": []}
+{"sentence": "整添在这里美化港共点垃圾东西", "errors": [{"char": "添", "correct": "天", "position": 1, "type": "homophone"}]}
+{"sentence": "还好也妖是香港看过爷爷", "errors": [{"char": "妖", "correct": "叫", "position": 3, "type": "homophone"}]}
+{"sentence": "好像技法了最原始有权有势的滋味到最后终于放弃不了", "errors": [{"char": "技", "correct": "激", "position": 2, "type": "homophone"}, {"char": "法", "correct": "发", "position": 3, "type": "homophone"}]}
+{"sentence": "之后就正正常常结昏了吧", "errors": [{"char": "昏", "correct": "婚", "position": 8, "type": "homophone"}]}
+{"sentence": "完全是本末倒置哥哥", "errors": []}
+{"sentence": "不管怎么样，我都一定要甚加这个比赛。", "errors": [{"char": "甚", "correct": "参", "position": 11, "type": "homophone"}]}
+{"sentence": "这只款挺漂亮啊。", "errors": []}
+{"sentence": "树蛙是著么好就不会这么快停产吧", "errors": [{"char": "著", "correct": "这", "position": 3, "type": "homophone"}]}
+{"sentence": "他在外国泡了这么久，英语议定说得很好吧", "errors": [{"char": "议", "correct": "一", "position": 12, "type": "homophone"}]}
+{"sentence": "但适中不想烦人也不想说那么多给人听", "errors": [{"char": "适", "correct": "始", "position": 1, "type": "homophone"}, {"char": "中", "correct": "终", "position": 2, "type": "homophone"}]}
+{"sentence": "叫救鸣最好叫火灾叫抢东西强奸真未必有人帮你", "errors": [{"char": "鸣", "correct": "命", "position": 2, "type": "homophone"}]}
+{"sentence": "他跟你倒地是什么关系？", "errors": [{"char": "倒", "correct": "到", "position": 3, "type": "homophone"}, {"char": "地", "correct": "底", "position": 4, "type": "homophone"}]}
+{"sentence": "整夫都听了些什么减肥大法", "errors": [{"char": "夫", "correct": "天", "position": 1, "type": "shape"}]}
+{"sentence": "吵了一架，感情不至干破裂吧？", "errors": [{"char": "干", "correct": "于", "position": 9, "type": "shape"}]}
+{"sentence": "谁知是不是自已自愿近去和由自己压制？", "errors": [{"char": "已", "correct": "己", "position": 6, "type": "shape"}, {"char": "近", "correct": "进", "position": 9, "type": "homophone"}]}
+{"sentence": "吃了祭天步飞，搞到身形暴肥。", "errors": [{"char": "祭", "correct": "几", "position": 2, "type": "homophone"}]}
+{"sentence": "我崽看书，你瘪搞鬼！", "errors": [{"char": "崽", "correct": "在", "position": 1, "type": "homophone"}, {"char": "瘪", "correct": "别", "position": 6, "type": "homophone"}]}
+{"sentence": "其时得很少透类型是完全没了", "errors": [{"char": "时", "correct": "实", "position": 1, "type": "homophone"}, {"char": "透", "correct": "数", "position": 5, "type": "homophone"}]}
+{"sentence": "所以只有一部分有小小智商的人做到其他都是会死降低人口啊", "errors": []}
+{"sentence": "反正从合回那么多的意见，港队主教练只是一个傀儡", "errors": [{"char": "从", "correct": "综", "position": 2, "type": "homophone"}]}
+{"sentence": "其时以上我想表达的是，如果你是投资有道，请你一定会买股票。", "errors": [{"char": "时", "correct": "实", "position": 1, "type": "homophone"}]}
+{"sentence": "我它收不到垃圾邮件都没有", "errors": [{"char": "它", "correct": "也", "position": 1, "type": "homophone"}]}
+{"sentence": "什么为止也会打除了笼之外", "errors": [{"char": "为", "correct": "位", "position": 2, "type": "homophone"}, {"char": "止", "correct": "置", "position": 3, "type": "homophone"}]}
+{"sentence": "认识几年之后觉得他很有耐性又美什么脾气看见他笑自己也很想跟著他笑", "errors": [{"char": "美", "correct": "没", "position": 14, "type": "homophone"}]}
+{"sentence": "啊，我记得他是谁了，达别是去年香港小姐落选那个金美黎？", "errors": [{"char": "达", "correct": "他", "position": 10, "type": "homophone"}]}
+{"sentence": "不过是香港这个地方大部分人每夫就是埋头苦干", "errors": [{"char": "夫", "correct": "天", "position": 14, "type": "shape"}]}
+{"sentence": "战乱朝后，他明查暗访，希望找回失散了的太太。", "errors": [{"char": "朝", "correct": "之", "position": 2, "type": "homophone"}]}
+{"sentence": "号不点，我火烧春袋啊会点吧好嘛", "errors": [{"char": "会", "correct": "快", "position": 10, "type": "homophone"}, {"char": "号", "correct": "小", "position": 0, "type": "homophone"}]}
+{"sentence": "他们俩的婚期很接近，你要去喝的话，这段时间就别去旅行了。", "errors": []}
+{"sentence": "别说我跟他约会啊，我焖大缆也绞不完的", "errors": [{"char": "焖", "correct": "们", "position": 10, "type": "homophone"}]}
+{"sentence": "是着个意思，因机真的很多资料，好难整理。", "errors": [{"char": "机", "correct": "为", "position": 7, "type": "homophone"}, {"char": "着", "correct": "这", "position": 1, "type": "homophone"}]}
+{"sentence": "泥自给做得不好，不要赖人！", "errors": [{"char": "泥", "correct": "你", "position": 0, "type": "homophone"}, {"char": "给", "correct": "己", "position": 2, "type": "homophone"}]}
+{"sentence": "现场右一名可疑男子。", "errors": [{"char": "右", "correct": "有", "position": 2, "type": "homophone"}]}
+{"sentence": "上上签巴打出就什么来说两句啊喂", "errors": []}
+{"sentence": "没关系最金坎故看到糖尿病", "errors": [{"char": "坎", "correct": "看", "position": 5, "type": "homophone"}, {"char": "金", "correct": "近", "position": 4, "type": "homophone"}]}
+{"sentence": "是部是找替死鬼卧不是很明白呢得", "errors": [{"char": "卧", "correct": "我", "position": 7, "type": "homophone"}, {"char": "部", "correct": "不", "position": 1, "type": "homophone"}]}
+{"sentence": "这次论坛有很多学者出席，真学稻东西。", "errors": [{"char": "稻", "correct": "到", "position": 14, "type": "homophone"}]}
+{"sentence": "但是广追得去停机坪发现架飞机刚飞走鸠最好", "errors": [{"char": "鸠", "correct": "就", "position": 17, "type": "homophone"}]}
+{"sentence": "我不好运被入偷了车奇和保险，不知道搞车契和保险要多少钱", "errors": [{"char": "入", "correct": "人", "position": 5, "type": "shape"}, {"char": "奇", "correct": "契", "position": 9, "type": "homophone"}]}
+{"sentence": "真心想问你家忍顶不顶得你顺这些天气开暖风机", "errors": [{"char": "忍", "correct": "人", "position": 6, "type": "homophone"}]}
+{"sentence": "今天会工乐趣是等下班看故", "errors": [{"char": "会", "correct": "回", "position": 2, "type": "homophone"}]}
+{"sentence": "现在跟他交往的那个男人酒精要不要娶她，我看也说不定，只是宰这儿占著毛坑不拉屎！", "errors": [{"char": "酒", "correct": "究", "position": 11, "type": "homophone"}, {"char": "精", "correct": "竟", "position": 12, "type": "homophone"}, {"char": "宰", "correct": "在", "position": 28, "type": "homophone"}]}
+{"sentence": "隔住个汪，不用交演技，耐性会好一点", "errors": [{"char": "汪", "correct": "网", "position": 3, "type": "homophone"}]}
+{"sentence": "脑的三色对视觉细胞的三色市互相肚里", "errors": [{"char": "市", "correct": "是", "position": 12, "type": "homophone"}, {"char": "肚", "correct": "独", "position": 15, "type": "homophone"}, {"char": "里", "correct": "立", "position": 16, "type": "homophone"}]}
+{"sentence": "麻烦我想咬杯咖啡。", "errors": [{"char": "咬", "correct": "要", "position": 4, "type": "homophone"}]}
+{"sentence": "如果你是较粗硬或挺参的发质", "errors": [{"char": "参", "correct": "身", "position": 9, "type": "homophone"}]}
+{"sentence": "然后这些照片到十儿二十岁才再拖", "errors": [{"char": "儿", "correct": "几", "position": 8, "type": "shape"}]}
+{"sentence": "于些人笑得好像在看黄子华", "errors": [{"char": "于", "correct": "有", "position": 0, "type": "homophone"}]}
+{"sentence": "现在既瓜都正放行这么奇形怪状的吗？", "errors": [{"char": "既", "correct": "西", "position": 2, "type": "homophone"}, {"char": "放", "correct": "方", "position": 6, "type": "homophone"}, {"char": "行", "correct": "形", "position": 7, "type": "homophone"}]}
+{"sentence": "基本上你要当他只是一个带你坎盘的一个人", "errors": [{"char": "坎", "correct": "看", "position": 13, "type": "homophone"}]}
+{"sentence": "你可疑简单点就这样叫沃", "errors": [{"char": "疑", "correct": "以", "position": 2, "type": "homophone"}, {"char": "沃", "correct": "我", "position": 10, "type": "homophone"}]}
+{"sentence": "曾经阀现了男朋友一个非长大的谎言", "errors": [{"char": "阀", "correct": "发", "position": 2, "type": "homophone"}, {"char": "长", "correct": "常", "position": 11, "type": "homophone"}]}
+{"sentence": "还好我机自知之明不会没见过对方就认定自己一定帅哥过人", "errors": [{"char": "机", "correct": "有", "position": 3, "type": "homophone"}]}
+{"sentence": "真的多了很多人，之前人们很多都不见了", "errors": []}
+{"sentence": "结婚了以后，他线在很少出来玩了", "errors": [{"char": "线", "correct": "现", "position": 7, "type": "homophone"}]}
+{"sentence": "他用个好害怕死的延伸望一望我", "errors": [{"char": "延", "correct": "眼", "position": 8, "type": "homophone"}, {"char": "伸", "correct": "神", "position": 9, "type": "homophone"}]}
+{"sentence": "他将会在纽说豆留十天。", "errors": [{"char": "说", "correct": "约", "position": 5, "type": "homophone"}, {"char": "豆", "correct": "逗", "position": 6, "type": "homophone"}]}
+{"sentence": "多少分，听过别人怎么说自己。", "errors": []}
+{"sentence": "比别人笑不是因为英语差，二十扮狗吠", "errors": [{"char": "二", "correct": "而", "position": 12, "type": "homophone"}, {"char": "十", "correct": "是", "position": 13, "type": "homophone"}]}
+{"sentence": "他提车子在意外之后报销了。", "errors": [{"char": "提", "correct": "的", "position": 1, "type": "homophone"}]}
+{"sentence": "我也有同感唉还好还有也班中学老死", "errors": [{"char": "也", "correct": "一", "position": 10, "type": "homophone"}]}
+{"sentence": "而且出来效果也不时月太差", "errors": [{"char": "时", "correct": "是", "position": 8, "type": "homophone"}, {"char": "月", "correct": "说", "position": 9, "type": "homophone"}]}
+{"sentence": "要宇宙得到平衡而不适要帮人", "errors": [{"char": "适", "correct": "是", "position": 9, "type": "homophone"}]}
+{"sentence": "现在戏院播喜剧就体被人合法合理地笑，有什么这么丑吗？丑得过你这么自我中心？", "errors": [{"char": "体", "correct": "是", "position": 8, "type": "homophone"}]}
+{"sentence": "上个月一出都没死心了", "errors": []}
+{"sentence": "就是因为精力过才不会", "errors": [{"char": "精", "correct": "经", "position": 4, "type": "homophone"}, {"char": "力", "correct": "历", "position": 5, "type": "homophone"}]}
+{"sentence": "以后的歌舰只不用写这个字吧", "errors": [{"char": "舰", "correct": "简", "position": 4, "type": "homophone"}, {"char": "只", "correct": "直", "position": 5, "type": "homophone"}]}
+{"sentence": "黑木老板毫像有点古惑", "errors": [{"char": "毫", "correct": "好", "position": 4, "type": "homophone"}]}
+{"sentence": "你见个兑仁我都见过是没见你", "errors": [{"char": "仁", "correct": "人", "position": 4, "type": "homophone"}, {"char": "兑", "correct": "堆", "position": 3, "type": "homophone"}]}
+{"sentence": "不知道为什么看受个心很难受", "errors": [{"char": "受", "correct": "到", "position": 7, "type": "homophone"}]}
+{"sentence": "未来有点楠度和挑战啊", "errors": [{"char": "楠", "correct": "难", "position": 4, "type": "homophone"}]}
+{"sentence": "如果不算冶安的话南美洲应该很安全", "errors": [{"char": "冶", "correct": "治", "position": 4, "type": "shape"}]}
+{"sentence": "为甚么不是剩下是我开心？", "errors": [{"char": "甚", "correct": "什", "position": 1, "type": "homophone"}]}
+{"sentence": "这篇是由资深记者采访撰述，回响挺好。", "errors": []}
+{"sentence": "萝卜真不好吗要除球找水", "errors": [{"char": "除", "correct": "输", "position": 7, "type": "homophone"}]}
+{"sentence": "我意思是他说话上对香港入是尊敬", "errors": [{"char": "入", "correct": "人", "position": 11, "type": "shape"}]}
+{"sentence": "太控人登陆月球。", "errors": [{"char": "控", "correct": "空", "position": 1, "type": "homophone"}]}
+{"sentence": "进得业教你向著子孙遗祸多大", "errors": [{"char": "向", "correct": "想", "position": 5, "type": "homophone"}, {"char": "业", "correct": "耶", "position": 2, "type": "homophone"}]}
+{"sentence": "我不觉得舍难取易只是我自已的思维", "errors": [{"char": "已", "correct": "己", "position": 12, "type": "shape"}]}
+{"sentence": "咀后可能真由机会的", "errors": [{"char": "由", "correct": "有", "position": 5, "type": "homophone"}, {"char": "咀", "correct": "最", "position": 0, "type": "homophone"}]}
+{"sentence": "永远对第一次都是这么眷恋", "errors": []}
+{"sentence": "不认阵不投入看起来干嘛", "errors": [{"char": "阵", "correct": "真", "position": 2, "type": "homophone"}]}
+{"sentence": "很尴尬不致道卖不卖了他再出好", "errors": [{"char": "致", "correct": "知", "position": 4, "type": "homophone"}]}
+{"sentence": "看到有人推龙需已经不想跟他吵", "errors": [{"char": "需", "correct": "女", "position": 6, "type": "homophone"}]}
+{"sentence": "那个太子爷把他爸爸留下给他的遗产也使得一赶二净。", "errors": [{"char": "赶", "correct": "干", "position": 20, "type": "homophone"}]}
+{"sentence": "是醒了个几分钟会慢慢回忆起", "errors": []}
+{"sentence": "不要又嫌拍剧辛苦褶样的样子，才起码曝光率高很多", "errors": [{"char": "褶", "correct": "这", "position": 8, "type": "homophone"}]}
+{"sentence": "列面都是些甚么东西？", "errors": [{"char": "列", "correct": "里", "position": 0, "type": "homophone"}, {"char": "甚", "correct": "什", "position": 5, "type": "homophone"}]}
+{"sentence": "给复雠者妨碍搞到呀集再说拿著剩下的石头", "errors": [{"char": "呀", "correct": "下", "position": 8, "type": "homophone"}]}
+{"sentence": "七事宜地零丁，不如齐头收七十吧。", "errors": [{"char": "事", "correct": "十", "position": 1, "type": "homophone"}, {"char": "宜", "correct": "一", "position": 2, "type": "homophone"}]}
+{"sentence": "不过呢，最大粒果儿位在三间公司都有股份", "errors": [{"char": "儿", "correct": "几", "position": 8, "type": "shape"}]}
+{"sentence": "我狠乡跟他疯狂啪啪啪。", "errors": [{"char": "狠", "correct": "很", "position": 1, "type": "homophone"}, {"char": "乡", "correct": "想", "position": 2, "type": "homophone"}]}
+{"sentence": "但外出吃以吃东西不可抬去元朗", "errors": [{"char": "抬", "correct": "能", "position": 10, "type": "homophone"}, {"char": "以", "correct": "一", "position": 4, "type": "homophone"}]}
+{"sentence": "虽然没有做到马上就不受他影响", "errors": []}
+{"sentence": "刮风也要去吧，下几提雨，干脆管他呢", "errors": [{"char": "提", "correct": "滴", "position": 9, "type": "homophone"}]}
+{"sentence": "这些王的北京设定又做得好", "errors": [{"char": "北", "correct": "背", "position": 4, "type": "homophone"}, {"char": "京", "correct": "景", "position": 5, "type": "homophone"}]}
+{"sentence": "大约多久要座这样嘢？", "errors": [{"char": "座", "correct": "做", "position": 5, "type": "homophone"}]}
+{"sentence": "现仔根本就没了个灵魂", "errors": [{"char": "仔", "correct": "在", "position": 1, "type": "homophone"}]}
+{"sentence": "这么稍严也不是错判丫哥哥", "errors": []}
+{"sentence": "最舒服撮合适一定是家", "errors": [{"char": "撮", "correct": "最", "position": 3, "type": "homophone"}]}
+{"sentence": "切进接著双手拉杆扣篮看到滑哗声", "errors": [{"char": "滑", "correct": "哗", "position": 12, "type": "homophone"}]}
+{"sentence": "没有什么问题的我可以叫自己做爷喝呢", "errors": [{"char": "喝", "correct": "爷", "position": 15, "type": "homophone"}]}
+{"sentence": "倒地是沙拿踢得像美斯还是罗马踢到他做美斯", "errors": [{"char": "倒", "correct": "到", "position": 0, "type": "homophone"}, {"char": "地", "correct": "底", "position": 1, "type": "homophone"}]}
+{"sentence": "是因为你闷没有能力去政区", "errors": [{"char": "闷", "correct": "们", "position": 4, "type": "homophone"}, {"char": "政", "correct": "争", "position": 10, "type": "homophone"}, {"char": "区", "correct": "取", "position": 11, "type": "homophone"}]}
+{"sentence": "他们都没有尼传时间的能力", "errors": [{"char": "尼", "correct": "逆", "position": 5, "type": "homophone"}, {"char": "传", "correct": "转", "position": 6, "type": "homophone"}]}
+{"sentence": "是吧，比别人觉得你不失容易跳进", "errors": [{"char": "失", "correct": "是", "position": 10, "type": "homophone"}]}
+{"sentence": "大加拍硬档，快办好单东西", "errors": [{"char": "加", "correct": "家", "position": 1, "type": "homophone"}]}
+{"sentence": "刚想起来，去拧决定冠军那场又是西布朗", "errors": [{"char": "拧", "correct": "年", "position": 6, "type": "homophone"}]}
+{"sentence": "吓得卧换换下衣服冲出去看电视", "errors": [{"char": "卧", "correct": "我", "position": 2, "type": "homophone"}]}
+{"sentence": "但达现在是这样重复你这句", "errors": [{"char": "达", "correct": "他", "position": 1, "type": "homophone"}]}
+{"sentence": "姐姐女儿兴起六碗来了过夜", "errors": [{"char": "兴", "correct": "星", "position": 4, "type": "homophone"}, {"char": "起", "correct": "期", "position": 5, "type": "homophone"}, {"char": "碗", "correct": "晚", "position": 7, "type": "homophone"}]}
+{"sentence": "前列腺有问题最多早泄，一粒钟没有什么间题", "errors": [{"char": "间", "correct": "问", "position": 18, "type": "shape"}]}
+{"sentence": "我去旅行也不会奏大路", "errors": [{"char": "奏", "correct": "走", "position": 7, "type": "homophone"}]}
+{"sentence": "自从习近平登基之后，这怎么我没有异议。", "errors": []}
+{"sentence": "好的植物会带来好的种子，而坏的植物就会带来坏帝种子。", "errors": [{"char": "帝", "correct": "的", "position": 22, "type": "homophone"}]}
+{"sentence": "还好你帮我解围而己，如果不是就让他们笑死！", "errors": [{"char": "己", "correct": "已", "position": 8, "type": "shape"}]}
+{"sentence": "现在楼价升那么多工资升得这么少也不知道怎么储首期", "errors": []}
+{"sentence": "推介完又话不对，不推介又话我们板老油条，好难服侍", "errors": [{"char": "板", "correct": "扮", "position": 15, "type": "homophone"}]}
+{"sentence": "我也难抽离最近又尴尬了奇", "errors": [{"char": "奇", "correct": "唉", "position": 11, "type": "homophone"}]}
+{"sentence": "有个更差，显得他没那末废", "errors": [{"char": "末", "correct": "么", "position": 10, "type": "homophone"}]}
+{"sentence": "他这么没主见，不会是一个好的领袖！", "errors": []}
+{"sentence": "不要访爱情是你人生的守卫", "errors": [{"char": "访", "correct": "放", "position": 2, "type": "homophone"}, {"char": "守", "correct": "首", "position": 10, "type": "homophone"}, {"char": "卫", "correct": "位", "position": 11, "type": "homophone"}]}
+{"sentence": "他分手除后九成九找回你回头", "errors": [{"char": "除", "correct": "之", "position": 3, "type": "homophone"}]}
+{"sentence": "有可住著银白色甲训了是得", "errors": [{"char": "可", "correct": "个", "position": 1, "type": "homophone"}]}
+{"sentence": "丁班不要命又猛的蛮族", "errors": [{"char": "丁", "correct": "整", "position": 0, "type": "homophone"}]}
+{"sentence": "昨晚黑你去了哪来？", "errors": []}
+{"sentence": "请给我塔的电话号码和地质", "errors": [{"char": "塔", "correct": "他", "position": 3, "type": "homophone"}, {"char": "质", "correct": "址", "position": 11, "type": "homophone"}]}
+{"sentence": "可惜飞哥升饱了不是喂给飞哥吃还回个心给他", "errors": [{"char": "饱", "correct": "爆", "position": 5, "type": "homophone"}]}
+{"sentence": "他走开放，联合国又不好意思再制裁他", "errors": []}
+{"sentence": "不会这么想念要没兼几甜菜开始想念", "errors": [{"char": "甜", "correct": "天", "position": 10, "type": "homophone"}, {"char": "菜", "correct": "才", "position": 11, "type": "homophone"}, {"char": "兼", "correct": "见", "position": 8, "type": "homophone"}]}
+{"sentence": "从起初蔡百死，到现在无所谓", "errors": [{"char": "百", "correct": "怕", "position": 4, "type": "homophone"}, {"char": "蔡", "correct": "才", "position": 3, "type": "homophone"}]}
+{"sentence": "他是大前天来哲理的，不是昨添", "errors": [{"char": "哲", "correct": "这", "position": 6, "type": "homophone"}, {"char": "理", "correct": "里", "position": 7, "type": "homophone"}, {"char": "添", "correct": "天", "position": 13, "type": "homophone"}]}
+{"sentence": "在通常我看重角答都会这样", "errors": [{"char": "重", "correct": "中", "position": 5, "type": "homophone"}, {"char": "答", "correct": "大", "position": 7, "type": "homophone"}]}
+{"sentence": "他是纽完过了入比人从后铲下", "errors": [{"char": "纽", "correct": "扭", "position": 2, "type": "homophone"}, {"char": "入", "correct": "人", "position": 6, "type": "shape"}]}
+{"sentence": "他走路不小心，久扭伤了叫", "errors": [{"char": "久", "correct": "就", "position": 7, "type": "homophone"}, {"char": "叫", "correct": "脚", "position": 11, "type": "homophone"}]}
+{"sentence": "如果个楼主死廖我真生气", "errors": [{"char": "廖", "correct": "了", "position": 6, "type": "homophone"}]}
+{"sentence": "为甚么会跟我同名但是我从来不会走场", "errors": [{"char": "甚", "correct": "什", "position": 1, "type": "homophone"}]}
+{"sentence": "我明夫出 show 啊，你来不来啊？", "errors": [{"char": "夫", "correct": "天", "position": 2, "type": "shape"}]}
+{"sentence": "买就议定不会买他，但真的很有兴趣想知道", "errors": [{"char": "议", "correct": "一", "position": 2, "type": "homophone"}]}
+{"sentence": "不明白为什么有人吃大肠，又捕食饥荒", "errors": [{"char": "捕", "correct": "不", "position": 13, "type": "homophone"}, {"char": "食", "correct": "是", "position": 14, "type": "homophone"}]}
+{"sentence": "找你的女几是街帮你椎吧", "errors": [{"char": "几", "correct": "儿", "position": 4, "type": "shape"}, {"char": "椎", "correct": "吹", "position": 9, "type": "homophone"}]}
+{"sentence": "他很贪心的，去吃一顿饭都 sa 了入家套刀叉。", "errors": [{"char": "入", "correct": "人", "position": 17, "type": "shape"}]}
+{"sentence": "女生开朗真对著什么人都挥加分", "errors": [{"char": "挥", "correct": "会", "position": 11, "type": "homophone"}]}
+{"sentence": "其实她劳工是不是找很多", "errors": [{"char": "劳", "correct": "老", "position": 3, "type": "homophone"}, {"char": "工", "correct": "公", "position": 4, "type": "homophone"}]}
+{"sentence": "这么多废老爱活应该回去住", "errors": [{"char": "活", "correct": "国", "position": 6, "type": "homophone"}]}
+{"sentence": "这些行人路常常被人用来上出货，摆了啲卡板和货在这里，妨碍了怎么走呢？", "errors": []}
+{"sentence": "那个老妈就相信了带儿子去了间近的中学", "errors": []}
+{"sentence": "他们已经尽全列了，但是始终还是输了。", "errors": [{"char": "列", "correct": "力", "position": 6, "type": "homophone"}]}
+{"sentence": "想问下丙朗进了球之后是不是又用招牌动作庆祝", "errors": []}
+{"sentence": "但理性想，我还是觉得雷烩赢", "errors": [{"char": "烩", "correct": "会", "position": 11, "type": "homophone"}]}
+{"sentence": "不要再怪家明了。你当年何尝不是年少气盛，没想过就做呢？", "errors": []}
+{"sentence": "一封信是布什挂号？", "errors": [{"char": "布", "correct": "不", "position": 4, "type": "homophone"}, {"char": "什", "correct": "是", "position": 5, "type": "homophone"}]}
+{"sentence": "抽到超市礼券伯了，里海似的。", "errors": [{"char": "里", "correct": "厉", "position": 9, "type": "homophone"}, {"char": "海", "correct": "害", "position": 10, "type": "homophone"}, {"char": "伯", "correct": "罢", "position": 6, "type": "homophone"}]}
+{"sentence": "觉得别玩别别玩了", "errors": []}
+{"sentence": "令甜买都洗得及穿来看", "errors": [{"char": "令", "correct": "今", "position": 0, "type": "shape"}, {"char": "甜", "correct": "天", "position": 1, "type": "homophone"}]}
+{"sentence": "他们一入一本神龙纹身我立即闭嘴", "errors": [{"char": "入", "correct": "人", "position": 3, "type": "shape"}]}
+{"sentence": "熟了他们性格舅很好看", "errors": [{"char": "舅", "correct": "就", "position": 6, "type": "homophone"}]}
+{"sentence": "我不能留在自己的班房", "errors": []}
+{"sentence": "然后你们数球又生气绳气猪", "errors": [{"char": "绳", "correct": "生", "position": 9, "type": "homophone"}, {"char": "数", "correct": "输", "position": 4, "type": "homophone"}]}
+{"sentence": "街市买完菜回家那时看到殿试台拍东西哪些大婶", "errors": [{"char": "殿", "correct": "电", "position": 11, "type": "homophone"}, {"char": "试", "correct": "视", "position": 12, "type": "homophone"}, {"char": "哪", "correct": "那", "position": 17, "type": "homophone"}]}
+{"sentence": "除非他很想走不是的摩难忍不会卖吧", "errors": [{"char": "难", "correct": "男", "position": 10, "type": "homophone"}, {"char": "忍", "correct": "人", "position": 11, "type": "homophone"}]}
+{"sentence": "开车千万副能打瞌睡！", "errors": [{"char": "副", "correct": "不", "position": 4, "type": "homophone"}]}
+{"sentence": "因为很想望迪布尼上个月冲咚之下买了机票", "errors": [{"char": "咚", "correct": "动", "position": 12, "type": "homophone"}]}
+{"sentence": "所以我现在也仅躲说话", "errors": [{"char": "躲", "correct": "多", "position": 7, "type": "homophone"}, {"char": "仅", "correct": "不", "position": 6, "type": "homophone"}]}
+{"sentence": "这次车祸没伤了人，真幸运", "errors": []}
+{"sentence": "其实是不是水有阵味也许你还没过滤清楚", "errors": []}
+{"sentence": "就算数底包好也部见得有多大的不利", "errors": [{"char": "包", "correct": "不", "position": 4, "type": "homophone"}, {"char": "部", "correct": "不", "position": 7, "type": "homophone"}]}
+{"sentence": "确实除了没票是手，今天诀对不值得买。", "errors": [{"char": "诀", "correct": "绝", "position": 11, "type": "homophone"}]}
+{"sentence": "对于旚琼顿先生精彩而友好的发言，他只有一处要批评。", "errors": []}
+{"sentence": "可不克以就这么写损也帐", "errors": [{"char": "也", "correct": "益", "position": 9, "type": "homophone"}, {"char": "克", "correct": "可", "position": 2, "type": "homophone"}]}
+{"sentence": "别说简点和足球或者跟运动为关的歌", "errors": [{"char": "为", "correct": "有", "position": 12, "type": "homophone"}]}
+{"sentence": "大拿拿三千块，借以的东西各有所爱", "errors": [{"char": "借", "correct": "介", "position": 7, "type": "homophone"}, {"char": "以", "correct": "意", "position": 8, "type": "homophone"}]}
+{"sentence": "废老明为什么打架都这么留恋港英时代没有", "errors": [{"char": "打", "correct": "大", "position": 6, "type": "homophone"}, {"char": "架", "correct": "家", "position": 7, "type": "homophone"}]}
+{"sentence": "肥吸晚年这么球皇病想做大脑", "errors": [{"char": "吸", "correct": "西", "position": 1, "type": "homophone"}]}
+{"sentence": "买了盘子的兄弟不妨欣赏一下导演搜集流星曲意外的心机", "errors": [{"char": "星", "correct": "行", "position": 18, "type": "homophone"}, {"char": "意", "correct": "以", "position": 20, "type": "homophone"}]}
+{"sentence": "继续就刚，总之要他们内宏", "errors": [{"char": "宏", "correct": "哄", "position": 11, "type": "homophone"}]}
+{"sentence": "明明儿个阵容都没摆我想卖的人", "errors": [{"char": "儿", "correct": "几", "position": 2, "type": "shape"}]}
+{"sentence": "你这么水是安慰我而已。", "errors": [{"char": "水", "correct": "说", "position": 3, "type": "homophone"}]}
+{"sentence": "可能你自己都不愿意忘纪不过既然已无可能我觉得你可以把时间花在其他东西身上", "errors": [{"char": "纪", "correct": "记", "position": 10, "type": "shape"}]}
+{"sentence": "其十什么状态什么战术克制还是没用", "errors": [{"char": "十", "correct": "实", "position": 1, "type": "homophone"}]}
+{"sentence": "那么兄弟知不知道应该转用哪只好？", "errors": []}
+{"sentence": "当然不行，不要老是给我这些思想", "errors": []}
+{"sentence": "兄弟意思是每次游戏开始都会龛到这本簿先？", "errors": [{"char": "龛", "correct": "看", "position": 13, "type": "homophone"}]}
+{"sentence": "人家真第能的就算了吧", "errors": [{"char": "第", "correct": "低", "position": 3, "type": "homophone"}]}
+{"sentence": "汤到去直接开六音录他们", "errors": [{"char": "汤", "correct": "上", "position": 0, "type": "homophone"}, {"char": "六", "correct": "录", "position": 6, "type": "homophone"}]}
+{"sentence": "没错所以窝吾会用耸立物让他喜欢我", "errors": [{"char": "窝", "correct": "我", "position": 4, "type": "homophone"}, {"char": "耸", "correct": "送", "position": 8, "type": "homophone"}, {"char": "立", "correct": "礼", "position": 9, "type": "homophone"}]}
+{"sentence": "不腰气馁啊丝打留名一起做铜学", "errors": [{"char": "腰", "correct": "要", "position": 1, "type": "homophone"}, {"char": "铜", "correct": "同", "position": 12, "type": "homophone"}]}
+{"sentence": "厂他自己敌表现破坏了", "errors": [{"char": "厂", "correct": "但", "position": 0, "type": "homophone"}, {"char": "敌", "correct": "的", "position": 4, "type": "homophone"}]}
+{"sentence": "拖睡觉那时听不见有点贼进来房子偷东西", "errors": [{"char": "拖", "correct": "他", "position": 0, "type": "homophone"}]}
+{"sentence": "我嫁了他，他议定要养活我的", "errors": [{"char": "议", "correct": "一", "position": 6, "type": "homophone"}]}
+{"sentence": "搭下班回家属后通常都会换衣服", "errors": [{"char": "搭", "correct": "他", "position": 0, "type": "homophone"}, {"char": "属", "correct": "之", "position": 5, "type": "homophone"}]}
+{"sentence": "又枕帝很久没收过唇膏了啊", "errors": [{"char": "帝", "correct": "的", "position": 2, "type": "homophone"}, {"char": "枕", "correct": "真", "position": 1, "type": "homophone"}]}
+{"sentence": "说了这么久又拿不出证距", "errors": [{"char": "距", "correct": "据", "position": 10, "type": "homophone"}]}
+{"sentence": "暂式是这样，有扁动我会跟你说", "errors": [{"char": "扁", "correct": "变", "position": 7, "type": "homophone"}, {"char": "式", "correct": "时", "position": 1, "type": "homophone"}]}
+{"sentence": "想有自己的下一代真的很正常", "errors": []}
+{"sentence": "如果他真的那么厉害，但是又不这么做的理由，它个。", "errors": [{"char": "它", "correct": "一", "position": 21, "type": "homophone"}]}
+{"sentence": "僭么可能有多，少亏点都偷校了", "errors": [{"char": "校", "correct": "笑", "position": 12, "type": "homophone"}, {"char": "僭", "correct": "怎", "position": 0, "type": "homophone"}]}
+{"sentence": "我是是浴室外面脱晒衣服才洗澡临睡会换回套睡衣", "errors": []}
+{"sentence": "这么说完全是凭空捏造，来远很有可能是斯诺波别有用心地传出来的谎言。", "errors": [{"char": "远", "correct": "源", "position": 12, "type": "homophone"}]}
+{"sentence": "愈看王想上多次他的堂", "errors": [{"char": "王", "correct": "愈", "position": 2, "type": "homophone"}]}
+{"sentence": "他不再是我兄弟和陌生入一样", "errors": [{"char": "入", "correct": "人", "position": 10, "type": "shape"}]}
+{"sentence": "幼时看看人们挺愚昧都挺好咖", "errors": [{"char": "幼", "correct": "有", "position": 0, "type": "homophone"}]}
+{"sentence": "某程度汤都受惠条防线的", "errors": [{"char": "汤", "correct": "上", "position": 3, "type": "homophone"}]}
+{"sentence": "我想找波由打台球", "errors": [{"char": "由", "correct": "友", "position": 4, "type": "homophone"}]}
+{"sentence": "自欺欺入，掩耳盗铃", "errors": [{"char": "入", "correct": "人", "position": 3, "type": "shape"}]}
+{"sentence": "其实办公室小人政治这些都是花边", "errors": []}
+{"sentence": "左边这么空是完全没人是入都太够守你吧", "errors": [{"char": "入", "correct": "人", "position": 11, "type": "shape"}, {"char": "太", "correct": "能", "position": 13, "type": "homophone"}]}
+{"sentence": "买了两只小猫，一只公的，一只母的", "errors": []}
+{"sentence": "我指导我很需要去听别人的心事", "errors": [{"char": "指", "correct": "知", "position": 1, "type": "homophone"}, {"char": "导", "correct": "道", "position": 2, "type": "homophone"}]}
+{"sentence": "那次他没请我吃番，我们AA的", "errors": [{"char": "番", "correct": "饭", "position": 7, "type": "homophone"}]}
+{"sentence": "班友真的当了自己外国人", "errors": []}
+{"sentence": "你正一礼义廉，五尺！", "errors": [{"char": "五", "correct": "无", "position": 7, "type": "homophone"}, {"char": "尺", "correct": "耻", "position": 8, "type": "homophone"}]}
+{"sentence": "别搞入了入家有心自然会找你", "errors": [{"char": "入", "correct": "人", "position": 4, "type": "shape"}, {"char": "入", "correct": "人", "position": 2, "type": "shape"}]}
+{"sentence": "他都说你怎没胖了那么多", "errors": [{"char": "没", "correct": "么", "position": 5, "type": "homophone"}]}
+{"sentence": "我女儿是电视轻，一开殿试就看到眼睛好了", "errors": [{"char": "殿", "correct": "电", "position": 10, "type": "homophone"}, {"char": "试", "correct": "视", "position": 11, "type": "homophone"}, {"char": "轻", "correct": "精", "position": 6, "type": "homophone"}]}
+{"sentence": "他座个综艺节目好像很受欢迎", "errors": [{"char": "座", "correct": "做", "position": 1, "type": "homophone"}]}
+{"sentence": "这件事我渡看核了", "errors": [{"char": "核", "correct": "开", "position": 6, "type": "homophone"}, {"char": "渡", "correct": "都", "position": 4, "type": "homophone"}]}
+{"sentence": "他刚失业，又遇到意外，震是祸不单行啊。", "errors": [{"char": "震", "correct": "真", "position": 11, "type": "homophone"}]}
+{"sentence": "我的初中适中不变。", "errors": [{"char": "中", "correct": "衷", "position": 3, "type": "homophone"}, {"char": "适", "correct": "始", "position": 4, "type": "homophone"}, {"char": "中", "correct": "终", "position": 5, "type": "homophone"}]}
+{"sentence": "他跟我眨一下眼睛，好像叫我跟著他走", "errors": []}
+{"sentence": "又不是一定要出谁给你", "errors": [{"char": "谁", "correct": "水", "position": 7, "type": "homophone"}]}
+{"sentence": "脚印虽然只雄追踪到几米远，但似乎一直通向树篱上一个洞的方向。", "errors": [{"char": "雄", "correct": "能", "position": 5, "type": "homophone"}]}
+{"sentence": "一定让这些垃圾腻先吃著", "errors": [{"char": "腻", "correct": "你", "position": 7, "type": "homophone"}]}
+{"sentence": "不适应该香港开始热，个扁就应该冷吗", "errors": [{"char": "适", "correct": "是", "position": 1, "type": "homophone"}, {"char": "扁", "correct": "边", "position": 11, "type": "homophone"}]}
+{"sentence": "你当我利是疤狗有干碟看著吗", "errors": [{"char": "碟", "correct": "爹", "position": 9, "type": "homophone"}]}
+{"sentence": "一时觉得整完托也不会欣赏我", "errors": [{"char": "托", "correct": "他", "position": 6, "type": "homophone"}]}
+{"sentence": "阿姆斯特丹的红灯区是世界指明。", "errors": [{"char": "指", "correct": "知", "position": 12, "type": "homophone"}, {"char": "明", "correct": "名", "position": 13, "type": "homophone"}]}
+{"sentence": "他会不要我也不香我壁他", "errors": [{"char": "香", "correct": "想", "position": 7, "type": "homophone"}, {"char": "壁", "correct": "逼", "position": 9, "type": "homophone"}]}
+{"sentence": "这家公此的 marketing 真不好。", "errors": [{"char": "此", "correct": "司", "position": 3, "type": "homophone"}]}
+{"sentence": "跟他谈话巳经编成一种习惯", "errors": [{"char": "巳", "correct": "已", "position": 4, "type": "shape"}, {"char": "编", "correct": "变", "position": 6, "type": "homophone"}]}
+{"sentence": "讲起大福我就响起达叔做那套赌侠", "errors": [{"char": "响", "correct": "想", "position": 6, "type": "homophone"}]}
+{"sentence": "这子石这么强他想灯都灯不到", "errors": [{"char": "子", "correct": "次", "position": 1, "type": "homophone"}, {"char": "石", "correct": "势", "position": 2, "type": "homophone"}]}
+{"sentence": "你要把男朋叹看紧一些", "errors": [{"char": "叹", "correct": "友", "position": 5, "type": "homophone"}]}
+{"sentence": "莽宽会在我那里看了你放心", "errors": [{"char": "莽", "correct": "忙", "position": 0, "type": "homophone"}, {"char": "宽", "correct": "完", "position": 1, "type": "homophone"}]}
+{"sentence": "这些刃的说法是怎样？", "errors": [{"char": "刃", "correct": "人", "position": 2, "type": "homophone"}]}
+{"sentence": "这个世假公平吗？", "errors": [{"char": "假", "correct": "界", "position": 3, "type": "homophone"}]}
+{"sentence": "有没有入订白色有货，等了很久？", "errors": [{"char": "入", "correct": "人", "position": 3, "type": "shape"}]}
+{"sentence": "腻说不是选责球打我真不相信", "errors": [{"char": "腻", "correct": "你", "position": 0, "type": "homophone"}, {"char": "责", "correct": "择", "position": 5, "type": "homophone"}]}
+{"sentence": "不时先不干活无向上流动", "errors": [{"char": "时", "correct": "是", "position": 1, "type": "homophone"}]}
+{"sentence": "想问下遮殿是不是真打？", "errors": [{"char": "殿", "correct": "店", "position": 4, "type": "homophone"}, {"char": "遮", "correct": "这", "position": 3, "type": "homophone"}]}
+{"sentence": "有一个漂亮另外那个扑通货色", "errors": [{"char": "扑", "correct": "普", "position": 9, "type": "homophone"}]}
+{"sentence": "会不会揭示回第义集写的字是吗", "errors": [{"char": "揭", "correct": "解", "position": 3, "type": "homophone"}, {"char": "示", "correct": "释", "position": 4, "type": "homophone"}, {"char": "义", "correct": "一", "position": 7, "type": "homophone"}]}
+{"sentence": "兄弟是玩完才找工作还是找了成牛工？", "errors": [{"char": "牛", "correct": "年", "position": 14, "type": "shape"}]}
+{"sentence": "他还自称郑宗中华文化", "errors": [{"char": "郑", "correct": "正", "position": 4, "type": "homophone"}]}
+{"sentence": "他的忿其实怎么算？体跟人跟小队定点", "errors": [{"char": "体", "correct": "是", "position": 9, "type": "homophone"}, {"char": "忿", "correct": "分", "position": 2, "type": "homophone"}]}
+{"sentence": "万全不明白为什么你的贱民可以有这么强的统治阶层意识", "errors": [{"char": "万", "correct": "完", "position": 0, "type": "homophone"}]}
+{"sentence": "出了你份凉给我耗吗", "errors": [{"char": "耗", "correct": "好", "position": 7, "type": "homophone"}, {"char": "凉", "correct": "粮", "position": 4, "type": "homophone"}]}
+{"sentence": "直到他烂，但不看怎么直到他烂成怎样？", "errors": [{"char": "直", "correct": "知", "position": 0, "type": "homophone"}, {"char": "到", "correct": "道", "position": 1, "type": "homophone"}, {"char": "直", "correct": "知", "position": 10, "type": "homophone"}, {"char": "到", "correct": "道", "position": 11, "type": "homophone"}]}
+{"sentence": "笑吗？支援自己队球撑到私私缩缩不如不要支援吧笑", "errors": []}
+{"sentence": "搭车要警惕，不要让小偷有为可乘。", "errors": [{"char": "为", "correct": "机", "position": 12, "type": "homophone"}]}
+{"sentence": "那么之后的嘉宾不是很不便宜", "errors": []}
+{"sentence": "留著弟弟是厕缩波他慢慢泡", "errors": [{"char": "波", "correct": "比", "position": 7, "type": "homophone"}, {"char": "缩", "correct": "所", "position": 6, "type": "homophone"}]}
+{"sentence": "员警知道在一个牌九赌档外眠都立个天文台通宵把风", "errors": [{"char": "眠", "correct": "面", "position": 12, "type": "homophone"}, {"char": "立", "correct": "有", "position": 14, "type": "homophone"}]}
+{"sentence": "完全不像那末高大不觉地他慢", "errors": [{"char": "末", "correct": "么", "position": 5, "type": "homophone"}, {"char": "地", "correct": "得", "position": 10, "type": "homophone"}]}
+{"sentence": "这部首级是行还是水？", "errors": [{"char": "首", "correct": "手", "position": 2, "type": "homophone"}, {"char": "级", "correct": "机", "position": 3, "type": "homophone"}]}
+{"sentence": "我以前也是撮车，现在我怕死，所以坐飞即去", "errors": [{"char": "撮", "correct": "坐", "position": 5, "type": "homophone"}, {"char": "即", "correct": "机", "position": 18, "type": "homophone"}]}
+{"sentence": "其实昨天式甚么事而插？", "errors": [{"char": "甚", "correct": "什", "position": 5, "type": "homophone"}, {"char": "式", "correct": "是", "position": 4, "type": "homophone"}]}
+{"sentence": "这谅车放在这里很碍事", "errors": [{"char": "谅", "correct": "辆", "position": 1, "type": "homophone"}]}
+{"sentence": "所以房间主真敌很好人", "errors": [{"char": "敌", "correct": "的", "position": 6, "type": "homophone"}]}
+{"sentence": "痕好奇她们现在过成点", "errors": [{"char": "痕", "correct": "很", "position": 0, "type": "homophone"}, {"char": "她", "correct": "他", "position": 3, "type": "homophone"}]}
+{"sentence": "我只知道有点收拾东西员工是散场的时候会推定车垃圾桶等人扔。", "errors": []}
+{"sentence": "昨晚看完了，的声音较到叹吵又折", "errors": [{"char": "折", "correct": "拆", "position": 14, "type": "shape"}, {"char": "叹", "correct": "又", "position": 11, "type": "homophone"}]}
+{"sentence": "这个学者说入说会不会被消失", "errors": [{"char": "入", "correct": "人", "position": 5, "type": "shape"}]}
+{"sentence": "到点了，还不掉证脚？", "errors": [{"char": "掉", "correct": "调", "position": 6, "type": "homophone"}, {"char": "证", "correct": "整", "position": 7, "type": "homophone"}]}
+{"sentence": "第三李灯火通明的特快列车如雷贯耳这样驶过。", "errors": [{"char": "李", "correct": "列", "position": 2, "type": "homophone"}]}
+{"sentence": "原来社会不是奖励弩力", "errors": [{"char": "弩", "correct": "努", "position": 8, "type": "homophone"}]}
+{"sentence": "你不要只顾著字迹才行袅！", "errors": [{"char": "字", "correct": "自", "position": 6, "type": "homophone"}, {"char": "迹", "correct": "己", "position": 7, "type": "homophone"}]}
+{"sentence": "写什么分析其实只有少除人会看", "errors": [{"char": "除", "correct": "数", "position": 10, "type": "homophone"}]}
+{"sentence": "狗会你自给计错不好吃我钱", "errors": [{"char": "给", "correct": "己", "position": 4, "type": "homophone"}]}
+{"sentence": "借个火机莱用一下，谢谢", "errors": [{"char": "莱", "correct": "来", "position": 4, "type": "homophone"}]}
+{"sentence": "因为女主角就是狐狸先生？", "errors": []}
+{"sentence": "他选择了用风骨含卫自给的尊严", "errors": [{"char": "给", "correct": "己", "position": 10, "type": "homophone"}, {"char": "含", "correct": "捍", "position": 7, "type": "homophone"}]}
+{"sentence": "又来料袅，我先去合厕所，回头回来！", "errors": [{"char": "合", "correct": "个", "position": 8, "type": "homophone"}]}
+{"sentence": "好相真只剩许鞍华和徐克还是那么活跃", "errors": [{"char": "相", "correct": "像", "position": 1, "type": "homophone"}]}
+{"sentence": "值钱升龙，抽玩就结束了个物语", "errors": [{"char": "值", "correct": "之", "position": 0, "type": "homophone"}, {"char": "钱", "correct": "前", "position": 1, "type": "homophone"}, {"char": "玩", "correct": "完", "position": 6, "type": "homophone"}]}
+{"sentence": "当职业或者生财共具的就祝他们好运吧", "errors": [{"char": "共", "correct": "工", "position": 7, "type": "homophone"}]}
+{"sentence": "做得成单生意固然好吧，做不成就档拓展入脉。", "errors": [{"char": "入", "correct": "人", "position": 18, "type": "shape"}, {"char": "档", "correct": "当", "position": 15, "type": "homophone"}]}
+{"sentence": "明明没有订阅不锻出推介", "errors": [{"char": "锻", "correct": "断", "position": 7, "type": "homophone"}]}
+{"sentence": "以前也有追自修室个故，觉得这次文笔豪了", "errors": [{"char": "豪", "correct": "好", "position": 17, "type": "homophone"}]}
+{"sentence": "这种事我上过档了", "errors": []}
+{"sentence": "希望其他牛轻球员都那向他学习", "errors": [{"char": "那", "correct": "能", "position": 9, "type": "homophone"}, {"char": "牛", "correct": "年", "position": 4, "type": "shape"}]}
+{"sentence": "他嘴严著呢，不会乱说的", "errors": []}
+{"sentence": "你不相信主这件式毒是主的安排", "errors": [{"char": "式", "correct": "事", "position": 7, "type": "homophone"}, {"char": "毒", "correct": "都", "position": 8, "type": "homophone"}]}
+{"sentence": "止血又这么用力就来拿爆的内脏", "errors": []}
+{"sentence": "我那个以起了半年一时很痴身一时可以完全没有野女人真奇怪", "errors": [{"char": "以", "correct": "一", "position": 3, "type": "homophone"}]}
+{"sentence": "其实心里都很想念她们", "errors": [{"char": "她", "correct": "他", "position": 8, "type": "homophone"}]}
+{"sentence": "当然包括了不是交你买千嘛", "errors": [{"char": "千", "correct": "干", "position": 10, "type": "shape"}, {"char": "交", "correct": "叫", "position": 7, "type": "homophone"}]}
+{"sentence": "么感觉，有点呆滞，带有一点怀以这一刻是不是真实之后就有种揪心的感觉", "errors": [{"char": "以", "correct": "疑", "position": 14, "type": "homophone"}, {"char": "么", "correct": "没", "position": 0, "type": "homophone"}]}
+{"sentence": "近日亡室传出丑闻。", "errors": [{"char": "亡", "correct": "皇", "position": 2, "type": "homophone"}]}
+{"sentence": "背上宗教的名义实际做点地破坏环境的事", "errors": []}
+{"sentence": "昨晚在诊所即时滴了一次药，", "errors": []}
+{"sentence": "整个颁奖礼最参刻就是他这段", "errors": [{"char": "参", "correct": "深", "position": 6, "type": "homophone"}]}
+{"sentence": "你们毛续费收得这么高，赚得太狠了店吧？", "errors": [{"char": "毛", "correct": "手", "position": 2, "type": "shape"}, {"char": "店", "correct": "点", "position": 16, "type": "homophone"}]}
+{"sentence": "谜天练习静观可以让你内心变得平静。", "errors": [{"char": "谜", "correct": "每", "position": 0, "type": "homophone"}]}
+{"sentence": "蝙蝠侠到时候一定又找另一个做", "errors": []}
+{"sentence": "家里那台电视神经病了，你帮忙整下他了！", "errors": []}
+{"sentence": "条女不差，起菜就要迅速了", "errors": []}
+{"sentence": "楠道真的写他是隐形富二代", "errors": [{"char": "楠", "correct": "难", "position": 0, "type": "homophone"}]}
+{"sentence": "他竟然挂断我的电话！", "errors": []}
+{"sentence": "好像只有他有了才会偶吐才会不舒服那样", "errors": [{"char": "偶", "correct": "呕", "position": 9, "type": "homophone"}]}
+{"sentence": "今集他问开头单野为什么这么快会知道是他们做马上笑了", "errors": []}
+{"sentence": "我喜欢听点批评的意见，不用整天套窝的", "errors": [{"char": "窝", "correct": "我", "position": 16, "type": "homophone"}]}
+{"sentence": "歌名酒精是透懒还是你个没完没了的标题？", "errors": [{"char": "酒", "correct": "究", "position": 2, "type": "homophone"}, {"char": "精", "correct": "竟", "position": 3, "type": "homophone"}, {"char": "透", "correct": "树", "position": 5, "type": "homophone"}]}
+{"sentence": "盐是现栽的大妈又排，啊叔又排", "errors": [{"char": "栽", "correct": "在", "position": 3, "type": "homophone"}, {"char": "盐", "correct": "但", "position": 0, "type": "homophone"}]}
+{"sentence": "希望准备半工读地体验当地盛活", "errors": [{"char": "盛", "correct": "生", "position": 12, "type": "homophone"}]}
+{"sentence": "你随便找个阿猫阿狗取做就行啦！", "errors": [{"char": "取", "correct": "去", "position": 9, "type": "homophone"}]}
+{"sentence": "阵的好难像我们之前哲样每天都轻轻松松", "errors": [{"char": "阵", "correct": "真", "position": 0, "type": "homophone"}, {"char": "哲", "correct": "这", "position": 9, "type": "homophone"}]}
+{"sentence": "真得感谢鞑靼无私奉献", "errors": [{"char": "鞑", "correct": "大", "position": 4, "type": "homophone"}, {"char": "靼", "correct": "大", "position": 5, "type": "homophone"}]}
+{"sentence": "大陆要抓住他们痛脚一电也不难", "errors": [{"char": "电", "correct": "点", "position": 10, "type": "homophone"}]}
+{"sentence": "不是装高级贵东西吃水不深就由他吧", "errors": []}
+{"sentence": "那复如直接点进一点点牛久算真冲一下也帮补一下", "errors": [{"char": "复", "correct": "不", "position": 1, "type": "homophone"}, {"char": "久", "correct": "就", "position": 11, "type": "homophone"}]}
+{"sentence": "起份检疫书低稿子给我。", "errors": [{"char": "检", "correct": "建", "position": 2, "type": "homophone"}, {"char": "疫", "correct": "议", "position": 3, "type": "homophone"}, {"char": "低", "correct": "的", "position": 5, "type": "homophone"}]}
+{"sentence": "在员处传来了一阵歌声。", "errors": [{"char": "员", "correct": "远", "position": 1, "type": "homophone"}]}
+{"sentence": "女子无才便是德这叶迂腐的思想，应该尽早扑灭。", "errors": [{"char": "叶", "correct": "些", "position": 8, "type": "homophone"}]}
+{"sentence": "机没有在反馈卜里写出来？", "errors": [{"char": "机", "correct": "有", "position": 0, "type": "homophone"}, {"char": "卜", "correct": "簿", "position": 6, "type": "homophone"}]}
+{"sentence": "他不是狠擅长社交。", "errors": [{"char": "狠", "correct": "很", "position": 3, "type": "homophone"}]}
+{"sentence": "一来穴的他定位上只是相对地球人视觉的奸角", "errors": [{"char": "穴", "correct": "觉", "position": 2, "type": "homophone"}, {"char": "的", "correct": "得", "position": 3, "type": "homophone"}]}
+{"sentence": "我是想刷非学位哪个基本法测试", "errors": [{"char": "哪", "correct": "那", "position": 7, "type": "homophone"}]}
+{"sentence": "你不端地催我也没用的！", "errors": [{"char": "端", "correct": "断", "position": 2, "type": "homophone"}]}
+{"sentence": "最近真的算硬了改埋埋门那脚就好了", "errors": []}
+{"sentence": "气势也不酸老，不过是巴塞容不了他", "errors": [{"char": "气", "correct": "其", "position": 0, "type": "homophone"}, {"char": "势", "correct": "实", "position": 1, "type": "homophone"}, {"char": "酸", "correct": "算", "position": 4, "type": "homophone"}]}
+{"sentence": "所以，自问位本事有勇气者就创业，没想到或没有勇气者打工", "errors": [{"char": "位", "correct": "有", "position": 5, "type": "homophone"}]}
+{"sentence": "那么要看看你间了多少把飞刀了", "errors": [{"char": "间", "correct": "捡", "position": 6, "type": "homophone"}]}
+{"sentence": "油炸东西最容亦上火的了", "errors": [{"char": "亦", "correct": "易", "position": 6, "type": "homophone"}]}
+{"sentence": "真感收到个种无助和绝望看到热泪盈眶", "errors": [{"char": "收", "correct": "受", "position": 2, "type": "homophone"}]}
+{"sentence": "如果他没有男朋友我也会这骂作", "errors": [{"char": "作", "correct": "做", "position": 13, "type": "homophone"}, {"char": "骂", "correct": "么", "position": 12, "type": "homophone"}]}
+{"sentence": "但胖子不养宠物独救不了他们", "errors": [{"char": "独", "correct": "都", "position": 7, "type": "homophone"}]}
+{"sentence": "我妈没事做去逛街，九成真纯属走不买", "errors": []}
+{"sentence": "香港有没右平靓棒的按摩骨按摩？", "errors": [{"char": "右", "correct": "有", "position": 4, "type": "homophone"}]}
+{"sentence": "我想我下级会做打了栅栏多过右闸", "errors": [{"char": "级", "correct": "季", "position": 4, "type": "homophone"}]}
+{"sentence": "前面的路很颠簸，坐纹吧！", "errors": [{"char": "纹", "correct": "稳", "position": 9, "type": "homophone"}]}
+{"sentence": "又一个消费本土名义赚钱的商人，本士没落就是多亏你们", "errors": [{"char": "士", "correct": "土", "position": 16, "type": "shape"}]}
+{"sentence": "银为黄之锋都有载狱中写信", "errors": [{"char": "银", "correct": "因", "position": 0, "type": "homophone"}, {"char": "载", "correct": "在", "position": 7, "type": "homophone"}]}
+{"sentence": "土楼就体很土的楼", "errors": [{"char": "体", "correct": "是", "position": 3, "type": "homophone"}]}
+{"sentence": "所以对主角那种无奈很有共呜", "errors": []}
+{"sentence": "怎么看肥丝总是捉人错字", "errors": []}
+{"sentence": "发掘球叔去了箭之后基石变了很多", "errors": [{"char": "掘", "correct": "觉", "position": 1, "type": "homophone"}]}
+{"sentence": "他家里做点吗他搬去那里我没兴趣", "errors": [{"char": "那", "correct": "哪", "position": 9, "type": "homophone"}]}
+{"sentence": "不适真死了，只不过是人们意味你真的死了。", "errors": [{"char": "适", "correct": "是", "position": 1, "type": "homophone"}, {"char": "意", "correct": "以", "position": 12, "type": "homophone"}, {"char": "味", "correct": "为", "position": 13, "type": "homophone"}]}
+{"sentence": "有个星骚扰伸出来摸一下女生胸", "errors": [{"char": "星", "correct": "性", "position": 2, "type": "homophone"}]}
+{"sentence": "行政掌管上京会晤副总理。", "errors": [{"char": "掌", "correct": "长", "position": 2, "type": "homophone"}, {"char": "管", "correct": "官", "position": 3, "type": "homophone"}]}
+{"sentence": "进了西藏之后美天都会经过很多检查站", "errors": [{"char": "美", "correct": "每", "position": 6, "type": "homophone"}]}
+{"sentence": "这件衣服这么贵？真活不来", "errors": [{"char": "活", "correct": "划", "position": 9, "type": "homophone"}]}
+{"sentence": "唯一不要是工作时问不稳定", "errors": [{"char": "问", "correct": "间", "position": 8, "type": "shape"}]}
+{"sentence": "不用证明，人何人都可以是巢家", "errors": [{"char": "人", "correct": "任", "position": 5, "type": "homophone"}, {"char": "巢", "correct": "炒", "position": 12, "type": "homophone"}]}
+{"sentence": "原来买票和泡妞一样都是那么难", "errors": []}
+{"sentence": "德甲棒尾队队都有护级讨论区的", "errors": [{"char": "棒", "correct": "榜", "position": 2, "type": "homophone"}]}
+{"sentence": "不能光市拼命读书", "errors": [{"char": "市", "correct": "是", "position": 3, "type": "homophone"}]}
+{"sentence": "不可否认他也撮到一个称职的母亲", "errors": [{"char": "撮", "correct": "做", "position": 6, "type": "homophone"}]}
+{"sentence": "我说的门槛就是文学阅读和写作都需要一定提训练", "errors": [{"char": "提", "correct": "的", "position": 19, "type": "homophone"}]}
+{"sentence": "利申：支持真国际化，但应该限死每个外国地区的学生比例", "errors": []}
+{"sentence": "阿猪阿狗都驱炒就是炒不起的时候", "errors": [{"char": "驱", "correct": "去", "position": 5, "type": "homophone"}]}
+{"sentence": "好想快殿脱离这间屋子，但一离开就意味著读完书，很矛墩", "errors": [{"char": "墩", "correct": "盾", "position": 25, "type": "homophone"}, {"char": "殿", "correct": "点", "position": 3, "type": "homophone"}]}
+{"sentence": "没有员警你喜欢怎么走都形", "errors": [{"char": "形", "correct": "行", "position": 11, "type": "homophone"}]}
+{"sentence": "精人出口，苯人出手", "errors": [{"char": "苯", "correct": "笨", "position": 5, "type": "homophone"}]}
+{"sentence": "令天是大喜日子，破下戒渴两杯都行吧？", "errors": [{"char": "渴", "correct": "喝", "position": 11, "type": "shape"}, {"char": "令", "correct": "今", "position": 0, "type": "shape"}]}
+{"sentence": "当然拖没由射十二码吃亏了点", "errors": [{"char": "拖", "correct": "他", "position": 2, "type": "homophone"}, {"char": "由", "correct": "有", "position": 4, "type": "homophone"}]}
+{"sentence": "如果不喜欢一起到又怎氧也不会高兴", "errors": [{"char": "氧", "correct": "样", "position": 10, "type": "homophone"}]}
+{"sentence": "在灵堂里省到他的遗像，真敢慨万千。", "errors": [{"char": "省", "correct": "见", "position": 4, "type": "homophone"}, {"char": "敢", "correct": "感", "position": 12, "type": "homophone"}]}
+{"sentence": "你曾经是车的车主，房子的野猪", "errors": [{"char": "野", "correct": "业", "position": 12, "type": "homophone"}, {"char": "猪", "correct": "主", "position": 13, "type": "homophone"}]}
+{"sentence": "儿子今年多大啊？", "errors": []}
+{"sentence": "可喜他一打听声音以为有啦", "errors": [{"char": "喜", "correct": "惜", "position": 1, "type": "homophone"}]}
+{"sentence": "我自给做高危工作，有数随时走人", "errors": [{"char": "给", "correct": "己", "position": 2, "type": "homophone"}]}
+{"sentence": "你不是觉得现灾才放的话日韩会让他这么做吗", "errors": [{"char": "灾", "correct": "在", "position": 6, "type": "homophone"}]}
+{"sentence": "我怕炒，但又没什么心机温", "errors": []}
+{"sentence": "应该是小心用，一点点问题。又不是主力不用扎著上。", "errors": []}
+{"sentence": "就像挨情这样，多说不如朵做。", "errors": [{"char": "挨", "correct": "爱", "position": 2, "type": "homophone"}, {"char": "朵", "correct": "多", "position": 11, "type": "homophone"}]}
+{"sentence": "你循著这个芳香，下个兴起交份计划书来看看。", "errors": [{"char": "芳", "correct": "方", "position": 5, "type": "homophone"}, {"char": "香", "correct": "向", "position": 6, "type": "homophone"}, {"char": "兴", "correct": "星", "position": 10, "type": "homophone"}, {"char": "起", "correct": "期", "position": 11, "type": "homophone"}]}
+{"sentence": "我估计应该是头出了先去，滞后欺压让他呼吸不了之类", "errors": [{"char": "滞", "correct": "之", "position": 12, "type": "homophone"}, {"char": "欺", "correct": "气", "position": 14, "type": "homophone"}]}
+{"sentence": "但不会因为这杨而加你工资或者升你", "errors": [{"char": "杨", "correct": "样", "position": 6, "type": "homophone"}]}
+{"sentence": "这次几首都优点印度风格", "errors": [{"char": "优", "correct": "有", "position": 5, "type": "homophone"}]}
+{"sentence": "真的不应该以偏慨全", "errors": [{"char": "慨", "correct": "概", "position": 7, "type": "shape"}]}
+{"sentence": "搞到买卖地其实结癞有什么谓", "errors": [{"char": "癞", "correct": "来", "position": 8, "type": "homophone"}]}
+{"sentence": "还过有时想著想著也不失不好的", "errors": [{"char": "还", "correct": "不", "position": 0, "type": "homophone"}, {"char": "失", "correct": "是", "position": 10, "type": "homophone"}]}
+{"sentence": "希望死那使在没病无痛地李世", "errors": [{"char": "李", "correct": "离", "position": 11, "type": "homophone"}, {"char": "使", "correct": "时", "position": 4, "type": "homophone"}]}
+{"sentence": "买之前要想著输晒烩怎么样啊", "errors": [{"char": "烩", "correct": "会", "position": 8, "type": "homophone"}]}
+{"sentence": "时间真的很有用冲走所有东西好的坏的都敌不过时间", "errors": []}
+{"sentence": "为什么要是哲样给假希望我？", "errors": [{"char": "哲", "correct": "这", "position": 5, "type": "homophone"}]}
+{"sentence": "正评：得到赢得的教训", "errors": [{"char": "赢", "correct": "应", "position": 5, "type": "homophone"}]}
+{"sentence": "有没位哪位兄弟可以翻译以下？", "errors": [{"char": "以", "correct": "一", "position": 11, "type": "homophone"}, {"char": "位", "correct": "有", "position": 2, "type": "homophone"}]}
+{"sentence": "加拿大跟他用即兴剧本拍东西的女星", "errors": []}
+{"sentence": "自愿去做肉便器的怪锝谁", "errors": [{"char": "锝", "correct": "得", "position": 9, "type": "homophone"}]}
+{"sentence": "因为淘宝这样东西开放你才知道他成本价", "errors": []}
+{"sentence": "富人玉乐死也要保留，大众娱乐郊野公园就想牺牲，相当简单地总结了香港是什么管治模式", "errors": [{"char": "玉", "correct": "娱", "position": 2, "type": "homophone"}]}
+{"sentence": "先等一等，现在人们是不是大多用拼音？", "errors": []}
+{"sentence": "大不了我们别走回家。", "errors": []}
+{"sentence": "过夜牛师升果时有事情做，不过幸好是亏损一点点果时走到", "errors": [{"char": "师", "correct": "是", "position": 3, "type": "homophone"}]}
+{"sentence": "心想早直到不做友谊大使吧", "errors": [{"char": "直", "correct": "知", "position": 3, "type": "homophone"}, {"char": "到", "correct": "道", "position": 4, "type": "homophone"}]}
+{"sentence": "应该是有声优出场得总集篇", "errors": [{"char": "得", "correct": "的", "position": 8, "type": "homophone"}]}
+{"sentence": "啊婆摇头个啊叔很无奈敌回答他", "errors": [{"char": "敌", "correct": "地", "position": 10, "type": "homophone"}]}
+{"sentence": "偷他盲注弟集会高不高", "errors": [{"char": "集", "correct": "机", "position": 5, "type": "homophone"}, {"char": "弟", "correct": "的", "position": 4, "type": "homophone"}]}
+{"sentence": "现在读中小学那些大陆人肯学听广东话", "errors": []}
+{"sentence": "去点多人流又燥的敌方唱贪多人施舍姐", "errors": [{"char": "敌", "correct": "地", "position": 8, "type": "homophone"}]}
+{"sentence": "我小时候，听毫可以买一颗糖。", "errors": [{"char": "听", "correct": "一", "position": 5, "type": "homophone"}]}
+{"sentence": "一个不解决问题还放任问题的征服存在有什么价值？", "errors": [{"char": "征", "correct": "政", "position": 13, "type": "homophone"}, {"char": "服", "correct": "府", "position": 14, "type": "homophone"}]}
+{"sentence": "另一半为权去艮他朋友去玩也有义务自制", "errors": [{"char": "艮", "correct": "跟", "position": 6, "type": "homophone"}, {"char": "为", "correct": "有", "position": 3, "type": "homophone"}]}
+{"sentence": "吃东西以定要大大乘？生回来", "errors": [{"char": "以", "correct": "一", "position": 3, "type": "homophone"}, {"char": "乘", "correct": "声", "position": 8, "type": "homophone"}]}
+{"sentence": "所有的正常人都由部份不正常的个性组成", "errors": []}
+{"sentence": "巧合真的很低手的推进剧情方始", "errors": [{"char": "始", "correct": "式", "position": 13, "type": "homophone"}]}
+{"sentence": "他走路部为义，踩了落水坑。", "errors": [{"char": "部", "correct": "不", "position": 3, "type": "homophone"}, {"char": "义", "correct": "意", "position": 5, "type": "homophone"}]}
+{"sentence": "病向浅中医，不要耽误医冶时机。", "errors": [{"char": "冶", "correct": "治", "position": 11, "type": "shape"}]}
+{"sentence": "我也不指导以家算不算和平分手", "errors": [{"char": "指", "correct": "知", "position": 3, "type": "homophone"}, {"char": "导", "correct": "道", "position": 4, "type": "homophone"}]}
+{"sentence": "放心，我写完也不会多多少人知道而已", "errors": []}
+{"sentence": "他宗室在头愕愕，整个傻孩子那样。", "errors": [{"char": "宗", "correct": "总", "position": 1, "type": "homophone"}, {"char": "室", "correct": "是", "position": 2, "type": "homophone"}]}
+{"sentence": "关键还是要一半长期客户去顶著要土壤才能种到东西", "errors": [{"char": "半", "correct": "班", "position": 6, "type": "homophone"}]}
+{"sentence": "新加坡刑罚得那么严重，怎么挥乱丢垃圾", "errors": [{"char": "挥", "correct": "会", "position": 13, "type": "homophone"}]}
+{"sentence": "没人人事他是这样装哥哥出来吠", "errors": [{"char": "人", "correct": "认", "position": 2, "type": "homophone"}, {"char": "事", "correct": "识", "position": 3, "type": "homophone"}]}
+{"sentence": "不管怎样都要尽力而为，不行就没办法了", "errors": []}
+{"sentence": "扣第一下以经被人抢了", "errors": [{"char": "以", "correct": "已", "position": 4, "type": "homophone"}]}
+{"sentence": "我在这里促请警方公开涉嫌殴打疑犯的警员的资料。", "errors": []}
+{"sentence": "广不会觉得呢是蛋", "errors": [{"char": "呢", "correct": "那", "position": 5, "type": "homophone"}, {"char": "广", "correct": "但", "position": 0, "type": "homophone"}]}
+{"sentence": "发觉看看佛法自巳会舒服很度", "errors": [{"char": "度", "correct": "多", "position": 12, "type": "homophone"}, {"char": "巳", "correct": "己", "position": 7, "type": "shape"}]}
+{"sentence": "但握也见过他素颜出来", "errors": [{"char": "握", "correct": "我", "position": 1, "type": "homophone"}]}
+{"sentence": "你有堕少个小孩？", "errors": [{"char": "堕", "correct": "多", "position": 2, "type": "homophone"}]}
+{"sentence": "垃圾桶布够大就吾紧点垃圾吧。", "errors": [{"char": "布", "correct": "不", "position": 3, "type": "homophone"}, {"char": "吾", "correct": "压", "position": 7, "type": "homophone"}]}
+{"sentence": "连他最讲的那范管更衣室", "errors": [{"char": "讲", "correct": "强", "position": 3, "type": "homophone"}]}
+{"sentence": "有一天有动武看见他坐了在屋顶上面，和几只麻将隔住一段距离谈计。", "errors": [{"char": "武", "correct": "物", "position": 5, "type": "homophone"}]}
+{"sentence": "上得去找到钱再回馈回香港电影这个才盖赞", "errors": [{"char": "盖", "correct": "该", "position": 17, "type": "homophone"}]}
+{"sentence": "洗完澡整个人都很选和。", "errors": [{"char": "选", "correct": "暖", "position": 8, "type": "homophone"}]}
+{"sentence": "好毒，不过我听是这么想", "errors": [{"char": "听", "correct": "也", "position": 6, "type": "homophone"}]}
+{"sentence": "总是会叫男友演绎不同狗种的叫声", "errors": []}
+{"sentence": "兄弟去那时有每位下雪？", "errors": [{"char": "每", "correct": "没", "position": 6, "type": "homophone"}, {"char": "位", "correct": "有", "position": 7, "type": "homophone"}]}
+{"sentence": "但我早几天吃后度又正常，起码不会像去年果时薄得像餐肉", "errors": [{"char": "后", "correct": "厚", "position": 6, "type": "homophone"}]}
+{"sentence": "我不小心做了已滇点咖哩汁落遥控器到", "errors": [{"char": "滇", "correct": "点", "position": 7, "type": "homophone"}, {"char": "已", "correct": "一", "position": 6, "type": "homophone"}]}
+{"sentence": "我想哲样都是你项的类似", "errors": [{"char": "哲", "correct": "这", "position": 2, "type": "homophone"}, {"char": "项", "correct": "想", "position": 7, "type": "homophone"}]}
+{"sentence": "痴得过去这些女通常都是又特殊性癖", "errors": [{"char": "又", "correct": "有", "position": 11, "type": "homophone"}]}
+{"sentence": "其实这一场有没有球证都无锁谓", "errors": [{"char": "锁", "correct": "所", "position": 12, "type": "homophone"}]}
+{"sentence": "哲件事很随便的，那么认真于吗！", "errors": [{"char": "哲", "correct": "这", "position": 0, "type": "homophone"}, {"char": "于", "correct": "干", "position": 12, "type": "shape"}]}
+{"sentence": "把观塘堆工厦的活化后用途搬禁区", "errors": [{"char": "禁", "correct": "进", "position": 13, "type": "homophone"}, {"char": "区", "correct": "去", "position": 14, "type": "homophone"}]}
+{"sentence": "人家就是负责做这些东西", "errors": []}
+{"sentence": "他个事太矮，踮起脚也看不见", "errors": [{"char": "事", "correct": "子", "position": 2, "type": "homophone"}]}
+{"sentence": "你怎么这么僻的？这么大蛋东西你也不致道！", "errors": [{"char": "致", "correct": "知", "position": 17, "type": "homophone"}, {"char": "蛋", "correct": "单", "position": 11, "type": "homophone"}]}
+{"sentence": "队长不吭声谁发出声印", "errors": [{"char": "印", "correct": "音", "position": 9, "type": "homophone"}]}
+{"sentence": "不拿出来说简单无意思", "errors": [{"char": "不", "correct": "还", "position": 0, "type": "homophone"}]}
+{"sentence": "本来酒食赚得个几十块，怎么比价都很难变异。", "errors": [{"char": "酒", "correct": "就", "position": 2, "type": "homophone"}, {"char": "食", "correct": "是", "position": 3, "type": "homophone"}, {"char": "变", "correct": "便", "position": 18, "type": "homophone"}, {"char": "异", "correct": "宜", "position": 19, "type": "homophone"}]}
+{"sentence": "这套真的很好看耗贴地", "errors": [{"char": "耗", "correct": "好", "position": 7, "type": "homophone"}]}
+{"sentence": "没有五笔拼音的吗？", "errors": []}
+{"sentence": "现在份工做到契约合约职", "errors": [{"char": "契", "correct": "七", "position": 6, "type": "homophone"}, {"char": "约", "correct": "月", "position": 7, "type": "homophone"}, {"char": "职", "correct": "制", "position": 10, "type": "homophone"}]}
+{"sentence": "这场得分数位肯叮不低", "errors": [{"char": "叮", "correct": "定", "position": 7, "type": "homophone"}]}
+{"sentence": "这首娶个韵律还好啊。", "errors": [{"char": "娶", "correct": "曲", "position": 2, "type": "homophone"}]}
+{"sentence": "和搞得心如一阵子痴谁多一点就喜患谁这样", "errors": [{"char": "患", "correct": "欢", "position": 15, "type": "homophone"}]}
+{"sentence": "我希望，你可以找到内份属干自己礼物。", "errors": [{"char": "内", "correct": "那", "position": 9, "type": "homophone"}, {"char": "干", "correct": "于", "position": 12, "type": "shape"}]}
+{"sentence": "所以如果你给不了几子", "errors": [{"char": "几", "correct": "儿", "position": 8, "type": "shape"}]}
+{"sentence": "太竟然训练到我下班坐火车对车门一开我喊欢迎光临", "errors": [{"char": "太", "correct": "他", "position": 0, "type": "homophone"}]}
+{"sentence": "永远看不到一条绿是可以完整一条那样", "errors": [{"char": "绿", "correct": "路", "position": 7, "type": "homophone"}]}
+{"sentence": "最立项是站在用家的角度", "errors": [{"char": "立", "correct": "理", "position": 1, "type": "homophone"}, {"char": "项", "correct": "想", "position": 2, "type": "homophone"}]}
+{"sentence": "比起上季他的德分丢失是事实", "errors": [{"char": "德", "correct": "得", "position": 6, "type": "homophone"}]}
+{"sentence": "把书弄得乱七入糟", "errors": [{"char": "入", "correct": "八", "position": 6, "type": "shape"}]}
+{"sentence": "只是以过来人身份看看对大家有没有说明", "errors": [{"char": "份", "correct": "分", "position": 7, "type": "homophone"}]}
+{"sentence": "那么只有加接廖挑战制度", "errors": [{"char": "接", "correct": "插", "position": 5, "type": "homophone"}, {"char": "廖", "correct": "了", "position": 6, "type": "homophone"}]}
+{"sentence": "这么真东西惠里菜的确师正划结衣的", "errors": [{"char": "师", "correct": "是", "position": 10, "type": "homophone"}, {"char": "划", "correct": "过", "position": 12, "type": "homophone"}]}
+{"sentence": "晌街看女几不会被女朋友发现", "errors": [{"char": "几", "correct": "儿", "position": 4, "type": "shape"}, {"char": "晌", "correct": "上", "position": 0, "type": "homophone"}]}
+{"sentence": "我这样说他，他会不会盛我得气？", "errors": [{"char": "盛", "correct": "生", "position": 10, "type": "homophone"}, {"char": "得", "correct": "的", "position": 12, "type": "homophone"}]}
+{"sentence": "他就把家里不开心的事画成恐怖漫画", "errors": []}
+{"sentence": "既然你是吴人，么学好吴语才行的", "errors": [{"char": "么", "correct": "要", "position": 7, "type": "homophone"}]}
+{"sentence": "窝也买到很多张，全部原家放给朋友", "errors": [{"char": "窝", "correct": "我", "position": 0, "type": "homophone"}, {"char": "家", "correct": "价", "position": 11, "type": "homophone"}]}
+{"sentence": "你发了点东西给我看？", "errors": []}
+{"sentence": "回避对方的眼神不敢直视他", "errors": []}
+{"sentence": "加多个日籍成员会好一点", "errors": []}
+{"sentence": "整辆公交居差点反车，死过复活真好运。", "errors": [{"char": "居", "correct": "车", "position": 4, "type": "homophone"}]}
+{"sentence": "不过间东西上班时间很短", "errors": []}
+{"sentence": "这样的表现观众都想拉他下来吧", "errors": []}
+{"sentence": "有时候我可能翻睡到但大多数实践都不行", "errors": [{"char": "实", "correct": "时", "position": 13, "type": "homophone"}, {"char": "践", "correct": "间", "position": 14, "type": "homophone"}]}
+{"sentence": "你不说我以于北韩刚抗才整核武", "errors": [{"char": "抗", "correct": "刚", "position": 9, "type": "homophone"}, {"char": "于", "correct": "为", "position": 5, "type": "homophone"}]}
+{"sentence": "不要打拖，他是自已人来的", "errors": [{"char": "已", "correct": "己", "position": 8, "type": "shape"}, {"char": "拖", "correct": "他", "position": 3, "type": "homophone"}]}
+{"sentence": "可惜我是学渣永远都只会是我的幻想", "errors": []}
+{"sentence": "不会有人对肺魄有兴趣挂", "errors": [{"char": "肺", "correct": "肥", "position": 5, "type": "homophone"}, {"char": "魄", "correct": "婆", "position": 6, "type": "homophone"}]}
+{"sentence": "什么事情都要问妈嘛，整一个长不大的孩子", "errors": [{"char": "嘛", "correct": "妈", "position": 8, "type": "homophone"}]}
+{"sentence": "也还是很热，也不知道是不是在这些拎居已经开", "errors": [{"char": "拎", "correct": "邻", "position": 16, "type": "homophone"}]}
+{"sentence": "我没管这么好气了有空学下其他东西", "errors": []}
+{"sentence": "不比别入跟他说话还要叫他坐厕所门口", "errors": [{"char": "入", "correct": "人", "position": 3, "type": "shape"}]}
+{"sentence": "算上的话利纪很多国家队队长", "errors": [{"char": "纪", "correct": "记", "position": 5, "type": "shape"}]}
+{"sentence": "不过他们对我很好很有爱心", "errors": []}
+{"sentence": "崽那一秒厨师就有超能力", "errors": [{"char": "崽", "correct": "在", "position": 0, "type": "homophone"}, {"char": "厨", "correct": "出", "position": 4, "type": "homophone"}, {"char": "师", "correct": "世", "position": 5, "type": "homophone"}]}
+{"sentence": "但真的是地理政治不许可发展科研", "errors": []}
+{"sentence": "我们做皮条客呢单东西易经皇了", "errors": [{"char": "易", "correct": "已", "position": 10, "type": "homophone"}]}
+{"sentence": "星期天上街，人个多了！", "errors": [{"char": "个", "correct": "可", "position": 7, "type": "homophone"}]}
+{"sentence": "间下你的女朋友看看他有甚么看法", "errors": [{"char": "间", "correct": "问", "position": 0, "type": "shape"}, {"char": "甚", "correct": "什", "position": 11, "type": "homophone"}]}
+{"sentence": "洗澡的时候温柔点对脚趾", "errors": []}
+{"sentence": "看到班大牌脚练都搞成这样", "errors": [{"char": "脚", "correct": "教", "position": 5, "type": "homophone"}]}
+{"sentence": "不过你们今天真踢得很好应该给点掌声你们", "errors": []}
+{"sentence": "正所有朋友妻不可窥，你的兄弟对你这么好，你竟然搞他老婆？", "errors": [{"char": "有", "correct": "谓", "position": 2, "type": "homophone"}]}
+{"sentence": "有小小东西想请教下朱未师兄", "errors": [{"char": "未", "correct": "位", "position": 10, "type": "homophone"}, {"char": "朱", "correct": "诸", "position": 9, "type": "homophone"}]}
+{"sentence": "不果真心佩服他起码不是空谈说", "errors": [{"char": "果", "correct": "过", "position": 1, "type": "homophone"}]}
+{"sentence": "拍电影第太国妹妹够漂亮", "errors": [{"char": "第", "correct": "的", "position": 3, "type": "homophone"}, {"char": "太", "correct": "泰", "position": 4, "type": "homophone"}]}
+{"sentence": "你不能原谅他吗？", "errors": []}
+{"sentence": "但是有次问起他们为时么会一起", "errors": [{"char": "时", "correct": "什", "position": 9, "type": "homophone"}]}
+{"sentence": "是不是有一种问歇性的讨厌感觉？过一会儿火几天又无事", "errors": [{"char": "火", "correct": "或", "position": 19, "type": "homophone"}, {"char": "问", "correct": "间", "position": 6, "type": "shape"}]}
+{"sentence": "车子是毛动换档的，现在走低速", "errors": [{"char": "毛", "correct": "手", "position": 3, "type": "shape"}]}
+{"sentence": "他神神秘秘这样打扮了很多天，到了一个清晨，就在太阳升起的侍候，他也终于绽放了。", "errors": [{"char": "侍", "correct": "时", "position": 28, "type": "homophone"}]}
+{"sentence": "着东西保证你喜欢", "errors": [{"char": "着", "correct": "这", "position": 0, "type": "homophone"}]}
+{"sentence": "我昨天赢了五千，百家乐", "errors": []}
+{"sentence": "但人家型得很有味受，可爱又得演技性格又好", "errors": [{"char": "受", "correct": "道", "position": 8, "type": "homophone"}]}
+{"sentence": "然后撞的还是改那版再改", "errors": []}
+{"sentence": "那么香港班叔叔可以去", "errors": []}
+{"sentence": "所以就看看你想仅想做假人", "errors": [{"char": "仅", "correct": "不", "position": 7, "type": "homophone"}]}
+{"sentence": "可能要像点喷景公司那样，", "errors": [{"char": "喷", "correct": "盆", "position": 5, "type": "homophone"}]}
+{"sentence": "你们说上面讨论完全没有数据我就引用下", "errors": []}
+{"sentence": "你急著走吗？在哲理吃了饭啊！", "errors": [{"char": "哲", "correct": "这", "position": 7, "type": "homophone"}, {"char": "理", "correct": "里", "position": 8, "type": "homophone"}]}
+{"sentence": "不够啊，但因为我星期六优势青做所以要回香港", "errors": [{"char": "优", "correct": "有", "position": 11, "type": "homophone"}, {"char": "势", "correct": "事", "position": 12, "type": "homophone"}, {"char": "青", "correct": "情", "position": 13, "type": "homophone"}]}
+{"sentence": "这些老入家真的很人手不了要插著这些喉咙", "errors": [{"char": "入", "correct": "人", "position": 3, "type": "shape"}, {"char": "人", "correct": "忍", "position": 8, "type": "homophone"}, {"char": "手", "correct": "受", "position": 9, "type": "homophone"}]}
+{"sentence": "最牛轻那个员工会说一点点英文", "errors": [{"char": "牛", "correct": "年", "position": 1, "type": "shape"}]}
+{"sentence": "还没平伏到最后那一幕的芯情", "errors": [{"char": "芯", "correct": "心", "position": 11, "type": "homophone"}]}
+{"sentence": "他本身已经有钱穷西边有他著么下注法", "errors": [{"char": "著", "correct": "这", "position": 12, "type": "homophone"}]}
+{"sentence": "但记住上班也不要发工资", "errors": []}
+{"sentence": "两个半小时的高潮除了爽之外没什么浩说", "errors": [{"char": "浩", "correct": "好", "position": 16, "type": "homophone"}]}
+{"sentence": "我妈是个澳洲混血华入", "errors": [{"char": "入", "correct": "人", "position": 9, "type": "shape"}]}
+{"sentence": "锁以我投诉去通讯办", "errors": [{"char": "锁", "correct": "所", "position": 0, "type": "homophone"}]}
+{"sentence": "勇敢尝试不过希望你不会因为这次的经验而失去兴趣吧", "errors": []}
+{"sentence": "再说，大家明天都准备吃", "errors": []}
+{"sentence": "小玲是一个号文御的女孩。", "errors": [{"char": "号", "correct": "好", "position": 5, "type": "homophone"}, {"char": "御", "correct": "雅", "position": 7, "type": "homophone"}]}
+{"sentence": "留胡子现在东西府是留著给其他英雄吧", "errors": [{"char": "府", "correct": "还", "position": 7, "type": "homophone"}]}
+{"sentence": "各能因为病，今天整天都口淡淡，什么都不想吃。", "errors": [{"char": "各", "correct": "可", "position": 0, "type": "homophone"}]}
+{"sentence": "水到条街他们没资格用着样", "errors": [{"char": "着", "correct": "这", "position": 10, "type": "homophone"}, {"char": "水", "correct": "说", "position": 0, "type": "homophone"}]}
+{"sentence": "令夫白天这么猛，上街记得搽回点太阳油。", "errors": [{"char": "夫", "correct": "天", "position": 1, "type": "shape"}, {"char": "令", "correct": "今", "position": 0, "type": "shape"}]}
+{"sentence": "警察没有权拷打疑犯。", "errors": []}
+{"sentence": "坐落也束缚，坐到左右我们就买单，奇怪的事就来。", "errors": [{"char": "束", "correct": "舒", "position": 3, "type": "homophone"}, {"char": "缚", "correct": "服", "position": 4, "type": "homophone"}]}
+{"sentence": "这里比较安静，没有什么人，但也不会觉得为险。", "errors": [{"char": "为", "correct": "危", "position": 19, "type": "homophone"}]}
+{"sentence": "下狱卖伞，夫热卖扇，你也挺会混！", "errors": [{"char": "狱", "correct": "雨", "position": 1, "type": "homophone"}, {"char": "夫", "correct": "天", "position": 5, "type": "shape"}]}
+{"sentence": "他长得无关精致，漂亮得像个毛绒玩具那样。", "errors": [{"char": "无", "correct": "五", "position": 3, "type": "homophone"}, {"char": "关", "correct": "官", "position": 4, "type": "homophone"}]}
+{"sentence": "因为现在都不知倒自己想干什么", "errors": [{"char": "倒", "correct": "道", "position": 7, "type": "homophone"}]}
+{"sentence": "答案想出来了骂？", "errors": [{"char": "骂", "correct": "吗", "position": 6, "type": "homophone"}]}
+{"sentence": "我想搬出去住但怕太欺负我妈", "errors": [{"char": "太", "correct": "他", "position": 8, "type": "homophone"}]}
+{"sentence": "还有没有香港纸币外过人廷喜欢彩色货币", "errors": [{"char": "过", "correct": "国", "position": 9, "type": "homophone"}, {"char": "廷", "correct": "挺", "position": 11, "type": "homophone"}]}
+{"sentence": "这纪年租金大幅上升，做收租人一定好发", "errors": [{"char": "纪", "correct": "几", "position": 1, "type": "homophone"}]}
+{"sentence": "我毒得连他想积蓄找借口骗我的动刀都没有", "errors": [{"char": "积", "correct": "继", "position": 6, "type": "homophone"}, {"char": "蓄", "correct": "续", "position": 7, "type": "homophone"}, {"char": "刀", "correct": "力", "position": 15, "type": "shape"}]}
+{"sentence": "你咬他打闸肯定有这些间题出现", "errors": [{"char": "咬", "correct": "要", "position": 1, "type": "homophone"}, {"char": "间", "correct": "问", "position": 10, "type": "shape"}]}
+{"sentence": "一台殿试撸了，指示出雪花", "errors": [{"char": "殿", "correct": "电", "position": 2, "type": "homophone"}, {"char": "试", "correct": "视", "position": 3, "type": "homophone"}, {"char": "指", "correct": "只", "position": 7, "type": "homophone"}, {"char": "示", "correct": "是", "position": 8, "type": "homophone"}]}
+{"sentence": "如果我面对面跟你说你别哭了出来有可能？", "errors": []}
+{"sentence": "政府就是断丁班现代废青", "errors": [{"char": "丁", "correct": "定", "position": 5, "type": "homophone"}]}
+{"sentence": "宁愿没了条命都不用它典点钱买个安心", "errors": [{"char": "它", "correct": "一", "position": 9, "type": "homophone"}, {"char": "典", "correct": "点", "position": 10, "type": "homophone"}]}
+{"sentence": "球王每次都炒得挺好看", "errors": []}
+{"sentence": "原谅他他见著有关曼联的东西都病发带过他去夫心看病很多次", "errors": [{"char": "夫", "correct": "天", "position": 20, "type": "shape"}]}
+{"sentence": "我顿说咗啦，坛你没听啊！", "errors": [{"char": "坛", "correct": "但", "position": 6, "type": "homophone"}, {"char": "顿", "correct": "都", "position": 1, "type": "homophone"}]}
+{"sentence": "看看毛巾传球你就不会间这个问题", "errors": [{"char": "间", "correct": "问", "position": 10, "type": "shape"}]}
+{"sentence": "个道士拿著支趁拂扬来扬去。", "errors": [{"char": "趁", "correct": "尘", "position": 6, "type": "homophone"}]}
+{"sentence": "其实这么没有公共性的东西都可以烧几天", "errors": []}
+{"sentence": "你自已一个人去外国读书，生活要自律啊。", "errors": [{"char": "已", "correct": "己", "position": 2, "type": "shape"}]}
+{"sentence": "不如想著怎么上位增值自己找多一点钱好过", "errors": []}
+{"sentence": "他人品差得那么虽然现在他是混得很好", "errors": []}
+{"sentence": "它们抢人就得我们买他入们就不行", "errors": [{"char": "它", "correct": "他", "position": 0, "type": "homophone"}, {"char": "入", "correct": "人", "position": 10, "type": "shape"}]}
+{"sentence": "不说真忘记有派遣这样东西", "errors": []}
+{"sentence": "首先，去看看点以有数据", "errors": [{"char": "以", "correct": "已", "position": 7, "type": "homophone"}]}
+{"sentence": "但演技真差好远前者好太多于星味", "errors": [{"char": "于", "correct": "有", "position": 12, "type": "homophone"}]}
+{"sentence": "整个星球的土壤里面都布满了这些猢笋树的重子。", "errors": [{"char": "重", "correct": "种", "position": 19, "type": "homophone"}, {"char": "笋", "correct": "狲", "position": 16, "type": "homophone"}]}
+{"sentence": "你的身休进入对方身体", "errors": [{"char": "休", "correct": "体", "position": 3, "type": "shape"}]}
+{"sentence": "那就尽量谷点屎尿出癞了", "errors": [{"char": "癞", "correct": "来", "position": 9, "type": "homophone"}]}
+{"sentence": "指示看见楼主做觉得很少男友肯整赞他有心机而己", "errors": [{"char": "指", "correct": "只", "position": 0, "type": "homophone"}, {"char": "示", "correct": "是", "position": 1, "type": "homophone"}, {"char": "己", "correct": "已", "position": 21, "type": "shape"}]}
+{"sentence": "有没有人组团去附近锌宝？", "errors": [{"char": "锌", "correct": "寻", "position": 9, "type": "homophone"}]}
+{"sentence": "球会主席又不在自己公司下南区广告", "errors": []}
+{"sentence": "那么肚里又窝心的女孩斟的很吸引", "errors": [{"char": "肚", "correct": "独", "position": 2, "type": "homophone"}, {"char": "里", "correct": "立", "position": 3, "type": "homophone"}, {"char": "斟", "correct": "真", "position": 10, "type": "homophone"}]}
+{"sentence": "别跟我曰甚么粗用不粗用", "errors": [{"char": "甚", "correct": "什", "position": 4, "type": "homophone"}, {"char": "曰", "correct": "说", "position": 3, "type": "homophone"}]}
+{"sentence": "是的我不对，你合适，对不起盖哥不要生气", "errors": [{"char": "盖", "correct": "哥", "position": 13, "type": "homophone"}]}
+{"sentence": "曾经上班不小心受伤不断整个伤叩", "errors": [{"char": "叩", "correct": "口", "position": 14, "type": "homophone"}]}
+{"sentence": "应该集中去建立一赶全新的利物浦", "errors": [{"char": "赶", "correct": "个", "position": 8, "type": "homophone"}]}
+{"sentence": "裙子太窄了，你怎么走啦！不如涡们在两边楷个衩吧。", "errors": [{"char": "涡", "correct": "我", "position": 14, "type": "homophone"}, {"char": "楷", "correct": "开", "position": 19, "type": "homophone"}]}
+{"sentence": "我焖在 a 初口等吧。", "errors": [{"char": "初", "correct": "出", "position": 6, "type": "homophone"}, {"char": "焖", "correct": "们", "position": 1, "type": "homophone"}]}
+{"sentence": "他也不指导我知道他有装", "errors": [{"char": "指", "correct": "知", "position": 3, "type": "homophone"}, {"char": "导", "correct": "道", "position": 4, "type": "homophone"}]}
+{"sentence": "例香港有大兴疾病影响大部份认寿命之类的东西，才会整体加", "errors": [{"char": "兴", "correct": "型", "position": 5, "type": "homophone"}, {"char": "认", "correct": "人", "position": 13, "type": "homophone"}]}
+{"sentence": "社会企业的数量立所增长。", "errors": [{"char": "立", "correct": "有", "position": 7, "type": "homophone"}]}
+{"sentence": "那么跟义工未经主人统一擅自拿走别人的猫有什么分别", "errors": [{"char": "统", "correct": "同", "position": 9, "type": "homophone"}, {"char": "一", "correct": "意", "position": 10, "type": "homophone"}]}
+{"sentence": "不知道是不是英超竞争太即烈，一场一点点失兽都死全家，搞到领队少冒险和轮换", "errors": [{"char": "兽", "correct": "手", "position": 20, "type": "homophone"}, {"char": "即", "correct": "激", "position": 11, "type": "homophone"}]}
+{"sentence": "所以结论是没有可能跌。", "errors": []}
+{"sentence": "像赌神地走好出来", "errors": []}
+{"sentence": "他俩不是小时吼都已经是朋又吗", "errors": [{"char": "又", "correct": "友", "position": 12, "type": "homophone"}, {"char": "吼", "correct": "候", "position": 6, "type": "homophone"}]}
+{"sentence": "这套垃圾还可以出镇奇迹", "errors": [{"char": "镇", "correct": "真", "position": 8, "type": "homophone"}]}
+{"sentence": "辱果时间分配不好会死得很惨", "errors": [{"char": "辱", "correct": "如", "position": 0, "type": "homophone"}]}
+{"sentence": "去助养一个非洲几童", "errors": [{"char": "几", "correct": "儿", "position": 7, "type": "shape"}]}
+{"sentence": "制药一背叛就不会有机会", "errors": [{"char": "制", "correct": "只", "position": 0, "type": "homophone"}, {"char": "药", "correct": "要", "position": 1, "type": "homophone"}]}
+{"sentence": "更何况穿制服上班本身就没问题，无啦啦标签人都不知道楼主什么心态", "errors": []}
+{"sentence": "Bill Gates和Warren Buffett宗室一起打桥牌。", "errors": [{"char": "宗", "correct": "总", "position": 25, "type": "homophone"}, {"char": "室", "correct": "是", "position": 26, "type": "homophone"}]}
+{"sentence": "作右重量要对称的道理", "errors": [{"char": "作", "correct": "左", "position": 0, "type": "homophone"}]}
+{"sentence": "第一个是澳大利亚来底外活女人", "errors": [{"char": "活", "correct": "国", "position": 11, "type": "homophone"}, {"char": "底", "correct": "的", "position": 9, "type": "homophone"}]}
+{"sentence": "你能当伸请一本新的地神情吗", "errors": [{"char": "神", "correct": "申", "position": 10, "type": "homophone"}, {"char": "情", "correct": "请", "position": 11, "type": "homophone"}, {"char": "伸", "correct": "申", "position": 3, "type": "homophone"}]}
+{"sentence": "忠于可以做自巳喜欢做的事情", "errors": [{"char": "忠", "correct": "终", "position": 0, "type": "homophone"}, {"char": "巳", "correct": "己", "position": 6, "type": "shape"}]}
+{"sentence": "这就是世界人民谁的英语", "errors": [{"char": "谁", "correct": "说", "position": 7, "type": "homophone"}]}
+{"sentence": "现在冲由不等于之后也重要", "errors": [{"char": "冲", "correct": "重", "position": 2, "type": "homophone"}, {"char": "由", "correct": "要", "position": 3, "type": "homophone"}]}
+{"sentence": "台向认为没有犯法就没问题的连登儿子", "errors": [{"char": "台", "correct": "一", "position": 0, "type": "homophone"}]}
+{"sentence": "还有约会又不是结婚街婚也一样可以离不结婚也一样可台一起住整件事根本没关系", "errors": [{"char": "台", "correct": "以", "position": 24, "type": "homophone"}, {"char": "街", "correct": "结", "position": 9, "type": "homophone"}]}
+{"sentence": "这里的劝水特别添。", "errors": [{"char": "添", "correct": "甜", "position": 7, "type": "homophone"}, {"char": "劝", "correct": "泉", "position": 3, "type": "homophone"}]}
+{"sentence": "华人建种基因是多给三千泥也改变不了", "errors": [{"char": "泥", "correct": "年", "position": 11, "type": "homophone"}, {"char": "建", "correct": "贱", "position": 2, "type": "homophone"}]}
+{"sentence": "不过最重要的还是知道自巳在买什么想玩什么", "errors": [{"char": "巳", "correct": "己", "position": 11, "type": "shape"}]}
+{"sentence": "只不过是网便大家的简写", "errors": [{"char": "网", "correct": "方", "position": 4, "type": "homophone"}]}
+{"sentence": "失败者趋到哪个世界都是失败者", "errors": [{"char": "趋", "correct": "去", "position": 3, "type": "homophone"}]}
+{"sentence": "我说给你听捕食要你不开心的", "errors": [{"char": "捕", "correct": "不", "position": 5, "type": "homophone"}, {"char": "食", "correct": "是", "position": 6, "type": "homophone"}]}
+{"sentence": "据悉特首稍后将会召开记者会。", "errors": []}
+{"sentence": "如果有人讨论一点深度话题，我也可台跟随", "errors": [{"char": "台", "correct": "以", "position": 16, "type": "homophone"}]}
+{"sentence": "学校每个人都说他事乖袅", "errors": [{"char": "事", "correct": "是", "position": 8, "type": "homophone"}]}
+{"sentence": "狗玉抓了个小贩或取他货，上庭做证物", "errors": [{"char": "玉", "correct": "王", "position": 1, "type": "shape"}, {"char": "或", "correct": "和", "position": 7, "type": "homophone"}]}
+{"sentence": "员警叔树就是这位哥哥吧", "errors": [{"char": "树", "correct": "叔", "position": 3, "type": "homophone"}]}
+{"sentence": "搭说话宗室自打嘴巴。", "errors": [{"char": "搭", "correct": "他", "position": 0, "type": "homophone"}, {"char": "宗", "correct": "总", "position": 3, "type": "homophone"}, {"char": "室", "correct": "是", "position": 4, "type": "homophone"}]}
+{"sentence": "无脚架啊看看会不会邮电商店送了", "errors": [{"char": "邮", "correct": "有", "position": 9, "type": "homophone"}, {"char": "电", "correct": "点", "position": 10, "type": "homophone"}]}
+{"sentence": "看事明天还是不会刮风架袅。", "errors": [{"char": "事", "correct": "势", "position": 1, "type": "homophone"}]}
+{"sentence": "念你也不是故意的，这次帝损失我们不追究了。", "errors": [{"char": "帝", "correct": "的", "position": 11, "type": "homophone"}]}
+{"sentence": "最呕心是他戴著副眼镜星为又扮副真人君子大哥那", "errors": [{"char": "星", "correct": "行", "position": 10, "type": "homophone"}]}
+{"sentence": "好像赴认同税们就是错地要受到惩罚", "errors": [{"char": "税", "correct": "他", "position": 5, "type": "homophone"}, {"char": "赴", "correct": "不", "position": 2, "type": "homophone"}]}
+{"sentence": "这篇文章更搞笑的是，因为填海地位于海旁所以今地价更高？", "errors": [{"char": "今", "correct": "令", "position": 21, "type": "shape"}]}
+{"sentence": "涡一拳丢落他的肚子", "errors": [{"char": "涡", "correct": "我", "position": 0, "type": "homophone"}]}
+{"sentence": "我这几天应该没有什么打国人", "errors": [{"char": "国", "correct": "过", "position": 11, "type": "homophone"}]}
+{"sentence": "这间公司有好强的增幅，看来他也不会被壬除牌的", "errors": [{"char": "壬", "correct": "人", "position": 18, "type": "homophone"}]}
+{"sentence": "但他做不到港女得尖酸刻薄", "errors": [{"char": "得", "correct": "的", "position": 7, "type": "homophone"}]}
+{"sentence": "这是香港到底在找多少钱？", "errors": []}
+{"sentence": "这个一定是和美国的交欢条件", "errors": [{"char": "欢", "correct": "换", "position": 10, "type": "homophone"}]}
+{"sentence": "别哭了，至多我请你吃霜吃淋呢？", "errors": [{"char": "吃", "correct": "淇", "position": 11, "type": "homophone"}]}
+{"sentence": "最低层了滇真不清楚", "errors": [{"char": "滇", "correct": "点", "position": 4, "type": "homophone"}]}
+{"sentence": "又啦回他上来那时候就直接大爆发", "errors": [{"char": "啦", "correct": "拉", "position": 1, "type": "homophone"}]}
+{"sentence": "过多十年二十年，这些技艺估计消失", "errors": [{"char": "技", "correct": "记", "position": 10, "type": "homophone"}, {"char": "艺", "correct": "忆", "position": 11, "type": "homophone"}]}
+{"sentence": "我喜欢有用和跑步", "errors": [{"char": "有", "correct": "游", "position": 3, "type": "homophone"}, {"char": "用", "correct": "泳", "position": 4, "type": "homophone"}]}
+{"sentence": "起始闪电侠真算有点新玩法之如又不算隐藏机", "errors": [{"char": "起", "correct": "其", "position": 0, "type": "homophone"}, {"char": "始", "correct": "实", "position": 1, "type": "homophone"}]}
+{"sentence": "你阵势书呆子，整天在啃书本", "errors": [{"char": "阵", "correct": "真", "position": 1, "type": "homophone"}, {"char": "势", "correct": "是", "position": 2, "type": "homophone"}]}
+{"sentence": "你不是那么天真意味他会去东方吗？", "errors": [{"char": "意", "correct": "以", "position": 7, "type": "homophone"}, {"char": "味", "correct": "为", "position": 8, "type": "homophone"}]}
+{"sentence": "为什么不能肪生难忍？", "errors": [{"char": "难", "correct": "男", "position": 7, "type": "homophone"}, {"char": "忍", "correct": "人", "position": 8, "type": "homophone"}, {"char": "肪", "correct": "放", "position": 5, "type": "homophone"}]}
+{"sentence": "保险狗最午别买那时什么都说得", "errors": [{"char": "午", "correct": "牛", "position": 4, "type": "shape"}]}
+{"sentence": "把牛排的表面煎封可以锁住肉汁和味道。", "errors": []}
+{"sentence": "可能因为这样导致某几只蟹", "errors": []}
+{"sentence": "还要这么耗心情抬他上月历", "errors": [{"char": "耗", "correct": "好", "position": 4, "type": "homophone"}, {"char": "抬", "correct": "痴", "position": 7, "type": "homophone"}]}
+{"sentence": "我人生不是要这些东西，我不脚得自己失败", "errors": [{"char": "脚", "correct": "觉", "position": 13, "type": "homophone"}]}
+{"sentence": "为是么上次超古代必中你不抽", "errors": [{"char": "是", "correct": "什", "position": 1, "type": "homophone"}]}
+{"sentence": "其实挺自卑的人才会否定自己的身份", "errors": [{"char": "份", "correct": "分", "position": 15, "type": "homophone"}]}
+{"sentence": "隔离区这个名滋是禾改的", "errors": [{"char": "滋", "correct": "字", "position": 6, "type": "homophone"}]}
+{"sentence": "真在可疑辖区篮球场打全日球", "errors": [{"char": "疑", "correct": "以", "position": 3, "type": "homophone"}, {"char": "辖", "correct": "下", "position": 4, "type": "homophone"}, {"char": "区", "correct": "去", "position": 5, "type": "homophone"}]}
+{"sentence": "那么是你朋友视野狭哀", "errors": [{"char": "哀", "correct": "隘", "position": 9, "type": "homophone"}]}
+{"sentence": "你不是肉眼看段示范片就知道他整个叹戏引擎系统预言架构吗？", "errors": [{"char": "预", "correct": "语", "position": 22, "type": "homophone"}, {"char": "叹", "correct": "游", "position": 16, "type": "homophone"}]}
+{"sentence": "我们公司想请他，怎么指导被对家截了和。", "errors": [{"char": "指", "correct": "知", "position": 10, "type": "homophone"}, {"char": "导", "correct": "道", "position": 11, "type": "homophone"}, {"char": "和", "correct": "糊", "position": 17, "type": "homophone"}]}
+{"sentence": "间公司很盔人啊。", "errors": [{"char": "盔", "correct": "缺", "position": 4, "type": "homophone"}]}
+{"sentence": "党然人家大水龙头这接东西不能说", "errors": [{"char": "接", "correct": "家", "position": 9, "type": "homophone"}, {"char": "党", "correct": "当", "position": 0, "type": "homophone"}]}
+{"sentence": "而距最重要是，他近年出个书，也是反主流的书籍", "errors": [{"char": "距", "correct": "且", "position": 1, "type": "homophone"}]}
+{"sentence": "大家放欣！！我是友善的肥婆", "errors": [{"char": "欣", "correct": "心", "position": 3, "type": "homophone"}]}
+{"sentence": "我觉得治凿你的信箱会给我塞爆", "errors": [{"char": "治", "correct": "迟", "position": 3, "type": "homophone"}, {"char": "凿", "correct": "早", "position": 4, "type": "homophone"}]}
+{"sentence": "错我崽给机会打架猜猜", "errors": [{"char": "打", "correct": "大", "position": 6, "type": "homophone"}, {"char": "架", "correct": "家", "position": 7, "type": "homophone"}, {"char": "崽", "correct": "再", "position": 2, "type": "homophone"}]}
+{"sentence": "岁然他会奶奶干净但他奶奶干净之后就会奶奶我情吻", "errors": [{"char": "岁", "correct": "虽", "position": 0, "type": "homophone"}, {"char": "情", "correct": "亲", "position": 21, "type": "homophone"}]}
+{"sentence": "简单说，有几个可能的原因组成：", "errors": []}
+{"sentence": "谁知他突然右毛拍一下我的右手！", "errors": [{"char": "毛", "correct": "手", "position": 6, "type": "shape"}]}
+{"sentence": "其实他买人个思路是队的，才做好基本队型", "errors": [{"char": "队", "correct": "对", "position": 9, "type": "homophone"}]}
+{"sentence": "赢语间隔大可能开了全形", "errors": [{"char": "赢", "correct": "英", "position": 0, "type": "homophone"}]}
+{"sentence": "你再耍花招就真了", "errors": []}
+{"sentence": "他语文能刀很好。", "errors": [{"char": "刀", "correct": "力", "position": 4, "type": "shape"}]}
+{"sentence": "他正一花心萝卜来，这头说只是爱我一个，回头又眼碌碌地盯著隔壁的女儿。", "errors": []}
+{"sentence": "那阵有点生气，香港人竟然可以冷漠成这样", "errors": []}
+{"sentence": "证明只怕易经失去了讨论的价值", "errors": [{"char": "易", "correct": "已", "position": 4, "type": "homophone"}]}
+{"sentence": "他们都是御言末分贵贱", "errors": [{"char": "末", "correct": "无", "position": 6, "type": "homophone"}, {"char": "御", "correct": "语", "position": 4, "type": "homophone"}]}
+{"sentence": "你随时看错排吧这么大意学人赌啤", "errors": [{"char": "排", "correct": "牌", "position": 5, "type": "homophone"}]}
+{"sentence": "他天填只走走停停，也帮不了什么手。", "errors": [{"char": "填", "correct": "天", "position": 2, "type": "homophone"}]}
+{"sentence": "呢骑自行车很快呵！", "errors": [{"char": "呵", "correct": "啊", "position": 7, "type": "homophone"}, {"char": "呢", "correct": "你", "position": 0, "type": "homophone"}]}
+{"sentence": "你又证明下腻不是垃圾？", "errors": [{"char": "腻", "correct": "你", "position": 5, "type": "homophone"}]}
+{"sentence": "好看白礼顿到时上了岸没有", "errors": []}
+{"sentence": "这个不灌香港时这是世界也是这样", "errors": [{"char": "灌", "correct": "关", "position": 3, "type": "homophone"}]}
+{"sentence": "习近平事代的中国，外强中干", "errors": [{"char": "事", "correct": "时", "position": 3, "type": "homophone"}]}
+{"sentence": "电话卡都方便点嘛，不用故意曲还只蛋和怕只蛋不见了", "errors": [{"char": "曲", "correct": "去", "position": 13, "type": "homophone"}]}
+{"sentence": "申情资助需要入息审查。", "errors": [{"char": "情", "correct": "请", "position": 1, "type": "homophone"}]}
+{"sentence": "贤淑女剩跟流氓女生当然是差一大截的了！", "errors": [{"char": "剩", "correct": "生", "position": 3, "type": "homophone"}]}
+{"sentence": "还要说人家喜浣你大只不是喜欢泥个人", "errors": [{"char": "泥", "correct": "你", "position": 14, "type": "homophone"}, {"char": "浣", "correct": "欢", "position": 6, "type": "homophone"}]}
+{"sentence": "今天只股票赚了两个开，一块钱从一万变了三万。", "errors": []}
+{"sentence": "证明他真的很会找男朋友，峡个应该是导演监制，再下个快到富二代", "errors": [{"char": "峡", "correct": "下", "position": 12, "type": "homophone"}]}
+{"sentence": "不要拿人均入息和楼价差距去做理据", "errors": []}
+{"sentence": "而且可也在古活赛期赢到马", "errors": [{"char": "也", "correct": "以", "position": 3, "type": "homophone"}]}
+{"sentence": "你怎么知道问店有四儿子卖吗？", "errors": [{"char": "问", "correct": "间", "position": 5, "type": "shape"}]}
+{"sentence": "现在看看这皆伙有没有反手做淡仓", "errors": [{"char": "皆", "correct": "家", "position": 5, "type": "homophone"}]}
+{"sentence": "不过档然有好的都有不好的", "errors": [{"char": "档", "correct": "当", "position": 2, "type": "homophone"}]}
+{"sentence": "这些女孩也不时真喜欢条儿子", "errors": [{"char": "时", "correct": "是", "position": 6, "type": "homophone"}]}
+{"sentence": "但现在望回透幸好进不了", "errors": [{"char": "透", "correct": "头", "position": 5, "type": "homophone"}]}
+{"sentence": "有好消息，医生说骨髓报告正常，会积蓄之前计划好的移植骨髓疗程", "errors": [{"char": "积", "correct": "继", "position": 16, "type": "homophone"}, {"char": "蓄", "correct": "续", "position": 17, "type": "homophone"}]}
+{"sentence": "有没有号的区别错主要还是俗度上？", "errors": [{"char": "俗", "correct": "速", "position": 12, "type": "homophone"}, {"char": "错", "correct": "最", "position": 7, "type": "homophone"}]}
+{"sentence": "吸班人就什么来约他的球底算垃圾", "errors": [{"char": "约", "correct": "说", "position": 7, "type": "homophone"}, {"char": "吸", "correct": "西", "position": 0, "type": "homophone"}]}
+{"sentence": "经这么巧废青狼的说明攻门闯入，攻上楼顶", "errors": []}
+{"sentence": "觉得个故接近尾声很折不得但又很香快点知道真相", "errors": [{"char": "香", "correct": "想", "position": 15, "type": "homophone"}, {"char": "折", "correct": "舍", "position": 9, "type": "homophone"}]}
+{"sentence": "玩法太少课久不用既也课部下手", "errors": [{"char": "部", "correct": "不", "position": 11, "type": "homophone"}, {"char": "久", "correct": "就", "position": 5, "type": "homophone"}]}
+{"sentence": "教育不适紧紧教对的东西还要教错的东西怎么错", "errors": [{"char": "适", "correct": "是", "position": 3, "type": "homophone"}, {"char": "紧", "correct": "仅", "position": 4, "type": "homophone"}, {"char": "紧", "correct": "仅", "position": 5, "type": "homophone"}]}
+{"sentence": "这本名著值得精读。", "errors": []}
+{"sentence": "转头叠这么高，稳不稳的？", "errors": [{"char": "转", "correct": "砖", "position": 0, "type": "homophone"}]}
+{"sentence": "他的舌计很有创意。", "errors": [{"char": "舌", "correct": "设", "position": 2, "type": "homophone"}]}
+{"sentence": "五聊东西又得很少是幽默", "errors": [{"char": "五", "correct": "无", "position": 0, "type": "homophone"}]}
+{"sentence": "卷为议员连这么简单的情况都不知道", "errors": [{"char": "卷", "correct": "身", "position": 0, "type": "homophone"}]}
+{"sentence": "想直到那里有得再看直播？", "errors": [{"char": "直", "correct": "知", "position": 1, "type": "homophone"}, {"char": "到", "correct": "道", "position": 2, "type": "homophone"}, {"char": "那", "correct": "哪", "position": 3, "type": "homophone"}]}
+{"sentence": "这些事靠瞎财是不行的", "errors": [{"char": "财", "correct": "猜", "position": 5, "type": "homophone"}]}
+{"sentence": "超级无敌奖门人的环节", "errors": []}
+{"sentence": "没有颜色就没于味道", "errors": [{"char": "于", "correct": "有", "position": 6, "type": "homophone"}]}
+{"sentence": "缩手吧！别这么毛多！", "errors": [{"char": "毛", "correct": "手", "position": 7, "type": "shape"}]}
+{"sentence": "你先族，我还要留在这里善吼。", "errors": [{"char": "族", "correct": "走", "position": 2, "type": "homophone"}, {"char": "吼", "correct": "后", "position": 12, "type": "homophone"}]}
+{"sentence": "满街周巷都是人，我们走不了出去", "errors": []}
+{"sentence": "那个留学升被骗钱，没了即十万。", "errors": [{"char": "即", "correct": "几", "position": 11, "type": "homophone"}, {"char": "升", "correct": "生", "position": 4, "type": "homophone"}]}
+{"sentence": "其实真限死是广东话", "errors": []}
+{"sentence": "只未多少年这样就看他考了多少次了", "errors": [{"char": "未", "correct": "于", "position": 1, "type": "homophone"}, {"char": "只", "correct": "至", "position": 0, "type": "homophone"}]}
+{"sentence": "别搞这么堕东西了又多了争喊", "errors": [{"char": "堕", "correct": "多", "position": 4, "type": "homophone"}]}
+{"sentence": "他马上锭嘴说自给有精神病再", "errors": [{"char": "给", "correct": "己", "position": 7, "type": "homophone"}, {"char": "锭", "correct": "顶", "position": 3, "type": "homophone"}]}
+{"sentence": "可能会为了被人要利用你，可能真得喜欢你但是不湘谈恋爱", "errors": [{"char": "得", "correct": "的", "position": 15, "type": "homophone"}, {"char": "湘", "correct": "想", "position": 22, "type": "homophone"}]}
+{"sentence": "自己现市又何尝不是喜欢跟帅哥美女多一点", "errors": [{"char": "市", "correct": "实", "position": 3, "type": "homophone"}]}
+{"sentence": "要自己试试它限制了我想", "errors": [{"char": "它", "correct": "他", "position": 5, "type": "homophone"}, {"char": "限", "correct": "先", "position": 6, "type": "homophone"}, {"char": "制", "correct": "知", "position": 7, "type": "homophone"}]}
+{"sentence": "其市我不知道有什么可以选仄", "errors": [{"char": "市", "correct": "实", "position": 1, "type": "homophone"}, {"char": "仄", "correct": "择", "position": 12, "type": "homophone"}]}
+{"sentence": "千嘛气鼓鼓的，谁得罪了泥呀？", "errors": [{"char": "千", "correct": "干", "position": 0, "type": "shape"}, {"char": "泥", "correct": "你", "position": 11, "type": "homophone"}]}
+{"sentence": "我们今晚吃种餐还是西掺？", "errors": [{"char": "掺", "correct": "餐", "position": 10, "type": "homophone"}, {"char": "种", "correct": "中", "position": 5, "type": "homophone"}]}
+{"sentence": "个人认为型爷最好看是这套", "errors": [{"char": "型", "correct": "星", "position": 4, "type": "homophone"}]}
+{"sentence": "我得大纸而已。不好意思。", "errors": []}
+{"sentence": "树仁真怎么都没法看得上眼晴", "errors": [{"char": "晴", "correct": "睛", "position": 12, "type": "shape"}]}
+{"sentence": "你觉得做到朋友的处于礼貌别说声", "errors": [{"char": "处", "correct": "出", "position": 8, "type": "homophone"}]}
+{"sentence": "两个入通过中间人和对方交易他们一定要有中间人？", "errors": [{"char": "入", "correct": "人", "position": 2, "type": "shape"}]}
+{"sentence": "我式个阵跟你总是一起的斧战", "errors": [{"char": "式", "correct": "是", "position": 1, "type": "homophone"}]}
+{"sentence": "全找遍了也没找倒", "errors": [{"char": "倒", "correct": "到", "position": 7, "type": "homophone"}]}
+{"sentence": "我想自己生活刻意充实点", "errors": [{"char": "刻", "correct": "可", "position": 6, "type": "homophone"}, {"char": "意", "correct": "以", "position": 7, "type": "homophone"}]}
+{"sentence": "他最大的数位虚输来嫁", "errors": [{"char": "输", "correct": "数", "position": 7, "type": "homophone"}]}
+{"sentence": "收攻回家是清入手头的东西或者想明田要做的事情", "errors": [{"char": "攻", "correct": "工", "position": 1, "type": "homophone"}, {"char": "田", "correct": "天", "position": 16, "type": "homophone"}]}
+{"sentence": "可能总是摸他的肉龟，", "errors": [{"char": "龟", "correct": "球", "position": 8, "type": "homophone"}]}
+{"sentence": "做餐饮这行，煤田都要熬夜的", "errors": [{"char": "煤", "correct": "每", "position": 6, "type": "homophone"}, {"char": "田", "correct": "天", "position": 7, "type": "homophone"}]}
+{"sentence": "一说要于活他就松人", "errors": [{"char": "于", "correct": "干", "position": 3, "type": "shape"}]}
+{"sentence": "不会太场的我也歇", "errors": [{"char": "场", "correct": "长", "position": 3, "type": "homophone"}, {"char": "歇", "correct": "写", "position": 7, "type": "homophone"}]}
+{"sentence": "今集看得这么代入其终一个原因就是真相信有人会死", "errors": [{"char": "终", "correct": "中", "position": 9, "type": "homophone"}]}
+{"sentence": "因为同居整夫都是迁就那哥", "errors": [{"char": "哥", "correct": "个", "position": 11, "type": "homophone"}, {"char": "夫", "correct": "天", "position": 5, "type": "shape"}]}
+{"sentence": "甚么都是假自己的养子最重要", "errors": [{"char": "甚", "correct": "什", "position": 0, "type": "homophone"}, {"char": "养", "correct": "样", "position": 8, "type": "homophone"}]}
+{"sentence": "因为出来人们总是乐工资", "errors": [{"char": "乐", "correct": "说", "position": 8, "type": "homophone"}]}
+{"sentence": "税就像看心情打球这样", "errors": [{"char": "税", "correct": "他", "position": 0, "type": "homophone"}]}
+{"sentence": "连付出都没谈恋爱都不会长还说什么结婚？", "errors": []}
+{"sentence": "以前父亲的鼻汉打雷那，坐在厅关埋门也听到，用了小声了很多，至少坐在厅听不见", "errors": [{"char": "汉", "correct": "鼾", "position": 6, "type": "homophone"}]}
+{"sentence": "制式奶奶共我都不知道怎么支援他", "errors": [{"char": "制", "correct": "只", "position": 0, "type": "homophone"}, {"char": "式", "correct": "是", "position": 1, "type": "homophone"}]}
+{"sentence": "这是比有失间，又不想输的玩家使用", "errors": [{"char": "失", "correct": "时", "position": 4, "type": "homophone"}]}
+{"sentence": "人们燃灰色头像老入家。", "errors": [{"char": "燃", "correct": "染", "position": 2, "type": "homophone"}, {"char": "入", "correct": "人", "position": 8, "type": "shape"}]}
+{"sentence": "刚但我讨论爽方都横最佳策略", "errors": [{"char": "横", "correct": "行", "position": 8, "type": "homophone"}, {"char": "爽", "correct": "双", "position": 5, "type": "homophone"}]}
+{"sentence": "看见他们互动的心久很痛", "errors": [{"char": "久", "correct": "就", "position": 8, "type": "homophone"}]}
+{"sentence": "是哥海抽上来也不是最新鲜", "errors": [{"char": "哥", "correct": "个", "position": 1, "type": "homophone"}]}
+{"sentence": "你一刀笃爆人家全部个人资料，当然很多人都会好害怕和会有反映了！", "errors": [{"char": "映", "correct": "应", "position": 28, "type": "homophone"}]}
+{"sentence": "买完入场看复雠者联盟", "errors": []}
+{"sentence": "到这一刻为止，每个星期温珀来农庄的时候，动物和他的接初都是少之又少。", "errors": [{"char": "初", "correct": "触", "position": 26, "type": "homophone"}]}
+{"sentence": "作为连登一个底保障女性利益的论坛我认为女权组织应该提出立法保障女性的裙底", "errors": [{"char": "底", "correct": "地", "position": 6, "type": "homophone"}]}
+{"sentence": "入生是无常的，珍惜每一次和家人相处的时光", "errors": [{"char": "入", "correct": "人", "position": 0, "type": "shape"}]}
+{"sentence": "善忘的我也可能旺季了更多的事件", "errors": [{"char": "旺", "correct": "忘", "position": 7, "type": "homophone"}, {"char": "季", "correct": "记", "position": 8, "type": "homophone"}]}
+{"sentence": "说实话焚别不大这些都是看轴", "errors": [{"char": "焚", "correct": "分", "position": 3, "type": "homophone"}]}
+{"sentence": "他撸七的脚，想看得好一点", "errors": [{"char": "七", "correct": "起", "position": 2, "type": "homophone"}]}
+{"sentence": "我也想由辆开榜车。", "errors": [{"char": "榜", "correct": "篷", "position": 6, "type": "homophone"}, {"char": "由", "correct": "要", "position": 3, "type": "homophone"}]}
+{"sentence": "我不喜欢渴港式奶茶。", "errors": [{"char": "渴", "correct": "喝", "position": 4, "type": "shape"}]}
+{"sentence": "看捣都起鸡皮疙瘩，小学生叫口号这样", "errors": [{"char": "捣", "correct": "到", "position": 1, "type": "homophone"}]}
+{"sentence": "游有钱，将来刺到真幸福", "errors": [{"char": "游", "correct": "又", "position": 0, "type": "homophone"}, {"char": "刺", "correct": "吃", "position": 6, "type": "homophone"}]}
+{"sentence": "我意思是学界都已经着么大压力", "errors": [{"char": "着", "correct": "这", "position": 9, "type": "homophone"}]}
+{"sentence": "他越的那些话肉麻得要命", "errors": [{"char": "越", "correct": "说", "position": 1, "type": "homophone"}]}
+{"sentence": "他机几何会准时到吖。", "errors": [{"char": "机", "correct": "有", "position": 1, "type": "homophone"}]}
+{"sentence": "遂则叫慢煮但准备的功夫也很少", "errors": [{"char": "遂", "correct": "虽", "position": 0, "type": "homophone"}]}
+{"sentence": "她们凑齐二百万就去买楼", "errors": [{"char": "她", "correct": "他", "position": 0, "type": "homophone"}]}
+{"sentence": "重要当正自己没错地，和发你脾气又有多不好了", "errors": []}
+{"sentence": "我焖知道情况恨严重，就飞的去医院见爷爷最后一面", "errors": [{"char": "恨", "correct": "很", "position": 6, "type": "homophone"}, {"char": "焖", "correct": "们", "position": 1, "type": "homophone"}]}
+{"sentence": "连登到乳果自己台累可以潜下都行", "errors": [{"char": "乳", "correct": "如", "position": 3, "type": "homophone"}, {"char": "台", "correct": "也", "position": 7, "type": "homophone"}]}
+{"sentence": "我看到都一味自己眼花", "errors": [{"char": "一", "correct": "以", "position": 4, "type": "homophone"}, {"char": "味", "correct": "为", "position": 5, "type": "homophone"}]}
+{"sentence": "但划画下不知道劲哪几去了", "errors": [{"char": "划", "correct": "画", "position": 1, "type": "homophone"}, {"char": "几", "correct": "儿", "position": 9, "type": "shape"}]}
+{"sentence": "春夏囚冬四季用又不会差好远", "errors": [{"char": "囚", "correct": "秋", "position": 2, "type": "homophone"}]}
+{"sentence": "捡回来耗点东西玩。", "errors": [{"char": "耗", "correct": "好", "position": 3, "type": "homophone"}]}
+{"sentence": "我说到着么好听但是我很想我们可以回到以前呢", "errors": [{"char": "着", "correct": "这", "position": 3, "type": "homophone"}]}
+{"sentence": "坐在沙发上颤著绝", "errors": [{"char": "绝", "correct": "脚", "position": 7, "type": "homophone"}]}
+{"sentence": "松刚才被教官罚他跑操场十个圈，接过他因为太撵跑跑一下晕了。", "errors": [{"char": "接", "correct": "结", "position": 15, "type": "homophone"}, {"char": "过", "correct": "果", "position": 16, "type": "homophone"}]}
+{"sentence": "放弃了过祭天温考试才继续", "errors": [{"char": "祭", "correct": "几", "position": 4, "type": "homophone"}]}
+{"sentence": "他穿那件义父白浪费浪费实德，真不漂亮", "errors": [{"char": "义", "correct": "衣", "position": 4, "type": "homophone"}, {"char": "父", "correct": "服", "position": 5, "type": "homophone"}, {"char": "实", "correct": "似", "position": 11, "type": "homophone"}, {"char": "德", "correct": "的", "position": 12, "type": "homophone"}]}
+{"sentence": "对你而言是，视乎他们的目标是不是你，如果仅是他们管得你怎么想", "errors": [{"char": "仅", "correct": "不", "position": 20, "type": "homophone"}]}
+{"sentence": "看点日文网，是解放之前肉质的确是吃斩和打多过弹", "errors": []}
+{"sentence": "刚挂了一号球了，不知道星期四会不会八号呢", "errors": []}
+{"sentence": "所有色都会艮我们看的不异样", "errors": [{"char": "异", "correct": "一", "position": 11, "type": "homophone"}, {"char": "艮", "correct": "跟", "position": 5, "type": "homophone"}]}
+{"sentence": "如果个男孩子对他好的话", "errors": []}
+{"sentence": "小学生包时应该很爱国吗", "errors": [{"char": "时", "correct": "是", "position": 4, "type": "homophone"}, {"char": "包", "correct": "不", "position": 3, "type": "homophone"}]}
+{"sentence": "现在个十一个出真艇复雠者联盟下，什么类型的人都有。", "errors": [{"char": "艇", "correct": "挺", "position": 8, "type": "homophone"}]}
+{"sentence": "本来也以往了但为市么你要提回起", "errors": [{"char": "以", "correct": "遗", "position": 3, "type": "homophone"}, {"char": "往", "correct": "忘", "position": 4, "type": "homophone"}, {"char": "市", "correct": "什", "position": 8, "type": "homophone"}]}
+{"sentence": "夫天开工到收工没停过手", "errors": [{"char": "夫", "correct": "天", "position": 0, "type": "shape"}]}
+{"sentence": "下次看到今夫的女孩找籍口将他电化", "errors": [{"char": "夫", "correct": "天", "position": 5, "type": "shape"}, {"char": "化", "correct": "话", "position": 15, "type": "homophone"}]}
+{"sentence": "我记得好像有人不知倒什么时候之后才行", "errors": [{"char": "倒", "correct": "道", "position": 9, "type": "homophone"}]}
+{"sentence": "笨身不晚现在比别人踢了回去就晚", "errors": [{"char": "笨", "correct": "本", "position": 0, "type": "homophone"}]}
+{"sentence": "那是因为你才假设了善的定义，这么善的终极目的就是我的命是", "errors": [{"char": "是", "correct": "题", "position": 27, "type": "homophone"}]}
+{"sentence": "屯备前面车子不用转弯", "errors": [{"char": "屯", "correct": "准", "position": 0, "type": "homophone"}]}
+{"sentence": "还是昨天有兄是中伏我先知", "errors": [{"char": "是", "correct": "弟", "position": 6, "type": "homophone"}]}
+{"sentence": "你要小心那个入，他好奇怪呢，总是自言自语，跟沙傻的一样", "errors": [{"char": "入", "correct": "人", "position": 6, "type": "shape"}, {"char": "沙", "correct": "傻", "position": 22, "type": "homophone"}]}
+{"sentence": "外国女孩你那台机整天都位问题这样", "errors": [{"char": "位", "correct": "有", "position": 11, "type": "homophone"}]}
+{"sentence": "这篇文章写成这样，先生看到实头转一下", "errors": []}
+{"sentence": "会场响起激昂的口号声。", "errors": []}
+{"sentence": "站在这里帮我含的乃种满足感", "errors": [{"char": "乃", "correct": "那", "position": 8, "type": "homophone"}]}
+{"sentence": "这边是大多晚约先走，我不知道这么叫不叫大逃亡", "errors": [{"char": "晚", "correct": "完", "position": 5, "type": "homophone"}]}
+{"sentence": "噌楼断供就真的要重练", "errors": [{"char": "噌", "correct": "层", "position": 0, "type": "homophone"}]}
+{"sentence": "他失利比不上对方，赢了是砰运气", "errors": [{"char": "失", "correct": "实", "position": 1, "type": "homophone"}, {"char": "利", "correct": "力", "position": 2, "type": "homophone"}, {"char": "砰", "correct": "碰", "position": 12, "type": "homophone"}]}
+{"sentence": "你要不要多龛几个画面", "errors": [{"char": "龛", "correct": "看", "position": 5, "type": "homophone"}]}
+{"sentence": "多玩十几廿场就觉得很闷来来去去也是这么没什么变化", "errors": []}
+{"sentence": "见过震边有同学真穷到三餐也刚刚很够", "errors": [{"char": "震", "correct": "身", "position": 2, "type": "homophone"}]}
+{"sentence": "如果打电动涌过那些角塞，", "errors": [{"char": "涌", "correct": "用", "position": 5, "type": "homophone"}, {"char": "塞", "correct": "色", "position": 10, "type": "homophone"}]}
+{"sentence": "明明很小子是得要说了点东西伤害对方", "errors": [{"char": "子", "correct": "事", "position": 4, "type": "homophone"}]}
+{"sentence": "就不会有楼主说的事出现", "errors": []}
+{"sentence": "平头了其实是不是女人介意多一点", "errors": []}
+{"sentence": "这种态度是对现伐社会科学或者更集中在社会学方面影响很大", "errors": [{"char": "伐", "correct": "代", "position": 7, "type": "shape"}]}
+{"sentence": "明天晚上玩得啊令天就玩不了吧", "errors": [{"char": "令", "correct": "今", "position": 7, "type": "shape"}]}
+{"sentence": "楼主全部王法做真难", "errors": [{"char": "王", "correct": "方", "position": 4, "type": "homophone"}]}
+{"sentence": "不盯著就不好玩年熊了", "errors": [{"char": "年", "correct": "牛", "position": 7, "type": "shape"}]}
+{"sentence": "做过居库处方现在在做泥水", "errors": [{"char": "居", "correct": "车", "position": 2, "type": "homophone"}, {"char": "处", "correct": "厨", "position": 4, "type": "homophone"}, {"char": "方", "correct": "房", "position": 5, "type": "homophone"}]}
+{"sentence": "复雠者可以再少了多少东西", "errors": []}
+{"sentence": "有时我也叫人不要散播白色恐薄", "errors": [{"char": "薄", "correct": "怖", "position": 13, "type": "homophone"}]}
+{"sentence": "我敢说你喜欢的制式你幻想出来的他", "errors": [{"char": "制", "correct": "只", "position": 7, "type": "homophone"}, {"char": "式", "correct": "是", "position": 8, "type": "homophone"}]}
+{"sentence": "不过在街真敢动手的色狼其实很召", "errors": [{"char": "召", "correct": "少", "position": 14, "type": "homophone"}]}
+{"sentence": "他很早上班，每天早汤都是他第一个签到。", "errors": [{"char": "汤", "correct": "上", "position": 9, "type": "homophone"}]}
+{"sentence": "说我们走极端就不对吧", "errors": []}
+{"sentence": "到黄埔到勒拍照给大家", "errors": [{"char": "勒", "correct": "了", "position": 4, "type": "homophone"}]}
+{"sentence": "唉过了成年依旧会因位没有甚么家庭温暖总是哭", "errors": [{"char": "甚", "correct": "什", "position": 12, "type": "homophone"}, {"char": "位", "correct": "为", "position": 9, "type": "homophone"}]}
+{"sentence": "我撞花了你的车一点垫而已，我赔钱给你嘞！", "errors": [{"char": "垫", "correct": "点", "position": 9, "type": "homophone"}]}
+{"sentence": "那些特别例子一万合有没有一个", "errors": [{"char": "合", "correct": "个", "position": 8, "type": "homophone"}]}
+{"sentence": "只不止那无多啊？", "errors": [{"char": "无", "correct": "么", "position": 4, "type": "homophone"}]}
+{"sentence": "他的犯罪政局在我手上。", "errors": [{"char": "政", "correct": "证", "position": 4, "type": "homophone"}, {"char": "局", "correct": "据", "position": 5, "type": "homophone"}]}
+{"sentence": "就蒜输也不会影响很多", "errors": [{"char": "蒜", "correct": "算", "position": 1, "type": "homophone"}]}
+{"sentence": "这吗可爱的白痴废青不是人人做得到", "errors": [{"char": "吗", "correct": "么", "position": 1, "type": "homophone"}]}
+{"sentence": "不知道日本是不是但是香港性骚饶", "errors": [{"char": "饶", "correct": "扰", "position": 14, "type": "homophone"}]}
+{"sentence": "想起来太痴著我就楷心吧", "errors": [{"char": "楷", "correct": "开", "position": 8, "type": "homophone"}, {"char": "太", "correct": "他", "position": 3, "type": "homophone"}]}
+{"sentence": "聪明都知道了，从销到大不同国家接受的事务不一样", "errors": [{"char": "务", "correct": "物", "position": 19, "type": "homophone"}, {"char": "销", "correct": "小", "position": 8, "type": "homophone"}]}
+{"sentence": "朱凌凌已占据我们得脑海", "errors": [{"char": "得", "correct": "的", "position": 8, "type": "homophone"}]}
+{"sentence": "唱和音弟技巧基本上和本身唱歌大铜小异但当然会有一点分别有啊", "errors": [{"char": "弟", "correct": "的", "position": 3, "type": "homophone"}, {"char": "铜", "correct": "同", "position": 15, "type": "homophone"}]}
+{"sentence": "不致道使不是要敷很多次才有效", "errors": [{"char": "致", "correct": "知", "position": 1, "type": "homophone"}, {"char": "使", "correct": "是", "position": 3, "type": "homophone"}]}
+{"sentence": "真不鸣白又关港独什么事", "errors": [{"char": "鸣", "correct": "明", "position": 2, "type": "homophone"}]}
+{"sentence": "我开始都脚得他想整容样", "errors": [{"char": "脚", "correct": "觉", "position": 4, "type": "homophone"}, {"char": "想", "correct": "像", "position": 7, "type": "homophone"}]}
+{"sentence": "但问题是起他身上他们有没有尊重过经营是用时间堆砌但破坏就他意句", "errors": [{"char": "意", "correct": "一", "position": 29, "type": "homophone"}]}
+{"sentence": "看清除哪一点有伏边点无伏，对字迹百利而无一害", "errors": [{"char": "除", "correct": "楚", "position": 2, "type": "homophone"}, {"char": "字", "correct": "自", "position": 14, "type": "homophone"}, {"char": "迹", "correct": "己", "position": 15, "type": "homophone"}]}
+{"sentence": "笑下笑下就变了我男朋友", "errors": []}
+{"sentence": "只有他才给涡个种空虚感交", "errors": [{"char": "交", "correct": "觉", "position": 11, "type": "homophone"}, {"char": "涡", "correct": "我", "position": 5, "type": "homophone"}]}
+{"sentence": "滞后约他出来也可能难一点点", "errors": [{"char": "滞", "correct": "之", "position": 0, "type": "homophone"}]}
+{"sentence": "振心去看看医生，为你好，有时有些入是会这样", "errors": [{"char": "入", "correct": "人", "position": 16, "type": "shape"}, {"char": "振", "correct": "真", "position": 0, "type": "homophone"}]}
+{"sentence": "有本事！他的袋子里有包粉！", "errors": []}
+{"sentence": "买什么输什么想当然别要斩手指以机不玩算", "errors": [{"char": "机", "correct": "为", "position": 15, "type": "homophone"}]}
+{"sentence": "你渣车踪来不用转线架？", "errors": [{"char": "踪", "correct": "从", "position": 3, "type": "homophone"}]}
+{"sentence": "你不是疑心我拔？", "errors": [{"char": "拔", "correct": "吧", "position": 6, "type": "homophone"}]}
+{"sentence": "他们进了间洗白白公司", "errors": []}
+{"sentence": "桌椅板凳摆得不蒸汽，觉得特别拥系", "errors": [{"char": "蒸", "correct": "整", "position": 7, "type": "homophone"}, {"char": "汽", "correct": "齐", "position": 8, "type": "homophone"}, {"char": "系", "correct": "挤", "position": 15, "type": "homophone"}]}
+{"sentence": "我想他们还不知道怎么回答你好", "errors": []}
+{"sentence": "楼猪被小胖子抓了去练功？", "errors": []}
+{"sentence": "搞得税要做剁很多东西挂", "errors": [{"char": "剁", "correct": "多", "position": 5, "type": "homophone"}, {"char": "税", "correct": "他", "position": 2, "type": "homophone"}]}
+{"sentence": "莲子某得看条街最后一面", "errors": [{"char": "某", "correct": "没", "position": 2, "type": "homophone"}]}
+{"sentence": "但是能成堆人女几的主公达哥", "errors": [{"char": "主", "correct": "助", "position": 9, "type": "homophone"}, {"char": "公", "correct": "攻", "position": 10, "type": "homophone"}, {"char": "几", "correct": "儿", "position": 7, "type": "shape"}]}
+{"sentence": "怪错了河神有文体的在黑气石", "errors": [{"char": "文", "correct": "问", "position": 6, "type": "homophone"}, {"char": "体", "correct": "题", "position": 7, "type": "homophone"}]}
+{"sentence": "这么莱读书工作那些都有身份证，又有时么分别", "errors": [{"char": "时", "correct": "什", "position": 17, "type": "homophone"}, {"char": "莱", "correct": "来", "position": 2, "type": "homophone"}]}
+{"sentence": "等他回到左右，也许之后保费收入先有起色再进。", "errors": []}
+{"sentence": "但就先下牛吃，晚上那餐就再吃清点", "errors": [{"char": "牛", "correct": "午", "position": 4, "type": "shape"}]}
+{"sentence": "看到他好开心，但出了道又被入扔来玩选秀", "errors": [{"char": "入", "correct": "人", "position": 13, "type": "shape"}]}
+{"sentence": "没有什么战略靠真心和撑意挂", "errors": [{"char": "撑", "correct": "诚", "position": 10, "type": "homophone"}]}
+{"sentence": "这样跟想杀了我异样", "errors": [{"char": "异", "correct": "一", "position": 7, "type": "homophone"}]}
+{"sentence": "涡想听多一点急需骂谢谢", "errors": [{"char": "急", "correct": "继", "position": 6, "type": "homophone"}, {"char": "需", "correct": "续", "position": 7, "type": "homophone"}, {"char": "涡", "correct": "我", "position": 0, "type": "homophone"}]}
+{"sentence": "下半季梢了连入带球推落底线", "errors": [{"char": "入", "correct": "人", "position": 6, "type": "shape"}, {"char": "梢", "correct": "少", "position": 3, "type": "homophone"}]}
+{"sentence": "你们去呀中环条田桥再说吧", "errors": [{"char": "田", "correct": "天", "position": 7, "type": "homophone"}, {"char": "呀", "correct": "下", "position": 3, "type": "homophone"}]}
+{"sentence": "尼想找他又又怕好象很主动", "errors": [{"char": "象", "correct": "像", "position": 8, "type": "homophone"}, {"char": "尼", "correct": "你", "position": 0, "type": "homophone"}]}
+{"sentence": "明明上次联谊连猪排都不理它", "errors": [{"char": "它", "correct": "他", "position": 12, "type": "homophone"}]}
+{"sentence": "他说他怎么懂得守护自己始建专心多写作", "errors": [{"char": "始", "correct": "时", "position": 11, "type": "homophone"}, {"char": "建", "correct": "间", "position": 12, "type": "homophone"}]}
+{"sentence": "这些笑话不要煮这么杰，不毫吃", "errors": [{"char": "毫", "correct": "好", "position": 12, "type": "homophone"}]}
+{"sentence": "有什么说甚么，别骗入家！", "errors": [{"char": "甚", "correct": "什", "position": 4, "type": "homophone"}, {"char": "入", "correct": "人", "position": 9, "type": "shape"}]}
+{"sentence": "呢拉出去之后不要禁任何东西", "errors": [{"char": "呢", "correct": "你", "position": 0, "type": "homophone"}]}
+{"sentence": "还是去回表参道里走适合我，又少人又，同笔较多小铺可看", "errors": [{"char": "笔", "correct": "比", "position": 19, "type": "homophone"}]}
+{"sentence": "他市唱很聪明的。", "errors": [{"char": "市", "correct": "视", "position": 1, "type": "homophone"}]}
+{"sentence": "我都不知道自给艮你有什么共通点", "errors": [{"char": "给", "correct": "己", "position": 6, "type": "homophone"}, {"char": "艮", "correct": "跟", "position": 7, "type": "homophone"}]}
+{"sentence": "你要学也很麻烦和不通的人用回对的话", "errors": [{"char": "通", "correct": "同", "position": 9, "type": "homophone"}]}
+{"sentence": "吃那末堕薯片难怪你好涸喉", "errors": [{"char": "末", "correct": "么", "position": 2, "type": "homophone"}, {"char": "堕", "correct": "多", "position": 3, "type": "homophone"}]}
+{"sentence": "原来尼敢情况他棕是出现", "errors": [{"char": "敢", "correct": "个", "position": 3, "type": "homophone"}, {"char": "棕", "correct": "总", "position": 7, "type": "homophone"}]}
+{"sentence": "事前油不搞清楚，做事子把自为", "errors": [{"char": "油", "correct": "又", "position": 2, "type": "homophone"}, {"char": "子", "correct": "自", "position": 10, "type": "homophone"}]}
+{"sentence": "少校的演说，为农庄里冕比较聪明的动物带来了对生命截然不通的盼望。", "errors": [{"char": "通", "correct": "同", "position": 27, "type": "homophone"}, {"char": "冕", "correct": "面", "position": 10, "type": "homophone"}]}
+{"sentence": "要坐纵是是这样电所以一定贵", "errors": [{"char": "纵", "correct": "总", "position": 2, "type": "homophone"}]}
+{"sentence": "现在连有机会都打飞机", "errors": []}
+{"sentence": "广东话少同音字，选择字每那么烦", "errors": [{"char": "每", "correct": "没", "position": 11, "type": "homophone"}]}
+{"sentence": "预料台风今晚会登陆负建省。", "errors": [{"char": "负", "correct": "福", "position": 9, "type": "homophone"}]}
+{"sentence": "明知对你没兴趣你还么这么嘴过去", "errors": [{"char": "么", "correct": "要", "position": 9, "type": "homophone"}]}
+{"sentence": "我男朋友又是不臭小子，他总是说这句自嘲", "errors": []}
+{"sentence": "游戏没有突破就市因为左抄右抄", "errors": [{"char": "市", "correct": "是", "position": 7, "type": "homophone"}]}
+{"sentence": "如果要长约老板应该赴是队队岩", "errors": [{"char": "赴", "correct": "不", "position": 9, "type": "homophone"}]}
+{"sentence": "我又真的很多买完不楷", "errors": [{"char": "楷", "correct": "开", "position": 9, "type": "homophone"}]}
+{"sentence": "极实那家伙就一样是恐吓", "errors": [{"char": "极", "correct": "其", "position": 0, "type": "homophone"}]}
+{"sentence": "只田地无用和无闲差不多样这样", "errors": [{"char": "田", "correct": "天", "position": 1, "type": "homophone"}]}
+{"sentence": "可恶啊，冒想到他振的只帮我一次，可爱的畜生。", "errors": [{"char": "冒", "correct": "没", "position": 4, "type": "homophone"}, {"char": "振", "correct": "真", "position": 8, "type": "homophone"}]}
+{"sentence": "美女也要想办法爬高一点才容易找好码头吧", "errors": []}
+{"sentence": "养了塔之后他拉屎就是每天最期待的时刻", "errors": [{"char": "塔", "correct": "他", "position": 2, "type": "homophone"}]}
+{"sentence": "我上论坛看看救行了", "errors": [{"char": "救", "correct": "就", "position": 6, "type": "homophone"}]}
+{"sentence": "国师依点从遥原的外太空指挥香港社运，厉害！", "errors": [{"char": "原", "correct": "远", "position": 6, "type": "homophone"}]}
+{"sentence": "赢的时后永远都是说骑士废不会让人心上", "errors": [{"char": "心", "correct": "欣", "position": 16, "type": "homophone"}, {"char": "上", "correct": "赏", "position": 17, "type": "homophone"}, {"char": "后", "correct": "候", "position": 3, "type": "homophone"}]}
+{"sentence": "有没有人重温回点课题都有这种感觉？", "errors": []}
+{"sentence": "是我还体看到乙个消息", "errors": [{"char": "体", "correct": "是", "position": 3, "type": "homophone"}, {"char": "乙", "correct": "这", "position": 6, "type": "homophone"}]}
+{"sentence": "虽然已经过了时间，纯粹想看砍有万有人上过？", "errors": [{"char": "砍", "correct": "看", "position": 13, "type": "homophone"}, {"char": "万", "correct": "没", "position": 15, "type": "homophone"}]}
+{"sentence": "本身我也停喜欢看依类科普书", "errors": [{"char": "停", "correct": "挺", "position": 4, "type": "homophone"}]}
+{"sentence": "想期之前套外国入哥斯拉", "errors": [{"char": "期", "correct": "起", "position": 1, "type": "homophone"}, {"char": "入", "correct": "人", "position": 7, "type": "shape"}]}
+{"sentence": "这次这么多东西有没有说新手刷哪一样是最号", "errors": [{"char": "号", "correct": "好", "position": 19, "type": "homophone"}]}
+{"sentence": "海军找班半桶水黎智慧", "errors": [{"char": "智", "correct": "指", "position": 8, "type": "homophone"}, {"char": "慧", "correct": "挥", "position": 9, "type": "homophone"}]}
+{"sentence": "府上有多少笑朋友？", "errors": [{"char": "笑", "correct": "小", "position": 5, "type": "homophone"}]}
+{"sentence": "仙大版真的牺牲了很多角色", "errors": [{"char": "大", "correct": "代", "position": 1, "type": "homophone"}, {"char": "仙", "correct": "现", "position": 0, "type": "homophone"}]}
+{"sentence": "驳到他没声出，你就会有言论上的优势", "errors": []}
+{"sentence": "男朋友的要是包破了吧，我想帮他霾个新的，我想最好是用真皮做的", "errors": [{"char": "要", "correct": "钥", "position": 4, "type": "homophone"}, {"char": "是", "correct": "匙", "position": 5, "type": "homophone"}, {"char": "霾", "correct": "买", "position": 15, "type": "homophone"}]}
+{"sentence": "明天就制导面云渌死谁手", "errors": [{"char": "制", "correct": "知", "position": 3, "type": "homophone"}, {"char": "导", "correct": "道", "position": 4, "type": "homophone"}]}
+{"sentence": "班员警守著，不让人通过", "errors": []}
+{"sentence": "阿荣订了一艘游艇下星期开船 P ，很多美女都会去，拟去不渠？", "errors": [{"char": "拟", "correct": "你", "position": 25, "type": "homophone"}, {"char": "渠", "correct": "去", "position": 28, "type": "homophone"}]}
+{"sentence": "拿支左轮都应他的专业训练", "errors": [{"char": "应", "correct": "嬴", "position": 5, "type": "homophone"}]}
+{"sentence": "印项中足球上帝也不少这些新闻", "errors": [{"char": "项", "correct": "象", "position": 1, "type": "homophone"}]}
+{"sentence": "你知道吗？什么叫新业务价知码", "errors": [{"char": "知", "correct": "值", "position": 12, "type": "homophone"}, {"char": "码", "correct": "吗", "position": 13, "type": "homophone"}]}
+{"sentence": "个人都知道这件字", "errors": [{"char": "字", "correct": "事", "position": 7, "type": "homophone"}]}
+{"sentence": "我是街坊的话一定夫夫对著他们大大声播佛经", "errors": [{"char": "夫", "correct": "天", "position": 9, "type": "shape"}, {"char": "夫", "correct": "天", "position": 8, "type": "shape"}]}
+{"sentence": "百度斩了很多不赚钱小布门", "errors": [{"char": "布", "correct": "部", "position": 10, "type": "homophone"}]}
+{"sentence": "美国现才通胀这么厉害", "errors": [{"char": "才", "correct": "在", "position": 3, "type": "homophone"}]}
+{"sentence": "我女儿有个同学刚船耳洞，他又话要穿", "errors": [{"char": "船", "correct": "穿", "position": 8, "type": "homophone"}]}
+{"sentence": "但其实这个盒人们孩子很棒", "errors": []}
+{"sentence": "但是任何一只动物，最后都避不过把屠刀。", "errors": []}
+{"sentence": "最近喜欢了个女孩又好害怕字迹曰错话", "errors": [{"char": "字", "correct": "自", "position": 12, "type": "homophone"}, {"char": "迹", "correct": "己", "position": 13, "type": "homophone"}, {"char": "曰", "correct": "说", "position": 14, "type": "homophone"}]}
+{"sentence": "推你去死？决锭去死那个是自己", "errors": [{"char": "锭", "correct": "定", "position": 6, "type": "homophone"}]}
+{"sentence": "不知道英语抱分多不多呢", "errors": [{"char": "抱", "correct": "部", "position": 5, "type": "homophone"}]}
+{"sentence": "这篇文章香细阐释了破坏生态的皮处。", "errors": [{"char": "香", "correct": "详", "position": 4, "type": "homophone"}, {"char": "皮", "correct": "坏", "position": 14, "type": "homophone"}]}
+{"sentence": "不过不是公私迫我回来", "errors": [{"char": "私", "correct": "司", "position": 5, "type": "homophone"}]}
+{"sentence": "今年至少有十万人出来游行。", "errors": []}
+{"sentence": "想说他们很多斩是下来香港没有久", "errors": []}
+{"sentence": "他说到不要把自巳当主角生活得没那么辛苦", "errors": [{"char": "巳", "correct": "己", "position": 7, "type": "shape"}]}
+{"sentence": "这个年轻人拫聪明能干", "errors": [{"char": "拫", "correct": "很", "position": 5, "type": "homophone"}]}
+{"sentence": "是想偷吃的就马上种植啦", "errors": [{"char": "种", "correct": "终", "position": 8, "type": "homophone"}, {"char": "植", "correct": "止", "position": 9, "type": "homophone"}]}
+{"sentence": "要知道大湖顶头飞个点用多少息买进", "errors": [{"char": "湖", "correct": "户", "position": 4, "type": "homophone"}]}
+{"sentence": "我还是给了利害多次钱气得发抖", "errors": [{"char": "利", "correct": "厉", "position": 5, "type": "homophone"}]}
+{"sentence": "入家一开尻你拖就死狗", "errors": [{"char": "入", "correct": "人", "position": 0, "type": "shape"}]}
+{"sentence": "那么万一上街吃火锅怎么办有数会喏气？", "errors": [{"char": "喏", "correct": "热", "position": 15, "type": "homophone"}]}
+{"sentence": "借花工作拿人资料去卖都得淘气", "errors": [{"char": "花", "correct": "找", "position": 1, "type": "homophone"}]}
+{"sentence": "真没入听郭好了我改得太差", "errors": [{"char": "郭", "correct": "过", "position": 4, "type": "homophone"}, {"char": "入", "correct": "人", "position": 2, "type": "shape"}]}
+{"sentence": "给人偷走了个心只会对自给所作的事内疚", "errors": [{"char": "给", "correct": "己", "position": 11, "type": "homophone"}]}
+{"sentence": "剩下一成九十冒有打开机", "errors": [{"char": "九", "correct": "就", "position": 4, "type": "homophone"}, {"char": "十", "correct": "是", "position": 5, "type": "homophone"}, {"char": "冒", "correct": "没", "position": 6, "type": "homophone"}]}
+{"sentence": "这里是不是仅自己食个看得起弟弟", "errors": [{"char": "食", "correct": "一", "position": 8, "type": "homophone"}]}
+{"sentence": "如格真有心杀人，怎么会带把不利底刀？", "errors": [{"char": "底", "correct": "的", "position": 15, "type": "homophone"}, {"char": "格", "correct": "果", "position": 1, "type": "homophone"}]}
+{"sentence": "脚风不顺又为必市心急", "errors": [{"char": "为", "correct": "未", "position": 5, "type": "homophone"}, {"char": "市", "correct": "是", "position": 7, "type": "homophone"}]}
+{"sentence": "还有更多从小说搬下来帝场口对白，和其他佛了但剪走了的段落。", "errors": [{"char": "帝", "correct": "的", "position": 10, "type": "homophone"}, {"char": "佛", "correct": "拍", "position": 19, "type": "homophone"}]}
+{"sentence": "想请教下诸位兄弟怎万做大个肩", "errors": [{"char": "万", "correct": "么", "position": 9, "type": "homophone"}]}
+{"sentence": "虽染离题不过还是差不多东西", "errors": [{"char": "染", "correct": "然", "position": 1, "type": "homophone"}]}
+{"sentence": "这石很久以前的事，包值得再提", "errors": [{"char": "包", "correct": "不", "position": 9, "type": "homophone"}, {"char": "石", "correct": "是", "position": 1, "type": "homophone"}]}
+{"sentence": "不是乐今集说正常最强发挥雷神的锤几子只有他拿得起", "errors": [{"char": "乐", "correct": "说", "position": 2, "type": "homophone"}, {"char": "几", "correct": "儿", "position": 16, "type": "shape"}]}
+{"sentence": "楼除父亲应该是被楼主妈强奸", "errors": [{"char": "除", "correct": "主", "position": 1, "type": "homophone"}]}
+{"sentence": "我也不知道他比不给我家人用轮椅推我去走一走", "errors": []}
+{"sentence": "好像你做梦时，你的灵魂是走了去不知道乃里", "errors": [{"char": "乃", "correct": "哪", "position": 18, "type": "homophone"}]}
+{"sentence": "想神棍赢到结局，啊爷别打拢他料", "errors": [{"char": "料", "correct": "了", "position": 14, "type": "homophone"}, {"char": "拢", "correct": "扰", "position": 12, "type": "shape"}]}
+{"sentence": "你抡脚做甚么啊？", "errors": [{"char": "甚", "correct": "什", "position": 4, "type": "homophone"}]}
+{"sentence": "我用自巳的照片做头像", "errors": [{"char": "巳", "correct": "己", "position": 3, "type": "shape"}]}
+{"sentence": "我觉得太阳在防守上始终欠缺重锌，", "errors": [{"char": "锌", "correct": "心", "position": 14, "type": "homophone"}]}
+{"sentence": "为什么没入觉得楼主时曲线", "errors": [{"char": "入", "correct": "人", "position": 4, "type": "shape"}, {"char": "时", "correct": "是", "position": 9, "type": "homophone"}]}
+{"sentence": "说疤劲个点看起来今牛没追开疤点球", "errors": [{"char": "牛", "correct": "年", "position": 9, "type": "shape"}]}
+{"sentence": "想东西跳出框框看看其他儿输吗", "errors": [{"char": "儿", "correct": "人", "position": 11, "type": "homophone"}]}
+{"sentence": "当我月完卧所经历的东西之后", "errors": [{"char": "卧", "correct": "我", "position": 4, "type": "homophone"}, {"char": "月", "correct": "说", "position": 2, "type": "homophone"}]}
+{"sentence": "那阵因为没学唱歌所以一直用错方法畅", "errors": [{"char": "畅", "correct": "唱", "position": 16, "type": "homophone"}]}
+{"sentence": "我打极你的首级都没人听敌", "errors": [{"char": "首", "correct": "手", "position": 5, "type": "homophone"}, {"char": "级", "correct": "机", "position": 6, "type": "homophone"}, {"char": "敌", "correct": "的", "position": 11, "type": "homophone"}]}
+{"sentence": "有什么问题他被空间石传送去灵魂石头那个星球不行吗", "errors": []}
+{"sentence": "读到跟地铁播音一样使得", "errors": [{"char": "使", "correct": "似", "position": 9, "type": "homophone"}, {"char": "得", "correct": "的", "position": 10, "type": "homophone"}]}
+{"sentence": "省在有的石地方有", "errors": [{"char": "省", "correct": "现", "position": 0, "type": "homophone"}, {"char": "石", "correct": "是", "position": 4, "type": "homophone"}]}
+{"sentence": "你小时候有没有试过被老是发扭耳朵？", "errors": [{"char": "发", "correct": "罚", "position": 12, "type": "homophone"}, {"char": "是", "correct": "师", "position": 11, "type": "homophone"}]}
+{"sentence": "大家都脸皮薄不想做敌意个开口的人", "errors": [{"char": "敌", "correct": "第", "position": 9, "type": "homophone"}, {"char": "意", "correct": "一", "position": 10, "type": "homophone"}]}
+{"sentence": "感动的是冰室的手忠于好转", "errors": [{"char": "忠", "correct": "终", "position": 8, "type": "homophone"}]}
+{"sentence": "小时候已经教授他的理念和立项", "errors": [{"char": "立", "correct": "理", "position": 12, "type": "homophone"}, {"char": "项", "correct": "想", "position": 13, "type": "homophone"}]}
+{"sentence": "反观摩难忍条垃圾真一笑而过", "errors": [{"char": "难", "correct": "男", "position": 3, "type": "homophone"}, {"char": "忍", "correct": "人", "position": 4, "type": "homophone"}]}
+{"sentence": "是镐的政策自然会沿用", "errors": [{"char": "镐", "correct": "好", "position": 1, "type": "homophone"}]}
+{"sentence": "其实没人知道他记律差在哪里", "errors": [{"char": "记", "correct": "纪", "position": 7, "type": "shape"}]}
+{"sentence": "不是真的是十二月倒数那几天这样", "errors": []}
+{"sentence": "一伐亲，两代表，三代嘴藐藐。", "errors": [{"char": "伐", "correct": "代", "position": 1, "type": "shape"}]}
+{"sentence": "再问一呀地如果我来补给走了那么怎么算", "errors": [{"char": "呀", "correct": "下", "position": 3, "type": "homophone"}, {"char": "补", "correct": "不", "position": 9, "type": "homophone"}, {"char": "给", "correct": "及", "position": 10, "type": "homophone"}]}
+{"sentence": "那么圣母圣心旗下的靴校", "errors": [{"char": "靴", "correct": "学", "position": 9, "type": "homophone"}]}
+{"sentence": "我等了半小时还没受到", "errors": [{"char": "受", "correct": "收", "position": 8, "type": "homophone"}]}
+{"sentence": "港币被入当提款机套息", "errors": [{"char": "入", "correct": "人", "position": 3, "type": "shape"}]}
+{"sentence": "有所东西画手绒玩具不用画出肠", "errors": [{"char": "所", "correct": "些", "position": 1, "type": "homophone"}, {"char": "手", "correct": "毛", "position": 5, "type": "shape"}]}
+{"sentence": "有没有兄弟有今集死亡阵容的图？", "errors": []}
+{"sentence": "我还有什么化妆丝打有没由换过牙膏啊，有点牙膏会有影响", "errors": [{"char": "由", "correct": "有", "position": 11, "type": "homophone"}]}
+{"sentence": "喂不要再说只鸡了讨论点有意义的东西了", "errors": []}
+{"sentence": "你于车那时可能会懂的", "errors": [{"char": "于", "correct": "有", "position": 1, "type": "homophone"}]}
+{"sentence": "庚棒，又不是不认同。就是说的东西支码要不要前后矛盾", "errors": [{"char": "庚", "correct": "更", "position": 0, "type": "homophone"}, {"char": "支", "correct": "起", "position": 16, "type": "homophone"}]}
+{"sentence": "你这次被入打，不过除笨有精，拿到一大笔汤药费", "errors": [{"char": "入", "correct": "人", "position": 4, "type": "shape"}]}
+{"sentence": "我们公司自成立亦来一直称霸保险业。", "errors": [{"char": "亦", "correct": "以", "position": 7, "type": "homophone"}]}
+{"sentence": "有信心但没钱，放水就有用", "errors": []}
+{"sentence": "双数打单数还要后手真输一半", "errors": []}
+{"sentence": "地铁站和旺角都看道地华为广告", "errors": [{"char": "道", "correct": "到", "position": 8, "type": "homophone"}, {"char": "地", "correct": "的", "position": 9, "type": "homophone"}]}
+{"sentence": "我仅知道吃甚么好，你拿主意吧。", "errors": [{"char": "甚", "correct": "什", "position": 5, "type": "homophone"}, {"char": "仅", "correct": "不", "position": 1, "type": "homophone"}]}
+{"sentence": "原因是公私知道只要之后以正价发售，就会赚只剩之前亏损了的部份", "errors": [{"char": "私", "correct": "司", "position": 4, "type": "homophone"}]}
+{"sentence": "准备报料苹果系望他们能报导了", "errors": [{"char": "系", "correct": "希", "position": 6, "type": "homophone"}]}
+{"sentence": "这条巴士县说命了一小时有六架次，为什么我等了整廿分钟都不见一班车的？", "errors": [{"char": "命", "correct": "明", "position": 6, "type": "homophone"}, {"char": "县", "correct": "线", "position": 4, "type": "homophone"}]}
+{"sentence": "你小子点还是他们帅哥点，", "errors": []}
+{"sentence": "大陆开头口香港布让他起", "errors": [{"char": "布", "correct": "不", "position": 7, "type": "homophone"}]}
+{"sentence": "泥还有没位花的吗？", "errors": [{"char": "位", "correct": "有", "position": 4, "type": "homophone"}, {"char": "泥", "correct": "你", "position": 0, "type": "homophone"}]}
+{"sentence": "想看看民主的忠国是怎样", "errors": [{"char": "忠", "correct": "中", "position": 6, "type": "homophone"}]}
+{"sentence": "觉得我永远都府会进去后", "errors": [{"char": "府", "correct": "不", "position": 6, "type": "homophone"}]}
+{"sentence": "水弹还妖楼下人来人往", "errors": [{"char": "妖", "correct": "要", "position": 3, "type": "homophone"}]}
+{"sentence": "单纯是童牛会议，厉害就没想到用是哪住", "errors": [{"char": "牛", "correct": "年", "position": 4, "type": "shape"}, {"char": "会", "correct": "回", "position": 5, "type": "homophone"}, {"char": "议", "correct": "忆", "position": 6, "type": "homophone"}]}
+{"sentence": "冷静点！你整块忟姜这样，车子也不会揍得快点了阿！", "errors": [{"char": "阿", "correct": "啊", "position": 22, "type": "homophone"}, {"char": "揍", "correct": "走", "position": 17, "type": "homophone"}]}
+{"sentence": "今天星期天房价还要开工这么可怜", "errors": [{"char": "房", "correct": "放", "position": 5, "type": "homophone"}, {"char": "价", "correct": "假", "position": 6, "type": "homophone"}]}
+{"sentence": "南每周和大洋洲，两次大战都没人理会这些地方", "errors": [{"char": "每", "correct": "美", "position": 1, "type": "homophone"}, {"char": "周", "correct": "洲", "position": 2, "type": "homophone"}]}
+{"sentence": "你这样弄法真罨垂下", "errors": []}
+{"sentence": "大过真不会多到满大皆都可以看见呗", "errors": [{"char": "皆", "correct": "街", "position": 9, "type": "homophone"}]}
+{"sentence": "你不用自我澎胀，是人都制导你的为人吧", "errors": [{"char": "制", "correct": "知", "position": 11, "type": "homophone"}, {"char": "导", "correct": "道", "position": 12, "type": "homophone"}]}
+{"sentence": "如果我像它们几个这样是有钱人我一定不会这么辛苦抛头露面", "errors": [{"char": "它", "correct": "他", "position": 4, "type": "homophone"}]}
+{"sentence": "心想：还不是我乘虚而入的好机会", "errors": []}
+{"sentence": "所以我觉得真的看地区和收拾", "errors": [{"char": "收", "correct": "手", "position": 11, "type": "homophone"}, {"char": "拾", "correct": "势", "position": 12, "type": "homophone"}]}
+{"sentence": "谢谢你的认同，我会继序努刀", "errors": [{"char": "序", "correct": "续", "position": 10, "type": "homophone"}, {"char": "刀", "correct": "力", "position": 12, "type": "shape"}]}
+{"sentence": "他另外也为个奥数老师", "errors": [{"char": "为", "correct": "有", "position": 4, "type": "homophone"}]}
+{"sentence": "份工地叹格以看著攻略转珠", "errors": [{"char": "格", "correct": "可", "position": 4, "type": "homophone"}]}
+{"sentence": "和和气气地谈不好以来就发脾四那", "errors": [{"char": "以", "correct": "一", "position": 8, "type": "homophone"}]}
+{"sentence": "阴道和尿道不师不一样吗", "errors": [{"char": "师", "correct": "是", "position": 6, "type": "homophone"}]}
+{"sentence": "没关系了都喜惯了一各人", "errors": [{"char": "各", "correct": "个", "position": 9, "type": "homophone"}, {"char": "喜", "correct": "习", "position": 5, "type": "homophone"}]}
+{"sentence": "每回都要别人等你", "errors": []}
+{"sentence": "这一场这球还是明显进球机会了唯一解释是旁证看不到看到真不科能不吹", "errors": [{"char": "科", "correct": "可", "position": 28, "type": "homophone"}]}
+{"sentence": "刚在车再怎么骗钱也不穿", "errors": [{"char": "在", "correct": "才", "position": 1, "type": "homophone"}]}
+{"sentence": "其实是不是推隔离那个？", "errors": []}
+{"sentence": "他说其他照片不见他也会这扬", "errors": [{"char": "扬", "correct": "样", "position": 12, "type": "homophone"}]}
+{"sentence": "做个时想著不是真的会那么容易触摸到细菌", "errors": []}
+{"sentence": "说点所有都有功名的东西", "errors": [{"char": "功", "correct": "共", "position": 6, "type": "homophone"}, {"char": "名", "correct": "鸣", "position": 7, "type": "homophone"}]}
+{"sentence": "他们是西放自由世界得玩得闷省活又无忧", "errors": [{"char": "省", "correct": "生", "position": 13, "type": "homophone"}, {"char": "放", "correct": "方", "position": 4, "type": "homophone"}]}
+{"sentence": "哈她！好样的！我们赢了啦！", "errors": [{"char": "她", "correct": "哈", "position": 1, "type": "homophone"}]}
+{"sentence": "大家可以听已个效果", "errors": [{"char": "已", "correct": "听", "position": 5, "type": "homophone"}]}
+{"sentence": "会练得平时练部了的东西", "errors": [{"char": "部", "correct": "不", "position": 6, "type": "homophone"}]}
+{"sentence": "我空虚，我寂寞，我想要女朋友。", "errors": []}
+{"sentence": "他终于向别人展县他的笑容。", "errors": [{"char": "县", "correct": "现", "position": 7, "type": "homophone"}]}
+{"sentence": "按道理明明应该比地铁抢走了很多入", "errors": [{"char": "入", "correct": "人", "position": 15, "type": "shape"}]}
+{"sentence": "看它们当日站门口叫人买", "errors": [{"char": "它", "correct": "他", "position": 1, "type": "homophone"}]}
+{"sentence": "还可以呗到某一国的签证，就可疑直接去了联盟内其余国家", "errors": [{"char": "疑", "correct": "以", "position": 14, "type": "homophone"}]}
+{"sentence": "他当时在现场目击枪手莎人的情况。", "errors": [{"char": "莎", "correct": "杀", "position": 10, "type": "homophone"}]}
+{"sentence": "街上见过有人带导盲犬不止道练习还是吗", "errors": [{"char": "止", "correct": "知", "position": 11, "type": "homophone"}]}
+{"sentence": "招另一半真的要小心谨慎", "errors": [{"char": "招", "correct": "找", "position": 0, "type": "homophone"}]}
+{"sentence": "如果是这个情况，实际上没奔别", "errors": [{"char": "奔", "correct": "分", "position": 12, "type": "homophone"}]}
+{"sentence": "我明明有用但是都卡住廖", "errors": [{"char": "廖", "correct": "了", "position": 10, "type": "homophone"}]}
+{"sentence": "其实很多人跟楼主一样误解佛教的善恶不是中蚊子面上的善恶", "errors": [{"char": "蚊", "correct": "文", "position": 20, "type": "homophone"}, {"char": "子", "correct": "字", "position": 21, "type": "homophone"}]}
+{"sentence": "其实最想知受是不是真的有用", "errors": [{"char": "受", "correct": "道", "position": 5, "type": "homophone"}]}
+{"sentence": "我确实赢了个批赛。", "errors": [{"char": "批", "correct": "比", "position": 6, "type": "homophone"}]}
+{"sentence": "殿视位架看你墙身什么物料先知", "errors": [{"char": "殿", "correct": "电", "position": 0, "type": "homophone"}, {"char": "位", "correct": "机", "position": 2, "type": "homophone"}]}
+{"sentence": "各离有心的兄弟经果可以说一句生日快乐", "errors": [{"char": "果", "correct": "过", "position": 8, "type": "homophone"}, {"char": "离", "correct": "位", "position": 1, "type": "homophone"}]}
+{"sentence": "那么文职很少情况会不出给你", "errors": []}
+{"sentence": "虽然天色已挽，但是解上面还有很多人。", "errors": [{"char": "解", "correct": "街", "position": 9, "type": "homophone"}, {"char": "挽", "correct": "晚", "position": 5, "type": "homophone"}]}
+{"sentence": "楼下整天土很吵。", "errors": [{"char": "土", "correct": "都", "position": 4, "type": "homophone"}]}
+{"sentence": "利申：这个兴起一交了", "errors": [{"char": "兴", "correct": "星", "position": 5, "type": "homophone"}, {"char": "起", "correct": "期", "position": 6, "type": "homophone"}]}
+{"sentence": "打岛最后搞他跑掉位才赢到一颗", "errors": [{"char": "搞", "correct": "靠", "position": 4, "type": "homophone"}, {"char": "岛", "correct": "到", "position": 1, "type": "homophone"}]}
+{"sentence": "他脸都红了，积蓄说：", "errors": [{"char": "积", "correct": "继", "position": 6, "type": "homophone"}, {"char": "蓄", "correct": "续", "position": 7, "type": "homophone"}]}
+{"sentence": "我也不知道于甚么", "errors": [{"char": "于", "correct": "为", "position": 5, "type": "homophone"}, {"char": "甚", "correct": "什", "position": 6, "type": "homophone"}]}
+{"sentence": "当冉也见过中港婚姻有真爱，不能排除这个可能性的", "errors": [{"char": "冉", "correct": "然", "position": 1, "type": "homophone"}]}
+{"sentence": "这个计谋相当额度。", "errors": [{"char": "额", "correct": "恶", "position": 6, "type": "homophone"}, {"char": "度", "correct": "毒", "position": 7, "type": "homophone"}]}
+{"sentence": "还有，政府会计是要看事物", "errors": [{"char": "事", "correct": "实", "position": 10, "type": "homophone"}]}
+{"sentence": "还有，耸立物的本质是希望取悦对方", "errors": [{"char": "耸", "correct": "送", "position": 3, "type": "homophone"}, {"char": "立", "correct": "礼", "position": 4, "type": "homophone"}]}
+{"sentence": "其实戴隐形但镜还方便别想", "errors": [{"char": "但", "correct": "眼", "position": 5, "type": "homophone"}]}
+{"sentence": "今时今天是孩子是女儿豆提防新认识的入", "errors": [{"char": "入", "correct": "人", "position": 17, "type": "shape"}, {"char": "豆", "correct": "都", "position": 10, "type": "homophone"}]}
+{"sentence": "有至苍迎搂在你碗白饭上", "errors": [{"char": "至", "correct": "只", "position": 1, "type": "homophone"}, {"char": "迎", "correct": "蝇", "position": 3, "type": "homophone"}]}
+{"sentence": "这棕案件牵连很多人。", "errors": [{"char": "棕", "correct": "宗", "position": 1, "type": "homophone"}]}
+{"sentence": "简直可以曰是新时代女形的榜样", "errors": [{"char": "曰", "correct": "说", "position": 4, "type": "homophone"}, {"char": "形", "correct": "性", "position": 10, "type": "homophone"}]}
+{"sentence": "绰饭要搁点儿浓酱忧才行", "errors": [{"char": "绰", "correct": "炒", "position": 0, "type": "homophone"}, {"char": "忧", "correct": "油", "position": 8, "type": "homophone"}]}
+{"sentence": "但实际上时不时真的禁止到大家都有目共睹", "errors": [{"char": "时", "correct": "是", "position": 4, "type": "homophone"}, {"char": "时", "correct": "是", "position": 6, "type": "homophone"}]}
+{"sentence": "让我替你肉揉脖子", "errors": [{"char": "肉", "correct": "揉", "position": 4, "type": "homophone"}]}
+{"sentence": "父亲之前请了女儿员工我约了他吃怀石料里", "errors": [{"char": "里", "correct": "理", "position": 18, "type": "homophone"}]}

@@ -1,4 +1,4 @@
-.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs eval-coverage sogou-dict yue-guard eval-yue-guard macos macos-testpad push
+.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs eval-coverage sogou-dict yue-guard eval-yue-guard macos macos-testpad projects-test push
 
 install:
 	./install.sh
@@ -79,6 +79,17 @@ macos:
 # macOS 测试垫（不依赖系统输入源，直接体验引擎）
 macos-testpad:
 	/usr/bin/python3 tools/macos_testpad.py
+
+# 六个项目基线的测试（projects/ 见其 README.md）
+# 逐项分进程跑：三个项目各有 convert.py/test_convert.py，同进程会撞模块名
+PY ?= /Users/yingyang/.workbuddy/binaries/python/envs/default/bin/python
+projects-test:
+	cd projects/01-yue2zh && $(PY) -m pytest -q --basetemp=/tmp/pytest-p01
+	cd projects/02-batch-convert && $(PY) -m pytest -q --basetemp=/tmp/pytest-p02
+	cd projects/03-tts-g2p && $(PY) -m pytest -q --basetemp=/tmp/pytest-p03
+	cd projects/04-locale-convert && $(PY) -m pytest -q --basetemp=/tmp/pytest-p04
+	cd projects/05-typo-correct && $(PY) -m pytest -q --basetemp=/tmp/pytest-p05
+	cd projects/06-benchmark && $(PY) -m pytest -q --basetemp=/tmp/pytest-p06
 
 # macOS 打字条（⌃⌥空格唤出，文字注入任意 App；首次要授权「辅助功能」）
 macos-bar:

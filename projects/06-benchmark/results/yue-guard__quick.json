@@ -1,0 +1,265 @@
+{
+  "suite": "yue-guard",
+  "suite_version": "1.0.0",
+  "spec": "projects/06-benchmark/schemas.md (envelope v1)",
+  "status": "ok",
+  "quick": true,
+  "generated_at": "2026-10-25T19:17:15+08:00",
+  "duration_s": 4.58,
+  "params": {
+    "quick": true,
+    "out_dir": "/Users/yingyang/Documents/project/workbudyy/ipinyin/projects/06-benchmark/results",
+    "pairs": "/Users/yingyang/Documents/project/workbudyy/ipinyin/vendor/yue_pairs.json",
+    "model": "/Users/yingyang/Documents/project/workbudyy/ipinyin/experiments/yue_model_d256.pt",
+    "guard": "/Users/yingyang/Documents/project/workbudyy/ipinyin/data/yue_guard.eval.marshal",
+    "lm": "",
+    "lm_weight": 0.4,
+    "limit": null,
+    "n": null,
+    "ctx_max": 7,
+    "show": 5,
+    "nn": "auto",
+    "device": "cpu"
+  },
+  "environment": {
+    "python": "3.13.12",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "torch": "2.14.1"
+  },
+  "reason": null,
+  "results": {
+    "buckets": {
+      "2字": {
+        "n": 50,
+        "copy_baseline": null,
+        "rule": 0.6,
+        "neural": 0.86,
+        "guarded": 0.9,
+        "rejected": 3,
+        "accepted": 47,
+        "saved": 2,
+        "lost": 0,
+        "guarded_median_latency_ms": 0.0112,
+        "weight": null
+      },
+      "4字成语": {
+        "n": 40,
+        "copy_baseline": null,
+        "rule": 0.975,
+        "neural": 0.725,
+        "guarded": 0.95,
+        "rejected": 23,
+        "accepted": 17,
+        "saved": 10,
+        "lost": 0,
+        "guarded_median_latency_ms": 0.0513,
+        "weight": null
+      },
+      "5-7字": {
+        "n": 50,
+        "copy_baseline": null,
+        "rule": 0.36,
+        "neural": 0.56,
+        "guarded": 0.44,
+        "rejected": 29,
+        "accepted": 21,
+        "saved": 1,
+        "lost": 6,
+        "guarded_median_latency_ms": 0.0645,
+        "weight": null
+      },
+      "5-7字古诗": {
+        "n": 12,
+        "copy_baseline": null,
+        "rule": 0.75,
+        "neural": 0.5,
+        "guarded": 0.75,
+        "rejected": 8,
+        "accepted": 4,
+        "saved": 3,
+        "lost": 0,
+        "guarded_median_latency_ms": 0.0573,
+        "weight": null
+      },
+      "8-15字": {
+        "n": 50,
+        "copy_baseline": null,
+        "rule": 0.16,
+        "neural": 0.34,
+        "guarded": 0.32,
+        "rejected": 3,
+        "accepted": 47,
+        "saved": 0,
+        "lost": 0,
+        "guarded_median_latency_ms": 0.1628,
+        "weight": null
+      }
+    },
+    "aggregate": {
+      "rejected": 66,
+      "saved": 16,
+      "lost": 6
+    },
+    "examples": {
+      "2字": [
+        {
+          "input": "了他",
+          "neural": "佢",
+          "guarded": "咗佢",
+          "expected": "咗佢",
+          "outcome": "saved"
+        },
+        {
+          "input": "了就",
+          "neural": "就",
+          "guarded": "咗就",
+          "expected": "咗就",
+          "outcome": "saved"
+        },
+        {
+          "input": "都这",
+          "neural": "都呢",
+          "guarded": "都这",
+          "expected": "都咁",
+          "outcome": "both_wrong"
+        }
+      ],
+      "4字成语": [
+        {
+          "input": "亡羊补牢",
+          "neural": "亡羊補監",
+          "guarded": "亡羊补牢",
+          "expected": "亡羊補牢",
+          "outcome": "saved"
+        },
+        {
+          "input": "画蛇添足",
+          "neural": "畫蛇添足",
+          "guarded": "画蛇添足",
+          "expected": "畫蛇添足",
+          "outcome": "fixed_right"
+        },
+        {
+          "input": "守株待兔",
+          "neural": "守鬧待兔",
+          "guarded": "守株待兔",
+          "expected": "守株待兔",
+          "outcome": "saved"
+        },
+        {
+          "input": "刻舟求剑",
+          "neural": "刻舟求劍",
+          "guarded": "刻舟求剑",
+          "expected": "刻舟求劍",
+          "outcome": "fixed_right"
+        },
+        {
+          "input": "掩耳盗铃",
+          "neural": "掩耳盜鈴",
+          "guarded": "掩耳盗铃",
+          "expected": "掩耳盜鈴",
+          "outcome": "fixed_right"
+        }
+      ],
+      "5-7字": [
+        {
+          "input": "不是他写的似的",
+          "neural": "唔係佢寫嘅噉",
+          "guarded": "唔係佢写嘅似嘅",
+          "expected": "唔係佢寫嘅噉",
+          "outcome": "lost"
+        },
+        {
+          "input": "现在抽三张牌。",
+          "neural": "而家抽三張牌。",
+          "guarded": "而家抽三张牌。",
+          "expected": "而家抽三張牌。",
+          "outcome": "fixed_right"
+        },
+        {
+          "input": "买棺材不知道埞",
+          "neural": "買棺材唔知道",
+          "guarded": "买棺材唔知道埞",
+          "expected": "買棺材唔知埞",
+          "outcome": "saved"
+        },
+        {
+          "input": "你也喜欢吗？",
+          "neural": "你都鍾意咩？",
+          "guarded": "你也鍾意吗？",
+          "expected": "你都啱㗎？",
+          "outcome": "both_wrong"
+        },
+        {
+          "input": "有时大腿也交了",
+          "neural": "有時大髀都交啦",
+          "guarded": "有時大腿也交咗",
+          "expected": "有時大髀都交埋",
+          "outcome": "both_wrong"
+        }
+      ],
+      "5-7字古诗": [
+        {
+          "input": "举头望明月",
+          "neural": "舉頭望明月",
+          "guarded": "举头望明月",
+          "expected": "舉頭望明月",
+          "outcome": "fixed_right"
+        },
+        {
+          "input": "低头思故乡",
+          "neural": "低頭思故鄉",
+          "guarded": "低头思故乡",
+          "expected": "低頭思故鄉",
+          "outcome": "fixed_right"
+        },
+        {
+          "input": "白日依山尽",
+          "neural": "白日依山盡",
+          "guarded": "白日依山尽",
+          "expected": "白日依山盡",
+          "outcome": "fixed_right"
+        },
+        {
+          "input": "黄河入海流",
+          "neural": "黃河入海流",
+          "guarded": "黄河入海流",
+          "expected": "黃河入海流",
+          "outcome": "fixed_right"
+        },
+        {
+          "input": "欲穷千里目",
+          "neural": "欲窮千度目",
+          "guarded": "欲穷千里目",
+          "expected": "欲窮千裏目",
+          "outcome": "saved"
+        }
+      ],
+      "8-15字": [
+        {
+          "input": "今集欺诈师究竟玩了多少梗",
+          "neural": "今集欺詐師究竟玩咗幾多梗",
+          "guarded": "今集欺诈师究竟玩咗幾多少梗",
+          "expected": "今集欺詐師究竟玩咗幾多梗",
+          "outcome": "both_wrong"
+        },
+        {
+          "input": "找把小笤帚来扫一下",
+          "neural": "搵將個爛仔嚟掃吓",
+          "guarded": "搵把小笤帚嚟扫下",
+          "expected": "搵把掃嚟掃吓",
+          "outcome": "both_wrong"
+        },
+        {
+          "input": "这儿满街的摊儿都是卖女性用品",
+          "neural": "呢度周街嘅攤兒都係賣女性用品",
+          "guarded": "这儿满街嘅摊儿都係賣女性用品",
+          "expected": "呢度成條街嘅攤檔都係賣女人嘢嘅",
+          "outcome": "both_wrong"
+        }
+      ]
+    },
+    "empty_buckets": [],
+    "neural_note": null
+  }
+}

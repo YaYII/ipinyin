@@ -1,0 +1,75 @@
+{
+  "suite": "yue-lengths",
+  "suite_version": "1.0.0",
+  "spec": "projects/06-benchmark/schemas.md (envelope v1)",
+  "status": "ok",
+  "quick": true,
+  "generated_at": "2026-10-25T19:17:10+08:00",
+  "duration_s": 3.58,
+  "params": {
+    "quick": true,
+    "out_dir": "/Users/yingyang/Documents/project/workbudyy/ipinyin/projects/06-benchmark/results",
+    "pairs": "/Users/yingyang/Documents/project/workbudyy/ipinyin/vendor/yue_pairs.json",
+    "model": "/Users/yingyang/Documents/project/workbudyy/ipinyin/experiments/yue_model_d256.pt",
+    "guard": "/Users/yingyang/Documents/project/workbudyy/ipinyin/data/yue_guard.eval.marshal",
+    "lm": "",
+    "lm_weight": 0.4,
+    "limit": null,
+    "n": null,
+    "ctx_max": 7,
+    "show": 5,
+    "nn": "auto",
+    "device": "cpu"
+  },
+  "environment": {
+    "python": "3.13.12",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "torch": "2.14.1"
+  },
+  "reason": null,
+  "results": {
+    "buckets": {
+      "2字": {
+        "n": 50,
+        "copy_baseline": 0.0,
+        "rule": 0.6,
+        "neural": 0.86,
+        "neural_median_latency_ms": 7.1865,
+        "weight": 0.4
+      },
+      "4字成语": {
+        "n": 40,
+        "copy_baseline": 1.0,
+        "rule": 0.975,
+        "neural": 0.725,
+        "neural_median_latency_ms": 11.9254,
+        "weight": 0.25
+      },
+      "5-7字": {
+        "n": 50,
+        "copy_baseline": 0.14,
+        "rule": 0.36,
+        "neural": 0.56,
+        "neural_median_latency_ms": 16.7518,
+        "weight": 0.15
+      },
+      "5-7字古诗": {
+        "n": 12,
+        "copy_baseline": 1.0,
+        "rule": 0.75,
+        "neural": 0.5,
+        "neural_median_latency_ms": 14.5579,
+        "weight": 0.0
+      }
+    },
+    "weighted": {
+      "weighted_rule": 0.6722,
+      "weighted_neural": 0.7616,
+      "weight_coverage": 0.8
+    },
+    "empty_buckets": [
+      "3字"
+    ],
+    "neural_note": null
+  }
+}

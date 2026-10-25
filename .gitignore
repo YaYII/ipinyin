@@ -15,3 +15,8 @@ experiments/logs/
 data/lm_char.marshal
 # 守卫的评测口径数据（训练侧切分），只在本机评测用
 data/yue_guard.eval.marshal
+
+# 六个项目基线：可再生的大数据/模型不提交（见 projects/README.md）
+projects/04-locale-convert/data/raw/
+projects/05-typo-correct/data/lm_eval.marshal
+projects/05-typo-correct/data/train_typos.jsonl

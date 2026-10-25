@@ -1,0 +1,70 @@
+{
+  "suite": "zh-sentence",
+  "suite_version": "1.0.0",
+  "spec": "projects/06-benchmark/schemas.md (envelope v1)",
+  "status": "ok",
+  "quick": true,
+  "generated_at": "2026-10-25T19:17:16+08:00",
+  "duration_s": 0.69,
+  "params": {
+    "quick": true,
+    "out_dir": "/Users/yingyang/Documents/project/workbudyy/ipinyin/projects/06-benchmark/results",
+    "pairs": "/Users/yingyang/Documents/project/workbudyy/ipinyin/vendor/yue_pairs.json",
+    "model": "/Users/yingyang/Documents/project/workbudyy/ipinyin/experiments/yue_model_d256.pt",
+    "guard": "/Users/yingyang/Documents/project/workbudyy/ipinyin/data/yue_guard.eval.marshal",
+    "lm": "",
+    "lm_weight": 0.4,
+    "limit": null,
+    "n": null,
+    "ctx_max": 7,
+    "show": 5,
+    "nn": "auto",
+    "device": "cpu"
+  },
+  "environment": {
+    "python": "3.13.12",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "torch": "2.14.1"
+  },
+  "reason": null,
+  "results": {
+    "buckets": {
+      "2-4字": {
+        "n": 23,
+        "invalid": 27,
+        "top1": 0.9565,
+        "top9": 1.0,
+        "avg_keystrokes": 10.8696
+      },
+      "5-7字": {
+        "n": 20,
+        "invalid": 30,
+        "top1": 0.8,
+        "top9": 0.95,
+        "avg_keystrokes": 17.95
+      },
+      "8-15字": {
+        "n": 10,
+        "invalid": 40,
+        "top1": 0.7,
+        "top9": 0.8,
+        "avg_keystrokes": 36.5
+      },
+      "16+字": {
+        "n": 7,
+        "invalid": 43,
+        "top1": 0.5714,
+        "top9": 0.5714,
+        "avg_keystrokes": 51.7143
+      }
+    },
+    "aggregate": {
+      "n": 60,
+      "top1": 0.8167,
+      "top9": 0.9
+    },
+    "rerank": null,
+    "empty_buckets": [],
+    "questions_scanned": 12012
+  }
+}
