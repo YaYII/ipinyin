@@ -58,6 +58,11 @@ def get_yue() -> YueConverter:
             _YUE.nn = NeuralYue.load(os.path.join(config.data_home(), "data"))
             if _YUE.nn is not None:
                 LOG.info("粤语神经模型已加载（%d 字表）", len(_YUE.nn))
+        from .yue_guard import YueGuard
+
+        _YUE.guard = YueGuard.load(config.yue_guard_path())
+        if _YUE.guard is not None:
+            LOG.info("粤语解码守卫已加载")
         LOG.info("粤语对照 %d 条", len(_YUE))
     return _YUE
 

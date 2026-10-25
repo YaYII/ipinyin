@@ -1,4 +1,4 @@
-.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs sogou-dict push
+.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs eval-coverage sogou-dict yue-guard eval-yue-guard push
 
 install:
 	./install.sh
@@ -52,9 +52,21 @@ eval-sentence:
 eval-docs:
 	python3 tools/eval_personal_docs.py
 
+# 简中：逐词覆盖率（评补词专用；整句自洽口径量不到含缺词的句子）
+eval-coverage:
+	python3 tools/eval_word_coverage.py
+
 # 搜狗细胞词库（本地评测用；许可：不得用于商业用途）
 sogou-dict:
 	python3 tools/fetch_sogou_dict.py --out vendor/sogou
+
+# 粤语解码守卫数据（P1 约束解码；全量语料，入库）
+yue-guard:
+	python3 tools/build_yue_guard.py --all --out data/yue_guard.marshal
+
+# 粤语守卫评测（分桶 + 修复样例；自动用训练侧切分的守卫，先跑一次 build_yue_guard.py）
+eval-yue-guard:
+	python3 experiments/exp_yue_guard.py --model experiments/yue_model_d256.pt
 
 # 推 GitHub（大陆网络：github.com 直连不通，走 api.github.com 的 git-data API）
 push:

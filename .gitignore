@@ -14,3 +14,5 @@ experiments/logs/
 .workbuddy/
 # 语言模型由 tools/build_lm.py 生成，别提交（3MB+）
 data/lm_char.marshal
+# 守卫的评测口径数据（训练侧切分），只在本机评测用
+data/yue_guard.eval.marshal
