@@ -8,7 +8,7 @@ import zlib
 from . import yue_rules
 
 # 只在粤语里用、普通话文本里不会出现的字（预替换时避免把模型带偏）
-_CANTONESE_ONLY = set("佢哋嘅咗唔係喺冇乜嘢嗰嚟睇咁啲畀攞瞓噉咩")
+_CANTONESE_ONLY = set("佢哋嘅咗唔係喺冇乜嘢嗰嚟睇咁啲畀攞瞓噉咩叻掂")
 
 
 class YueConverter:
