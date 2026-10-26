@@ -117,6 +117,8 @@ make lm                                  # 训练字级语言模型（整句重�
 训练步骤见 [docs/train-yue.md](docs/train-yue.md)（Mac 上 `./tools/dev_macos.sh --with-nn` 一键铺环境）。
 简中这条链路的现状、整句基准和「神经网络该放在哪」见 [docs/nn-chinese.md](docs/nn-chinese.md)，
 整句基准跑 `make eval-sentence`。
+**接手开发/完善本项目**：仓库地图、评测口径纪律、模型迭代工作流（train→判决→export→ship）、
+踩坑速查和当前优先级，见交接手册 [docs/handover.md](docs/handover.md)。
 
 ## 推到 GitHub
 

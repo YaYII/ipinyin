@@ -1,5 +1,9 @@
 # 参与开发
 
+> 完整交接手册（仓库地图、引擎管线、评测口径纪律、模型迭代工作流、踩坑速查、
+> 当前优先级）见 [docs/handover.md](docs/handover.md)；六个衍生项目见
+> [projects/README.md](projects/README.md)。本文只讲最小上手。
+
 ## 跑起来
 
 ```bash
