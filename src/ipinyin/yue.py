@@ -7,6 +7,9 @@ import zlib
 
 from . import yue_rules
 
+# 只在粤语里用、普通话文本里不会出现的字（预替换时避免把模型带偏）
+_CANTONESE_ONLY = set("佢哋嘅咗唔係喺冇乜嘢嗰嚟睇咁啲畀攞瞓噉咩")
+
 
 class YueConverter:
     __slots__ = ("_map", "_max_len", "_chars", "_words", "_max_word", "_phrase",
@@ -76,6 +79,26 @@ class YueConverter:
                 pass
         return cls(mapping, chars, words, phrase)
 
+    def _premap(self, text: str) -> str:
+        """只替换目标不含粤语专用字的词条（犀利/厲害 这类），避免干扰神经模型。"""
+        if not self._map:
+            return text
+        out: list[str] = []
+        index = 0
+        size = len(text)
+        while index < size:
+            for length in range(min(self._max_len, size - index), 1, -1):
+                piece = text[index:index + length]
+                target = self._map.get(piece)
+                if target is not None and not (_CANTONESE_ONLY & set(target)):
+                    out.append(target)
+                    index += length
+                    break
+            else:
+                out.append(text[index])
+                index += 1
+        return "".join(out)
+
     def jyutping(self, text: str) -> str:
         """给一段粤语文字注音：优先整词，其次按字拼。"""
         if not text or (not self._chars and not self._words):
@@ -105,10 +128,24 @@ class YueConverter:
         return " ".join(out)
 
     def convert(self, text: str, rules: bool = True, neural: bool | None = None) -> str:
+        # 人工词表里明确写死的词（厉害→犀利）优先于神经模型——
+        # 模型只会做繁体/常规转换，会把 厉害 输出成「厲害」，丢掉粤语说法
         # neural=None 时默认走神经（装了模型就用）。但调用方要注意：
         # 输入法的候选列表里每个候选都会调一次 convert，2~4 字词实测单次 7~10ms，
         # 9 个候选全算就是 60ms+/键。正确用法是只对「首选候选/上屏内容」传 neural=True，
         # 其余候选走规则（0.02ms）。见 src/ipinyin/ime.py 的调用点。
+        if len(text) >= 2:
+            direct = self._map.get(text)
+            if direct is not None:
+                return direct
+            # 词表里「不带粤语专用字」的说法先替换掉（好厉害→好犀利），
+            # 让神经模型在正确的基础上做语序；带 唔/哋/咗 的留给模型自己学
+            text = self._premap(text)
+        # 语序规则能处理的句式（他比我高→佢高過我）交给规则：
+        # 神经模型会给出结构改写，但守卫只认「有实证的替换」，结构改写会被整句打回
+        reordered = yue_rules.apply(text) if rules else text
+        if reordered != text:
+            neural = False
         if neural is None:
             neural = True
         if neural and self.nn is not None:
