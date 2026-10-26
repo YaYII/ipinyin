@@ -18,10 +18,13 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import sys
 import time
+from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 
 BUCKETS = [("≤8", lambda n: n <= 8), ("9-15", lambda n: 9 <= n <= 15), ("16+", lambda n: n >= 16)]
@@ -38,6 +41,34 @@ def char_overlap(got: str, ref: str) -> float:
     return sum(1 for a, b in zip(got, ref) if a == b) / max(len(ref), 1)
 
 
+def chrf_score(hyps: list[str], refs: list[str], max_n: int = 6, beta: float = 2.0) -> float:
+    """corpus 级 chrF（Popović 2015 / sacrebleu 默认口径的纯 Python 实现）。
+
+    字符 n-gram（n=1..6）在整个 corpus 上聚合计数，先按阶算 F_beta 再对阶取平均；
+    忽略空白（中文无词界，空白只是排版噪声）。与 sacrebleu 的差异：它把空白当字符计入。
+    """
+    assert len(hyps) == len(refs)
+    agg = {n: [0, 0, 0] for n in range(1, max_n + 1)}   # [匹配数, hyp 总数, ref 总数]
+    for hyp, ref in zip(hyps, refs):
+        hyp = re.sub(r"\s+", "", hyp)
+        ref = re.sub(r"\s+", "", ref)
+        for n in range(1, max_n + 1):
+            h = Counter(hyp[i:i + n] for i in range(len(hyp) - n + 1))
+            r = Counter(ref[i:i + n] for i in range(len(ref) - n + 1))
+            agg[n][0] += sum(min(c, r[g]) for g, c in h.items())
+            agg[n][1] += sum(h.values())
+            agg[n][2] += sum(r.values())
+    fs = []
+    for n in range(1, max_n + 1):
+        m, ht, rt = agg[n]
+        if ht == 0 and rt == 0:
+            continue          # 双侧都没有 n 阶 n-gram（句长 < n），跳过该阶
+        p = m / ht if ht else 0.0
+        r = m / rt if rt else 0.0
+        fs.append((1 + beta ** 2) * p * r / (beta ** 2 * p + r) if p + r else 0.0)
+    return sum(fs) / len(fs) if fs else 0.0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="粤语→普通话 held-out 评测（整句一致率 / 字符重合率，分桶）")
     ap.add_argument("--model", default=os.path.join(HERE, "yue2zh_model.pt"))
@@ -48,6 +79,8 @@ def main() -> int:
     ap.add_argument("--batch", type=int, default=256)
     ap.add_argument("--device", default="auto", help="auto/cpu/mps")
     ap.add_argument("--samples", type=int, default=3, help="每桶展示的错例条数")
+    ap.add_argument("--typo-p", type=float, default=0.0,
+                    help=">0 时对粤语输入注入同音错字再评测（抗噪卷；固定种子 4321）")
     args = ap.parse_args()
 
     import torch
@@ -67,32 +100,52 @@ def main() -> int:
     print(f"模型 {args.model}  d={trained.get('d')} layers={trained.get('layers')} "
           f"epoch={ep} device={pack['device']}", flush=True)
 
+    if args.typo_p > 0:
+        import random
+
+        from typo import build_homophones, inject_typos, load_yue_chars
+        chars = load_yue_chars(os.path.join(ROOT, "data", "yue.marshal"))
+        homophones = build_homophones(chars, allowed=set(pack["src_vocab"]))
+        rng = random.Random(4321)
+        noisy = [inject_typos(p["yue"], homophones, rng, args.typo_p) for p in test]
+        changed = sum(1 for a, b in zip(noisy, (p["yue"] for p in test)) if a != b)
+        test = [{"zh": p["zh"], "yue": y} for p, y in zip(test, noisy)]
+        print(f"抗噪卷：注入同音错字 p={args.typo_p}（词表内可替换 {len(homophones)} 字），"
+              f"{changed}/{len(test)} 句被改动", flush=True)
+
     t0 = time.time()
     got = cv.greedy_decode(pack["model"], pack["src_vocab"], pack["tgt_vocab"], pack["device"],
                            [p["yue"] for p in test], batch_size=args.batch)
     decode_s = time.time() - t0
 
-    rows = []       # (bucket, nn_exact, copy_exact, nn_overlap, copy_overlap)
+    rows = []       # (bucket, src, got, ref)；指标在打印时按桶现算（chrF 要聚 n-gram）
     samples: dict[str, list] = {name: [] for name, _ in BUCKETS}
     for p, g in zip(test, got):
         ref, src = p["zh"], p["yue"]
         b = bucket_of(len(src))
-        rows.append((b, g == ref, src == ref, char_overlap(g, ref), char_overlap(src, ref)))
+        rows.append((b, src, g, ref))
         if g != ref and len(samples[b]) < args.samples:
             samples[b].append((src, g, ref))
 
-    print(f"\n{'桶':6s} {'n':>6s} | {'照抄整句':>8s} {'照抄字符':>8s} | {'神经整句':>8s} {'神经字符':>8s} | {'Δ整句':>7s}")
+    print(f"\n{'桶':6s} {'n':>6s} | {'照抄整句':>8s} {'照抄字符':>8s} {'照抄chrF':>8s}"
+          f" | {'神经整句':>8s} {'神经字符':>8s} {'神经chrF':>8s} | {'Δ整句':>7s}")
     order = [name for name, _ in BUCKETS] + ["全部"]
     for name in order:
         sel = rows if name == "全部" else [r for r in rows if r[0] == name]
         if not sel:
             continue
         n = len(sel)
-        nn_e = sum(r[1] for r in sel) / n
-        cp_e = sum(r[2] for r in sel) / n
-        nn_o = sum(r[3] for r in sel) / n
-        cp_o = sum(r[4] for r in sel) / n
-        print(f"{name:6s} {n:6d} | {cp_e:7.1%}  {cp_o:7.1%}  | {nn_e:7.1%}  {nn_o:7.1%}  | {(nn_e - cp_e)*100:+6.1f}pt")
+        srcs = [r[1] for r in sel]
+        hyps = [r[2] for r in sel]
+        refs = [r[3] for r in sel]
+        nn_e = sum(h == r for h, r in zip(hyps, refs)) / n
+        cp_e = sum(s == r for s, r in zip(srcs, refs)) / n
+        nn_o = sum(char_overlap(h, r) for h, r in zip(hyps, refs)) / n
+        cp_o = sum(char_overlap(s, r) for s, r in zip(srcs, refs)) / n
+        nn_f = chrf_score(hyps, refs)
+        cp_f = chrf_score(srcs, refs)
+        print(f"{name:6s} {n:6d} | {cp_e:8.1%} {cp_o:8.1%} {cp_f:8.1%}"
+              f" | {nn_e:8.1%} {nn_o:8.1%} {nn_f:8.1%} | {(nn_e - cp_e)*100:+6.1f}pt")
 
     print(f"\n贪心解码用时 {decode_s:.1f}s（{pack['device']}，batch {args.batch}），"
           f"单句 p50 {decode_s/len(test)*1000:.1f}ms")

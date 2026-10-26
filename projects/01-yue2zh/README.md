@@ -11,12 +11,15 @@
 
 | 文件 | 说明 |
 |---|---|
-| `train.py` | 训练驱动：加载语料、交换方向、MPS 训练、每轮存检查点并在 held-out 抽检 |
+| `train.py` | 训练驱动：加载语料、交换方向、MPS 训练、每轮存检查点并在 held-out 抽检；`--typo` 同音错字增强 |
 | `convert.py` | 批量转换 CLI：stdin/文件 → 逐句贪心解码 → 普通话输出 |
-| `eval.py` | held-out 评测：整句一致率 + 字符重合率，按句长分桶，带「照抄不改」对照 |
-| `test_convert.py` | pytest 单测（清洗/分句/编排逻辑，不加载模型） |
-| `yue2zh_model.pt` | 训练产物（34.9 MB），**不提交**，本地重训即可复现 |
-| `train.log` / `eval.log` | 本次训练与评测的完整输出留档 |
+| `eval.py` | held-out 评测：整句一致率 + 字符重合率 + chrF，按句长分桶，「照抄不改」对照；`--typo-p` 抗噪卷 |
+| `typo.py` | 同音错字模块：`data/yue.marshal` 粤拼表按声韵（去调）分组；注入函数纯逻辑可单测 |
+| `fetch_extra_corpus.py` | 三源语料合并（repo + msgchi + botisan），去重、zh 归一简体 → `data/merged_pairs.json` |
+| `test_convert.py` / `test_typo.py` / `test_eval.py` | pytest 单测（纯逻辑，不加载模型） |
+| `yue2zh_model*.pt` | 三代训练产物（34.9 / 38.3 / 38.3 MB），**不提交**，重训可复现 |
+| `train*.log` / `eval*.log` | 各次训练与评测的完整输出留档 |
+| `data/merged_pairs.json` | 合并语料 267,896 对（27 MB，gitignore，`fetch_extra_corpus.py` 再生） |
 
 ## 数据来源与切分
 
@@ -138,3 +141,61 @@ botisan 6,552 = **267,896 对**（+60%）。
 
 下一步：语气词专项（囉/噉 类与语境词典融合）、beam search、输入法第四模式
 接入（长句走本模型、短句走规则）。
+
+
+## 同音错字增强 + chrF（2026-10-26，第二轮）
+
+社区调研落地两件事（借鉴 [AlienKevin/bart-canto-mando-bing-300K-typo](https://huggingface.co/AlienKevin/bart-canto-mando-bing-300K-typo)
+的 typo 增强、[CantonMT](https://arxiv.org/html/2403.11346v1) 的评测口径）：
+
+1. **同音错字增强**（`typo.py` + `train.py --typo`）：`data/yue.marshal` 的 27,007 字
+   粤拼表按「声母+韵母」（去声调）分组同音字；训练时对粤语侧每字以 p=0.12 概率在线注入
+   词表内同音字。**键字与候选都限制在 src 词表内**——否则会把 UNK 生僻字「修好」，
+   注入方向就反了（冒烟时抓到过这个 bug）。种子 1234，同一句每轮噪声不同。
+2. **chrF 指标**（`eval.py`）：Popović 2015 / sacrebleu 默认口径的纯 Python 实现
+   （字符 1..6-gram corpus 级聚合、F_beta=2、忽略空白、双侧皆空的阶跳过），
+   手工可口算样例单测兜底（`test_eval.py`）。
+
+训练与 merged 模型**完全同配置**（同语料、limit 240000、3 epochs、batch 96、amp fp16，
+唯一差别 `--typo 0.12`）：12.4 分钟，末轮 loss 3.035（输入带噪声，损失天然偏高，
+与 merged 的数字不可直接比）。
+
+### 两张卷对照（同一 held-out 12,000 句，贪心解码）
+
+干净卷（输入无错字）：
+
+| 模型 | ≤8 | 9-15 | 16+ | 全部整句 | 全部字符 | 全部 chrF |
+|---|---:|---:|---:|---:|---:|---:|
+| merged（无增强） | 23.5% | 37.4% | 22.8% | **30.0%** | **61.7%** | **63.7%** |
+| typo（p=0.12） | 21.7% | 33.4% | 19.8% | 26.9% | 60.2% | 61.5% |
+
+抗噪卷（同一 held-out 注入同音错字 p=0.12，种子 4321；8,570/12,000 句被改动；
+`eval.py --typo-p 0.12`）：
+
+| 模型 | ≤8 | 9-15 | 16+ | 全部整句 | 全部字符 | 全部 chrF |
+|---|---:|---:|---:|---:|---:|---:|
+| merged（无增强） | 12.8% | 9.3% | 2.8% | 8.2% | 49.5% | 43.9% |
+| typo（p=0.12） | 14.9% | 18.3% | 8.1% | **14.6%** | **55.1%** | **52.1%** |
+
+结论：**代价干净卷整句 −3.1pt，换噪声卷整句近翻倍（8.2%→14.6%）、chrF +8.2pt**，
+长句桶受益最大（2.8%→8.1%，近 3 倍）。真实用户输入（论坛/聊天风格）介于两卷之间。
+部署取向：干净文本（文章、字幕）用 merged；口语抓取转写用 typo。
+
+已知偏差：合成噪声是「均匀同音采样」，真实错字分布不均匀（高频字更易混、形近也占一环），
+抗噪卷分数是机制验证，不是真实分布的精确估计。p 未调参（0.06~0.08 可能更平衡）。
+
+复现：
+
+```bash
+PY=/Users/yingyang/.workbuddy/binaries/python/envs/default/bin/python
+$PY projects/01-yue2zh/train.py --pairs projects/01-yue2zh/data/merged_pairs.json \
+    --limit 240000 --epochs 3 --batch 96 --amp --typo 0.12 \
+    --out projects/01-yue2zh/yue2zh_model_typo.pt
+$PY projects/01-yue2zh/eval.py --model projects/01-yue2zh/yue2zh_model_typo.pt \
+    --pairs projects/01-yue2zh/data/merged_pairs.json --limit 240000            # 干净卷
+$PY projects/01-yue2zh/eval.py --model projects/01-yue2zh/yue2zh_model_typo.pt \
+    --pairs projects/01-yue2zh/data/merged_pairs.json --limit 240000 --typo-p 0.12  # 抗噪卷
+```
+
+遗留：p 调参 / 按真实错字分布加权采样、查表词免疫错字（P2 词典融合可与此叠加：
+查表命中的词锁定后，错字只影响未命中段）。

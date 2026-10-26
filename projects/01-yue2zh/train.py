@@ -59,6 +59,8 @@ def main() -> int:
     ap.add_argument("--amp", action="store_true", help="fp16 混合精度（MPS 加速，出 NaN 就关掉重跑）")
     ap.add_argument("--resume", action="store_true", help="从 --out 续训（含优化器状态）")
     ap.add_argument("--valid-n", type=int, default=200, help="每轮结束在 held-out 上抽检的句数")
+    ap.add_argument("--typo", type=float, default=0.0,
+                    help="训练时对粤语侧注入同音错字的字符级概率（0=关；粤拼表 data/yue.marshal）")
     args = ap.parse_args()
     if not args.pairs:
         args.pairs = default_pairs()
@@ -84,6 +86,15 @@ def main() -> int:
     src_vocab = build_vocab(train, "yue")
     tgt_vocab = build_vocab(train, "zh")
     print(f"字表 src(粤) {len(src_vocab)} tgt(普) {len(tgt_vocab)}", flush=True)
+
+    homophones = None
+    if args.typo > 0:
+        from typo import build_homophones, inject_typos, load_yue_chars
+        chars = load_yue_chars(os.path.join(ROOT, "data", "yue.marshal"))
+        homophones = build_homophones(chars, allowed=set(src_vocab))
+        rng_typo = random.Random(1234)
+        print(f"同音错字增强 p={args.typo}：粤拼表 {len(chars)} 字，词表内可替换 {len(homophones)} 字",
+              flush=True)
 
     model = Seq2Seq(len(src_vocab) + 4, len(tgt_vocab) + 4, d=args.d, layers=args.layers)
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr)
@@ -132,7 +143,11 @@ def main() -> int:
         started = time.time()
         total = 0.0
         for step, chunk in enumerate(batches(train, args.batch)):
-            src = [encode(p["yue"], src_vocab) for p in chunk]
+            if homophones is not None:
+                src = [encode(inject_typos(p["yue"], homophones, rng_typo, args.typo), src_vocab)
+                       for p in chunk]
+            else:
+                src = [encode(p["yue"], src_vocab) for p in chunk]
             tgt = [encode(p["zh"], tgt_vocab) for p in chunk]
             sw = max(len(r) for r in src)
             tw = max(len(r) for r in tgt)
