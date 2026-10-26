@@ -30,6 +30,26 @@ install -m 755 "$ROOT/packaging/deb/ipinyin-engine" "$STAGE/usr/bin/ipinyin-engi
 install -m 755 "$ROOT/packaging/deb/ipinyin-setup" "$STAGE/usr/bin/ipinyin-setup"
 install -m 755 "$ROOT/packaging/deb/ipinyin-ensure" "$STAGE/usr/bin/ipinyin-ensure"
 
+say "打包 onnxruntime（粤语神经模型的开箱依赖）"
+WHEEL=$(ls "$ROOT"/packaging/vendor/onnxruntime-*.whl 2>/dev/null | head -1 || true)
+if [ -z "$WHEEL" ]; then
+    echo "本地没有 wheel，尝试下载…"
+    mkdir -p "$ROOT/packaging/vendor"
+    pip download onnxruntime --no-deps --only-binary=:all: -d "$ROOT/packaging/vendor" >/dev/null
+    WHEEL=$(ls "$ROOT"/packaging/vendor/onnxruntime-*.whl | head -1)
+fi
+mkdir -p "$STAGE/usr/lib/ipinyin/vendor"
+python3 - "$WHEEL" "$STAGE/usr/lib/ipinyin/vendor" <<'PYEOF'
+import sys, zipfile
+wheel, dest = sys.argv[1], sys.argv[2]
+with zipfile.ZipFile(wheel) as zf:
+    for name in zf.namelist():
+        if name.endswith("/") or "dist-info" in name:
+            continue
+        zf.extract(name, dest)
+print("解包", wheel.split("/")[-1])
+PYEOF
+
 say "拷贝词库"
 cp "$ROOT/data/lexicon.tsv" "$ROOT/data/lexicon.marshal" "$ROOT/data/prefix.marshal" "$ROOT/data/s2t.marshal" \
    "$ROOT/data/user_seed.tsv" "$ROOT/data/user_bigram_seed.tsv" "$ROOT/data/yue.tsv" "$ROOT/data/yue.marshal" "$ROOT/data/yue_phrase.marshal" \

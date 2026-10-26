@@ -20,3 +20,4 @@ data/yue_guard.eval.marshal
 projects/04-locale-convert/data/raw/
 projects/05-typo-correct/data/lm_eval.marshal
 projects/05-typo-correct/data/train_typos.jsonl
+packaging/vendor/*.whl

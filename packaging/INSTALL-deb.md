@@ -8,11 +8,8 @@ sudo dpkg -i ipinyin_x.y.z_all.deb
 sudo apt -f install
 ```
 
-粤语神经模型要额外装运行时（可选，不装自动退回规则转换）：
-
-```bash
-pip3 install --user onnxruntime
-```
+粤语神经模型**开箱即用**：onnxruntime 运行时与模型都已打进包里，
+唯一依赖 `python3-numpy` 由 apt 自动安装。不需要联网、不需要 pip。
 
 依赖：`python3`、`python3-gi`、`gir1.2-ibus-1.0`、`ibus`（Ubuntu 桌面默认都有）。
 

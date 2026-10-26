@@ -1,7 +1,12 @@
 #!/usr/bin/python3
-"""IBus 引擎入口（系统安装版）。"""
+"""IBus 引擎入口（系统安装版）。
+
+onnxruntime 随包分发在 /usr/lib/ipinyin/vendor，不依赖用户 pip 安装，
+所以粤语神经模型开箱即用。
+"""
 import sys
 
+sys.path.insert(0, "/usr/lib/ipinyin/vendor")
 sys.path.insert(0, "/usr/lib/ipinyin")
 
 from ipinyin.engine import main  # noqa: E402
