@@ -81,6 +81,11 @@ def main() -> int:
     ap.add_argument("--samples", type=int, default=3, help="每桶展示的错例条数")
     ap.add_argument("--typo-p", type=float, default=0.0,
                     help=">0 时对粤语输入注入同音错字再评测（抗噪卷；固定种子 4321）")
+    ap.add_argument("--beam", type=int, default=1, help="束宽；1=贪心")
+    ap.add_argument("--rerank-lambda", type=float, default=0.0,
+                    help="词典覆盖度重排权重 λ（需 beam>1；0=纯 beam）")
+    ap.add_argument("--tune-lambda", action="store_true",
+                    help="在训练集采样 dev 上扫 λ 再评测（避免拿测试集调参）")
     args = ap.parse_args()
 
     import torch
@@ -89,7 +94,7 @@ def main() -> int:
     from train import default_pairs, load_and_split
 
     pairs_path = args.pairs or default_pairs()
-    _, test = load_and_split(pairs_path, args.limit)
+    train_pairs, test = load_and_split(pairs_path, args.limit)
     if args.n > 0:
         test = test[: args.n]
     print(f"held-out {len(test)} 句（pairs {pairs_path}，limit {args.limit}）", flush=True)
@@ -114,8 +119,41 @@ def main() -> int:
               f"{changed}/{len(test)} 句被改动", flush=True)
 
     t0 = time.time()
-    got = cv.greedy_decode(pack["model"], pack["src_vocab"], pack["tgt_vocab"], pack["device"],
-                           [p["yue"] for p in test], batch_size=args.batch)
+    mode = f"beam={args.beam}"
+    if args.beam > 1:
+        cands = cv.beam_decode(pack["model"], pack["src_vocab"], pack["tgt_vocab"], pack["device"],
+                               [p["yue"] for p in test], beam=args.beam, batch_size=32)
+        if args.rerank_lambda > 0 or args.tune_lambda:
+            import json
+
+            from dict_fuse import load_default_reverse_dict, rerank
+            rdict = load_default_reverse_dict(corpus_pairs=json.load(
+                open(pairs_path, encoding="utf-8")))
+            lam = args.rerank_lambda
+            if args.tune_lambda:
+                import random
+
+                from dict_fuse import rerank as _rr
+                dev = random.Random(7).sample(train_pairs, min(2000, len(train_pairs)))
+                dev_cands = cv.beam_decode(pack["model"], pack["src_vocab"], pack["tgt_vocab"],
+                                           pack["device"], [p["yue"] for p in dev],
+                                           beam=args.beam, batch_size=32)
+                best_lam, best_acc = 0.0, -1.0
+                for cand_lam in (0.0, 0.25, 0.5, 1.0, 2.0):
+                    acc = sum(_rr(cs, p["yue"], rdict, cand_lam)[0][1] == p["zh"]
+                              for cs, p in zip(dev_cands, dev)) / len(dev)
+                    print(f"  [调参 dev n={len(dev)}] λ={cand_lam:<4} 整句 {acc:.1%}", flush=True)
+                    if acc > best_acc:
+                        best_acc, best_lam = acc, cand_lam
+                lam = best_lam
+                print(f"  选定 λ={lam}（dev 整句 {best_acc:.1%}）", flush=True)
+            mode += f"+重排λ={lam:g}"
+            got = [rerank(cs, p["yue"], rdict, lam)[0][1] for cs, p in zip(cands, test)]
+        else:
+            got = [cs[0][1] for cs in cands]
+    else:
+        got = cv.greedy_decode(pack["model"], pack["src_vocab"], pack["tgt_vocab"], pack["device"],
+                               [p["yue"] for p in test], batch_size=args.batch)
     decode_s = time.time() - t0
 
     rows = []       # (bucket, src, got, ref)；指标在打印时按桶现算（chrF 要聚 n-gram）
@@ -147,7 +185,7 @@ def main() -> int:
         print(f"{name:6s} {n:6d} | {cp_e:8.1%} {cp_o:8.1%} {cp_f:8.1%}"
               f" | {nn_e:8.1%} {nn_o:8.1%} {nn_f:8.1%} | {(nn_e - cp_e)*100:+6.1f}pt")
 
-    print(f"\n贪心解码用时 {decode_s:.1f}s（{pack['device']}，batch {args.batch}），"
+    print(f"\n解码模式 {mode}；用时 {decode_s:.1f}s（{pack['device']}），"
           f"单句 p50 {decode_s/len(test)*1000:.1f}ms")
     for name in order[:-1]:
         for src, g, ref in samples[name]:
