@@ -33,6 +33,7 @@ install -m 755 "$ROOT/packaging/deb/ipinyin-ensure" "$STAGE/usr/bin/ipinyin-ensu
 say "拷贝词库"
 cp "$ROOT/data/lexicon.tsv" "$ROOT/data/lexicon.marshal" "$ROOT/data/prefix.marshal" "$ROOT/data/s2t.marshal" \
    "$ROOT/data/user_seed.tsv" "$ROOT/data/user_bigram_seed.tsv" "$ROOT/data/yue.tsv" "$ROOT/data/yue.marshal" "$ROOT/data/yue_phrase.marshal" \
+   "$ROOT/data/yue_guard.marshal" "$ROOT/data/yue_nn.onnx" "$ROOT/data/yue_nn_vocab.json" \
    "$STAGE/usr/share/ipinyin/data/"
 install -m 644 "$ROOT/data/ipinyin.svg" "$STAGE/usr/share/ipinyin/ipinyin.svg"
 

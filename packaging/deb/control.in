@@ -4,6 +4,7 @@ Section: utils
 Priority: optional
 Architecture: all
 Depends: python3 (>= 3.8), python3-gi, gir1.2-ibus-1.0, ibus
+Recommends: python3-pip
 Maintainer: @MAINTAINER@
 Installed-Size: @SIZE@
 Description: IPinyin - 轻量级中文拼音输入法（IBus 引擎）
@@ -11,5 +12,7 @@ Description: IPinyin - 轻量级中文拼音输入法（IBus 引擎）
  个人词频学习（命中率排序）。
  .
  词库：pinyin-data / phrase-pinyin-data / jieba 词频 / CC-CEDICT。
+ 粤语链路：神经模型（ONNX，随包分发）+ 实证守卫；需要 onnxruntime
+ 才能启用（pip3 install --user onnxruntime），没装则自动退回规则转换。
  安装后运行 ipinyin-setup 注册到当前用户，注销重登生效。
 Homepage: https://example.invalid/ipinyin

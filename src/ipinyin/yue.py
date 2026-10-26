@@ -119,8 +119,9 @@ class YueConverter:
             if result:
                 if self.guard is not None:
                     # P1 约束解码：无实证的改动回退规则版（成语/古诗防误改）
-                    result = self.guard.check(
-                        text, result, repair=lambda seg: self.convert(seg, neural=False))
+                    # 无实证的片段还原原文，而不是套规则——
+                    # 套规则会把「了解」修成「咗解」（了→咗），比不改更糟
+                    result = self.guard.check(text, result)
                 if result:
                     return result
         if rules:

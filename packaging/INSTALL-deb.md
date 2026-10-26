@@ -8,6 +8,12 @@ sudo dpkg -i ipinyin_x.y.z_all.deb
 sudo apt -f install
 ```
 
+粤语神经模型要额外装运行时（可选，不装自动退回规则转换）：
+
+```bash
+pip3 install --user onnxruntime
+```
+
 依赖：`python3`、`python3-gi`、`gir1.2-ibus-1.0`、`ibus`（Ubuntu 桌面默认都有）。
 
 ## 2. 注册到你的账号（不要用 sudo）

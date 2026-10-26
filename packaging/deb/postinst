@@ -9,5 +9,12 @@ IPinyin 已安装。接下来（用你自己的账号，不要用 sudo）：
 
 如果切换列表里没有出现，注销重登一次。
 
+想启用粤语神经模型（更地道，需要额外依赖）：
+
+  pip3 install --user onnxruntime
+  systemctl --user restart ipinyin-engine
+
+没装也能用：自动退回规则转换（粤语口语覆盖少一些）。
+
 MSG
 exit 0

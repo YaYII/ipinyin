@@ -32,7 +32,7 @@ command -v ibus >/dev/null || die "没装 ibus"
 
 # 粤语神经模型的可选依赖：没有就退回规则+守卫，引擎照常工作
 if python3 -c "import onnxruntime" 2>/dev/null; then
-    NN_MODE="神经模型已就绪（int8，12MB）"
+    NN_MODE="神经模型已就绪（ONNX，12MB）"
 else
     NN_MODE="未启用 —— 想启用执行: pip3 install --user onnxruntime（然后 ./install.sh 重装一次）"
 fi
@@ -73,7 +73,7 @@ cp "$ROOT/data/s2t.marshal" "$PREFIX/data/s2t.marshal"
 cp "$ROOT/data/yue.tsv" "$PREFIX/data/yue.tsv"
 cp "$ROOT/data/yue.marshal" "$PREFIX/data/yue.marshal"
 [ -f "$ROOT/data/yue_phrase.marshal" ] && cp "$ROOT/data/yue_phrase.marshal" "$PREFIX/data/yue_phrase.marshal"
-# 粤语神经模型（int8 量化版，随仓库分发；没有它自动退回规则+守卫）
+# 粤语神经模型（ONNX，随仓库分发；没有它自动退回规则+守卫）
 [ -f "$ROOT/data/yue_nn.onnx" ] && cp "$ROOT/data/yue_nn.onnx" "$PREFIX/data/yue_nn.onnx"
 [ -f "$ROOT/data/yue_nn_vocab.json" ] && cp "$ROOT/data/yue_nn_vocab.json" "$PREFIX/data/yue_nn_vocab.json"
 install -m 755 "$ROOT/bin/ipinyin-engine" "$PREFIX/bin/ipinyin-engine"
