@@ -58,8 +58,16 @@ cp "$ROOT/data/lexicon.tsv" "$ROOT/data/lexicon.marshal" "$ROOT/data/prefix.mars
 install -m 644 "$ROOT/data/ipinyin.svg" "$STAGE/usr/share/ipinyin/ipinyin.svg"
 
 say "写组件描述"
-sed -e "s|@VERSION@|$VERSION|g" -e "s|@MAINTAINER@|$MAINTAINER|g" \
-    "$ROOT/packaging/deb/ipinyin.xml.in" > "$STAGE/usr/share/ibus/component/ipinyin.xml"
+# 作者栏带邮箱时必须做 XML 转义，否则 <email> 被当成标签，IBus 会整份跳过（曾因此注册不上）
+python3 - "$ROOT/packaging/deb/ipinyin.xml.in" "$STAGE/usr/share/ibus/component/ipinyin.xml" "$VERSION" "$MAINTAINER" <<'PYEOF'
+import html
+import sys
+
+template, out, version, maintainer = sys.argv[1:5]
+text = open(template, encoding="utf-8").read()
+text = text.replace("@VERSION@", version).replace("@MAINTAINER@", html.escape(maintainer))
+open(out, "w", encoding="utf-8").write(text)
+PYEOF
 
 say "文档"
 cp "$ROOT/README.md" "$STAGE/usr/share/doc/$PKG/README.md"
