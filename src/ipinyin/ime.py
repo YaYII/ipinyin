@@ -382,16 +382,19 @@ class ImeState:
             seen.add(word)
             unique.append((word, key, freq))
 
-        # 上下文预测 + 个人词频：只调顺序，不动候选本身
+        # 上下文预测 + 个人词频：不光调顺序，学过的词没在候选里也要补进来
+        # （饿了吗 不在词库、组合也没拼出来，只靠"排序"永远看不到它）
         priority: dict[str, int] = {}
         if self.user_model and self.context:
             for word in self.user_model.after(self.context):
                 if word in seen:
                     priority.setdefault(word, len(priority))
         if self.user_model:
-            for word in self.user_model.preferred(text):
-                if word in seen:
-                    priority.setdefault(word, len(priority))
+            for rank, word in enumerate(self.user_model.preferred(text)):
+                if word not in seen:
+                    seen.add(word)
+                    unique.insert(0, (word, text, 0))     # 学过的词补进候选
+                priority.setdefault(word, rank)
         if priority:
             unique.sort(key=lambda item: priority.get(item[0], len(priority)))
 

@@ -119,3 +119,21 @@ def test_observe_does_not_grow_on_unknown_words(tmp_path):
     assert model.exposures("nihao", "你好") == 2
     model.observe("zenme", ["怎么"])           # 键都不存在 → 不建键
     assert len(model) == 1
+
+
+def test_learned_word_appears_even_if_not_in_candidates(lexicon, tmp_path):
+    """学过的词即使词库/组合都拼不出来，也要补进候选（饿了吗 的真实 bug）。"""
+    from ipinyin.ime import ImeState
+    from ipinyin.user_model import UserModel
+
+    model = UserModel(str(tmp_path / "m.tsv"), None, str(tmp_path / "b.tsv"), None,
+                      validator=lambda key, word: True)
+    ime = ImeState(lexicon, user_model=model)
+    for char in "elema":
+        ime.insert(char)
+    assert "饿了吗" not in ime.view().words[:3]
+    model.learn("elema", "饿了吗")
+    ime.clear()
+    for char in "elema":
+        ime.insert(char)
+    assert ime.view().words[0] == "饿了吗"
