@@ -239,8 +239,6 @@ class YueGuard:
                for tag, i1, i2, j1, j2 in opcodes]
         if not any(bad):
             return dst
-        if repair is None:
-            repair = lambda seg: seg          # noqa: E731
         out: list[str] = []
         pos = 0                               # src 里已生成的部分
         for (tag, i1, i2, j1, j2), is_bad in zip(opcodes, bad):

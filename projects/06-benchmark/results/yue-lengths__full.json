@@ -5,8 +5,8 @@
   "system": "ipinyin(内置)",
   "status": "ok",
   "quick": false,
-  "generated_at": "2026-10-26T07:25:23+08:00",
-  "duration_s": 8.67,
+  "generated_at": "2026-10-26T07:58:18+08:00",
+  "duration_s": 10.22,
   "params": {
     "quick": false,
     "out_dir": "/Users/yingyang/Documents/project/workbudyy/ipinyin/projects/06-benchmark/results",
@@ -36,7 +36,7 @@
         "copy_baseline": 0.0,
         "rule": 0.36,
         "neural": 1.0,
-        "neural_median_latency_ms": 7.5831,
+        "neural_median_latency_ms": 8.6927,
         "weight": 0.4,
         "wilson": {
           "copy_baseline": {
@@ -58,7 +58,7 @@
         "copy_baseline": 1.0,
         "rule": 0.975,
         "neural": 0.825,
-        "neural_median_latency_ms": 12.5043,
+        "neural_median_latency_ms": 14.1498,
         "weight": 0.25,
         "wilson": {
           "copy_baseline": {
@@ -80,7 +80,7 @@
         "copy_baseline": 0.1667,
         "rule": 0.3167,
         "neural": 0.4533,
-        "neural_median_latency_ms": 17.3412,
+        "neural_median_latency_ms": 19.9318,
         "weight": 0.15,
         "wilson": {
           "copy_baseline": {
@@ -102,7 +102,7 @@
         "copy_baseline": 1.0,
         "rule": 0.75,
         "neural": 0.5833,
-        "neural_median_latency_ms": 14.8177,
+        "neural_median_latency_ms": 16.5428,
         "weight": 0.0,
         "wilson": {
           "copy_baseline": {
@@ -139,6 +139,16 @@
         "path": "experiments/yue_model_d256.pt",
         "sha256_16": "63057f1950353059",
         "bytes": 35959514
+      },
+      {
+        "path": "data/yue_guard.eval.marshal",
+        "sha256_16": "47a08a69c7aae232",
+        "bytes": 1110427
+      },
+      {
+        "path": "data/yue_word_pairs.json",
+        "sha256_16": "4e6f84b730e10838",
+        "bytes": 224587
       },
       {
         "path": "data/yue.marshal",
@@ -183,7 +193,7 @@
         "rule_ok": false,
         "neural_out": "唔明",
         "neural_ok": true,
-        "latency_ms": 156.1028
+        "latency_ms": 246.5074
       },
       {
         "id": "2字:1",
@@ -198,7 +208,7 @@
         "rule_ok": false,
         "neural_out": "唔理",
         "neural_ok": true,
-        "latency_ms": 8.3148
+        "latency_ms": 8.6063
       },
       {
         "id": "2字:2",
@@ -213,7 +223,7 @@
         "rule_ok": true,
         "neural_out": "要睇",
         "neural_ok": true,
-        "latency_ms": 8.4955
+        "latency_ms": 9.2094
       },
       {
         "id": "2字:3",
@@ -228,7 +238,7 @@
         "rule_ok": false,
         "neural_out": "畀錢",
         "neural_ok": true,
-        "latency_ms": 7.6076
+        "latency_ms": 8.579
       },
       {
         "id": "2字:4",
@@ -244,7 +254,7 @@
         "rule_ok": false,
         "neural_out": "唔落",
         "neural_ok": true,
-        "latency_ms": 7.5831
+        "latency_ms": 8.4039
       },
       {
         "id": "2字:5",
@@ -259,7 +269,7 @@
         "rule_ok": true,
         "neural_out": "而係",
         "neural_ok": true,
-        "latency_ms": 7.7394
+        "latency_ms": 8.7421
       },
       {
         "id": "2字:6",
@@ -274,7 +284,7 @@
         "rule_ok": true,
         "neural_out": "搵到",
         "neural_ok": true,
-        "latency_ms": 7.6703
+        "latency_ms": 9.3882
       },
       {
         "id": "2字:7",
@@ -289,7 +299,7 @@
         "rule_ok": false,
         "neural_out": "冇咗",
         "neural_ok": true,
-        "latency_ms": 7.3132
+        "latency_ms": 9.6798
       },
       {
         "id": "2字:8",
@@ -304,7 +314,7 @@
         "rule_ok": false,
         "neural_out": "搵返",
         "neural_ok": true,
-        "latency_ms": 7.661
+        "latency_ms": 8.5736
       },
       {
         "id": "2字:9",
@@ -319,7 +329,7 @@
         "rule_ok": true,
         "neural_out": "諗起",
         "neural_ok": true,
-        "latency_ms": 7.4662
+        "latency_ms": 9.1174
       },
       {
         "id": "2字:10",
@@ -334,7 +344,7 @@
         "rule_ok": false,
         "neural_out": "唔少",
         "neural_ok": true,
-        "latency_ms": 7.5316
+        "latency_ms": 8.6944
       },
       {
         "id": "2字:11",
@@ -350,7 +360,7 @@
         "rule_ok": false,
         "neural_out": "唔切",
         "neural_ok": true,
-        "latency_ms": 7.4873
+        "latency_ms": 7.8883
       },
       {
         "id": "2字:12",
@@ -367,7 +377,7 @@
         "rule_ok": true,
         "neural_out": "係嘅",
         "neural_ok": true,
-        "latency_ms": 7.6119
+        "latency_ms": 7.8456
       },
       {
         "id": "2字:13",
@@ -383,7 +393,7 @@
         "rule_ok": false,
         "neural_out": "唔覺",
         "neural_ok": true,
-        "latency_ms": 7.5395
+        "latency_ms": 8.6927
       },
       {
         "id": "2字:14",
@@ -400,7 +410,7 @@
         "rule_ok": false,
         "neural_out": "佢兩",
         "neural_ok": true,
-        "latency_ms": 7.4151
+        "latency_ms": 8.3152
       },
       {
         "id": "2字:15",
@@ -416,7 +426,7 @@
         "rule_ok": true,
         "neural_out": "上嚟",
         "neural_ok": true,
-        "latency_ms": 7.3545
+        "latency_ms": 8.6059
       },
       {
         "id": "2字:16",
@@ -431,7 +441,7 @@
         "rule_ok": false,
         "neural_out": "屋企",
         "neural_ok": true,
-        "latency_ms": 6.8179
+        "latency_ms": 8.8315
       },
       {
         "id": "2字:17",
@@ -446,7 +456,7 @@
         "rule_ok": true,
         "neural_out": "心諗",
         "neural_ok": true,
-        "latency_ms": 7.6782
+        "latency_ms": 9.3715
       },
       {
         "id": "2字:18",
@@ -463,7 +473,7 @@
         "rule_ok": true,
         "neural_out": "諗法",
         "neural_ok": true,
-        "latency_ms": 7.6231
+        "latency_ms": 8.8414
       },
       {
         "id": "2字:19",
@@ -478,7 +488,7 @@
         "rule_ok": false,
         "neural_out": "入嚟",
         "neural_ok": true,
-        "latency_ms": 7.3015
+        "latency_ms": 9.012
       },
       {
         "id": "2字:20",
@@ -494,7 +504,7 @@
         "rule_ok": false,
         "neural_out": "家嘅",
         "neural_ok": true,
-        "latency_ms": 7.326
+        "latency_ms": 8.8102
       },
       {
         "id": "2字:21",
@@ -509,7 +519,7 @@
         "rule_ok": false,
         "neural_out": "睇波",
         "neural_ok": true,
-        "latency_ms": 7.4364
+        "latency_ms": 8.3766
       },
       {
         "id": "2字:22",
@@ -525,7 +535,7 @@
         "rule_ok": true,
         "neural_out": "來睇",
         "neural_ok": true,
-        "latency_ms": 7.6199
+        "latency_ms": 7.5116
       },
       {
         "id": "2字:23",
@@ -541,7 +551,7 @@
         "rule_ok": false,
         "neural_out": "唔畀",
         "neural_ok": true,
-        "latency_ms": 8.0145
+        "latency_ms": 7.7011
       },
       {
         "id": "2字:24",
@@ -556,7 +566,7 @@
         "rule_ok": false,
         "neural_out": "唔肯",
         "neural_ok": true,
-        "latency_ms": 7.5586
+        "latency_ms": 8.6483
       },
       {
         "id": "4字成语:0",
@@ -571,7 +581,7 @@
         "rule_ok": true,
         "neural_out": "亡羊補牢",
         "neural_ok": true,
-        "latency_ms": 12.6734
+        "latency_ms": 13.7256
       },
       {
         "id": "4字成语:1",
@@ -586,7 +596,7 @@
         "rule_ok": true,
         "neural_out": "畫蛇添足",
         "neural_ok": true,
-        "latency_ms": 13.5477
+        "latency_ms": 14.1173
       },
       {
         "id": "4字成语:2",
@@ -601,7 +611,7 @@
         "rule_ok": true,
         "neural_out": "守頭待兔",
         "neural_ok": false,
-        "latency_ms": 13.3108
+        "latency_ms": 14.8005
       },
       {
         "id": "4字成语:3",
@@ -616,7 +626,7 @@
         "rule_ok": true,
         "neural_out": "刻舟求劍",
         "neural_ok": true,
-        "latency_ms": 12.6533
+        "latency_ms": 15.8531
       },
       {
         "id": "4字成语:4",
@@ -631,7 +641,7 @@
         "rule_ok": true,
         "neural_out": "掩耳盜鈴",
         "neural_ok": true,
-        "latency_ms": 12.4345
+        "latency_ms": 14.9766
       },
       {
         "id": "4字成语:5",
@@ -646,7 +656,7 @@
         "rule_ok": true,
         "neural_out": "對牛彈琴",
         "neural_ok": true,
-        "latency_ms": 11.975
+        "latency_ms": 14.3476
       },
       {
         "id": "4字成语:6",
@@ -661,7 +671,7 @@
         "rule_ok": true,
         "neural_out": "杯弓蛇影",
         "neural_ok": true,
-        "latency_ms": 12.4068
+        "latency_ms": 14.2094
       },
       {
         "id": "4字成语:7",
@@ -676,7 +686,7 @@
         "rule_ok": true,
         "neural_out": "井底之蛙",
         "neural_ok": true,
-        "latency_ms": 12.1568
+        "latency_ms": 14.125
       },
       {
         "id": "4字成语:8",
@@ -691,7 +701,7 @@
         "rule_ok": true,
         "neural_out": "塞翁失馬",
         "neural_ok": true,
-        "latency_ms": 12.1797
+        "latency_ms": 13.7553
       },
       {
         "id": "4字成语:9",
@@ -706,7 +716,7 @@
         "rule_ok": true,
         "neural_out": "一舉兩得",
         "neural_ok": true,
-        "latency_ms": 12.9683
+        "latency_ms": 13.1816
       },
       {
         "id": "4字成语:10",
@@ -721,7 +731,7 @@
         "rule_ok": true,
         "neural_out": "一石二鳥",
         "neural_ok": true,
-        "latency_ms": 13.1997
+        "latency_ms": 14.355
       },
       {
         "id": "4字成语:11",
@@ -736,7 +746,7 @@
         "rule_ok": true,
         "neural_out": "三心二意",
         "neural_ok": true,
-        "latency_ms": 12.6874
+        "latency_ms": 15.1289
       },
       {
         "id": "4字成语:12",
@@ -751,7 +761,7 @@
         "rule_ok": true,
         "neural_out": "四面八方",
         "neural_ok": true,
-        "latency_ms": 13.0207
+        "latency_ms": 14.6181
       },
       {
         "id": "4字成语:13",
@@ -766,7 +776,7 @@
         "rule_ok": true,
         "neural_out": "五光十色",
         "neural_ok": true,
-        "latency_ms": 12.6312
+        "latency_ms": 14.7465
       },
       {
         "id": "4字成语:14",
@@ -781,7 +791,7 @@
         "rule_ok": true,
         "neural_out": "七上八下",
         "neural_ok": true,
-        "latency_ms": 12.8197
+        "latency_ms": 12.5886
       },
       {
         "id": "4字成语:15",
@@ -796,7 +806,7 @@
         "rule_ok": true,
         "neural_out": "九牛一毛",
         "neural_ok": true,
-        "latency_ms": 13.0532
+        "latency_ms": 13.8907
       },
       {
         "id": "4字成语:16",
@@ -811,7 +821,7 @@
         "rule_ok": true,
         "neural_out": "十全十美",
         "neural_ok": true,
-        "latency_ms": 12.5907
+        "latency_ms": 13.8697
       },
       {
         "id": "4字成语:17",
@@ -826,7 +836,7 @@
         "rule_ok": true,
         "neural_out": "百發百中",
         "neural_ok": true,
-        "latency_ms": 12.3969
+        "latency_ms": 14.1746
       },
       {
         "id": "4字成语:18",
@@ -841,7 +851,7 @@
         "rule_ok": true,
         "neural_out": "千軍萬馬",
         "neural_ok": true,
-        "latency_ms": 12.0867
+        "latency_ms": 15.2028
       },
       {
         "id": "4字成语:19",
@@ -856,7 +866,7 @@
         "rule_ok": true,
         "neural_out": "萬事如意",
         "neural_ok": true,
-        "latency_ms": 11.92
+        "latency_ms": 13.9771
       },
       {
         "id": "4字成语:20",
@@ -871,7 +881,7 @@
         "rule_ok": true,
         "neural_out": "心花怒放",
         "neural_ok": true,
-        "latency_ms": 12.4292
+        "latency_ms": 12.8659
       },
       {
         "id": "4字成语:21",
@@ -886,7 +896,7 @@
         "rule_ok": true,
         "neural_out": "目瞪口呆",
         "neural_ok": true,
-        "latency_ms": 11.8308
+        "latency_ms": 13.0382
       },
       {
         "id": "4字成语:22",
@@ -901,7 +911,7 @@
         "rule_ok": true,
         "neural_out": "唔可思議",
         "neural_ok": false,
-        "latency_ms": 12.1648
+        "latency_ms": 13.985
       },
       {
         "id": "4字成语:23",
@@ -916,7 +926,7 @@
         "rule_ok": true,
         "neural_out": "唔約而同",
         "neural_ok": false,
-        "latency_ms": 12.2008
+        "latency_ms": 13.9602
       },
       {
         "id": "4字成语:24",
@@ -931,7 +941,7 @@
         "rule_ok": true,
         "neural_out": "唔摺唔扣",
         "neural_ok": false,
-        "latency_ms": 12.2735
+        "latency_ms": 15.0086
       },
       {
         "id": "4字成语:25",
@@ -946,7 +956,7 @@
         "rule_ok": false,
         "neural_out": "實事求係",
         "neural_ok": false,
-        "latency_ms": 11.9859
+        "latency_ms": 15.1347
       },
       {
         "id": "4字成语:26",
@@ -961,7 +971,7 @@
         "rule_ok": true,
         "neural_out": "因地制宜",
         "neural_ok": true,
-        "latency_ms": 12.2371
+        "latency_ms": 14.408
       },
       {
         "id": "4字成语:27",
@@ -976,7 +986,7 @@
         "rule_ok": true,
         "neural_out": "錦上添花",
         "neural_ok": true,
-        "latency_ms": 12.7236
+        "latency_ms": 13.5537
       },
       {
         "id": "4字成语:28",
@@ -991,7 +1001,7 @@
         "rule_ok": true,
         "neural_out": "雪中送炭",
         "neural_ok": true,
-        "latency_ms": 12.5132
+        "latency_ms": 12.6008
       },
       {
         "id": "4字成语:29",
@@ -1006,7 +1016,7 @@
         "rule_ok": true,
         "neural_out": "水到渠成",
         "neural_ok": true,
-        "latency_ms": 12.0671
+        "latency_ms": 13.9723
       },
       {
         "id": "4字成语:30",
@@ -1021,7 +1031,7 @@
         "rule_ok": true,
         "neural_out": "順其自然",
         "neural_ok": true,
-        "latency_ms": 12.3278
+        "latency_ms": 13.8899
       },
       {
         "id": "4字成语:31",
@@ -1036,7 +1046,7 @@
         "rule_ok": true,
         "neural_out": "全力以赴",
         "neural_ok": true,
-        "latency_ms": 12.5537
+        "latency_ms": 14.2604
       },
       {
         "id": "4字成语:32",
@@ -1051,7 +1061,7 @@
         "rule_ok": true,
         "neural_out": "腳踏實地",
         "neural_ok": true,
-        "latency_ms": 12.5762
+        "latency_ms": 15.8152
       },
       {
         "id": "4字成语:33",
@@ -1066,7 +1076,7 @@
         "rule_ok": true,
         "neural_out": "一絲不苟",
         "neural_ok": true,
-        "latency_ms": 12.8498
+        "latency_ms": 14.3895
       },
       {
         "id": "4字成语:34",
@@ -1081,7 +1091,7 @@
         "rule_ok": true,
         "neural_out": "有條不計",
         "neural_ok": false,
-        "latency_ms": 12.3382
+        "latency_ms": 14.4258
       },
       {
         "id": "4字成语:35",
@@ -1096,7 +1106,7 @@
         "rule_ok": true,
         "neural_out": "循序漸入",
         "neural_ok": false,
-        "latency_ms": 12.5416
+        "latency_ms": 12.8613
       },
       {
         "id": "4字成语:36",
@@ -1111,7 +1121,7 @@
         "rule_ok": true,
         "neural_out": "溫故知新",
         "neural_ok": true,
-        "latency_ms": 12.4953
+        "latency_ms": 13.9861
       },
       {
         "id": "4字成语:37",
@@ -1126,7 +1136,7 @@
         "rule_ok": true,
         "neural_out": "舉一反三",
         "neural_ok": true,
-        "latency_ms": 12.5463
+        "latency_ms": 13.6109
       },
       {
         "id": "4字成语:38",
@@ -1141,7 +1151,7 @@
         "rule_ok": true,
         "neural_out": "融會貫通",
         "neural_ok": true,
-        "latency_ms": 12.0707
+        "latency_ms": 14.6127
       },
       {
         "id": "4字成语:39",
@@ -1156,7 +1166,7 @@
         "rule_ok": true,
         "neural_out": "精益求精",
         "neural_ok": true,
-        "latency_ms": 12.6988
+        "latency_ms": 16.335
       },
       {
         "id": "5-7字:0",
@@ -1171,7 +1181,7 @@
         "rule_ok": false,
         "neural_out": "唔係佢寫嘅噉",
         "neural_ok": true,
-        "latency_ms": 18.1833
+        "latency_ms": 20.4285
       },
       {
         "id": "5-7字:1",
@@ -1186,7 +1196,7 @@
         "rule_ok": true,
         "neural_out": "而家抽三張牌。",
         "neural_ok": true,
-        "latency_ms": 21.1745
+        "latency_ms": 21.9883
       },
       {
         "id": "5-7字:2",
@@ -1201,7 +1211,7 @@
         "rule_ok": true,
         "neural_out": "得唔得啊？",
         "neural_ok": true,
-        "latency_ms": 15.3995
+        "latency_ms": 17.1287
       },
       {
         "id": "5-7字:3",
@@ -1216,7 +1226,7 @@
         "rule_ok": true,
         "neural_out": "買棺材唔知埞",
         "neural_ok": true,
-        "latency_ms": 17.6117
+        "latency_ms": 19.6995
       },
       {
         "id": "5-7字:4",
@@ -1231,7 +1241,7 @@
         "rule_ok": false,
         "neural_out": "你都鍾意咩？",
         "neural_ok": false,
-        "latency_ms": 16.8537
+        "latency_ms": 19.8312
       },
       {
         "id": "5-7字:5",
@@ -1246,7 +1256,7 @@
         "rule_ok": false,
         "neural_out": "有時大髀都交埋",
         "neural_ok": true,
-        "latency_ms": 19.7889
+        "latency_ms": 24.7881
       },
       {
         "id": "5-7字:6",
@@ -1261,7 +1271,7 @@
         "rule_ok": false,
         "neural_out": "摑咗佢一巴",
         "neural_ok": false,
-        "latency_ms": 15.1705
+        "latency_ms": 19.839
       },
       {
         "id": "5-7字:7",
@@ -1276,7 +1286,7 @@
         "rule_ok": false,
         "neural_out": "全部有三百多人",
         "neural_ok": false,
-        "latency_ms": 19.7924
+        "latency_ms": 50.3133
       },
       {
         "id": "5-7字:8",
@@ -1291,7 +1301,7 @@
         "rule_ok": true,
         "neural_out": "晨早就知啦！",
         "neural_ok": true,
-        "latency_ms": 17.168
+        "latency_ms": 49.7901
       },
       {
         "id": "5-7字:9",
@@ -1306,7 +1316,7 @@
         "rule_ok": false,
         "neural_out": "咪畀人蝦",
         "neural_ok": false,
-        "latency_ms": 13.0053
+        "latency_ms": 21.8944
       },
       {
         "id": "5-7字:10",
@@ -1321,7 +1331,7 @@
         "rule_ok": false,
         "neural_out": "你真係有心勁",
         "neural_ok": false,
-        "latency_ms": 17.1876
+        "latency_ms": 21.2388
       },
       {
         "id": "5-7字:11",
@@ -1336,7 +1346,7 @@
         "rule_ok": true,
         "neural_out": "樹大好遮蔭。",
         "neural_ok": true,
-        "latency_ms": 17.7274
+        "latency_ms": 22.213
       },
       {
         "id": "5-7字:12",
@@ -1351,7 +1361,7 @@
         "rule_ok": false,
         "neural_out": "咁呢批音訊呢",
         "neural_ok": false,
-        "latency_ms": 18.3103
+        "latency_ms": 24.6361
       },
       {
         "id": "5-7字:13",
@@ -1366,7 +1376,7 @@
         "rule_ok": false,
         "neural_out": "你好似有嘢煩",
         "neural_ok": false,
-        "latency_ms": 18.8867
+        "latency_ms": 23.9171
       },
       {
         "id": "5-7字:14",
@@ -1381,7 +1391,7 @@
         "rule_ok": true,
         "neural_out": "去羅湖過關",
         "neural_ok": true,
-        "latency_ms": 14.7766
+        "latency_ms": 18.3493
       },
       {
         "id": "5-7字:15",
@@ -1396,7 +1406,7 @@
         "rule_ok": false,
         "neural_out": "耶魯都可以打啊",
         "neural_ok": true,
-        "latency_ms": 19.5809
+        "latency_ms": 22.972
       },
       {
         "id": "5-7字:16",
@@ -1411,7 +1421,7 @@
         "rule_ok": false,
         "neural_out": "咩意思個字",
         "neural_ok": false,
-        "latency_ms": 14.9681
+        "latency_ms": 17.8349
       },
       {
         "id": "5-7字:17",
@@ -1426,7 +1436,7 @@
         "rule_ok": false,
         "neural_out": "我心度肉緊",
         "neural_ok": false,
-        "latency_ms": 14.6822
+        "latency_ms": 16.7351
       },
       {
         "id": "5-7字:18",
@@ -1441,7 +1451,7 @@
         "rule_ok": true,
         "neural_out": "wouwou",
         "neural_ok": true,
-        "latency_ms": 16.8266
+        "latency_ms": 23.5352
       },
       {
         "id": "5-7字:19",
@@ -1456,7 +1466,7 @@
         "rule_ok": false,
         "neural_out": "世界七大奇蹟",
         "neural_ok": true,
-        "latency_ms": 17.3333
+        "latency_ms": 24.5869
       },
       {
         "id": "5-7字:20",
@@ -1471,7 +1481,7 @@
         "rule_ok": false,
         "neural_out": "佢最有利喇",
         "neural_ok": false,
-        "latency_ms": 15.0443
+        "latency_ms": 18.0794
       },
       {
         "id": "5-7字:21",
@@ -1486,7 +1496,7 @@
         "rule_ok": true,
         "neural_out": "中國駐英國大使",
         "neural_ok": true,
-        "latency_ms": 20.5126
+        "latency_ms": 21.8767
       },
       {
         "id": "5-7字:22",
@@ -1501,7 +1511,7 @@
         "rule_ok": false,
         "neural_out": "呢啲年糕好削",
         "neural_ok": false,
-        "latency_ms": 17.8017
+        "latency_ms": 20.7405
       },
       {
         "id": "5-7字:23",
@@ -1516,7 +1526,7 @@
         "rule_ok": true,
         "neural_out": "只要冇證據",
         "neural_ok": true,
-        "latency_ms": 14.9307
+        "latency_ms": 17.1247
       },
       {
         "id": "5-7字:24",
@@ -1531,7 +1541,7 @@
         "rule_ok": false,
         "neural_out": "佢唱歌有啲玩靚",
         "neural_ok": false,
-        "latency_ms": 20.1873
+        "latency_ms": 24.1665
       },
       {
         "id": "5-7字:25",
@@ -1546,7 +1556,7 @@
         "rule_ok": false,
         "neural_out": "佢份人好商量",
         "neural_ok": false,
-        "latency_ms": 18.22
+        "latency_ms": 23.1943
       },
       {
         "id": "5-7字:26",
@@ -1561,7 +1571,7 @@
         "rule_ok": true,
         "neural_out": "今晚佢做廳長",
         "neural_ok": true,
-        "latency_ms": 17.8982
+        "latency_ms": 20.8921
       },
       {
         "id": "5-7字:27",
@@ -1576,7 +1586,7 @@
         "rule_ok": true,
         "neural_out": "今晚唔係好凍",
         "neural_ok": true,
-        "latency_ms": 18.6461
+        "latency_ms": 19.3671
       },
       {
         "id": "5-7字:28",
@@ -1591,7 +1601,7 @@
         "rule_ok": true,
         "neural_out": "後真相政治",
         "neural_ok": true,
-        "latency_ms": 15.0582
+        "latency_ms": 17.5959
       },
       {
         "id": "5-7字:29",
@@ -1606,7 +1616,7 @@
         "rule_ok": false,
         "neural_out": "我唔識英文",
         "neural_ok": false,
-        "latency_ms": 14.945
+        "latency_ms": 17.3754
       },
       {
         "id": "5-7字:30",
@@ -1621,7 +1631,7 @@
         "rule_ok": true,
         "neural_out": "天下嘅人民",
         "neural_ok": true,
-        "latency_ms": 15.0255
+        "latency_ms": 16.597
       },
       {
         "id": "5-7字:31",
@@ -1636,7 +1646,7 @@
         "rule_ok": false,
         "neural_out": "你唔好咁謙啦！",
         "neural_ok": false,
-        "latency_ms": 19.8965
+        "latency_ms": 26.7203
       },
       {
         "id": "5-7字:32",
@@ -1651,7 +1661,7 @@
         "rule_ok": false,
         "neural_out": "大家唔好嘈",
         "neural_ok": true,
-        "latency_ms": 14.5964
+        "latency_ms": 18.5573
       },
       {
         "id": "5-7字:33",
@@ -1666,7 +1676,7 @@
         "rule_ok": false,
         "neural_out": "原來佢口唔啱心",
         "neural_ok": false,
-        "latency_ms": 20.5047
+        "latency_ms": 23.9787
       },
       {
         "id": "5-7字:34",
@@ -1681,7 +1691,7 @@
         "rule_ok": false,
         "neural_out": "汽車滅咗火喇",
         "neural_ok": false,
-        "latency_ms": 17.6785
+        "latency_ms": 19.314
       },
       {
         "id": "5-7字:35",
@@ -1696,7 +1706,7 @@
         "rule_ok": true,
         "neural_out": "照樣打佢哋",
         "neural_ok": true,
-        "latency_ms": 15.3578
+        "latency_ms": 17.9137
       },
       {
         "id": "5-7字:36",
@@ -1711,7 +1721,7 @@
         "rule_ok": true,
         "neural_out": "打code",
         "neural_ok": true,
-        "latency_ms": 15.0108
+        "latency_ms": 17.2211
       },
       {
         "id": "5-7字:37",
@@ -1726,7 +1736,7 @@
         "rule_ok": false,
         "neural_out": "真係活見鬼",
         "neural_ok": false,
-        "latency_ms": 16.1032
+        "latency_ms": 17.7392
       },
       {
         "id": "5-7字:38",
@@ -1741,7 +1751,7 @@
         "rule_ok": false,
         "neural_out": "搞到我一頭霧水",
         "neural_ok": true,
-        "latency_ms": 20.122
+        "latency_ms": 25.9342
       },
       {
         "id": "5-7字:39",
@@ -1756,7 +1766,7 @@
         "rule_ok": false,
         "neural_out": "即刻可以食飯喇",
         "neural_ok": false,
-        "latency_ms": 20.0159
+        "latency_ms": 24.3375
       },
       {
         "id": "5-7字:40",
@@ -1771,7 +1781,7 @@
         "rule_ok": false,
         "neural_out": "細聲啲，佢瞓住",
         "neural_ok": false,
-        "latency_ms": 20.9476
+        "latency_ms": 21.793
       },
       {
         "id": "5-7字:41",
@@ -1786,7 +1796,7 @@
         "rule_ok": false,
         "neural_out": "佢哋想裝修樓面",
         "neural_ok": true,
-        "latency_ms": 19.5402
+        "latency_ms": 21.8469
       },
       {
         "id": "5-7字:42",
@@ -1801,7 +1811,7 @@
         "rule_ok": true,
         "neural_out": "你聽我講先",
         "neural_ok": true,
-        "latency_ms": 14.632
+        "latency_ms": 17.0837
       },
       {
         "id": "5-7字:43",
@@ -1816,7 +1826,7 @@
         "rule_ok": true,
         "neural_out": "（機場）國際線",
         "neural_ok": true,
-        "latency_ms": 19.7494
+        "latency_ms": 24.071
       },
       {
         "id": "5-7字:44",
@@ -1831,7 +1841,7 @@
         "rule_ok": false,
         "neural_out": "你知佢嗰性",
         "neural_ok": false,
-        "latency_ms": 15.069
+        "latency_ms": 18.8764
       },
       {
         "id": "5-7字:45",
@@ -1846,7 +1856,7 @@
         "rule_ok": false,
         "neural_out": "都過咗一個月喇",
         "neural_ok": true,
-        "latency_ms": 19.9048
+        "latency_ms": 23.125
       },
       {
         "id": "5-7字:46",
@@ -1861,7 +1871,7 @@
         "rule_ok": false,
         "neural_out": "收到，唔該曬",
         "neural_ok": true,
-        "latency_ms": 17.2017
+        "latency_ms": 18.6615
       },
       {
         "id": "5-7字:47",
@@ -1876,7 +1886,7 @@
         "rule_ok": true,
         "neural_out": "好似唔多通",
         "neural_ok": true,
-        "latency_ms": 14.5985
+        "latency_ms": 16.8168
       },
       {
         "id": "5-7字:48",
@@ -1891,7 +1901,7 @@
         "rule_ok": false,
         "neural_out": "打住紅旗反紅旗",
         "neural_ok": false,
-        "latency_ms": 19.4144
+        "latency_ms": 23.1847
       },
       {
         "id": "5-7字:49",
@@ -1906,7 +1916,7 @@
         "rule_ok": false,
         "neural_out": "千祈唔好講",
         "neural_ok": true,
-        "latency_ms": 15.5415
+        "latency_ms": 17.2438
       },
       {
         "id": "5-7字:50",
@@ -1921,7 +1931,7 @@
         "rule_ok": false,
         "neural_out": "聽唔明啲電臺",
         "neural_ok": true,
-        "latency_ms": 20.2589
+        "latency_ms": 20.2103
       },
       {
         "id": "5-7字:51",
@@ -1936,7 +1946,7 @@
         "rule_ok": false,
         "neural_out": "真係激死人！",
         "neural_ok": false,
-        "latency_ms": 18.752
+        "latency_ms": 23.1589
       },
       {
         "id": "5-7字:52",
@@ -1951,7 +1961,7 @@
         "rule_ok": false,
         "neural_out": "啲樣好黐",
         "neural_ok": false,
-        "latency_ms": 13.6422
+        "latency_ms": 15.1092
       },
       {
         "id": "5-7字:53",
@@ -1966,7 +1976,7 @@
         "rule_ok": false,
         "neural_out": "千祈唔好做！",
         "neural_ok": false,
-        "latency_ms": 18.7592
+        "latency_ms": 20.4976
       },
       {
         "id": "5-7字:54",
@@ -1981,7 +1991,7 @@
         "rule_ok": true,
         "neural_out": "所以唔會留底",
         "neural_ok": true,
-        "latency_ms": 18.0298
+        "latency_ms": 18.9739
       },
       {
         "id": "5-7字:55",
@@ -1996,7 +2006,7 @@
         "rule_ok": false,
         "neural_out": "佢老豆好溺愛佢",
         "neural_ok": false,
-        "latency_ms": 21.2403
+        "latency_ms": 22.418
       },
       {
         "id": "5-7字:56",
@@ -2011,7 +2021,7 @@
         "rule_ok": false,
         "neural_out": "捍衛新聞自由",
         "neural_ok": false,
-        "latency_ms": 18.2136
+        "latency_ms": 19.5149
       },
       {
         "id": "5-7字:57",
@@ -2026,7 +2036,7 @@
         "rule_ok": false,
         "neural_out": "我眼瞓啫嘛",
         "neural_ok": false,
-        "latency_ms": 15.9148
+        "latency_ms": 17.3731
       },
       {
         "id": "5-7字:58",
@@ -2041,7 +2051,7 @@
         "rule_ok": false,
         "neural_out": "呢啲乜嘢嚟㗎",
         "neural_ok": false,
-        "latency_ms": 17.7884
+        "latency_ms": 22.5812
       },
       {
         "id": "5-7字:59",
@@ -2056,7 +2066,7 @@
         "rule_ok": false,
         "neural_out": "仲要注冊帳號添",
         "neural_ok": false,
-        "latency_ms": 21.1906
+        "latency_ms": 24.2598
       },
       {
         "id": "5-7字:60",
@@ -2071,7 +2081,7 @@
         "rule_ok": false,
         "neural_out": "已經過咗兩過",
         "neural_ok": false,
-        "latency_ms": 17.5854
+        "latency_ms": 20.2936
       },
       {
         "id": "5-7字:61",
@@ -2086,7 +2096,7 @@
         "rule_ok": false,
         "neural_out": "佢識撚咩？",
         "neural_ok": true,
-        "latency_ms": 14.9066
+        "latency_ms": 17.0677
       },
       {
         "id": "5-7字:62",
@@ -2101,7 +2111,7 @@
         "rule_ok": false,
         "neural_out": "佢尾骨彎彎哋。",
         "neural_ok": false,
-        "latency_ms": 51.0789
+        "latency_ms": 21.0068
       },
       {
         "id": "5-7字:63",
@@ -2116,7 +2126,7 @@
         "rule_ok": false,
         "neural_out": "係喺房度㗎喎",
         "neural_ok": false,
-        "latency_ms": 17.5722
+        "latency_ms": 19.6499
       },
       {
         "id": "5-7字:64",
@@ -2131,7 +2141,7 @@
         "rule_ok": true,
         "neural_out": "犯罪心理學",
         "neural_ok": true,
-        "latency_ms": 14.6312
+        "latency_ms": 16.97
       },
       {
         "id": "5-7字:65",
@@ -2146,7 +2156,7 @@
         "rule_ok": true,
         "neural_out": "獨立委員會",
         "neural_ok": true,
-        "latency_ms": 14.4684
+        "latency_ms": 17.014
       },
       {
         "id": "5-7字:66",
@@ -2161,7 +2171,7 @@
         "rule_ok": false,
         "neural_out": "你要諗啲橋先得",
         "neural_ok": true,
-        "latency_ms": 19.9894
+        "latency_ms": 25.021
       },
       {
         "id": "5-7字:67",
@@ -2176,7 +2186,7 @@
         "rule_ok": true,
         "neural_out": "你做咩睇低我？",
         "neural_ok": true,
-        "latency_ms": 20.3578
+        "latency_ms": 24.2298
       },
       {
         "id": "5-7字:68",
@@ -2191,7 +2201,7 @@
         "rule_ok": false,
         "neural_out": "離開工作崗位",
         "neural_ok": true,
-        "latency_ms": 16.34
+        "latency_ms": 20.9395
       },
       {
         "id": "5-7字:69",
@@ -2206,7 +2216,7 @@
         "rule_ok": true,
         "neural_out": "今晚晚餐食扒。",
         "neural_ok": true,
-        "latency_ms": 19.0854
+        "latency_ms": 22.6454
       },
       {
         "id": "5-7字:70",
@@ -2221,7 +2231,7 @@
         "rule_ok": false,
         "neural_out": "咪亂噏講嘢",
         "neural_ok": false,
-        "latency_ms": 14.5303
+        "latency_ms": 15.3695
       },
       {
         "id": "5-7字:71",
@@ -2236,7 +2246,7 @@
         "rule_ok": false,
         "neural_out": "達到一定水平",
         "neural_ok": true,
-        "latency_ms": 17.0369
+        "latency_ms": 19.1348
       },
       {
         "id": "5-7字:72",
@@ -2251,7 +2261,7 @@
         "rule_ok": false,
         "neural_out": "老師走進教室",
         "neural_ok": false,
-        "latency_ms": 16.712
+        "latency_ms": 19.3329
       },
       {
         "id": "5-7字:73",
@@ -2266,7 +2276,7 @@
         "rule_ok": true,
         "neural_out": "玲姐，早晨！",
         "neural_ok": true,
-        "latency_ms": 17.3705
+        "latency_ms": 19.2739
       },
       {
         "id": "5-7字:74",
@@ -2281,7 +2291,7 @@
         "rule_ok": false,
         "neural_out": "佢俾車門挾親",
         "neural_ok": false,
-        "latency_ms": 16.6766
+        "latency_ms": 19.5022
       },
       {
         "id": "5-7字:75",
@@ -2296,7 +2306,7 @@
         "rule_ok": false,
         "neural_out": "我呢排比較忙",
         "neural_ok": true,
-        "latency_ms": 16.8617
+        "latency_ms": 19.2555
       },
       {
         "id": "5-7字:76",
@@ -2311,7 +2321,7 @@
         "rule_ok": false,
         "neural_out": "凍到面青青嘅",
         "neural_ok": false,
-        "latency_ms": 17.516
+        "latency_ms": 19.2234
       },
       {
         "id": "5-7字:77",
@@ -2326,7 +2336,7 @@
         "rule_ok": false,
         "neural_out": "你喺度好啱曬",
         "neural_ok": false,
-        "latency_ms": 17.4592
+        "latency_ms": 20.6316
       },
       {
         "id": "5-7字:78",
@@ -2341,7 +2351,7 @@
         "rule_ok": false,
         "neural_out": "樹根破咗。",
         "neural_ok": false,
-        "latency_ms": 14.6516
+        "latency_ms": 16.5456
       },
       {
         "id": "5-7字:79",
@@ -2356,7 +2366,7 @@
         "rule_ok": true,
         "neural_out": "股票交易所",
         "neural_ok": true,
-        "latency_ms": 14.6815
+        "latency_ms": 16.7358
       },
       {
         "id": "5-7字:80",
@@ -2371,7 +2381,7 @@
         "rule_ok": false,
         "neural_out": "輪到你走子喇",
         "neural_ok": false,
-        "latency_ms": 16.9572
+        "latency_ms": 19.03
       },
       {
         "id": "5-7字:81",
@@ -2386,7 +2396,7 @@
         "rule_ok": false,
         "neural_out": "擔返口大雪茄",
         "neural_ok": true,
-        "latency_ms": 17.2096
+        "latency_ms": 19.6239
       },
       {
         "id": "5-7字:82",
@@ -2401,7 +2411,7 @@
         "rule_ok": false,
         "neural_out": "簡易家常菜",
         "neural_ok": true,
-        "latency_ms": 14.458
+        "latency_ms": 16.373
       },
       {
         "id": "5-7字:83",
@@ -2416,7 +2426,7 @@
         "rule_ok": false,
         "neural_out": "究竟邊個先啱呢",
         "neural_ok": false,
-        "latency_ms": 19.5661
+        "latency_ms": 21.895
       },
       {
         "id": "5-7字:84",
@@ -2431,7 +2441,7 @@
         "rule_ok": false,
         "neural_out": "講嘢唔好咁長氣",
         "neural_ok": false,
-        "latency_ms": 19.2271
+        "latency_ms": 22.148
       },
       {
         "id": "5-7字:85",
@@ -2446,7 +2456,7 @@
         "rule_ok": false,
         "neural_out": "今日天氣晴",
         "neural_ok": false,
-        "latency_ms": 14.9099
+        "latency_ms": 17.2649
       },
       {
         "id": "5-7字:86",
@@ -2461,7 +2471,7 @@
         "rule_ok": false,
         "neural_out": "你想講乜嘢？",
         "neural_ok": false,
-        "latency_ms": 17.7067
+        "latency_ms": 18.8738
       },
       {
         "id": "5-7字:87",
@@ -2476,7 +2486,7 @@
         "rule_ok": true,
         "neural_out": "提高行政效率",
         "neural_ok": true,
-        "latency_ms": 16.8222
+        "latency_ms": 18.2094
       },
       {
         "id": "5-7字:88",
@@ -2491,7 +2501,7 @@
         "rule_ok": true,
         "neural_out": "快啲畀我睇",
         "neural_ok": true,
-        "latency_ms": 15.4694
+        "latency_ms": 16.6747
       },
       {
         "id": "5-7字:89",
@@ -2506,7 +2516,7 @@
         "rule_ok": true,
         "neural_out": "確定會議日期",
         "neural_ok": true,
-        "latency_ms": 17.5223
+        "latency_ms": 18.8528
       },
       {
         "id": "5-7字:90",
@@ -2521,7 +2531,7 @@
         "rule_ok": true,
         "neural_out": "造成龐大嘅損失",
         "neural_ok": true,
-        "latency_ms": 21.1867
+        "latency_ms": 22.7807
       },
       {
         "id": "5-7字:91",
@@ -2536,7 +2546,7 @@
         "rule_ok": false,
         "neural_out": "唔好單打我！",
         "neural_ok": false,
-        "latency_ms": 18.4286
+        "latency_ms": 20.1342
       },
       {
         "id": "5-7字:92",
@@ -2551,7 +2561,7 @@
         "rule_ok": true,
         "neural_out": "罕見嘅疾病",
         "neural_ok": true,
-        "latency_ms": 15.6807
+        "latency_ms": 16.2687
       },
       {
         "id": "5-7字:93",
@@ -2566,7 +2576,7 @@
         "rule_ok": true,
         "neural_out": "我聽咗幾次",
         "neural_ok": true,
-        "latency_ms": 14.9454
+        "latency_ms": 17.3816
       },
       {
         "id": "5-7字:94",
@@ -2581,7 +2591,7 @@
         "rule_ok": true,
         "neural_out": "我去咗紋身。",
         "neural_ok": true,
-        "latency_ms": 17.3138
+        "latency_ms": 19.5771
       },
       {
         "id": "5-7字:95",
@@ -2596,7 +2606,7 @@
         "rule_ok": true,
         "neural_out": "味道不錯。",
         "neural_ok": false,
-        "latency_ms": 15.3856
+        "latency_ms": 17.4812
       },
       {
         "id": "5-7字:96",
@@ -2611,7 +2621,7 @@
         "rule_ok": false,
         "neural_out": "妹妹最鍾意食糖",
         "neural_ok": false,
-        "latency_ms": 20.7292
+        "latency_ms": 22.434
       },
       {
         "id": "5-7字:97",
@@ -2626,7 +2636,7 @@
         "rule_ok": false,
         "neural_out": "積蓄咗好多錢",
         "neural_ok": false,
-        "latency_ms": 17.2199
+        "latency_ms": 19.4279
       },
       {
         "id": "5-7字:98",
@@ -2641,7 +2651,7 @@
         "rule_ok": false,
         "neural_out": "我頭先瞌住曬。",
         "neural_ok": false,
-        "latency_ms": 19.8903
+        "latency_ms": 22.7628
       },
       {
         "id": "5-7字:99",
@@ -2656,7 +2666,7 @@
         "rule_ok": true,
         "neural_out": "受到空軍襲擊",
         "neural_ok": true,
-        "latency_ms": 17.1244
+        "latency_ms": 21.4589
       },
       {
         "id": "5-7字:100",
@@ -2671,7 +2681,7 @@
         "rule_ok": true,
         "neural_out": "大規模示威",
         "neural_ok": true,
-        "latency_ms": 14.9087
+        "latency_ms": 16.6086
       },
       {
         "id": "5-7字:101",
@@ -2686,7 +2696,7 @@
         "rule_ok": true,
         "neural_out": "影響個人形象",
         "neural_ok": true,
-        "latency_ms": 16.6852
+        "latency_ms": 18.9852
       },
       {
         "id": "5-7字:102",
@@ -2701,7 +2711,7 @@
         "rule_ok": false,
         "neural_out": "等我入去！",
         "neural_ok": false,
-        "latency_ms": 14.7123
+        "latency_ms": 16.3595
       },
       {
         "id": "5-7字:103",
@@ -2716,7 +2726,7 @@
         "rule_ok": false,
         "neural_out": "一陣先講",
         "neural_ok": false,
-        "latency_ms": 11.8429
+        "latency_ms": 13.6593
       },
       {
         "id": "5-7字:104",
@@ -2731,7 +2741,7 @@
         "rule_ok": false,
         "neural_out": "唔好去呀！",
         "neural_ok": false,
-        "latency_ms": 14.1766
+        "latency_ms": 16.5245
       },
       {
         "id": "5-7字:105",
@@ -2746,7 +2756,7 @@
         "rule_ok": false,
         "neural_out": "嗌咗振宇埋嚟啊",
         "neural_ok": false,
-        "latency_ms": 19.7015
+        "latency_ms": 23.7535
       },
       {
         "id": "5-7字:106",
@@ -2761,7 +2771,7 @@
         "rule_ok": false,
         "neural_out": "腰赤赤痛。",
         "neural_ok": false,
-        "latency_ms": 14.9317
+        "latency_ms": 16.9812
       },
       {
         "id": "5-7字:107",
@@ -2776,7 +2786,7 @@
         "rule_ok": true,
         "neural_out": "城際直通車",
         "neural_ok": true,
-        "latency_ms": 15.326
+        "latency_ms": 15.8506
       },
       {
         "id": "5-7字:108",
@@ -2791,7 +2801,7 @@
         "rule_ok": false,
         "neural_out": "假嘅都係真㗎？",
         "neural_ok": false,
-        "latency_ms": 21.8662
+        "latency_ms": 22.1396
       },
       {
         "id": "5-7字:109",
@@ -2806,7 +2816,7 @@
         "rule_ok": false,
         "neural_out": "喺香港唔會落雪",
         "neural_ok": true,
-        "latency_ms": 20.346
+        "latency_ms": 21.9753
       },
       {
         "id": "5-7字:110",
@@ -2821,7 +2831,7 @@
         "rule_ok": false,
         "neural_out": "佢入嚟未？",
         "neural_ok": false,
-        "latency_ms": 14.1185
+        "latency_ms": 17.6616
       },
       {
         "id": "5-7字:111",
@@ -2836,7 +2846,7 @@
         "rule_ok": true,
         "neural_out": "成人身份證",
         "neural_ok": true,
-        "latency_ms": 14.6641
+        "latency_ms": 17.3705
       },
       {
         "id": "5-7字:112",
@@ -2851,7 +2861,7 @@
         "rule_ok": true,
         "neural_out": "其實你唔使噉",
         "neural_ok": false,
-        "latency_ms": 16.8624
+        "latency_ms": 19.1443
       },
       {
         "id": "5-7字:113",
@@ -2866,7 +2876,7 @@
         "rule_ok": true,
         "neural_out": "俗世嘅眼光",
         "neural_ok": true,
-        "latency_ms": 14.2658
+        "latency_ms": 16.742
       },
       {
         "id": "5-7字:114",
@@ -2881,7 +2891,7 @@
         "rule_ok": true,
         "neural_out": "震源機制解",
         "neural_ok": true,
-        "latency_ms": 14.108
+        "latency_ms": 16.1942
       },
       {
         "id": "5-7字:115",
@@ -2896,7 +2906,7 @@
         "rule_ok": false,
         "neural_out": "吞吞啲藥！",
         "neural_ok": false,
-        "latency_ms": 14.701
+        "latency_ms": 17.938
       },
       {
         "id": "5-7字:116",
@@ -2911,7 +2921,7 @@
         "rule_ok": true,
         "neural_out": "一身珠光寶氣",
         "neural_ok": true,
-        "latency_ms": 16.7525
+        "latency_ms": 19.5315
       },
       {
         "id": "5-7字:117",
@@ -2926,7 +2936,7 @@
         "rule_ok": false,
         "neural_out": "唔會做網站",
         "neural_ok": false,
-        "latency_ms": 14.8521
+        "latency_ms": 16.5725
       },
       {
         "id": "5-7字:118",
@@ -2941,7 +2951,7 @@
         "rule_ok": false,
         "neural_out": "做咗兩枱酒席",
         "neural_ok": false,
-        "latency_ms": 17.501
+        "latency_ms": 18.024
       },
       {
         "id": "5-7字:119",
@@ -2956,7 +2966,7 @@
         "rule_ok": false,
         "neural_out": "你信唔信佛㗎？",
         "neural_ok": true,
-        "latency_ms": 21.2963
+        "latency_ms": 22.9027
       },
       {
         "id": "5-7字:120",
@@ -2971,7 +2981,7 @@
         "rule_ok": false,
         "neural_out": "荔枝蜜特別香",
         "neural_ok": false,
-        "latency_ms": 18.575
+        "latency_ms": 18.3523
       },
       {
         "id": "5-7字:121",
@@ -2986,7 +2996,7 @@
         "rule_ok": true,
         "neural_out": "連鎖補習社",
         "neural_ok": true,
-        "latency_ms": 14.9672
+        "latency_ms": 17.2232
       },
       {
         "id": "5-7字:122",
@@ -3001,7 +3011,7 @@
         "rule_ok": false,
         "neural_out": "果醬三文治",
         "neural_ok": true,
-        "latency_ms": 15.1093
+        "latency_ms": 17.8782
       },
       {
         "id": "5-7字:123",
@@ -3016,7 +3026,7 @@
         "rule_ok": false,
         "neural_out": "度身定做嘅衫",
         "neural_ok": true,
-        "latency_ms": 17.4936
+        "latency_ms": 20.0542
       },
       {
         "id": "5-7字:124",
@@ -3031,7 +3041,7 @@
         "rule_ok": true,
         "neural_out": "晴朗嘅天空",
         "neural_ok": true,
-        "latency_ms": 14.8295
+        "latency_ms": 16.7678
       },
       {
         "id": "5-7字:125",
@@ -3046,7 +3056,7 @@
         "rule_ok": false,
         "neural_out": "呢件事好商量",
         "neural_ok": false,
-        "latency_ms": 16.9597
+        "latency_ms": 19.3396
       },
       {
         "id": "5-7字:126",
@@ -3061,7 +3071,7 @@
         "rule_ok": true,
         "neural_out": "一切順利。",
         "neural_ok": true,
-        "latency_ms": 14.133
+        "latency_ms": 16.892
       },
       {
         "id": "5-7字:127",
@@ -3076,7 +3086,7 @@
         "rule_ok": false,
         "neural_out": "唔好咁多廢話",
         "neural_ok": true,
-        "latency_ms": 16.9226
+        "latency_ms": 20.8083
       },
       {
         "id": "5-7字:128",
@@ -3091,7 +3101,7 @@
         "rule_ok": false,
         "neural_out": "貨曬曬喇",
         "neural_ok": false,
-        "latency_ms": 13.1175
+        "latency_ms": 14.0031
       },
       {
         "id": "5-7字:129",
@@ -3106,7 +3116,7 @@
         "rule_ok": true,
         "neural_out": "男兒當自強",
         "neural_ok": true,
-        "latency_ms": 17.309
+        "latency_ms": 19.5157
       },
       {
         "id": "5-7字:130",
@@ -3121,7 +3131,7 @@
         "rule_ok": false,
         "neural_out": "將嗰本書睇完",
         "neural_ok": false,
-        "latency_ms": 17.2707
+        "latency_ms": 18.3404
       },
       {
         "id": "5-7字:131",
@@ -3136,7 +3146,7 @@
         "rule_ok": false,
         "neural_out": "我唔係特登嘅",
         "neural_ok": false,
-        "latency_ms": 16.998
+        "latency_ms": 19.8963
       },
       {
         "id": "5-7字:132",
@@ -3151,7 +3161,7 @@
         "rule_ok": true,
         "neural_out": "下次我注意一下",
         "neural_ok": false,
-        "latency_ms": 20.4235
+        "latency_ms": 22.3202
       },
       {
         "id": "5-7字:133",
@@ -3166,7 +3176,7 @@
         "rule_ok": false,
         "neural_out": "但唔一定係粵文",
         "neural_ok": true,
-        "latency_ms": 21.6554
+        "latency_ms": 23.8291
       },
       {
         "id": "5-7字:134",
@@ -3181,7 +3191,7 @@
         "rule_ok": true,
         "neural_out": "嗗一聲吞咗佢。",
         "neural_ok": true,
-        "latency_ms": 20.227
+        "latency_ms": 22.0201
       },
       {
         "id": "5-7字:135",
@@ -3196,7 +3206,7 @@
         "rule_ok": false,
         "neural_out": "由天亮坐到黑夜",
         "neural_ok": false,
-        "latency_ms": 19.6045
+        "latency_ms": 20.711
       },
       {
         "id": "5-7字:136",
@@ -3211,7 +3221,7 @@
         "rule_ok": false,
         "neural_out": "佢蝕咗大本",
         "neural_ok": false,
-        "latency_ms": 14.9748
+        "latency_ms": 17.3935
       },
       {
         "id": "5-7字:137",
@@ -3226,7 +3236,7 @@
         "rule_ok": true,
         "neural_out": "街道命名典故",
         "neural_ok": true,
-        "latency_ms": 17.6487
+        "latency_ms": 20.24
       },
       {
         "id": "5-7字:138",
@@ -3241,7 +3251,7 @@
         "rule_ok": true,
         "neural_out": "呼應時代脈膊",
         "neural_ok": true,
-        "latency_ms": 17.7999
+        "latency_ms": 20.927
       },
       {
         "id": "5-7字:139",
@@ -3256,7 +3266,7 @@
         "rule_ok": false,
         "neural_out": "我呢排忙到𠺢轉",
         "neural_ok": false,
-        "latency_ms": 20.1216
+        "latency_ms": 21.4357
       },
       {
         "id": "5-7字:140",
@@ -3271,7 +3281,7 @@
         "rule_ok": true,
         "neural_out": "海岸巡邏隊",
         "neural_ok": true,
-        "latency_ms": 15.2756
+        "latency_ms": 16.8412
       },
       {
         "id": "5-7字:141",
@@ -3286,7 +3296,7 @@
         "rule_ok": false,
         "neural_out": "梗係你去啦",
         "neural_ok": false,
-        "latency_ms": 15.5297
+        "latency_ms": 16.3621
       },
       {
         "id": "5-7字:142",
@@ -3301,7 +3311,7 @@
         "rule_ok": false,
         "neural_out": "琴日冇邊個嚟過",
         "neural_ok": false,
-        "latency_ms": 20.1308
+        "latency_ms": 24.1293
       },
       {
         "id": "5-7字:143",
@@ -3316,7 +3326,7 @@
         "rule_ok": false,
         "neural_out": "佢唔係幾睇書",
         "neural_ok": false,
-        "latency_ms": 17.601
+        "latency_ms": 19.6455
       },
       {
         "id": "5-7字:144",
@@ -3331,7 +3341,7 @@
         "rule_ok": false,
         "neural_out": "計我睇你就唔好去",
         "neural_ok": false,
-        "latency_ms": 21.7609
+        "latency_ms": 23.2937
       },
       {
         "id": "5-7字:145",
@@ -3346,7 +3356,7 @@
         "rule_ok": false,
         "neural_out": "嗰間屋俾佢佔咗",
         "neural_ok": false,
-        "latency_ms": 19.3656
+        "latency_ms": 22.2998
       },
       {
         "id": "5-7字:146",
@@ -3361,7 +3371,7 @@
         "rule_ok": false,
         "neural_out": "我花突咗十幾蚊",
         "neural_ok": false,
-        "latency_ms": 18.7188
+        "latency_ms": 23.2953
       },
       {
         "id": "5-7字:147",
@@ -3376,7 +3386,7 @@
         "rule_ok": false,
         "neural_out": "我一啲都唔攰",
         "neural_ok": false,
-        "latency_ms": 16.9711
+        "latency_ms": 20.9037
       },
       {
         "id": "5-7字:148",
@@ -3391,7 +3401,7 @@
         "rule_ok": false,
         "neural_out": "佢撈得好落泊",
         "neural_ok": false,
-        "latency_ms": 17.1318
+        "latency_ms": 20.4917
       },
       {
         "id": "5-7字:149",
@@ -3406,7 +3416,7 @@
         "rule_ok": false,
         "neural_out": "我有殺冇賠",
         "neural_ok": true,
-        "latency_ms": 14.6768
+        "latency_ms": 16.266
       },
       {
         "id": "5-7字:150",
@@ -3421,7 +3431,7 @@
         "rule_ok": true,
         "neural_out": "紙杯傳聲筒",
         "neural_ok": true,
-        "latency_ms": 14.092
+        "latency_ms": 15.3435
       },
       {
         "id": "5-7字:151",
@@ -3436,7 +3446,7 @@
         "rule_ok": true,
         "neural_out": "西芹炒雞柳",
         "neural_ok": true,
-        "latency_ms": 15.2111
+        "latency_ms": 17.252
       },
       {
         "id": "5-7字:152",
@@ -3451,7 +3461,7 @@
         "rule_ok": false,
         "neural_out": "佢叫你僕街噃！",
         "neural_ok": false,
-        "latency_ms": 20.8708
+        "latency_ms": 22.473
       },
       {
         "id": "5-7字:153",
@@ -3466,7 +3476,7 @@
         "rule_ok": false,
         "neural_out": "要正常連網先得",
         "neural_ok": true,
-        "latency_ms": 20.3237
+        "latency_ms": 23.3852
       },
       {
         "id": "5-7字:154",
@@ -3481,7 +3491,7 @@
         "rule_ok": false,
         "neural_out": "佢唔想去囉。",
         "neural_ok": true,
-        "latency_ms": 18.4178
+        "latency_ms": 19.2098
       },
       {
         "id": "5-7字:155",
@@ -3496,7 +3506,7 @@
         "rule_ok": false,
         "neural_out": "呢個女仔好純真係",
         "neural_ok": false,
-        "latency_ms": 21.7613
+        "latency_ms": 24.9942
       },
       {
         "id": "5-7字:156",
@@ -3511,7 +3521,7 @@
         "rule_ok": true,
         "neural_out": "大規模裁員",
         "neural_ok": true,
-        "latency_ms": 14.389
+        "latency_ms": 16.7562
       },
       {
         "id": "5-7字:157",
@@ -3526,7 +3536,7 @@
         "rule_ok": false,
         "neural_out": "掃得塵土飛揚",
         "neural_ok": false,
-        "latency_ms": 17.412
+        "latency_ms": 21.168
       },
       {
         "id": "5-7字:158",
@@ -3541,7 +3551,7 @@
         "rule_ok": false,
         "neural_out": "我堅決唔應承",
         "neural_ok": false,
-        "latency_ms": 16.9146
+        "latency_ms": 19.4067
       },
       {
         "id": "5-7字:159",
@@ -3556,7 +3566,7 @@
         "rule_ok": false,
         "neural_out": "總冇瞓覺？",
         "neural_ok": true,
-        "latency_ms": 15.1977
+        "latency_ms": 15.3663
       },
       {
         "id": "5-7字:160",
@@ -3571,7 +3581,7 @@
         "rule_ok": false,
         "neural_out": "一腳猛落個水坑",
         "neural_ok": false,
-        "latency_ms": 19.5042
+        "latency_ms": 22.0985
       },
       {
         "id": "5-7字:161",
@@ -3586,7 +3596,7 @@
         "rule_ok": false,
         "neural_out": "請你唔好擋住門口",
         "neural_ok": false,
-        "latency_ms": 21.9103
+        "latency_ms": 25.9459
       },
       {
         "id": "5-7字:162",
@@ -3601,7 +3611,7 @@
         "rule_ok": false,
         "neural_out": "小兒科啫",
         "neural_ok": false,
-        "latency_ms": 12.1679
+        "latency_ms": 15.1617
       },
       {
         "id": "5-7字:163",
@@ -3616,7 +3626,7 @@
         "rule_ok": true,
         "neural_out": "你喺深水埗住？",
         "neural_ok": true,
-        "latency_ms": 19.4367
+        "latency_ms": 22.0916
       },
       {
         "id": "5-7字:164",
@@ -3631,7 +3641,7 @@
         "rule_ok": false,
         "neural_out": "摵住個位！",
         "neural_ok": false,
-        "latency_ms": 14.3963
+        "latency_ms": 15.7598
       },
       {
         "id": "5-7字:165",
@@ -3646,7 +3656,7 @@
         "rule_ok": false,
         "neural_out": "太陽出嚟喇",
         "neural_ok": false,
-        "latency_ms": 14.6514
+        "latency_ms": 16.9005
       },
       {
         "id": "5-7字:166",
@@ -3661,7 +3671,7 @@
         "rule_ok": false,
         "neural_out": "係非當人情",
         "neural_ok": false,
-        "latency_ms": 14.8323
+        "latency_ms": 17.4445
       },
       {
         "id": "5-7字:167",
@@ -3676,7 +3686,7 @@
         "rule_ok": true,
         "neural_out": "三腳貓功夫",
         "neural_ok": true,
-        "latency_ms": 14.8672
+        "latency_ms": 18.3996
       },
       {
         "id": "5-7字:168",
@@ -3691,7 +3701,7 @@
         "rule_ok": false,
         "neural_out": "仲想點？",
         "neural_ok": false,
-        "latency_ms": 13.1196
+        "latency_ms": 14.2525
       },
       {
         "id": "5-7字:169",
@@ -3706,7 +3716,7 @@
         "rule_ok": false,
         "neural_out": "狹窄嘅小巷",
         "neural_ok": false,
-        "latency_ms": 15.0528
+        "latency_ms": 15.7122
       },
       {
         "id": "5-7字:170",
@@ -3721,7 +3731,7 @@
         "rule_ok": false,
         "neural_out": "乜嘢平板嚟㗎？",
         "neural_ok": false,
-        "latency_ms": 19.7223
+        "latency_ms": 22.7005
       },
       {
         "id": "5-7字:171",
@@ -3736,7 +3746,7 @@
         "rule_ok": true,
         "neural_out": "就會比較低調",
         "neural_ok": true,
-        "latency_ms": 17.4869
+        "latency_ms": 19.307
       },
       {
         "id": "5-7字:172",
@@ -3751,7 +3761,7 @@
         "rule_ok": true,
         "neural_out": "盈利十分之微",
         "neural_ok": true,
-        "latency_ms": 17.1445
+        "latency_ms": 21.1357
       },
       {
         "id": "5-7字:173",
@@ -3766,7 +3776,7 @@
         "rule_ok": false,
         "neural_out": "好想出份力",
         "neural_ok": true,
-        "latency_ms": 15.097
+        "latency_ms": 17.8254
       },
       {
         "id": "5-7字:174",
@@ -3781,7 +3791,7 @@
         "rule_ok": false,
         "neural_out": "佢住我隔籬",
         "neural_ok": false,
-        "latency_ms": 15.952
+        "latency_ms": 16.6181
       },
       {
         "id": "5-7字:175",
@@ -3796,7 +3806,7 @@
         "rule_ok": false,
         "neural_out": "佢哋行到老母聲",
         "neural_ok": false,
-        "latency_ms": 20.8489
+        "latency_ms": 23.1641
       },
       {
         "id": "5-7字:176",
@@ -3811,7 +3821,7 @@
         "rule_ok": false,
         "neural_out": "哄佢講出真相",
         "neural_ok": false,
-        "latency_ms": 18.6587
+        "latency_ms": 19.1789
       },
       {
         "id": "5-7字:177",
@@ -3826,7 +3836,7 @@
         "rule_ok": false,
         "neural_out": "排演咗一次",
         "neural_ok": false,
-        "latency_ms": 15.2805
+        "latency_ms": 19.1604
       },
       {
         "id": "5-7字:178",
@@ -3841,7 +3851,7 @@
         "rule_ok": false,
         "neural_out": "呢位係我嘅祕書",
         "neural_ok": true,
-        "latency_ms": 20.2231
+        "latency_ms": 22.8413
       },
       {
         "id": "5-7字:179",
@@ -3856,7 +3866,7 @@
         "rule_ok": false,
         "neural_out": "呢個係我嘅名片",
         "neural_ok": false,
-        "latency_ms": 20.0838
+        "latency_ms": 22.3215
       },
       {
         "id": "5-7字:180",
@@ -3871,7 +3881,7 @@
         "rule_ok": false,
         "neural_out": "呢條路好寬。",
         "neural_ok": false,
-        "latency_ms": 17.5547
+        "latency_ms": 19.146
       },
       {
         "id": "5-7字:181",
@@ -3886,7 +3896,7 @@
         "rule_ok": true,
         "neural_out": "人人有功練。",
         "neural_ok": true,
-        "latency_ms": 16.9082
+        "latency_ms": 19.933
       },
       {
         "id": "5-7字:182",
@@ -3901,7 +3911,7 @@
         "rule_ok": false,
         "neural_out": "但我唔使國產",
         "neural_ok": false,
-        "latency_ms": 17.2605
+        "latency_ms": 19.6423
       },
       {
         "id": "5-7字:183",
@@ -3916,7 +3926,7 @@
         "rule_ok": true,
         "neural_out": "定係有問題",
         "neural_ok": false,
-        "latency_ms": 14.6322
+        "latency_ms": 19.1411
       },
       {
         "id": "5-7字:184",
@@ -3931,7 +3941,7 @@
         "rule_ok": true,
         "neural_out": "仲有女朋友嘅",
         "neural_ok": true,
-        "latency_ms": 18.3942
+        "latency_ms": 21.0097
       },
       {
         "id": "5-7字:185",
@@ -3946,7 +3956,7 @@
         "rule_ok": false,
         "neural_out": "再多飲碗粥",
         "neural_ok": false,
-        "latency_ms": 15.015
+        "latency_ms": 16.2576
       },
       {
         "id": "5-7字:186",
@@ -3961,7 +3971,7 @@
         "rule_ok": true,
         "neural_out": "打老虎好難理解",
         "neural_ok": true,
-        "latency_ms": 21.6155
+        "latency_ms": 23.4415
       },
       {
         "id": "5-7字:187",
@@ -3976,7 +3986,7 @@
         "rule_ok": true,
         "neural_out": "唔想瞓覺喎",
         "neural_ok": false,
-        "latency_ms": 15.3249
+        "latency_ms": 18.6863
       },
       {
         "id": "5-7字:188",
@@ -3991,7 +4001,7 @@
         "rule_ok": false,
         "neural_out": "啲刀都生曬鏽",
         "neural_ok": false,
-        "latency_ms": 17.7131
+        "latency_ms": 20.7216
       },
       {
         "id": "5-7字:189",
@@ -4006,7 +4016,7 @@
         "rule_ok": false,
         "neural_out": "佢笑到揭揭聲",
         "neural_ok": true,
-        "latency_ms": 16.8753
+        "latency_ms": 21.7937
       },
       {
         "id": "5-7字:190",
@@ -4021,7 +4031,7 @@
         "rule_ok": false,
         "neural_out": "我太投入喇",
         "neural_ok": false,
-        "latency_ms": 14.612
+        "latency_ms": 23.6341
       },
       {
         "id": "5-7字:191",
@@ -4036,7 +4046,7 @@
         "rule_ok": false,
         "neural_out": "佢未蘇呢？",
         "neural_ok": false,
-        "latency_ms": 15.3882
+        "latency_ms": 22.6907
       },
       {
         "id": "5-7字:192",
@@ -4051,7 +4061,7 @@
         "rule_ok": false,
         "neural_out": "你即管放心去做",
         "neural_ok": false,
-        "latency_ms": 19.6695
+        "latency_ms": 25.9594
       },
       {
         "id": "5-7字:193",
@@ -4066,7 +4076,7 @@
         "rule_ok": false,
         "neural_out": "佢唔俾我食飯。",
         "neural_ok": true,
-        "latency_ms": 20.2007
+        "latency_ms": 22.6287
       },
       {
         "id": "5-7字:194",
@@ -4081,7 +4091,7 @@
         "rule_ok": false,
         "neural_out": "呢啲好重要。",
         "neural_ok": false,
-        "latency_ms": 17.3467
+        "latency_ms": 20.0334
       },
       {
         "id": "5-7字:195",
@@ -4096,7 +4106,7 @@
         "rule_ok": true,
         "neural_out": "我屋企請咗個阿媽姐",
         "neural_ok": false,
-        "latency_ms": 24.9445
+        "latency_ms": 29.8428
       },
       {
         "id": "5-7字:196",
@@ -4111,7 +4121,7 @@
         "rule_ok": false,
         "neural_out": "我寧願叫你全名",
         "neural_ok": false,
-        "latency_ms": 20.2144
+        "latency_ms": 26.4403
       },
       {
         "id": "5-7字:197",
@@ -4126,7 +4136,7 @@
         "rule_ok": false,
         "neural_out": "呢隻糖好酸！",
         "neural_ok": true,
-        "latency_ms": 17.8367
+        "latency_ms": 21.3226
       },
       {
         "id": "5-7字:198",
@@ -4141,7 +4151,7 @@
         "rule_ok": true,
         "neural_out": "藥物已經失效。",
         "neural_ok": true,
-        "latency_ms": 20.8025
+        "latency_ms": 21.6128
       },
       {
         "id": "5-7字:199",
@@ -4156,7 +4166,7 @@
         "rule_ok": false,
         "neural_out": "等民眾產生仇恨",
         "neural_ok": false,
-        "latency_ms": 20.6749
+        "latency_ms": 21.9444
       },
       {
         "id": "5-7字:200",
@@ -4171,7 +4181,7 @@
         "rule_ok": true,
         "neural_out": "喺中國上到",
         "neural_ok": true,
-        "latency_ms": 16.1895
+        "latency_ms": 16.135
       },
       {
         "id": "5-7字:201",
@@ -4186,7 +4196,7 @@
         "rule_ok": false,
         "neural_out": "我哋多威呀女",
         "neural_ok": false,
-        "latency_ms": 17.9395
+        "latency_ms": 21.2663
       },
       {
         "id": "5-7字:202",
@@ -4201,7 +4211,7 @@
         "rule_ok": false,
         "neural_out": "我又接唔到",
         "neural_ok": true,
-        "latency_ms": 15.8157
+        "latency_ms": 17.759
       },
       {
         "id": "5-7字:203",
@@ -4216,7 +4226,7 @@
         "rule_ok": false,
         "neural_out": "有冇人",
         "neural_ok": false,
-        "latency_ms": 10.4328
+        "latency_ms": 11.4061
       },
       {
         "id": "5-7字:204",
@@ -4231,7 +4241,7 @@
         "rule_ok": true,
         "neural_out": "好，我而家出街",
         "neural_ok": true,
-        "latency_ms": 19.3333
+        "latency_ms": 21.3623
       },
       {
         "id": "5-7字:205",
@@ -4246,7 +4256,7 @@
         "rule_ok": false,
         "neural_out": "過一陣嚟啦",
         "neural_ok": false,
-        "latency_ms": 14.7775
+        "latency_ms": 16.8354
       },
       {
         "id": "5-7字:206",
@@ -4261,7 +4271,7 @@
         "rule_ok": false,
         "neural_out": "唔好睇就走",
         "neural_ok": false,
-        "latency_ms": 14.2259
+        "latency_ms": 16.5877
       },
       {
         "id": "5-7字:207",
@@ -4276,7 +4286,7 @@
         "rule_ok": false,
         "neural_out": "梅花香自苦寒嚟",
         "neural_ok": false,
-        "latency_ms": 20.1518
+        "latency_ms": 23.4656
       },
       {
         "id": "5-7字:208",
@@ -4291,7 +4301,7 @@
         "rule_ok": false,
         "neural_out": "使唔使我幫手？",
         "neural_ok": false,
-        "latency_ms": 19.4302
+        "latency_ms": 24.8483
       },
       {
         "id": "5-7字:209",
@@ -4306,7 +4316,7 @@
         "rule_ok": false,
         "neural_out": "字體冇可以規範",
         "neural_ok": false,
-        "latency_ms": 19.8374
+        "latency_ms": 22.5562
       },
       {
         "id": "5-7字:210",
@@ -4321,7 +4331,7 @@
         "rule_ok": false,
         "neural_out": "佢開心",
         "neural_ok": false,
-        "latency_ms": 10.3955
+        "latency_ms": 11.6312
       },
       {
         "id": "5-7字:211",
@@ -4336,7 +4346,7 @@
         "rule_ok": false,
         "neural_out": "噉攪好危險㗎",
         "neural_ok": false,
-        "latency_ms": 18.211
+        "latency_ms": 20.5911
       },
       {
         "id": "5-7字:212",
@@ -4351,7 +4361,7 @@
         "rule_ok": true,
         "neural_out": "區議會選舉",
         "neural_ok": true,
-        "latency_ms": 15.5719
+        "latency_ms": 17.7041
       },
       {
         "id": "5-7字:213",
@@ -4366,7 +4376,7 @@
         "rule_ok": false,
         "neural_out": "細節私傾啦",
         "neural_ok": false,
-        "latency_ms": 14.6686
+        "latency_ms": 19.0269
       },
       {
         "id": "5-7字:214",
@@ -4381,7 +4391,7 @@
         "rule_ok": false,
         "neural_out": "玩花樣／出花樣",
         "neural_ok": false,
-        "latency_ms": 19.758
+        "latency_ms": 24.8108
       },
       {
         "id": "5-7字:215",
@@ -4396,7 +4406,7 @@
         "rule_ok": true,
         "neural_out": "一個棘手嘅問題",
         "neural_ok": true,
-        "latency_ms": 19.1984
+        "latency_ms": 21.4186
       },
       {
         "id": "5-7字:216",
@@ -4411,7 +4421,7 @@
         "rule_ok": false,
         "neural_out": "轉過身嚟叫姑姐",
         "neural_ok": false,
-        "latency_ms": 19.0597
+        "latency_ms": 23.7432
       },
       {
         "id": "5-7字:217",
@@ -4426,7 +4436,7 @@
         "rule_ok": false,
         "neural_out": "食擦屎啦你！",
         "neural_ok": false,
-        "latency_ms": 16.7577
+        "latency_ms": 20.1915
       },
       {
         "id": "5-7字:218",
@@ -4441,7 +4451,7 @@
         "rule_ok": false,
         "neural_out": "係，直頭唔見你",
         "neural_ok": true,
-        "latency_ms": 19.3791
+        "latency_ms": 25.693
       },
       {
         "id": "5-7字:219",
@@ -4456,7 +4466,7 @@
         "rule_ok": false,
         "neural_out": "等返屋企再治你！",
         "neural_ok": false,
-        "latency_ms": 22.1756
+        "latency_ms": 26.0875
       },
       {
         "id": "5-7字:220",
@@ -4471,7 +4481,7 @@
         "rule_ok": true,
         "neural_out": "固有嘅做法",
         "neural_ok": true,
-        "latency_ms": 15.451
+        "latency_ms": 16.4901
       },
       {
         "id": "5-7字:221",
@@ -4486,7 +4496,7 @@
         "rule_ok": true,
         "neural_out": "執好自己嘅書",
         "neural_ok": false,
-        "latency_ms": 17.5188
+        "latency_ms": 19.9192
       },
       {
         "id": "5-7字:222",
@@ -4501,7 +4511,7 @@
         "rule_ok": true,
         "neural_out": "香港cue後",
         "neural_ok": true,
-        "latency_ms": 16.8832
+        "latency_ms": 19.6618
       },
       {
         "id": "5-7字:223",
@@ -4516,7 +4526,7 @@
         "rule_ok": false,
         "neural_out": "好囉，做完！",
         "neural_ok": false,
-        "latency_ms": 17.6781
+        "latency_ms": 22.9253
       },
       {
         "id": "5-7字:224",
@@ -4531,7 +4541,7 @@
         "rule_ok": true,
         "neural_out": "全國人大委員長",
         "neural_ok": true,
-        "latency_ms": 19.3217
+        "latency_ms": 24.5072
       },
       {
         "id": "5-7字:225",
@@ -4546,7 +4556,7 @@
         "rule_ok": false,
         "neural_out": "碰嚇都唔得",
         "neural_ok": false,
-        "latency_ms": 14.9627
+        "latency_ms": 17.3802
       },
       {
         "id": "5-7字:226",
@@ -4561,7 +4571,7 @@
         "rule_ok": true,
         "neural_out": "《滿洲實錄》",
         "neural_ok": true,
-        "latency_ms": 17.2848
+        "latency_ms": 20.9856
       },
       {
         "id": "5-7字:227",
@@ -4576,7 +4586,7 @@
         "rule_ok": true,
         "neural_out": "本書後面嘅索引",
         "neural_ok": true,
-        "latency_ms": 19.3892
+        "latency_ms": 22.6236
       },
       {
         "id": "5-7字:228",
@@ -4591,7 +4601,7 @@
         "rule_ok": false,
         "neural_out": "包得非常嚴實",
         "neural_ok": false,
-        "latency_ms": 17.2726
+        "latency_ms": 20.474
       },
       {
         "id": "5-7字:229",
@@ -4606,7 +4616,7 @@
         "rule_ok": false,
         "neural_out": "放假就抖下啦！",
         "neural_ok": true,
-        "latency_ms": 19.6258
+        "latency_ms": 27.0418
       },
       {
         "id": "5-7字:230",
@@ -4621,7 +4631,7 @@
         "rule_ok": false,
         "neural_out": "我時刻陪伴住你",
         "neural_ok": false,
-        "latency_ms": 19.4997
+        "latency_ms": 24.6138
       },
       {
         "id": "5-7字:231",
@@ -4636,7 +4646,7 @@
         "rule_ok": false,
         "neural_out": "唔使懷疑啦",
         "neural_ok": true,
-        "latency_ms": 14.7838
+        "latency_ms": 16.5555
       },
       {
         "id": "5-7字:232",
@@ -4651,7 +4661,7 @@
         "rule_ok": false,
         "neural_out": "芝士火腳焗土豆",
         "neural_ok": false,
-        "latency_ms": 19.4069
+        "latency_ms": 24.066
       },
       {
         "id": "5-7字:233",
@@ -4666,7 +4676,7 @@
         "rule_ok": false,
         "neural_out": "玻璃樽好靚",
         "neural_ok": false,
-        "latency_ms": 15.0533
+        "latency_ms": 17.3799
       },
       {
         "id": "5-7字:234",
@@ -4681,7 +4691,7 @@
         "rule_ok": false,
         "neural_out": "一定唔會話你",
         "neural_ok": false,
-        "latency_ms": 17.9822
+        "latency_ms": 23.2545
       },
       {
         "id": "5-7字:235",
@@ -4696,7 +4706,7 @@
         "rule_ok": false,
         "neural_out": "講意思冇用",
         "neural_ok": false,
-        "latency_ms": 15.056
+        "latency_ms": 19.2486
       },
       {
         "id": "5-7字:236",
@@ -4711,7 +4721,7 @@
         "rule_ok": false,
         "neural_out": "照住心口捶過去",
         "neural_ok": false,
-        "latency_ms": 20.2046
+        "latency_ms": 24.1739
       },
       {
         "id": "5-7字:237",
@@ -4726,7 +4736,7 @@
         "rule_ok": true,
         "neural_out": "敗血性休克",
         "neural_ok": true,
-        "latency_ms": 15.4903
+        "latency_ms": 17.9405
       },
       {
         "id": "5-7字:238",
@@ -4741,7 +4751,7 @@
         "rule_ok": true,
         "neural_out": "呢個係乜嘢字體",
         "neural_ok": true,
-        "latency_ms": 20.8099
+        "latency_ms": 23.0938
       },
       {
         "id": "5-7字:239",
@@ -4756,7 +4766,7 @@
         "rule_ok": false,
         "neural_out": "快啲喐手做嘢！",
         "neural_ok": false,
-        "latency_ms": 20.2889
+        "latency_ms": 24.288
       },
       {
         "id": "5-7字:240",
@@ -4771,7 +4781,7 @@
         "rule_ok": false,
         "neural_out": "聚喺一齊傾計。",
         "neural_ok": false,
-        "latency_ms": 20.7267
+        "latency_ms": 51.5819
       },
       {
         "id": "5-7字:241",
@@ -4786,7 +4796,7 @@
         "rule_ok": false,
         "neural_out": "設置幾複雜",
         "neural_ok": false,
-        "latency_ms": 15.4922
+        "latency_ms": 18.0052
       },
       {
         "id": "5-7字:242",
@@ -4801,7 +4811,7 @@
         "rule_ok": false,
         "neural_out": "得閒嚟嗲傾偈啦",
         "neural_ok": false,
-        "latency_ms": 20.314
+        "latency_ms": 23.6293
       },
       {
         "id": "5-7字:243",
@@ -4816,7 +4826,7 @@
         "rule_ok": true,
         "neural_out": "佢有幾聲咳。",
         "neural_ok": true,
-        "latency_ms": 17.555
+        "latency_ms": 20.7211
       },
       {
         "id": "5-7字:244",
@@ -4831,7 +4841,7 @@
         "rule_ok": false,
         "neural_out": "乜都好投契",
         "neural_ok": false,
-        "latency_ms": 15.0715
+        "latency_ms": 17.4353
       },
       {
         "id": "5-7字:245",
@@ -4846,7 +4856,7 @@
         "rule_ok": false,
         "neural_out": "佢成日唔肯聽",
         "neural_ok": false,
-        "latency_ms": 17.6138
+        "latency_ms": 24.1309
       },
       {
         "id": "5-7字:246",
@@ -4861,7 +4871,7 @@
         "rule_ok": true,
         "neural_out": "我唔想攬炒",
         "neural_ok": true,
-        "latency_ms": 15.3267
+        "latency_ms": 19.1565
       },
       {
         "id": "5-7字:247",
@@ -4876,7 +4886,7 @@
         "rule_ok": false,
         "neural_out": "我俾開水淥咗。",
         "neural_ok": false,
-        "latency_ms": 20.0632
+        "latency_ms": 23.232
       },
       {
         "id": "5-7字:248",
@@ -4891,7 +4901,7 @@
         "rule_ok": false,
         "neural_out": "下次記住喇！",
         "neural_ok": true,
-        "latency_ms": 17.4641
+        "latency_ms": 19.1541
       },
       {
         "id": "5-7字:249",
@@ -4906,7 +4916,7 @@
         "rule_ok": false,
         "neural_out": "哦，知道咗。",
         "neural_ok": false,
-        "latency_ms": 17.6392
+        "latency_ms": 19.7111
       },
       {
         "id": "5-7字:250",
@@ -4921,7 +4931,7 @@
         "rule_ok": false,
         "neural_out": "我唔係講咗咩？",
         "neural_ok": false,
-        "latency_ms": 21.3116
+        "latency_ms": 25.5851
       },
       {
         "id": "5-7字:251",
@@ -4936,7 +4946,7 @@
         "rule_ok": false,
         "neural_out": "我驚拖攰大家",
         "neural_ok": false,
-        "latency_ms": 18.7799
+        "latency_ms": 20.8414
       },
       {
         "id": "5-7字:252",
@@ -4951,7 +4961,7 @@
         "rule_ok": false,
         "neural_out": "你唔好噉啦",
         "neural_ok": true,
-        "latency_ms": 15.2228
+        "latency_ms": 17.9878
       },
       {
         "id": "5-7字:253",
@@ -4966,7 +4976,7 @@
         "rule_ok": false,
         "neural_out": "老啲油落鑊",
         "neural_ok": false,
-        "latency_ms": 14.895
+        "latency_ms": 15.7836
       },
       {
         "id": "5-7字:254",
@@ -4981,7 +4991,7 @@
         "rule_ok": true,
         "neural_out": "你哋睇下佢係邊個",
         "neural_ok": true,
-        "latency_ms": 22.3068
+        "latency_ms": 24.6615
       },
       {
         "id": "5-7字:255",
@@ -4996,7 +5006,7 @@
         "rule_ok": false,
         "neural_out": "唔通我聽錯咗？",
         "neural_ok": true,
-        "latency_ms": 19.9315
+        "latency_ms": 26.3525
       },
       {
         "id": "5-7字:256",
@@ -5011,7 +5021,7 @@
         "rule_ok": false,
         "neural_out": "咪蝦蝦細路",
         "neural_ok": false,
-        "latency_ms": 14.5108
+        "latency_ms": 21.8155
       },
       {
         "id": "5-7字:257",
@@ -5026,7 +5036,7 @@
         "rule_ok": false,
         "neural_out": "正合你嘅身",
         "neural_ok": false,
-        "latency_ms": 14.621
+        "latency_ms": 21.7172
       },
       {
         "id": "5-7字:258",
@@ -5041,7 +5051,7 @@
         "rule_ok": false,
         "neural_out": "呢隻貓好污糟。",
         "neural_ok": true,
-        "latency_ms": 19.771
+        "latency_ms": 42.9713
       },
       {
         "id": "5-7字:259",
@@ -5056,7 +5066,7 @@
         "rule_ok": false,
         "neural_out": "咁好奇怪嘅你",
         "neural_ok": false,
-        "latency_ms": 16.9243
+        "latency_ms": 23.6689
       },
       {
         "id": "5-7字:260",
@@ -5071,7 +5081,7 @@
         "rule_ok": true,
         "neural_out": "佢立誓要減磅。",
         "neural_ok": true,
-        "latency_ms": 19.2002
+        "latency_ms": 22.201
       },
       {
         "id": "5-7字:261",
@@ -5086,7 +5096,7 @@
         "rule_ok": true,
         "neural_out": "撇除呢個可能性",
         "neural_ok": true,
-        "latency_ms": 19.6071
+        "latency_ms": 23.3813
       },
       {
         "id": "5-7字:262",
@@ -5101,7 +5111,7 @@
         "rule_ok": false,
         "neural_out": "傷口入入咗口喇",
         "neural_ok": false,
-        "latency_ms": 19.8944
+        "latency_ms": 25.2597
       },
       {
         "id": "5-7字:263",
@@ -5116,7 +5126,7 @@
         "rule_ok": true,
         "neural_out": "自發籌款嘢",
         "neural_ok": false,
-        "latency_ms": 15.1377
+        "latency_ms": 17.0967
       },
       {
         "id": "5-7字:264",
@@ -5131,7 +5141,7 @@
         "rule_ok": false,
         "neural_out": "嘭一聲閂咗門",
         "neural_ok": true,
-        "latency_ms": 17.9485
+        "latency_ms": 19.8665
       },
       {
         "id": "5-7字:265",
@@ -5146,7 +5156,7 @@
         "rule_ok": false,
         "neural_out": "佢睇唔起我。",
         "neural_ok": true,
-        "latency_ms": 18.0592
+        "latency_ms": 17.0908
       },
       {
         "id": "5-7字:266",
@@ -5161,7 +5171,7 @@
         "rule_ok": true,
         "neural_out": "外務副會長",
         "neural_ok": true,
-        "latency_ms": 15.6135
+        "latency_ms": 16.0564
       },
       {
         "id": "5-7字:267",
@@ -5176,7 +5186,7 @@
         "rule_ok": false,
         "neural_out": "呢度塵土好大。",
         "neural_ok": false,
-        "latency_ms": 20.7336
+        "latency_ms": 22.9417
       },
       {
         "id": "5-7字:268",
@@ -5191,7 +5201,7 @@
         "rule_ok": true,
         "neural_out": "我聽覺好靈敏。",
         "neural_ok": true,
-        "latency_ms": 20.5728
+        "latency_ms": 22.9816
       },
       {
         "id": "5-7字:269",
@@ -5206,7 +5216,7 @@
         "rule_ok": false,
         "neural_out": "贏喺起跑線",
         "neural_ok": false,
-        "latency_ms": 14.8228
+        "latency_ms": 18.0935
       },
       {
         "id": "5-7字:270",
@@ -5221,7 +5231,7 @@
         "rule_ok": true,
         "neural_out": "鹽蛇係乜嘢？",
         "neural_ok": true,
-        "latency_ms": 16.8412
+        "latency_ms": 25.1421
       },
       {
         "id": "5-7字:271",
@@ -5236,7 +5246,7 @@
         "rule_ok": true,
         "neural_out": "訴諸人身嘅謬誤",
         "neural_ok": true,
-        "latency_ms": 19.2894
+        "latency_ms": 29.416
       },
       {
         "id": "5-7字:272",
@@ -5251,7 +5261,7 @@
         "rule_ok": true,
         "neural_out": "你正一傻閪！",
         "neural_ok": true,
-        "latency_ms": 17.1362
+        "latency_ms": 21.5467
       },
       {
         "id": "5-7字:273",
@@ -5266,7 +5276,7 @@
         "rule_ok": false,
         "neural_out": "佢講嘅話好惡毒",
         "neural_ok": false,
-        "latency_ms": 19.178
+        "latency_ms": 22.8174
       },
       {
         "id": "5-7字:274",
@@ -5281,7 +5291,7 @@
         "rule_ok": false,
         "neural_out": "唔願就拉倒",
         "neural_ok": false,
-        "latency_ms": 14.4573
+        "latency_ms": 16.4014
       },
       {
         "id": "5-7字:275",
@@ -5296,7 +5306,7 @@
         "rule_ok": true,
         "neural_out": "佢兼職教琴。",
         "neural_ok": true,
-        "latency_ms": 17.7217
+        "latency_ms": 20.0273
       },
       {
         "id": "5-7字:276",
@@ -5311,7 +5321,7 @@
         "rule_ok": false,
         "neural_out": "世界真係細細！",
         "neural_ok": false,
-        "latency_ms": 19.6831
+        "latency_ms": 24.2107
       },
       {
         "id": "5-7字:277",
@@ -5326,7 +5336,7 @@
         "rule_ok": false,
         "neural_out": "呢段路好斜",
         "neural_ok": true,
-        "latency_ms": 14.7826
+        "latency_ms": 20.7548
       },
       {
         "id": "5-7字:278",
@@ -5341,7 +5351,7 @@
         "rule_ok": true,
         "neural_out": "我打電話畀你",
         "neural_ok": true,
-        "latency_ms": 16.9296
+        "latency_ms": 20.5813
       },
       {
         "id": "5-7字:279",
@@ -5356,7 +5366,7 @@
         "rule_ok": false,
         "neural_out": "踎喺度傾偈",
         "neural_ok": true,
-        "latency_ms": 14.7836
+        "latency_ms": 17.989
       },
       {
         "id": "5-7字:280",
@@ -5371,7 +5381,7 @@
         "rule_ok": false,
         "neural_out": "就係噉㗎啦",
         "neural_ok": false,
-        "latency_ms": 14.7574
+        "latency_ms": 17.1458
       },
       {
         "id": "5-7字:281",
@@ -5386,7 +5396,7 @@
         "rule_ok": true,
         "neural_out": "韓流減退咗。",
         "neural_ok": true,
-        "latency_ms": 17.3356
+        "latency_ms": 19.2792
       },
       {
         "id": "5-7字:282",
@@ -5401,7 +5411,7 @@
         "rule_ok": true,
         "neural_out": "清朝衰落嘅原因",
         "neural_ok": true,
-        "latency_ms": 19.9466
+        "latency_ms": 22.9312
       },
       {
         "id": "5-7字:283",
@@ -5416,7 +5426,7 @@
         "rule_ok": false,
         "neural_out": "趴下，咪抬頭",
         "neural_ok": false,
-        "latency_ms": 17.7773
+        "latency_ms": 19.9306
       },
       {
         "id": "5-7字:284",
@@ -5431,7 +5441,7 @@
         "rule_ok": false,
         "neural_out": "真係好多未睇過",
         "neural_ok": true,
-        "latency_ms": 19.6707
+        "latency_ms": 22.6056
       },
       {
         "id": "5-7字:285",
@@ -5446,7 +5456,7 @@
         "rule_ok": true,
         "neural_out": "年華唔復相逢時",
         "neural_ok": false,
-        "latency_ms": 19.8664
+        "latency_ms": 21.4765
       },
       {
         "id": "5-7字:286",
@@ -5461,7 +5471,7 @@
         "rule_ok": false,
         "neural_out": "市面回復平靜。",
         "neural_ok": true,
-        "latency_ms": 20.5665
+        "latency_ms": 23.3821
       },
       {
         "id": "5-7字:287",
@@ -5476,7 +5486,7 @@
         "rule_ok": false,
         "neural_out": "佢話唔去㗎喇",
         "neural_ok": false,
-        "latency_ms": 17.6101
+        "latency_ms": 19.9722
       },
       {
         "id": "5-7字:288",
@@ -5491,7 +5501,7 @@
         "rule_ok": false,
         "neural_out": "乜咁啱啊？",
         "neural_ok": false,
-        "latency_ms": 15.2015
+        "latency_ms": 17.0853
       },
       {
         "id": "5-7字:289",
@@ -5506,7 +5516,7 @@
         "rule_ok": false,
         "neural_out": "時間唔等人。",
         "neural_ok": true,
-        "latency_ms": 18.5294
+        "latency_ms": 20.0409
       },
       {
         "id": "5-7字:290",
@@ -5521,7 +5531,7 @@
         "rule_ok": false,
         "neural_out": "佢想搵你傾嚇",
         "neural_ok": true,
-        "latency_ms": 18.3227
+        "latency_ms": 19.5803
       },
       {
         "id": "5-7字:291",
@@ -5536,7 +5546,7 @@
         "rule_ok": false,
         "neural_out": "佢已經走咗",
         "neural_ok": false,
-        "latency_ms": 15.6361
+        "latency_ms": 17.1208
       },
       {
         "id": "5-7字:292",
@@ -5551,7 +5561,7 @@
         "rule_ok": true,
         "neural_out": "「做乜？」",
         "neural_ok": false,
-        "latency_ms": 14.5328
+        "latency_ms": 16.5007
       },
       {
         "id": "5-7字:293",
@@ -5566,7 +5576,7 @@
         "rule_ok": false,
         "neural_out": "佢而家唔得閒",
         "neural_ok": true,
-        "latency_ms": 16.8552
+        "latency_ms": 19.0611
       },
       {
         "id": "5-7字:294",
@@ -5581,7 +5591,7 @@
         "rule_ok": false,
         "neural_out": "你入返去啦",
         "neural_ok": true,
-        "latency_ms": 14.9238
+        "latency_ms": 18.2335
       },
       {
         "id": "5-7字:295",
@@ -5596,7 +5606,7 @@
         "rule_ok": false,
         "neural_out": "你都得㗎。",
         "neural_ok": false,
-        "latency_ms": 14.8486
+        "latency_ms": 17.2595
       },
       {
         "id": "5-7字:296",
@@ -5611,7 +5621,7 @@
         "rule_ok": false,
         "neural_out": "佢做嘢好利索",
         "neural_ok": false,
-        "latency_ms": 17.7983
+        "latency_ms": 19.3765
       },
       {
         "id": "5-7字:297",
@@ -5626,7 +5636,7 @@
         "rule_ok": false,
         "neural_out": "一陣間我會煮飯",
         "neural_ok": false,
-        "latency_ms": 19.9467
+        "latency_ms": 22.6411
       },
       {
         "id": "5-7字:298",
@@ -5641,7 +5651,7 @@
         "rule_ok": false,
         "neural_out": "喺草地下",
         "neural_ok": false,
-        "latency_ms": 13.0631
+        "latency_ms": 13.8286
       },
       {
         "id": "5-7字:299",
@@ -5656,7 +5666,7 @@
         "rule_ok": true,
         "neural_out": "慘痛嘅教訓",
         "neural_ok": true,
-        "latency_ms": 14.7727
+        "latency_ms": 16.6091
       },
       {
         "id": "5-7字古诗:0",
@@ -5671,7 +5681,7 @@
         "rule_ok": true,
         "neural_out": "牀前明月光",
         "neural_ok": true,
-        "latency_ms": 14.8767
+        "latency_ms": 17.3044
       },
       {
         "id": "5-7字古诗:1",
@@ -5686,7 +5696,7 @@
         "rule_ok": false,
         "neural_out": "疑係地下霜",
         "neural_ok": false,
-        "latency_ms": 14.9904
+        "latency_ms": 16.9768
       },
       {
         "id": "5-7字古诗:2",
@@ -5701,7 +5711,7 @@
         "rule_ok": true,
         "neural_out": "舉頭望明月",
         "neural_ok": true,
-        "latency_ms": 14.8944
+        "latency_ms": 15.8627
       },
       {
         "id": "5-7字古诗:3",
@@ -5716,7 +5726,7 @@
         "rule_ok": true,
         "neural_out": "低頭思故鄉",
         "neural_ok": true,
-        "latency_ms": 15.0772
+        "latency_ms": 16.4859
       },
       {
         "id": "5-7字古诗:4",
@@ -5731,7 +5741,7 @@
         "rule_ok": true,
         "neural_out": "白日依山盡",
         "neural_ok": true,
-        "latency_ms": 14.7837
+        "latency_ms": 16.1463
       },
       {
         "id": "5-7字古诗:5",
@@ -5746,7 +5756,7 @@
         "rule_ok": true,
         "neural_out": "黃河入海流",
         "neural_ok": true,
-        "latency_ms": 14.8304
+        "latency_ms": 17.5278
       },
       {
         "id": "5-7字古诗:6",
@@ -5761,7 +5771,7 @@
         "rule_ok": true,
         "neural_out": "欲窮千裏目",
         "neural_ok": true,
-        "latency_ms": 13.7445
+        "latency_ms": 16.9249
       },
       {
         "id": "5-7字古诗:7",
@@ -5776,7 +5786,7 @@
         "rule_ok": true,
         "neural_out": "更上一層樓",
         "neural_ok": true,
-        "latency_ms": 14.805
+        "latency_ms": 16.2402
       },
       {
         "id": "5-7字古诗:8",
@@ -5791,7 +5801,7 @@
         "rule_ok": true,
         "neural_out": "春眠唔覺曉",
         "neural_ok": false,
-        "latency_ms": 13.8408
+        "latency_ms": 16.3558
       },
       {
         "id": "5-7字古诗:9",
@@ -5806,7 +5816,7 @@
         "rule_ok": true,
         "neural_out": "處處聞燶鳥",
         "neural_ok": false,
-        "latency_ms": 14.4723
+        "latency_ms": 15.8724
       },
       {
         "id": "5-7字古诗:10",
@@ -5821,7 +5831,7 @@
         "rule_ok": false,
         "neural_out": "夜嚟風雨聲",
         "neural_ok": false,
-        "latency_ms": 14.968
+        "latency_ms": 16.5996
       },
       {
         "id": "5-7字古诗:11",
@@ -5836,7 +5846,7 @@
         "rule_ok": false,
         "neural_out": "花落知幾多",
         "neural_ok": false,
-        "latency_ms": 14.5606
+        "latency_ms": 17.5785
       }
     ]
   }

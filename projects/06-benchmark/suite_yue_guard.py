@@ -16,9 +16,9 @@ import time
 from collections import OrderedDict
 
 from bench_common import (DEFAULT_GUARD, DEFAULT_MODEL, DEFAULT_PAIRS,
-                          accept_forms, file_ok, fingerprint, load_variant_map,
-                          load_yue_nn, median, repo, r4, stub_nn,
-                          question_hash, wilson)
+                          DEFAULT_WORD_PAIRS, accept_forms, file_ok,
+                          fingerprint, load_variant_map, load_yue_nn, median,
+                          repo, r4, stub_nn, question_hash, wilson)
 
 SUITE = "yue-guard"
 SUITE_VERSION = "1.3.0"
@@ -83,7 +83,7 @@ def run(params: dict) -> tuple[str, dict | None, str | None]:
     per_item: list[dict] = []
     questions: list[dict] = []
     inputs: list[dict] = []
-    for p in (pairs_path, guard_path,
+    for p in (pairs_path, guard_path, DEFAULT_WORD_PAIRS,
               params.get("model") or DEFAULT_MODEL if nn_from_ckpt else None,
               repo("data", "yue.marshal"), repo("data", "yue.tsv"),
               repo("data", "s2t.marshal")):

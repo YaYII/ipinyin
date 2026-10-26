@@ -72,6 +72,10 @@ def compare(doc_a: dict, doc_b: dict, keys: tuple[str, str] | None = None) -> di
         if ka not in it_a or kb not in it_b:
             raise SystemExit(f"per_item 缺列：A 需 {ka}，B 需 {kb}"
                              f"（{suite} 默认对比 {DEFAULT_KEYS[suite]}）")
+        if it_a[ka] is None or it_b[kb] is None:
+            raise SystemExit(
+                f"列含 null（如 zh-sentence 未挂 --lm 时 base_top1_ok 全为 null），"
+                f"该对比无意义——换列（--keys）或用带 --lm 的结果")
         a_ok, b_ok = bool(it_a[ka]), bool(it_b[kb])
         bucket = buckets.setdefault(it_a["bucket"], {"n": 0, "a_right": 0,
                                                      "b_right": 0,
@@ -147,7 +151,6 @@ def main(argv: list[str] | None = None) -> int:
     if rep["caveat"]:
         print(f"\n注意：{rep['caveat']}")
     if args.out:
-        rep.pop("_file", None)
         with open(args.out, "w", encoding="utf-8") as fh:
             json.dump(rep, fh, ensure_ascii=False, indent=2)
             fh.write("\n")

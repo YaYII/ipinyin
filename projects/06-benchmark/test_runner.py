@@ -92,7 +92,7 @@ def _zh_results() -> dict:
                       "avg_keystrokes": 10.9, "fixed": 1, "broken": 0},
         },
         "aggregate": {"n": 23, "top1": 0.957, "top9": 1.0},
-        "rerank": {"lm": "data/lm_char.marshal", "lm_weight": 0.4,
+        "rerank": {"lm": "data/lm_char.marshal", "lm_weight": 0.6,
                    "top1_no_lm": 0.913, "top1_lm": 0.957, "saved": 1,
                    "broken": 0, "net": 1},
         "empty_buckets": [],
@@ -152,7 +152,7 @@ def test_schema_rejects_skipped_without_reason():
 def _base_params(**over) -> dict:
     p = {"quick": True, "out_dir": os.path.join(BENCH_DIR, "results"),
          "pairs": bench_common.DEFAULT_PAIRS, "model": bench_common.DEFAULT_MODEL,
-         "guard": bench_common.DEFAULT_GUARD, "lm": "", "lm_weight": 0.4,
+         "guard": bench_common.DEFAULT_GUARD, "lm": "", "lm_weight": 0.6,
          "limit": None, "n": None, "ctx_max": 7, "show": 3, "nn": "stub",
          "device": "cpu"}
     p.update(over)
@@ -401,6 +401,20 @@ def test_compare_counts_and_guards(tmp_path):
             raise AssertionError(f"应拒绝：{frag}")
         except SystemExit as exc:
             assert frag in str(exc)
+
+    # zh 未挂 --lm 时 base_top1_ok 全 null —— 拒绝而非当全错算
+    null_doc = {
+        "suite": "zh-sentence", "suite_version": "1.1.0", "system": "A",
+        "status": "ok", "quick": True,
+        "results": {"question_set_hash": "0123456789abcdef",
+                    "per_item": [{"id": "5-7字:0", "bucket": "5-7字",
+                                  "base_top1_ok": None, "top1_ok": True}]},
+    }
+    try:
+        compare_mod.compare(null_doc, null_doc)
+        raise AssertionError("应拒绝：null 列")
+    except SystemExit as exc:
+        assert "null" in str(exc)
 
 
 # ---------------------------------------------------------------- 导出 → 评分往返

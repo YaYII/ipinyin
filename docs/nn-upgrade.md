@@ -128,7 +128,8 @@
 ③真词语料（`experiments/build_word_pairs.py`：锚定对齐 + lexicon 真词过滤 + 成语/古诗
 保护，5,946 对）×4 并入训练：4 轮与旧生产打平（p=0.69），8 轮**破局**——
 裸神经加权 80.3%→84.3%（p=0.0026），全桶无回退（2字 100%、成语 82.5%、
-5-7字 45.3%、8-15字 46.7%），守卫后生产路径加权 87.4%→87.9%。
+5-7字 45.3%、8-15字 46.7%），守卫后生产路径加权 87.4%→89.4%
+（含典籍白名单：成语/古诗守卫后 100%）。
 复现：`python3 experiments/build_word_pairs.py && python3 experiments/train_yue_seq2seq.py
 --pairs vendor/yue_pairs.json --limit 150000 --epochs 8 --batch 96 --d 256 --layers 4
 --device mps --augment-words data/yue_word_pairs.json --words-repeat 4 --out experiments/yue_model_d256.pt`

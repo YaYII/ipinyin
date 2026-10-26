@@ -5,8 +5,8 @@
   "system": "ipinyin(内置)",
   "status": "ok",
   "quick": false,
-  "generated_at": "2026-10-26T07:32:05+08:00",
-  "duration_s": 18.01,
+  "generated_at": "2026-10-26T07:58:40+08:00",
+  "duration_s": 21.59,
   "params": {
     "quick": false,
     "out_dir": "/Users/yingyang/Documents/project/workbudyy/ipinyin/projects/06-benchmark/results",
@@ -41,7 +41,7 @@
         "accepted": 25,
         "saved": 0,
         "lost": 0,
-        "guarded_median_latency_ms": 0.0127,
+        "guarded_median_latency_ms": 0.0194,
         "weight": null,
         "wilson": {
           "rule": {
@@ -68,7 +68,7 @@
         "accepted": 33,
         "saved": 6,
         "lost": 0,
-        "guarded_median_latency_ms": 0.0043,
+        "guarded_median_latency_ms": 0.0048,
         "weight": null,
         "wilson": {
           "rule": {
@@ -95,7 +95,7 @@
         "accepted": 250,
         "saved": 1,
         "lost": 5,
-        "guarded_median_latency_ms": 0.0715,
+        "guarded_median_latency_ms": 0.0805,
         "weight": null,
         "wilson": {
           "rule": {
@@ -122,7 +122,7 @@
         "accepted": 6,
         "saved": 2,
         "lost": 0,
-        "guarded_median_latency_ms": 0.0052,
+        "guarded_median_latency_ms": 0.0057,
         "weight": null,
         "wilson": {
           "rule": {
@@ -149,7 +149,7 @@
         "accepted": 290,
         "saved": 0,
         "lost": 2,
-        "guarded_median_latency_ms": 0.1718,
+        "guarded_median_latency_ms": 0.1846,
         "weight": null,
         "wilson": {
           "rule": {
@@ -336,6 +336,11 @@
         "bytes": 1110427
       },
       {
+        "path": "data/yue_word_pairs.json",
+        "sha256_16": "4e6f84b730e10838",
+        "bytes": 224587
+      },
+      {
         "path": "experiments/yue_model_d256.pt",
         "sha256_16": "63057f1950353059",
         "bytes": 35959514
@@ -375,7 +380,7 @@
         "guarded_out": "唔明",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0262
+        "latency_ms": 0.0298
       },
       {
         "id": "2字:1",
@@ -392,7 +397,7 @@
         "guarded_out": "唔理",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.017
+        "latency_ms": 0.0317
       },
       {
         "id": "2字:2",
@@ -409,7 +414,7 @@
         "guarded_out": "要睇",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0106
+        "latency_ms": 0.0155
       },
       {
         "id": "2字:3",
@@ -426,7 +431,7 @@
         "guarded_out": "畀錢",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0133
+        "latency_ms": 0.0307
       },
       {
         "id": "2字:4",
@@ -444,7 +449,7 @@
         "guarded_out": "唔落",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0193
+        "latency_ms": 0.0176
       },
       {
         "id": "2字:5",
@@ -461,7 +466,7 @@
         "guarded_out": "而係",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.011
+        "latency_ms": 0.0182
       },
       {
         "id": "2字:6",
@@ -478,7 +483,7 @@
         "guarded_out": "搵到",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0132
+        "latency_ms": 0.0223
       },
       {
         "id": "2字:7",
@@ -495,7 +500,7 @@
         "guarded_out": "冇咗",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.013
+        "latency_ms": 0.0315
       },
       {
         "id": "2字:8",
@@ -512,7 +517,7 @@
         "guarded_out": "搵返",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0218
+        "latency_ms": 0.0292
       },
       {
         "id": "2字:9",
@@ -529,7 +534,7 @@
         "guarded_out": "諗起",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0121
+        "latency_ms": 0.0285
       },
       {
         "id": "2字:10",
@@ -546,7 +551,7 @@
         "guarded_out": "唔少",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0117
+        "latency_ms": 0.0163
       },
       {
         "id": "2字:11",
@@ -564,7 +569,7 @@
         "guarded_out": "唔切",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0147
+        "latency_ms": 0.0194
       },
       {
         "id": "2字:12",
@@ -583,7 +588,7 @@
         "guarded_out": "係嘅",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0135
+        "latency_ms": 0.0193
       },
       {
         "id": "2字:13",
@@ -601,7 +606,7 @@
         "guarded_out": "唔覺",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0112
+        "latency_ms": 0.0155
       },
       {
         "id": "2字:14",
@@ -620,7 +625,7 @@
         "guarded_out": "佢兩",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0122
+        "latency_ms": 0.0212
       },
       {
         "id": "2字:15",
@@ -638,7 +643,7 @@
         "guarded_out": "上嚟",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0078
+        "latency_ms": 0.0146
       },
       {
         "id": "2字:16",
@@ -655,7 +660,7 @@
         "guarded_out": "屋企",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0168
+        "latency_ms": 0.0232
       },
       {
         "id": "2字:17",
@@ -672,7 +677,7 @@
         "guarded_out": "心諗",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0112
+        "latency_ms": 0.0114
       },
       {
         "id": "2字:18",
@@ -691,7 +696,7 @@
         "guarded_out": "諗法",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0127
+        "latency_ms": 0.0178
       },
       {
         "id": "2字:19",
@@ -708,7 +713,7 @@
         "guarded_out": "入嚟",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0124
+        "latency_ms": 0.0283
       },
       {
         "id": "2字:20",
@@ -726,7 +731,7 @@
         "guarded_out": "家嘅",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0121
+        "latency_ms": 0.0107
       },
       {
         "id": "2字:21",
@@ -743,7 +748,7 @@
         "guarded_out": "睇波",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0127
+        "latency_ms": 0.0245
       },
       {
         "id": "2字:22",
@@ -761,7 +766,7 @@
         "guarded_out": "來睇",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0175
+        "latency_ms": 0.0246
       },
       {
         "id": "2字:23",
@@ -779,7 +784,7 @@
         "guarded_out": "唔畀",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0127
+        "latency_ms": 0.0135
       },
       {
         "id": "2字:24",
@@ -796,7 +801,7 @@
         "guarded_out": "唔肯",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0153
+        "latency_ms": 0.0194
       },
       {
         "id": "4字成语:0",
@@ -813,7 +818,7 @@
         "guarded_out": "亡羊補牢",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0056
+        "latency_ms": 0.0157
       },
       {
         "id": "4字成语:1",
@@ -830,7 +835,7 @@
         "guarded_out": "畫蛇添足",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0043
+        "latency_ms": 0.01
       },
       {
         "id": "4字成语:2",
@@ -847,7 +852,7 @@
         "guarded_out": "守株待兔",
         "guarded_ok": true,
         "outcome": "saved",
-        "latency_ms": 0.0053
+        "latency_ms": 0.0065
       },
       {
         "id": "4字成语:3",
@@ -864,7 +869,7 @@
         "guarded_out": "刻舟求劍",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.005
+        "latency_ms": 0.0055
       },
       {
         "id": "4字成语:4",
@@ -881,7 +886,7 @@
         "guarded_out": "掩耳盜鈴",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0043
+        "latency_ms": 0.0048
       },
       {
         "id": "4字成语:5",
@@ -898,7 +903,7 @@
         "guarded_out": "對牛彈琴",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0042
+        "latency_ms": 0.0107
       },
       {
         "id": "4字成语:6",
@@ -915,7 +920,7 @@
         "guarded_out": "杯弓蛇影",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0011
+        "latency_ms": 0.0033
       },
       {
         "id": "4字成语:7",
@@ -932,7 +937,7 @@
         "guarded_out": "井底之蛙",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0018
+        "latency_ms": 0.001
       },
       {
         "id": "4字成语:8",
@@ -966,7 +971,7 @@
         "guarded_out": "一舉兩得",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0048
+        "latency_ms": 0.0051
       },
       {
         "id": "4字成语:10",
@@ -1000,7 +1005,7 @@
         "guarded_out": "三心二意",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0015
+        "latency_ms": 0.0014
       },
       {
         "id": "4字成语:12",
@@ -1017,7 +1022,7 @@
         "guarded_out": "四面八方",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0013
+        "latency_ms": 0.0016
       },
       {
         "id": "4字成语:13",
@@ -1034,7 +1039,7 @@
         "guarded_out": "五光十色",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0013
+        "latency_ms": 0.0011
       },
       {
         "id": "4字成语:14",
@@ -1051,7 +1056,7 @@
         "guarded_out": "七上八下",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.001
+        "latency_ms": 0.0012
       },
       {
         "id": "4字成语:15",
@@ -1068,7 +1073,7 @@
         "guarded_out": "九牛一毛",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0014
+        "latency_ms": 0.0015
       },
       {
         "id": "4字成语:16",
@@ -1085,7 +1090,7 @@
         "guarded_out": "十全十美",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0009
+        "latency_ms": 0.0012
       },
       {
         "id": "4字成语:17",
@@ -1102,7 +1107,7 @@
         "guarded_out": "百發百中",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0051
+        "latency_ms": 0.0042
       },
       {
         "id": "4字成语:18",
@@ -1119,7 +1124,7 @@
         "guarded_out": "千軍萬馬",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0045
+        "latency_ms": 0.0086
       },
       {
         "id": "4字成语:19",
@@ -1136,7 +1141,7 @@
         "guarded_out": "萬事如意",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.004
+        "latency_ms": 0.0045
       },
       {
         "id": "4字成语:20",
@@ -1153,7 +1158,7 @@
         "guarded_out": "心花怒放",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0012
+        "latency_ms": 0.0015
       },
       {
         "id": "4字成语:21",
@@ -1170,7 +1175,7 @@
         "guarded_out": "目瞪口呆",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0012
+        "latency_ms": 0.0015
       },
       {
         "id": "4字成语:22",
@@ -1187,7 +1192,7 @@
         "guarded_out": "不可思議",
         "guarded_ok": true,
         "outcome": "saved",
-        "latency_ms": 0.0042
+        "latency_ms": 0.0052
       },
       {
         "id": "4字成语:23",
@@ -1221,7 +1226,7 @@
         "guarded_out": "不折不扣",
         "guarded_ok": true,
         "outcome": "saved",
-        "latency_ms": 0.0038
+        "latency_ms": 0.0052
       },
       {
         "id": "4字成语:25",
@@ -1238,7 +1243,7 @@
         "guarded_out": "實事求是",
         "guarded_ok": true,
         "outcome": "fixed_right",
-        "latency_ms": 0.0045
+        "latency_ms": 0.005
       },
       {
         "id": "4字成语:26",
@@ -1255,7 +1260,7 @@
         "guarded_out": "因地制宜",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0011
+        "latency_ms": 0.0012
       },
       {
         "id": "4字成语:27",
@@ -1272,7 +1277,7 @@
         "guarded_out": "錦上添花",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0045
+        "latency_ms": 0.0081
       },
       {
         "id": "4字成语:28",
@@ -1289,7 +1294,7 @@
         "guarded_out": "雪中送炭",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0014
+        "latency_ms": 0.0015
       },
       {
         "id": "4字成语:29",
@@ -1306,7 +1311,7 @@
         "guarded_out": "水到渠成",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0014
+        "latency_ms": 0.0013
       },
       {
         "id": "4字成语:30",
@@ -1323,7 +1328,7 @@
         "guarded_out": "順其自然",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0053
+        "latency_ms": 0.0081
       },
       {
         "id": "4字成语:31",
@@ -1340,7 +1345,7 @@
         "guarded_out": "全力以赴",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0007
+        "latency_ms": 0.0013
       },
       {
         "id": "4字成语:32",
@@ -1357,7 +1362,7 @@
         "guarded_out": "腳踏實地",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0047
+        "latency_ms": 0.0053
       },
       {
         "id": "4字成语:33",
@@ -1374,7 +1379,7 @@
         "guarded_out": "一絲不苟",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0082
+        "latency_ms": 0.0047
       },
       {
         "id": "4字成语:34",
@@ -1391,7 +1396,7 @@
         "guarded_out": "有條不紊",
         "guarded_ok": true,
         "outcome": "saved",
-        "latency_ms": 0.0043
+        "latency_ms": 0.0059
       },
       {
         "id": "4字成语:35",
@@ -1408,7 +1413,7 @@
         "guarded_out": "循序漸進",
         "guarded_ok": true,
         "outcome": "saved",
-        "latency_ms": 0.0043
+        "latency_ms": 0.0058
       },
       {
         "id": "4字成语:36",
@@ -1425,7 +1430,7 @@
         "guarded_out": "溫故知新",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0045
+        "latency_ms": 0.0053
       },
       {
         "id": "4字成语:37",
@@ -1442,7 +1447,7 @@
         "guarded_out": "舉一反三",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0049
+        "latency_ms": 0.0051
       },
       {
         "id": "4字成语:38",
@@ -1459,7 +1464,7 @@
         "guarded_out": "融會貫通",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.004
+        "latency_ms": 0.0054
       },
       {
         "id": "4字成语:39",
@@ -1476,7 +1481,7 @@
         "guarded_out": "精益求精",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0013
+        "latency_ms": 0.0017
       },
       {
         "id": "5-7字:0",
@@ -1493,7 +1498,7 @@
         "guarded_out": "唔係佢寫嘅噉",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0841
+        "latency_ms": 0.0929
       },
       {
         "id": "5-7字:1",
@@ -1510,7 +1515,7 @@
         "guarded_out": "而家抽三張牌。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.116
+        "latency_ms": 0.1306
       },
       {
         "id": "5-7字:2",
@@ -1527,7 +1532,7 @@
         "guarded_out": "得唔得啊？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0422
+        "latency_ms": 0.0325
       },
       {
         "id": "5-7字:3",
@@ -1544,7 +1549,7 @@
         "guarded_out": "買棺材唔知埞",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0911
+        "latency_ms": 0.109
       },
       {
         "id": "5-7字:4",
@@ -1561,7 +1566,7 @@
         "guarded_out": "你都鍾意咩？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0599
+        "latency_ms": 0.0663
       },
       {
         "id": "5-7字:5",
@@ -1578,7 +1583,7 @@
         "guarded_out": "有時大髀都交埋",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0789
+        "latency_ms": 0.0838
       },
       {
         "id": "5-7字:6",
@@ -1595,7 +1600,7 @@
         "guarded_out": "摑咗佢一巴",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0699
+        "latency_ms": 0.1505
       },
       {
         "id": "5-7字:7",
@@ -1612,7 +1617,7 @@
         "guarded_out": "全部有三百多人",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0011
+        "latency_ms": 0.0013
       },
       {
         "id": "5-7字:8",
@@ -1629,7 +1634,7 @@
         "guarded_out": "晨早就知啦！",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0656
+        "latency_ms": 0.0695
       },
       {
         "id": "5-7字:9",
@@ -1646,7 +1651,7 @@
         "guarded_out": "咪畀人欺负",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0944
+        "latency_ms": 0.123
       },
       {
         "id": "5-7字:10",
@@ -1663,7 +1668,7 @@
         "guarded_out": "你真係有心勁",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0204
+        "latency_ms": 0.0329
       },
       {
         "id": "5-7字:11",
@@ -1680,7 +1685,7 @@
         "guarded_out": "樹大好遮蔭。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0819
+        "latency_ms": 0.0894
       },
       {
         "id": "5-7字:12",
@@ -1697,7 +1702,7 @@
         "guarded_out": "咁呢批音訊呢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0871
+        "latency_ms": 0.1036
       },
       {
         "id": "5-7字:13",
@@ -1714,7 +1719,7 @@
         "guarded_out": "你好似有嘢煩",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0731
+        "latency_ms": 0.0836
       },
       {
         "id": "5-7字:14",
@@ -1731,7 +1736,7 @@
         "guarded_out": "去羅湖過關",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0243
+        "latency_ms": 0.0312
       },
       {
         "id": "5-7字:15",
@@ -1748,7 +1753,7 @@
         "guarded_out": "耶魯都可以打啊",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1137
+        "latency_ms": 0.2934
       },
       {
         "id": "5-7字:16",
@@ -1765,7 +1770,7 @@
         "guarded_out": "咩意思個字",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0566
+        "latency_ms": 0.0584
       },
       {
         "id": "5-7字:17",
@@ -1782,7 +1787,7 @@
         "guarded_out": "我心里揪著",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0738
+        "latency_ms": 0.1036
       },
       {
         "id": "5-7字:18",
@@ -1799,7 +1804,7 @@
         "guarded_out": "wouwou",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.001
+        "latency_ms": 0.0019
       },
       {
         "id": "5-7字:19",
@@ -1816,7 +1821,7 @@
         "guarded_out": "世界七大奇蹟",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0721
+        "latency_ms": 0.074
       },
       {
         "id": "5-7字:20",
@@ -1833,7 +1838,7 @@
         "guarded_out": "佢最有利咗",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0762
+        "latency_ms": 0.0906
       },
       {
         "id": "5-7字:21",
@@ -1850,7 +1855,7 @@
         "guarded_out": "中國駐英國大使",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1019
+        "latency_ms": 0.1223
       },
       {
         "id": "5-7字:22",
@@ -1867,7 +1872,7 @@
         "guarded_out": "呢啲年糕好削",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0899
+        "latency_ms": 0.0922
       },
       {
         "id": "5-7字:23",
@@ -1884,7 +1889,7 @@
         "guarded_out": "只要冇證據",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0491
+        "latency_ms": 0.0615
       },
       {
         "id": "5-7字:24",
@@ -1901,7 +1906,7 @@
         "guarded_out": "佢唱歌有啲玩靚",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1544
+        "latency_ms": 0.1564
       },
       {
         "id": "5-7字:25",
@@ -1918,7 +1923,7 @@
         "guarded_out": "佢份人好商量",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0668
+        "latency_ms": 0.0656
       },
       {
         "id": "5-7字:26",
@@ -1935,7 +1940,7 @@
         "guarded_out": "今晚佢做廳長",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.068
+        "latency_ms": 0.0773
       },
       {
         "id": "5-7字:27",
@@ -1952,7 +1957,7 @@
         "guarded_out": "今晚唔係好凍",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.055
+        "latency_ms": 0.063
       },
       {
         "id": "5-7字:28",
@@ -1969,7 +1974,7 @@
         "guarded_out": "後真相政治",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0252
+        "latency_ms": 0.0291
       },
       {
         "id": "5-7字:29",
@@ -1986,7 +1991,7 @@
         "guarded_out": "我唔識英文",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0183
+        "latency_ms": 0.024
       },
       {
         "id": "5-7字:30",
@@ -2003,7 +2008,7 @@
         "guarded_out": "天下嘅人民",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0244
+        "latency_ms": 0.0403
       },
       {
         "id": "5-7字:31",
@@ -2020,7 +2025,7 @@
         "guarded_out": "你唔好咁謙啦！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1501
+        "latency_ms": 0.1608
       },
       {
         "id": "5-7字:32",
@@ -2037,7 +2042,7 @@
         "guarded_out": "大家唔好嘈",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0249
+        "latency_ms": 0.0245
       },
       {
         "id": "5-7字:33",
@@ -2054,7 +2059,7 @@
         "guarded_out": "原來佢口唔啱心",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.119
+        "latency_ms": 0.0862
       },
       {
         "id": "5-7字:34",
@@ -2071,7 +2076,7 @@
         "guarded_out": "汽車滅咗火喇",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0716
+        "latency_ms": 0.0836
       },
       {
         "id": "5-7字:35",
@@ -2088,7 +2093,7 @@
         "guarded_out": "照樣打佢哋",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.027
+        "latency_ms": 0.0334
       },
       {
         "id": "5-7字:36",
@@ -2105,7 +2110,7 @@
         "guarded_out": "打code",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0011
+        "latency_ms": 0.0013
       },
       {
         "id": "5-7字:37",
@@ -2122,7 +2127,7 @@
         "guarded_out": "真係活見鬼",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0245
+        "latency_ms": 0.0292
       },
       {
         "id": "5-7字:38",
@@ -2139,7 +2144,7 @@
         "guarded_out": "搞到我一頭霧水",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0736
+        "latency_ms": 0.0641
       },
       {
         "id": "5-7字:39",
@@ -2156,7 +2161,7 @@
         "guarded_out": "即刻可以食飯喇",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0629
+        "latency_ms": 0.0728
       },
       {
         "id": "5-7字:40",
@@ -2173,7 +2178,7 @@
         "guarded_out": "細聲啲，佢瞓住",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1281
+        "latency_ms": 0.155
       },
       {
         "id": "5-7字:41",
@@ -2190,7 +2195,7 @@
         "guarded_out": "佢哋想裝修樓面",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0833
+        "latency_ms": 0.0965
       },
       {
         "id": "5-7字:42",
@@ -2207,7 +2212,7 @@
         "guarded_out": "你先听我讲",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0658
+        "latency_ms": 0.0735
       },
       {
         "id": "5-7字:43",
@@ -2224,7 +2229,7 @@
         "guarded_out": "（機場）國際線",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1107
+        "latency_ms": 0.1469
       },
       {
         "id": "5-7字:44",
@@ -2241,7 +2246,7 @@
         "guarded_out": "你知佢嗰性",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0686
+        "latency_ms": 0.0731
       },
       {
         "id": "5-7字:45",
@@ -2258,7 +2263,7 @@
         "guarded_out": "都過咗一個月喇",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.073
+        "latency_ms": 0.0764
       },
       {
         "id": "5-7字:46",
@@ -2275,7 +2280,7 @@
         "guarded_out": "收到，唔該曬",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0745
+        "latency_ms": 0.0816
       },
       {
         "id": "5-7字:47",
@@ -2292,7 +2297,7 @@
         "guarded_out": "好似唔多通",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0193
+        "latency_ms": 0.0201
       },
       {
         "id": "5-7字:48",
@@ -2309,7 +2314,7 @@
         "guarded_out": "打住紅旗反紅旗",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0976
+        "latency_ms": 0.1055
       },
       {
         "id": "5-7字:49",
@@ -2326,7 +2331,7 @@
         "guarded_out": "千祈唔好講",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0239
+        "latency_ms": 0.0235
       },
       {
         "id": "5-7字:50",
@@ -2343,7 +2348,7 @@
         "guarded_out": "聽唔明啲電台",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0548
+        "latency_ms": 0.0768
       },
       {
         "id": "5-7字:51",
@@ -2360,7 +2365,7 @@
         "guarded_out": "真係激死人！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0187
+        "latency_ms": 0.0341
       },
       {
         "id": "5-7字:52",
@@ -2377,7 +2382,7 @@
         "guarded_out": "啲樣好黐",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0466
+        "latency_ms": 0.0563
       },
       {
         "id": "5-7字:53",
@@ -2394,7 +2399,7 @@
         "guarded_out": "千祈唔好做！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0647
+        "latency_ms": 0.077
       },
       {
         "id": "5-7字:54",
@@ -2411,7 +2416,7 @@
         "guarded_out": "所以唔會留底",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0549
+        "latency_ms": 0.0652
       },
       {
         "id": "5-7字:55",
@@ -2428,7 +2433,7 @@
         "guarded_out": "佢老豆好溺愛佢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1412
+        "latency_ms": 0.1548
       },
       {
         "id": "5-7字:56",
@@ -2445,7 +2450,7 @@
         "guarded_out": "捍衛新聞自由",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0847
+        "latency_ms": 0.0862
       },
       {
         "id": "5-7字:57",
@@ -2462,7 +2467,7 @@
         "guarded_out": "我眼瞓而已嘛",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0711
+        "latency_ms": 0.0845
       },
       {
         "id": "5-7字:58",
@@ -2479,7 +2484,7 @@
         "guarded_out": "呢啲乜嘢嚟嘅",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1972
+        "latency_ms": 0.2686
       },
       {
         "id": "5-7字:59",
@@ -2496,7 +2501,7 @@
         "guarded_out": "仲要注冊帳號添",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1142
+        "latency_ms": 0.1481
       },
       {
         "id": "5-7字:60",
@@ -2513,7 +2518,7 @@
         "guarded_out": "已經過咗兩過",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0843
+        "latency_ms": 0.0684
       },
       {
         "id": "5-7字:61",
@@ -2530,7 +2535,7 @@
         "guarded_out": "佢識撚咩？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0885
+        "latency_ms": 0.0905
       },
       {
         "id": "5-7字:62",
@@ -2547,7 +2552,7 @@
         "guarded_out": "佢尾骨彎彎哋。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1335
+        "latency_ms": 0.1427
       },
       {
         "id": "5-7字:63",
@@ -2564,7 +2569,7 @@
         "guarded_out": "係喺房间里嘅啊",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1813
+        "latency_ms": 0.1865
       },
       {
         "id": "5-7字:64",
@@ -2581,7 +2586,7 @@
         "guarded_out": "犯罪心理學",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0266
+        "latency_ms": 0.0305
       },
       {
         "id": "5-7字:65",
@@ -2598,7 +2603,7 @@
         "guarded_out": "獨立委員會",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0325
+        "latency_ms": 0.0249
       },
       {
         "id": "5-7字:66",
@@ -2615,7 +2620,7 @@
         "guarded_out": "你要諗啲橋先得",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0901
+        "latency_ms": 0.1182
       },
       {
         "id": "5-7字:67",
@@ -2632,7 +2637,7 @@
         "guarded_out": "你做咩睇低我？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0816
+        "latency_ms": 0.0726
       },
       {
         "id": "5-7字:68",
@@ -2649,7 +2654,7 @@
         "guarded_out": "離開工作崗位",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0613
+        "latency_ms": 0.0761
       },
       {
         "id": "5-7字:69",
@@ -2666,7 +2671,7 @@
         "guarded_out": "今晚晚餐食扒。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0863
+        "latency_ms": 0.0983
       },
       {
         "id": "5-7字:70",
@@ -2683,7 +2688,7 @@
         "guarded_out": "别胡讲八道",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0613
+        "latency_ms": 0.0771
       },
       {
         "id": "5-7字:71",
@@ -2700,7 +2705,7 @@
         "guarded_out": "達到一定水平",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0504
+        "latency_ms": 0.055
       },
       {
         "id": "5-7字:72",
@@ -2717,7 +2722,7 @@
         "guarded_out": "老師走進教室",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0878
+        "latency_ms": 0.0887
       },
       {
         "id": "5-7字:73",
@@ -2734,7 +2739,7 @@
         "guarded_out": "玲姐，早晨！",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1226
+        "latency_ms": 0.1287
       },
       {
         "id": "5-7字:74",
@@ -2751,7 +2756,7 @@
         "guarded_out": "佢俾车门夹著咗",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.206
+        "latency_ms": 0.2231
       },
       {
         "id": "5-7字:75",
@@ -2768,7 +2773,7 @@
         "guarded_out": "我呢排比較忙",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0548
+        "latency_ms": 0.0767
       },
       {
         "id": "5-7字:76",
@@ -2785,7 +2790,7 @@
         "guarded_out": "凍到面青青嘅",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0771
+        "latency_ms": 0.0895
       },
       {
         "id": "5-7字:77",
@@ -2802,7 +2807,7 @@
         "guarded_out": "你喺度好啱晒",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0682
+        "latency_ms": 0.0775
       },
       {
         "id": "5-7字:78",
@@ -2819,7 +2824,7 @@
         "guarded_out": "樹根破咗。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.028
+        "latency_ms": 0.0358
       },
       {
         "id": "5-7字:79",
@@ -2836,7 +2841,7 @@
         "guarded_out": "股票交易所",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0013
+        "latency_ms": 0.0012
       },
       {
         "id": "5-7字:80",
@@ -2853,7 +2858,7 @@
         "guarded_out": "輪到你走子喇",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0698
+        "latency_ms": 0.0756
       },
       {
         "id": "5-7字:81",
@@ -2870,7 +2875,7 @@
         "guarded_out": "擔返口大雪茄",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0861
+        "latency_ms": 0.0975
       },
       {
         "id": "5-7字:82",
@@ -2887,7 +2892,7 @@
         "guarded_out": "簡易家常菜",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0267
+        "latency_ms": 0.0358
       },
       {
         "id": "5-7字:83",
@@ -2904,7 +2909,7 @@
         "guarded_out": "究竟邊個先啱呢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0577
+        "latency_ms": 0.0881
       },
       {
         "id": "5-7字:84",
@@ -2921,7 +2926,7 @@
         "guarded_out": "講嘢唔好咁長氣",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.07
+        "latency_ms": 0.0782
       },
       {
         "id": "5-7字:85",
@@ -2938,7 +2943,7 @@
         "guarded_out": "今日天氣晴",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0266
+        "latency_ms": 0.0301
       },
       {
         "id": "5-7字:86",
@@ -2955,7 +2960,7 @@
         "guarded_out": "你想講乜嘢？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0593
+        "latency_ms": 0.0708
       },
       {
         "id": "5-7字:87",
@@ -2972,7 +2977,7 @@
         "guarded_out": "提高行政效率",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0013
+        "latency_ms": 0.0012
       },
       {
         "id": "5-7字:88",
@@ -2989,7 +2994,7 @@
         "guarded_out": "快啲畀我睇",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0252
+        "latency_ms": 0.0343
       },
       {
         "id": "5-7字:89",
@@ -3006,7 +3011,7 @@
         "guarded_out": "確定會議日期",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0507
+        "latency_ms": 0.0577
       },
       {
         "id": "5-7字:90",
@@ -3023,7 +3028,7 @@
         "guarded_out": "造成龐大嘅損失",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0972
+        "latency_ms": 0.1251
       },
       {
         "id": "5-7字:91",
@@ -3040,7 +3045,7 @@
         "guarded_out": "别单打我！",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0556
+        "latency_ms": 0.075
       },
       {
         "id": "5-7字:92",
@@ -3057,7 +3062,7 @@
         "guarded_out": "罕見嘅疾病",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0243
+        "latency_ms": 0.0281
       },
       {
         "id": "5-7字:93",
@@ -3074,7 +3079,7 @@
         "guarded_out": "我聽咗幾次",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0251
+        "latency_ms": 0.034
       },
       {
         "id": "5-7字:94",
@@ -3091,7 +3096,7 @@
         "guarded_out": "我去咗紋身。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0581
+        "latency_ms": 0.1496
       },
       {
         "id": "5-7字:95",
@@ -3108,7 +3113,7 @@
         "guarded_out": "味道不錯。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0262
+        "latency_ms": 0.0293
       },
       {
         "id": "5-7字:96",
@@ -3125,7 +3130,7 @@
         "guarded_out": "妹妹最鍾意食糖",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0733
+        "latency_ms": 0.0719
       },
       {
         "id": "5-7字:97",
@@ -3142,7 +3147,7 @@
         "guarded_out": "積蓄咗好多錢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1091
+        "latency_ms": 0.0945
       },
       {
         "id": "5-7字:98",
@@ -3159,7 +3164,7 @@
         "guarded_out": "我頭先瞌住晒。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0922
+        "latency_ms": 0.1082
       },
       {
         "id": "5-7字:99",
@@ -3176,7 +3181,7 @@
         "guarded_out": "受到空軍襲擊",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0777
+        "latency_ms": 0.1203
       },
       {
         "id": "5-7字:100",
@@ -3193,7 +3198,7 @@
         "guarded_out": "大規模示威",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0257
+        "latency_ms": 0.0271
       },
       {
         "id": "5-7字:101",
@@ -3210,7 +3215,7 @@
         "guarded_out": "影響個人形象",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0549
+        "latency_ms": 0.0537
       },
       {
         "id": "5-7字:102",
@@ -3227,7 +3232,7 @@
         "guarded_out": "等我入去！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0345
+        "latency_ms": 0.0344
       },
       {
         "id": "5-7字:103",
@@ -3244,7 +3249,7 @@
         "guarded_out": "一会儿再讲",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0722
+        "latency_ms": 0.0874
       },
       {
         "id": "5-7字:104",
@@ -3261,7 +3266,7 @@
         "guarded_out": "唔好去呀！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0319
+        "latency_ms": 0.0343
       },
       {
         "id": "5-7字:105",
@@ -3278,7 +3283,7 @@
         "guarded_out": "嗌咗振宇埋嚟啊",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1142
+        "latency_ms": 0.1211
       },
       {
         "id": "5-7字:106",
@@ -3295,7 +3300,7 @@
         "guarded_out": "腰赤赤痛。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.001
+        "latency_ms": 0.0015
       },
       {
         "id": "5-7字:107",
@@ -3312,7 +3317,7 @@
         "guarded_out": "城際直通車",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0269
+        "latency_ms": 0.0317
       },
       {
         "id": "5-7字:108",
@@ -3329,7 +3334,7 @@
         "guarded_out": "假嘅都係真嘅？",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.2301
+        "latency_ms": 0.3081
       },
       {
         "id": "5-7字:109",
@@ -3346,7 +3351,7 @@
         "guarded_out": "喺香港唔會落雪",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0779
+        "latency_ms": 0.0907
       },
       {
         "id": "5-7字:110",
@@ -3363,7 +3368,7 @@
         "guarded_out": "佢入嚟未？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0895
+        "latency_ms": 0.0926
       },
       {
         "id": "5-7字:111",
@@ -3380,7 +3385,7 @@
         "guarded_out": "成人身份證",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0263
+        "latency_ms": 0.0268
       },
       {
         "id": "5-7字:112",
@@ -3397,7 +3402,7 @@
         "guarded_out": "其實你唔使噉",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1604
+        "latency_ms": 0.0745
       },
       {
         "id": "5-7字:113",
@@ -3414,7 +3419,7 @@
         "guarded_out": "俗世嘅眼光",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0221
+        "latency_ms": 0.033
       },
       {
         "id": "5-7字:114",
@@ -3431,7 +3436,7 @@
         "guarded_out": "震源機制解",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0318
+        "latency_ms": 0.0289
       },
       {
         "id": "5-7字:115",
@@ -3448,7 +3453,7 @@
         "guarded_out": "全吞点药！",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0681
+        "latency_ms": 0.0786
       },
       {
         "id": "5-7字:116",
@@ -3465,7 +3470,7 @@
         "guarded_out": "一身珠光寶氣",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0762
+        "latency_ms": 0.0814
       },
       {
         "id": "5-7字:117",
@@ -3482,7 +3487,7 @@
         "guarded_out": "唔會做網站",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.023
+        "latency_ms": 0.026
       },
       {
         "id": "5-7字:118",
@@ -3499,7 +3504,7 @@
         "guarded_out": "办咗两桌酒席",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.125
+        "latency_ms": 0.1527
       },
       {
         "id": "5-7字:119",
@@ -3516,7 +3521,7 @@
         "guarded_out": "你信唔信佛嘅？",
         "guarded_ok": false,
         "outcome": "lost",
-        "latency_ms": 0.2068
+        "latency_ms": 0.2909
       },
       {
         "id": "5-7字:120",
@@ -3533,7 +3538,7 @@
         "guarded_out": "荔枝蜜特別香",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0911
+        "latency_ms": 0.0993
       },
       {
         "id": "5-7字:121",
@@ -3550,7 +3555,7 @@
         "guarded_out": "連鎖補習社",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0522
+        "latency_ms": 0.0325
       },
       {
         "id": "5-7字:122",
@@ -3567,7 +3572,7 @@
         "guarded_out": "果醬三明治",
         "guarded_ok": false,
         "outcome": "lost",
-        "latency_ms": 0.0688
+        "latency_ms": 0.0726
       },
       {
         "id": "5-7字:123",
@@ -3584,7 +3589,7 @@
         "guarded_out": "量身定做嘅衫",
         "guarded_ok": false,
         "outcome": "lost",
-        "latency_ms": 0.0969
+        "latency_ms": 0.1054
       },
       {
         "id": "5-7字:124",
@@ -3601,7 +3606,7 @@
         "guarded_out": "晴朗嘅天空",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0207
+        "latency_ms": 0.0237
       },
       {
         "id": "5-7字:125",
@@ -3618,7 +3623,7 @@
         "guarded_out": "呢件事好商量",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0563
+        "latency_ms": 0.0663
       },
       {
         "id": "5-7字:126",
@@ -3635,7 +3640,7 @@
         "guarded_out": "一切順利。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.03
+        "latency_ms": 0.0341
       },
       {
         "id": "5-7字:127",
@@ -3652,7 +3657,7 @@
         "guarded_out": "唔好咁多廢話",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0599
+        "latency_ms": 0.0757
       },
       {
         "id": "5-7字:128",
@@ -3669,7 +3674,7 @@
         "guarded_out": "货全卖完咗",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0647
+        "latency_ms": 0.0683
       },
       {
         "id": "5-7字:129",
@@ -3686,7 +3691,7 @@
         "guarded_out": "男兒當自強",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0254
+        "latency_ms": 0.0299
       },
       {
         "id": "5-7字:130",
@@ -3703,7 +3708,7 @@
         "guarded_out": "將嗰本書睇完",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0855
+        "latency_ms": 0.0865
       },
       {
         "id": "5-7字:131",
@@ -3720,7 +3725,7 @@
         "guarded_out": "我唔係特登嘅",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0572
+        "latency_ms": 0.07
       },
       {
         "id": "5-7字:132",
@@ -3754,7 +3759,7 @@
         "guarded_out": "但唔一定係粵文",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0728
+        "latency_ms": 0.0676
       },
       {
         "id": "5-7字:134",
@@ -3771,7 +3776,7 @@
         "guarded_out": "嗗一聲吞咗佢。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1129
+        "latency_ms": 0.1572
       },
       {
         "id": "5-7字:135",
@@ -3788,7 +3793,7 @@
         "guarded_out": "由天亮坐到黑夜",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.132
+        "latency_ms": 0.1381
       },
       {
         "id": "5-7字:136",
@@ -3805,7 +3810,7 @@
         "guarded_out": "佢亏咗大本",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0575
+        "latency_ms": 0.072
       },
       {
         "id": "5-7字:137",
@@ -3822,7 +3827,7 @@
         "guarded_out": "街道命名典故",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0012
+        "latency_ms": 0.0013
       },
       {
         "id": "5-7字:138",
@@ -3839,7 +3844,7 @@
         "guarded_out": "呼應時代脈膊",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0958
+        "latency_ms": 0.1078
       },
       {
         "id": "5-7字:139",
@@ -3856,7 +3861,7 @@
         "guarded_out": "我呢排忙得唠转",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.2016
+        "latency_ms": 0.2146
       },
       {
         "id": "5-7字:140",
@@ -3873,7 +3878,7 @@
         "guarded_out": "海岸巡邏隊",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0257
+        "latency_ms": 0.0303
       },
       {
         "id": "5-7字:141",
@@ -3890,7 +3895,7 @@
         "guarded_out": "梗係你去啦",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0534
+        "latency_ms": 0.0597
       },
       {
         "id": "5-7字:142",
@@ -3907,7 +3912,7 @@
         "guarded_out": "琴日冇邊個嚟過",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0714
+        "latency_ms": 0.0735
       },
       {
         "id": "5-7字:143",
@@ -3924,7 +3929,7 @@
         "guarded_out": "佢唔係幾睇書",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0721
+        "latency_ms": 0.1569
       },
       {
         "id": "5-7字:144",
@@ -3941,7 +3946,7 @@
         "guarded_out": "計我睇你就唔好去",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0663
+        "latency_ms": 0.0711
       },
       {
         "id": "5-7字:145",
@@ -3958,7 +3963,7 @@
         "guarded_out": "嗰間屋俾佢佔咗",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0822
+        "latency_ms": 0.1028
       },
       {
         "id": "5-7字:146",
@@ -3975,7 +3980,7 @@
         "guarded_out": "我花突咗十幾蚊",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1498
+        "latency_ms": 0.1381
       },
       {
         "id": "5-7字:147",
@@ -3992,7 +3997,7 @@
         "guarded_out": "我一啲都唔攰",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0683
+        "latency_ms": 0.1077
       },
       {
         "id": "5-7字:148",
@@ -4009,7 +4014,7 @@
         "guarded_out": "佢撈得好落泊",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0615
+        "latency_ms": 0.0676
       },
       {
         "id": "5-7字:149",
@@ -4026,7 +4031,7 @@
         "guarded_out": "我有殺冇賠",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0272
+        "latency_ms": 0.0313
       },
       {
         "id": "5-7字:150",
@@ -4043,7 +4048,7 @@
         "guarded_out": "紙杯傳聲筒",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.028
+        "latency_ms": 0.0346
       },
       {
         "id": "5-7字:151",
@@ -4060,7 +4065,7 @@
         "guarded_out": "西芹炒雞柳",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0254
+        "latency_ms": 0.0278
       },
       {
         "id": "5-7字:152",
@@ -4077,7 +4082,7 @@
         "guarded_out": "佢叫你仆街噃！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0802
+        "latency_ms": 0.094
       },
       {
         "id": "5-7字:153",
@@ -4094,7 +4099,7 @@
         "guarded_out": "要正常連網先得",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1095
+        "latency_ms": 0.1216
       },
       {
         "id": "5-7字:154",
@@ -4111,7 +4116,7 @@
         "guarded_out": "佢唔想去囉。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0681
+        "latency_ms": 0.0908
       },
       {
         "id": "5-7字:155",
@@ -4128,7 +4133,7 @@
         "guarded_out": "呢個女仔好純真係",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0878
+        "latency_ms": 0.0992
       },
       {
         "id": "5-7字:156",
@@ -4145,7 +4150,7 @@
         "guarded_out": "大規模裁員",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0302
+        "latency_ms": 0.0301
       },
       {
         "id": "5-7字:157",
@@ -4162,7 +4167,7 @@
         "guarded_out": "掃得塵土飛揚",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0933
+        "latency_ms": 0.1086
       },
       {
         "id": "5-7字:158",
@@ -4179,7 +4184,7 @@
         "guarded_out": "我堅決唔應承",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0854
+        "latency_ms": 0.1038
       },
       {
         "id": "5-7字:159",
@@ -4196,7 +4201,7 @@
         "guarded_out": "總冇瞓覺？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0335
+        "latency_ms": 0.0412
       },
       {
         "id": "5-7字:160",
@@ -4213,7 +4218,7 @@
         "guarded_out": "一脚䟕落個水坑",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.2127
+        "latency_ms": 0.2366
       },
       {
         "id": "5-7字:161",
@@ -4230,7 +4235,7 @@
         "guarded_out": "請你唔好擋住門口",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1145
+        "latency_ms": 0.1395
       },
       {
         "id": "5-7字:162",
@@ -4247,7 +4252,7 @@
         "guarded_out": "小兒科而已",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0766
+        "latency_ms": 0.0882
       },
       {
         "id": "5-7字:163",
@@ -4264,7 +4269,7 @@
         "guarded_out": "你喺深水埗住？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0746
+        "latency_ms": 0.0962
       },
       {
         "id": "5-7字:164",
@@ -4281,7 +4286,7 @@
         "guarded_out": "守著个位！",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0503
+        "latency_ms": 0.0627
       },
       {
         "id": "5-7字:165",
@@ -4298,7 +4303,7 @@
         "guarded_out": "太陽出嚟喇",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0223
+        "latency_ms": 0.0489
       },
       {
         "id": "5-7字:166",
@@ -4315,7 +4320,7 @@
         "guarded_out": "係非當人情",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0257
+        "latency_ms": 0.0389
       },
       {
         "id": "5-7字:167",
@@ -4332,7 +4337,7 @@
         "guarded_out": "三腳貓功夫",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0281
+        "latency_ms": 0.0506
       },
       {
         "id": "5-7字:168",
@@ -4349,7 +4354,7 @@
         "guarded_out": "仲想点样？",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0835
+        "latency_ms": 0.0801
       },
       {
         "id": "5-7字:169",
@@ -4366,7 +4371,7 @@
         "guarded_out": "狹窄嘅小巷",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0277
+        "latency_ms": 0.0407
       },
       {
         "id": "5-7字:170",
@@ -4383,7 +4388,7 @@
         "guarded_out": "乜嘢平板嚟嘅？",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1885
+        "latency_ms": 0.2133
       },
       {
         "id": "5-7字:171",
@@ -4400,7 +4405,7 @@
         "guarded_out": "就會比較低調",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0502
+        "latency_ms": 0.0715
       },
       {
         "id": "5-7字:172",
@@ -4417,7 +4422,7 @@
         "guarded_out": "盈利十分之微",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0013
+        "latency_ms": 0.0018
       },
       {
         "id": "5-7字:173",
@@ -4434,7 +4439,7 @@
         "guarded_out": "好想出份力",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0013
+        "latency_ms": 0.0051
       },
       {
         "id": "5-7字:174",
@@ -4451,7 +4456,7 @@
         "guarded_out": "佢住我隔壁",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0657
+        "latency_ms": 0.0847
       },
       {
         "id": "5-7字:175",
@@ -4468,7 +4473,7 @@
         "guarded_out": "佢哋行到老母聲",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0787
+        "latency_ms": 0.0976
       },
       {
         "id": "5-7字:176",
@@ -4485,7 +4490,7 @@
         "guarded_out": "哄佢講出真相",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0798
+        "latency_ms": 0.0817
       },
       {
         "id": "5-7字:177",
@@ -4502,7 +4507,7 @@
         "guarded_out": "排演咗一次",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0257
+        "latency_ms": 0.0373
       },
       {
         "id": "5-7字:178",
@@ -4519,7 +4524,7 @@
         "guarded_out": "呢位係我嘅秘書",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0682
+        "latency_ms": 0.0902
       },
       {
         "id": "5-7字:179",
@@ -4536,7 +4541,7 @@
         "guarded_out": "呢個係我嘅名片",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0683
+        "latency_ms": 0.0912
       },
       {
         "id": "5-7字:180",
@@ -4553,7 +4558,7 @@
         "guarded_out": "呢條路好寬。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0834
+        "latency_ms": 0.0687
       },
       {
         "id": "5-7字:181",
@@ -4570,7 +4575,7 @@
         "guarded_out": "人人有功練。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0964
+        "latency_ms": 0.0638
       },
       {
         "id": "5-7字:182",
@@ -4587,7 +4592,7 @@
         "guarded_out": "但我唔使國產",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0663
+        "latency_ms": 0.0635
       },
       {
         "id": "5-7字:183",
@@ -4604,7 +4609,7 @@
         "guarded_out": "定係有問題",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0312
+        "latency_ms": 0.0334
       },
       {
         "id": "5-7字:184",
@@ -4621,7 +4626,7 @@
         "guarded_out": "仲有女朋友嘅",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.058
+        "latency_ms": 0.0653
       },
       {
         "id": "5-7字:185",
@@ -4638,7 +4643,7 @@
         "guarded_out": "再多饮碗粥",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0675
+        "latency_ms": 0.0897
       },
       {
         "id": "5-7字:186",
@@ -4655,7 +4660,7 @@
         "guarded_out": "打老虎好難理解",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0826
+        "latency_ms": 0.0951
       },
       {
         "id": "5-7字:187",
@@ -4672,7 +4677,7 @@
         "guarded_out": "唔想瞓觉啊",
         "guarded_ok": true,
         "outcome": "saved",
-        "latency_ms": 0.0851
+        "latency_ms": 0.1039
       },
       {
         "id": "5-7字:188",
@@ -4689,7 +4694,7 @@
         "guarded_out": "啲刀都生晒鏽",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1158
+        "latency_ms": 0.1259
       },
       {
         "id": "5-7字:189",
@@ -4706,7 +4711,7 @@
         "guarded_out": "佢笑到揭揭聲",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0816
+        "latency_ms": 0.0827
       },
       {
         "id": "5-7字:190",
@@ -4723,7 +4728,7 @@
         "guarded_out": "我太投入咗",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0867
+        "latency_ms": 0.0735
       },
       {
         "id": "5-7字:191",
@@ -4740,7 +4745,7 @@
         "guarded_out": "佢未蘇呢？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0851
+        "latency_ms": 0.0818
       },
       {
         "id": "5-7字:192",
@@ -4757,7 +4762,7 @@
         "guarded_out": "你即管放心去做",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0872
+        "latency_ms": 0.1317
       },
       {
         "id": "5-7字:193",
@@ -4774,7 +4779,7 @@
         "guarded_out": "佢唔俾我食飯。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0801
+        "latency_ms": 0.0877
       },
       {
         "id": "5-7字:194",
@@ -4791,7 +4796,7 @@
         "guarded_out": "呢啲好重要。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0682
+        "latency_ms": 0.0775
       },
       {
         "id": "5-7字:195",
@@ -4808,7 +4813,7 @@
         "guarded_out": "我屋企請咗個阿媽姐",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.081
+        "latency_ms": 0.0944
       },
       {
         "id": "5-7字:196",
@@ -4825,7 +4830,7 @@
         "guarded_out": "我寧願叫你全名",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0703
+        "latency_ms": 0.0852
       },
       {
         "id": "5-7字:197",
@@ -4842,7 +4847,7 @@
         "guarded_out": "呢隻糖好酸！",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0798
+        "latency_ms": 0.1182
       },
       {
         "id": "5-7字:198",
@@ -4859,7 +4864,7 @@
         "guarded_out": "藥物已經失效。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1307
+        "latency_ms": 0.1618
       },
       {
         "id": "5-7字:199",
@@ -4876,7 +4881,7 @@
         "guarded_out": "等民眾產生仇恨",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0911
+        "latency_ms": 0.1559
       },
       {
         "id": "5-7字:200",
@@ -4893,7 +4898,7 @@
         "guarded_out": "喺中國上到",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0273
+        "latency_ms": 0.0253
       },
       {
         "id": "5-7字:201",
@@ -4910,7 +4915,7 @@
         "guarded_out": "我哋多威呀女",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1045
+        "latency_ms": 0.1067
       },
       {
         "id": "5-7字:202",
@@ -4927,7 +4932,7 @@
         "guarded_out": "我又接唔到",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0264
+        "latency_ms": 0.027
       },
       {
         "id": "5-7字:203",
@@ -4944,7 +4949,7 @@
         "guarded_out": "有冇人？",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0708
+        "latency_ms": 0.0646
       },
       {
         "id": "5-7字:204",
@@ -4961,7 +4966,7 @@
         "guarded_out": "好，我而家出街",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1105
+        "latency_ms": 0.1416
       },
       {
         "id": "5-7字:205",
@@ -4978,7 +4983,7 @@
         "guarded_out": "過一陣嚟啦",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0785
+        "latency_ms": 0.0783
       },
       {
         "id": "5-7字:206",
@@ -4995,7 +5000,7 @@
         "guarded_out": "唔好睇就走",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0225
+        "latency_ms": 0.0272
       },
       {
         "id": "5-7字:207",
@@ -5012,7 +5017,7 @@
         "guarded_out": "梅花香自苦寒嚟",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1262
+        "latency_ms": 0.1516
       },
       {
         "id": "5-7字:208",
@@ -5029,7 +5034,7 @@
         "guarded_out": "使唔使我幫手？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0771
+        "latency_ms": 0.1022
       },
       {
         "id": "5-7字:209",
@@ -5046,7 +5051,7 @@
         "guarded_out": "字體冇可以規範",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0573
+        "latency_ms": 0.1202
       },
       {
         "id": "5-7字:210",
@@ -5063,7 +5068,7 @@
         "guarded_out": "佢比你开心",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0645
+        "latency_ms": 0.0786
       },
       {
         "id": "5-7字:211",
@@ -5080,7 +5085,7 @@
         "guarded_out": "噉攪好危险嘅",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.178
+        "latency_ms": 0.1926
       },
       {
         "id": "5-7字:212",
@@ -5097,7 +5102,7 @@
         "guarded_out": "區議會選舉",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0258
+        "latency_ms": 0.0331
       },
       {
         "id": "5-7字:213",
@@ -5114,7 +5119,7 @@
         "guarded_out": "細節私聊吧",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.079
+        "latency_ms": 0.0751
       },
       {
         "id": "5-7字:214",
@@ -5131,7 +5136,7 @@
         "guarded_out": "玩花样/出花樣",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1739
+        "latency_ms": 0.1857
       },
       {
         "id": "5-7字:215",
@@ -5148,7 +5153,7 @@
         "guarded_out": "一個棘手嘅問題",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1297
+        "latency_ms": 0.1396
       },
       {
         "id": "5-7字:216",
@@ -5165,7 +5170,7 @@
         "guarded_out": "轉過身嚟叫姑姑",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1999
+        "latency_ms": 0.2407
       },
       {
         "id": "5-7字:217",
@@ -5182,7 +5187,7 @@
         "guarded_out": "食擦屁股吧你！",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1486
+        "latency_ms": 0.1566
       },
       {
         "id": "5-7字:218",
@@ -5199,7 +5204,7 @@
         "guarded_out": "係，直頭唔見你",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1251
+        "latency_ms": 0.1369
       },
       {
         "id": "5-7字:219",
@@ -5216,7 +5221,7 @@
         "guarded_out": "等返屋企再治你！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1408
+        "latency_ms": 0.1577
       },
       {
         "id": "5-7字:220",
@@ -5233,7 +5238,7 @@
         "guarded_out": "固有嘅做法",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0297
+        "latency_ms": 0.0275
       },
       {
         "id": "5-7字:221",
@@ -5250,7 +5255,7 @@
         "guarded_out": "執好自己嘅書",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.061
+        "latency_ms": 0.0708
       },
       {
         "id": "5-7字:222",
@@ -5267,7 +5272,7 @@
         "guarded_out": "香港cue後",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0701
+        "latency_ms": 0.0846
       },
       {
         "id": "5-7字:223",
@@ -5284,7 +5289,7 @@
         "guarded_out": "好囉，做完！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1042
+        "latency_ms": 0.1138
       },
       {
         "id": "5-7字:224",
@@ -5301,7 +5306,7 @@
         "guarded_out": "全國人大委員長",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0632
+        "latency_ms": 0.0795
       },
       {
         "id": "5-7字:225",
@@ -5318,7 +5323,7 @@
         "guarded_out": "碰吓都唔得",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0744
+        "latency_ms": 0.0717
       },
       {
         "id": "5-7字:226",
@@ -5335,7 +5340,7 @@
         "guarded_out": "《滿洲實錄》",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0914
+        "latency_ms": 0.2238
       },
       {
         "id": "5-7字:227",
@@ -5352,7 +5357,7 @@
         "guarded_out": "本書後面嘅索引",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0778
+        "latency_ms": 0.0864
       },
       {
         "id": "5-7字:228",
@@ -5369,7 +5374,7 @@
         "guarded_out": "包得非常嚴實",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0922
+        "latency_ms": 0.0872
       },
       {
         "id": "5-7字:229",
@@ -5386,7 +5391,7 @@
         "guarded_out": "放假就抖下啦！",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.084
+        "latency_ms": 0.0895
       },
       {
         "id": "5-7字:230",
@@ -5403,7 +5408,7 @@
         "guarded_out": "我時刻陪伴住你",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0998
+        "latency_ms": 0.1089
       },
       {
         "id": "5-7字:231",
@@ -5420,7 +5425,7 @@
         "guarded_out": "唔使懷疑咗",
         "guarded_ok": false,
         "outcome": "lost",
-        "latency_ms": 0.0736
+        "latency_ms": 0.086
       },
       {
         "id": "5-7字:232",
@@ -5437,7 +5442,7 @@
         "guarded_out": "芝士火腿烤土豆",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1583
+        "latency_ms": 0.1859
       },
       {
         "id": "5-7字:233",
@@ -5454,7 +5459,7 @@
         "guarded_out": "玻璃瓶好靓",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1227
+        "latency_ms": 0.1304
       },
       {
         "id": "5-7字:234",
@@ -5471,7 +5476,7 @@
         "guarded_out": "一定唔會話你",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0585
+        "latency_ms": 0.0625
       },
       {
         "id": "5-7字:235",
@@ -5488,7 +5493,7 @@
         "guarded_out": "講意思冇用",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0827
+        "latency_ms": 0.0897
       },
       {
         "id": "5-7字:236",
@@ -5505,7 +5510,7 @@
         "guarded_out": "照住心口捶過去",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1153
+        "latency_ms": 0.133
       },
       {
         "id": "5-7字:237",
@@ -5522,7 +5527,7 @@
         "guarded_out": "敗血性休克",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0262
+        "latency_ms": 0.0308
       },
       {
         "id": "5-7字:238",
@@ -5539,7 +5544,7 @@
         "guarded_out": "呢個係乜嘢字體",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0665
+        "latency_ms": 0.0804
       },
       {
         "id": "5-7字:239",
@@ -5556,7 +5561,7 @@
         "guarded_out": "快啲喐手做嘢！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0679
+        "latency_ms": 0.0789
       },
       {
         "id": "5-7字:240",
@@ -5573,7 +5578,7 @@
         "guarded_out": "聚喺一齊傾計。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1138
+        "latency_ms": 0.1384
       },
       {
         "id": "5-7字:241",
@@ -5590,7 +5595,7 @@
         "guarded_out": "設置挺複雜",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0727
+        "latency_ms": 0.0855
       },
       {
         "id": "5-7字:242",
@@ -5607,7 +5612,7 @@
         "guarded_out": "得閒嚟闲傾偈吧",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.5243
+        "latency_ms": 0.2229
       },
       {
         "id": "5-7字:243",
@@ -5624,7 +5629,7 @@
         "guarded_out": "佢有幾聲咳。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1042
+        "latency_ms": 0.1187
       },
       {
         "id": "5-7字:244",
@@ -5641,7 +5646,7 @@
         "guarded_out": "乜都好投契",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0643
+        "latency_ms": 0.0694
       },
       {
         "id": "5-7字:245",
@@ -5658,7 +5663,7 @@
         "guarded_out": "佢成日唔肯聽",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.081
+        "latency_ms": 0.0933
       },
       {
         "id": "5-7字:246",
@@ -5675,7 +5680,7 @@
         "guarded_out": "我唔想攬炒",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0217
+        "latency_ms": 0.0283
       },
       {
         "id": "5-7字:247",
@@ -5692,7 +5697,7 @@
         "guarded_out": "我俾開水烫咗。",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1835
+        "latency_ms": 0.1974
       },
       {
         "id": "5-7字:248",
@@ -5709,7 +5714,7 @@
         "guarded_out": "下次記住喇！",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0581
+        "latency_ms": 0.0614
       },
       {
         "id": "5-7字:249",
@@ -5726,7 +5731,7 @@
         "guarded_out": "哦，知道咗。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0828
+        "latency_ms": 0.0895
       },
       {
         "id": "5-7字:250",
@@ -5743,7 +5748,7 @@
         "guarded_out": "我唔係講咗咩？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0762
+        "latency_ms": 0.1311
       },
       {
         "id": "5-7字:251",
@@ -5760,7 +5765,7 @@
         "guarded_out": "我驚拖攰大家",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.073
+        "latency_ms": 0.095
       },
       {
         "id": "5-7字:252",
@@ -5777,7 +5782,7 @@
         "guarded_out": "你唔好噉啦",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0238
+        "latency_ms": 0.0308
       },
       {
         "id": "5-7字:253",
@@ -5794,7 +5799,7 @@
         "guarded_out": "酹点油落鑊",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0578
+        "latency_ms": 0.0679
       },
       {
         "id": "5-7字:254",
@@ -5811,7 +5816,7 @@
         "guarded_out": "你哋睇下佢係邊個",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0805
+        "latency_ms": 0.074
       },
       {
         "id": "5-7字:255",
@@ -5828,7 +5833,7 @@
         "guarded_out": "唔通我聽錯咗？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0796
+        "latency_ms": 0.0835
       },
       {
         "id": "5-7字:256",
@@ -5845,7 +5850,7 @@
         "guarded_out": "别欺负细路",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0595
+        "latency_ms": 0.0782
       },
       {
         "id": "5-7字:257",
@@ -5862,7 +5867,7 @@
         "guarded_out": "正合你嘅身",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0216
+        "latency_ms": 0.0275
       },
       {
         "id": "5-7字:258",
@@ -5879,7 +5884,7 @@
         "guarded_out": "呢隻貓好污糟。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0817
+        "latency_ms": 0.0862
       },
       {
         "id": "5-7字:259",
@@ -5896,7 +5901,7 @@
         "guarded_out": "咁好奇怪嘅你",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0632
+        "latency_ms": 0.0743
       },
       {
         "id": "5-7字:260",
@@ -5913,7 +5918,7 @@
         "guarded_out": "佢立誓要減磅。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1268
+        "latency_ms": 0.1384
       },
       {
         "id": "5-7字:261",
@@ -5930,7 +5935,7 @@
         "guarded_out": "撇除呢個可能性",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1133
+        "latency_ms": 0.1308
       },
       {
         "id": "5-7字:262",
@@ -5947,7 +5952,7 @@
         "guarded_out": "傷口入入咗口喇",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0875
+        "latency_ms": 0.106
       },
       {
         "id": "5-7字:263",
@@ -5964,7 +5969,7 @@
         "guarded_out": "自發籌款嘢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0821
+        "latency_ms": 0.0898
       },
       {
         "id": "5-7字:264",
@@ -5981,7 +5986,7 @@
         "guarded_out": "嘭一聲閂咗門",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0703
+        "latency_ms": 0.0994
       },
       {
         "id": "5-7字:265",
@@ -5998,7 +6003,7 @@
         "guarded_out": "佢睇唔起我。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0628
+        "latency_ms": 0.0863
       },
       {
         "id": "5-7字:266",
@@ -6015,7 +6020,7 @@
         "guarded_out": "外務副會長",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0269
+        "latency_ms": 0.0288
       },
       {
         "id": "5-7字:267",
@@ -6032,7 +6037,7 @@
         "guarded_out": "呢度塵土好大。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1066
+        "latency_ms": 0.1226
       },
       {
         "id": "5-7字:268",
@@ -6049,7 +6054,7 @@
         "guarded_out": "我聽覺好靈敏。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0865
+        "latency_ms": 0.0897
       },
       {
         "id": "5-7字:269",
@@ -6066,7 +6071,7 @@
         "guarded_out": "赢喺起跑線",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0712
+        "latency_ms": 0.0918
       },
       {
         "id": "5-7字:270",
@@ -6083,7 +6088,7 @@
         "guarded_out": "鹽蛇係乜嘢？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0979
+        "latency_ms": 0.1042
       },
       {
         "id": "5-7字:271",
@@ -6100,7 +6105,7 @@
         "guarded_out": "訴諸人身嘅謬誤",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1233
+        "latency_ms": 0.1306
       },
       {
         "id": "5-7字:272",
@@ -6117,7 +6122,7 @@
         "guarded_out": "你正一傻閪！",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0014
+        "latency_ms": 0.0015
       },
       {
         "id": "5-7字:273",
@@ -6134,7 +6139,7 @@
         "guarded_out": "佢講嘅話好惡毒",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.102
+        "latency_ms": 0.1093
       },
       {
         "id": "5-7字:274",
@@ -6151,7 +6156,7 @@
         "guarded_out": "唔願就拉倒",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0286
+        "latency_ms": 0.0307
       },
       {
         "id": "5-7字:275",
@@ -6168,7 +6173,7 @@
         "guarded_out": "佢兼職教琴。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0715
+        "latency_ms": 0.0791
       },
       {
         "id": "5-7字:276",
@@ -6185,7 +6190,7 @@
         "guarded_out": "世界真係細細！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0704
+        "latency_ms": 0.0686
       },
       {
         "id": "5-7字:277",
@@ -6202,7 +6207,7 @@
         "guarded_out": "呢段路好陡",
         "guarded_ok": false,
         "outcome": "lost",
-        "latency_ms": 0.0758
+        "latency_ms": 0.0804
       },
       {
         "id": "5-7字:278",
@@ -6219,7 +6224,7 @@
         "guarded_out": "我打電話畀你",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0699
+        "latency_ms": 0.0662
       },
       {
         "id": "5-7字:279",
@@ -6236,7 +6241,7 @@
         "guarded_out": "踎喺度傾偈",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0617
+        "latency_ms": 0.0742
       },
       {
         "id": "5-7字:280",
@@ -6253,7 +6258,7 @@
         "guarded_out": "就係噉樣嘅咗",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1632
+        "latency_ms": 0.197
       },
       {
         "id": "5-7字:281",
@@ -6270,7 +6275,7 @@
         "guarded_out": "韓流減退咗。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0936
+        "latency_ms": 0.107
       },
       {
         "id": "5-7字:282",
@@ -6287,7 +6292,7 @@
         "guarded_out": "清朝衰落嘅原因",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0937
+        "latency_ms": 0.0985
       },
       {
         "id": "5-7字:283",
@@ -6304,7 +6309,7 @@
         "guarded_out": "趴下，咪抬頭",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0967
+        "latency_ms": 0.0961
       },
       {
         "id": "5-7字:284",
@@ -6321,7 +6326,7 @@
         "guarded_out": "真係好多未睇過",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0774
+        "latency_ms": 0.092
       },
       {
         "id": "5-7字:285",
@@ -6338,7 +6343,7 @@
         "guarded_out": "年華唔復相逢時",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0974
+        "latency_ms": 0.103
       },
       {
         "id": "5-7字:286",
@@ -6355,7 +6360,7 @@
         "guarded_out": "市面回復平靜。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0738
+        "latency_ms": 0.1025
       },
       {
         "id": "5-7字:287",
@@ -6372,7 +6377,7 @@
         "guarded_out": "佢話唔去啦",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0756
+        "latency_ms": 0.0951
       },
       {
         "id": "5-7字:288",
@@ -6389,7 +6394,7 @@
         "guarded_out": "乜咁啱啊？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0711
+        "latency_ms": 0.0797
       },
       {
         "id": "5-7字:289",
@@ -6406,7 +6411,7 @@
         "guarded_out": "時間唔等人。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0628
+        "latency_ms": 0.1127
       },
       {
         "id": "5-7字:290",
@@ -6423,7 +6428,7 @@
         "guarded_out": "佢想搵你傾吓",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0682
+        "latency_ms": 0.0805
       },
       {
         "id": "5-7字:291",
@@ -6440,7 +6445,7 @@
         "guarded_out": "佢已經走咗",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0254
+        "latency_ms": 0.0263
       },
       {
         "id": "5-7字:292",
@@ -6457,7 +6462,7 @@
         "guarded_out": "「做乜？」",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0294
+        "latency_ms": 0.0281
       },
       {
         "id": "5-7字:293",
@@ -6474,7 +6479,7 @@
         "guarded_out": "佢而家唔得閒",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0286
+        "latency_ms": 0.0344
       },
       {
         "id": "5-7字:294",
@@ -6491,7 +6496,7 @@
         "guarded_out": "你入返去啦",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0327
+        "latency_ms": 0.052
       },
       {
         "id": "5-7字:295",
@@ -6508,7 +6513,7 @@
         "guarded_out": "你也侲嘅。",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0758
+        "latency_ms": 0.1004
       },
       {
         "id": "5-7字:296",
@@ -6525,7 +6530,7 @@
         "guarded_out": "佢做嘢好利索",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0661
+        "latency_ms": 0.0762
       },
       {
         "id": "5-7字:297",
@@ -6542,7 +6547,7 @@
         "guarded_out": "一陣間我會煮飯",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0729
+        "latency_ms": 0.0708
       },
       {
         "id": "5-7字:298",
@@ -6559,7 +6564,7 @@
         "guarded_out": "躺喺草地下",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.0617
+        "latency_ms": 0.0744
       },
       {
         "id": "5-7字:299",
@@ -6576,7 +6581,7 @@
         "guarded_out": "慘痛嘅教訓",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0245
+        "latency_ms": 0.0285
       },
       {
         "id": "5-7字古诗:0",
@@ -6593,7 +6598,7 @@
         "guarded_out": "床前明月光",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0012
+        "latency_ms": 0.0019
       },
       {
         "id": "5-7字古诗:1",
@@ -6610,7 +6615,7 @@
         "guarded_out": "疑是地上霜",
         "guarded_ok": true,
         "outcome": "fixed_right",
-        "latency_ms": 0.0042
+        "latency_ms": 0.005
       },
       {
         "id": "5-7字古诗:2",
@@ -6627,7 +6632,7 @@
         "guarded_out": "舉頭望明月",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0078
+        "latency_ms": 0.005
       },
       {
         "id": "5-7字古诗:3",
@@ -6644,7 +6649,7 @@
         "guarded_out": "低頭思故鄉",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0052
+        "latency_ms": 0.0065
       },
       {
         "id": "5-7字古诗:4",
@@ -6661,7 +6666,7 @@
         "guarded_out": "白日依山盡",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0049
+        "latency_ms": 0.0045
       },
       {
         "id": "5-7字古诗:5",
@@ -6678,7 +6683,7 @@
         "guarded_out": "黃河入海流",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0052
+        "latency_ms": 0.0048
       },
       {
         "id": "5-7字古诗:6",
@@ -6695,7 +6700,7 @@
         "guarded_out": "欲窮千裏目",
         "guarded_ok": true,
         "outcome": "fixed_right",
-        "latency_ms": 0.0071
+        "latency_ms": 0.0065
       },
       {
         "id": "5-7字古诗:7",
@@ -6712,7 +6717,7 @@
         "guarded_out": "更上一層樓",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0053
+        "latency_ms": 0.0132
       },
       {
         "id": "5-7字古诗:8",
@@ -6729,7 +6734,7 @@
         "guarded_out": "春眠不覺曉",
         "guarded_ok": true,
         "outcome": "saved",
-        "latency_ms": 0.0057
+        "latency_ms": 0.0065
       },
       {
         "id": "5-7字古诗:9",
@@ -6746,7 +6751,7 @@
         "guarded_out": "處處聞啼鳥",
         "guarded_ok": true,
         "outcome": "saved",
-        "latency_ms": 0.0052
+        "latency_ms": 0.0062
       },
       {
         "id": "5-7字古诗:10",
@@ -6763,7 +6768,7 @@
         "guarded_out": "夜來風雨聲",
         "guarded_ok": true,
         "outcome": "fixed_right",
-        "latency_ms": 0.0052
+        "latency_ms": 0.0057
       },
       {
         "id": "5-7字古诗:11",
@@ -6780,7 +6785,7 @@
         "guarded_out": "花落知多少",
         "guarded_ok": true,
         "outcome": "fixed_right",
-        "latency_ms": 0.005
+        "latency_ms": 0.0057
       },
       {
         "id": "8-15字:0",
@@ -6797,7 +6802,7 @@
         "guarded_out": "點樣快速搵錢？炒炒賣賣囉",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2355
+        "latency_ms": 0.2575
       },
       {
         "id": "8-15字:1",
@@ -6814,7 +6819,7 @@
         "guarded_out": "雙方嘅心智接唔接近係重點",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3047
+        "latency_ms": 0.1217
       },
       {
         "id": "8-15字:2",
@@ -6831,7 +6836,7 @@
         "guarded_out": "利申最近掉咗好多頭髮",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0875
+        "latency_ms": 0.1094
       },
       {
         "id": "8-15字:3",
@@ -6848,7 +6853,7 @@
         "guarded_out": "又係想走捷徑一步登天個啲人",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3135
+        "latency_ms": 0.3447
       },
       {
         "id": "8-15字:4",
@@ -6865,7 +6870,7 @@
         "guarded_out": "只係如果搞到你哋就要結婚",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1231
+        "latency_ms": 0.1198
       },
       {
         "id": "8-15字:5",
@@ -6882,7 +6887,7 @@
         "guarded_out": "我媽媽喺我細個嗰陣就死咗",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1849
+        "latency_ms": 0.1907
       },
       {
         "id": "8-15字:6",
@@ -6899,7 +6904,7 @@
         "guarded_out": "呢幾人抵佢死！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1208
+        "latency_ms": 0.1457
       },
       {
         "id": "8-15字:7",
@@ -6916,7 +6921,7 @@
         "guarded_out": "唔通真係好似之前巴打咁咩",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1163
+        "latency_ms": 0.1205
       },
       {
         "id": "8-15字:8",
@@ -6933,7 +6938,7 @@
         "guarded_out": "睇佢都係想請個機械人",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0977
+        "latency_ms": 0.1362
       },
       {
         "id": "8-15字:9",
@@ -6950,7 +6955,7 @@
         "guarded_out": "英文個字數限制唔使理",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1883
+        "latency_ms": 0.2116
       },
       {
         "id": "8-15字:10",
@@ -6967,7 +6972,7 @@
         "guarded_out": "隨時仲差過自己上網睇偷錄版仲差",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2501
+        "latency_ms": 0.291
       },
       {
         "id": "8-15字:11",
@@ -6984,7 +6989,7 @@
         "guarded_out": "我哋兩個仔乸出街",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1132
+        "latency_ms": 0.1171
       },
       {
         "id": "8-15字:12",
@@ -7001,7 +7006,7 @@
         "guarded_out": "其實馬刺迅速簽大約畀可愛",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2471
+        "latency_ms": 0.2555
       },
       {
         "id": "8-15字:13",
@@ -7018,7 +7023,7 @@
         "guarded_out": "好鍾意屠殺倒咁一波嗰種感覺",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3208
+        "latency_ms": 0.4306
       },
       {
         "id": "8-15字:14",
@@ -7035,7 +7040,7 @@
         "guarded_out": "我通常直接用行動嚟證明有幾愛佢",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.138
+        "latency_ms": 0.1516
       },
       {
         "id": "8-15字:15",
@@ -7052,7 +7057,7 @@
         "guarded_out": "你生性踢好啲爺爺就唔使走啦",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2002
+        "latency_ms": 0.1649
       },
       {
         "id": "8-15字:16",
@@ -7069,7 +7074,7 @@
         "guarded_out": "幾錢？你打個價啦",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1474
+        "latency_ms": 0.1615
       },
       {
         "id": "8-15字:17",
@@ -7086,7 +7091,7 @@
         "guarded_out": "雲爺爺就係冇身體但有腦嘅人先",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.144
+        "latency_ms": 0.2909
       },
       {
         "id": "8-15字:18",
@@ -7103,7 +7108,7 @@
         "guarded_out": "工廠區啲空氣比較差。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1683
+        "latency_ms": 0.201
       },
       {
         "id": "8-15字:19",
@@ -7120,7 +7125,7 @@
         "guarded_out": "角色同上次一樣，只係換咗屬性",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.6047
+        "latency_ms": 0.3255
       },
       {
         "id": "8-15字:20",
@@ -7137,7 +7142,7 @@
         "guarded_out": "引導飛機正確降落嘅路線",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1127
+        "latency_ms": 0.0992
       },
       {
         "id": "8-15字:21",
@@ -7154,7 +7159,7 @@
         "guarded_out": "點就點就點，我反正唔怕",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2515
+        "latency_ms": 0.2545
       },
       {
         "id": "8-15字:22",
@@ -7171,7 +7176,7 @@
         "guarded_out": "佢做咗咩令人對佢改觀？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.121
+        "latency_ms": 0.1476
       },
       {
         "id": "8-15字:23",
@@ -7188,7 +7193,7 @@
         "guarded_out": "廣東話一直冇講邊個係標準字",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1252
+        "latency_ms": 0.1301
       },
       {
         "id": "8-15字:24",
@@ -7205,7 +7210,7 @@
         "guarded_out": "我對手係噉震。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0867
+        "latency_ms": 0.107
       },
       {
         "id": "8-15字:25",
@@ -7222,7 +7227,7 @@
         "guarded_out": "仲諗住等你嚟送花呢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1209
+        "latency_ms": 0.1333
       },
       {
         "id": "8-15字:26",
@@ -7239,7 +7244,7 @@
         "guarded_out": "但原來人哋本身有錢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0948
+        "latency_ms": 0.1238
       },
       {
         "id": "8-15字:27",
@@ -7256,7 +7261,7 @@
         "guarded_out": "聽日上辦公樓簽約。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1502
+        "latency_ms": 0.1723
       },
       {
         "id": "8-15字:28",
@@ -7273,7 +7278,7 @@
         "guarded_out": "好似要閉氣？應該閉唔到咁耐",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.4821
+        "latency_ms": 0.5064
       },
       {
         "id": "8-15字:29",
@@ -7290,7 +7295,7 @@
         "guarded_out": "大陸要問問題答對畀買",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1647
+        "latency_ms": 0.1712
       },
       {
         "id": "8-15字:30",
@@ -7307,7 +7312,7 @@
         "guarded_out": "打機有時真係悶到抽筋。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.181
+        "latency_ms": 0.2193
       },
       {
         "id": "8-15字:31",
@@ -7324,7 +7329,7 @@
         "guarded_out": "天氣凍，著多件衫",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1644
+        "latency_ms": 0.201
       },
       {
         "id": "8-15字:32",
@@ -7341,7 +7346,7 @@
         "guarded_out": "我冇本錢做生意。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0866
+        "latency_ms": 0.09
       },
       {
         "id": "8-15字:33",
@@ -7358,7 +7363,7 @@
         "guarded_out": "佢出啲裝係咪隨機數值",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2474
+        "latency_ms": 0.2779
       },
       {
         "id": "8-15字:34",
@@ -7375,7 +7380,7 @@
         "guarded_out": "今集欺詐師究竟玩咗幾多梗",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2625
+        "latency_ms": 0.3088
       },
       {
         "id": "8-15字:35",
@@ -7392,7 +7397,7 @@
         "guarded_out": "再搵唔到嘅話我會炸咗間屋佢",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.23
+        "latency_ms": 0.2497
       },
       {
         "id": "8-15字:36",
@@ -7409,7 +7414,7 @@
         "guarded_out": "佢話佢投資蝕咗千幾萬",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1271
+        "latency_ms": 0.1334
       },
       {
         "id": "8-15字:37",
@@ -7426,7 +7431,7 @@
         "guarded_out": "聽晚玩到啊今日就玩唔到啦",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1612
+        "latency_ms": 0.195
       },
       {
         "id": "8-15字:38",
@@ -7443,7 +7448,7 @@
         "guarded_out": "咁不如用返自己習慣嘅系統",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1175
+        "latency_ms": 0.152
       },
       {
         "id": "8-15字:39",
@@ -7460,7 +7465,7 @@
         "guarded_out": "全班入面，係佢最巴閉㗎！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2443
+        "latency_ms": 0.2442
       },
       {
         "id": "8-15字:40",
@@ -7477,7 +7482,7 @@
         "guarded_out": "輕磅騎馬有着數。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1446
+        "latency_ms": 0.1483
       },
       {
         "id": "8-15字:41",
@@ -7494,7 +7499,7 @@
         "guarded_out": "媽媽一出去，佢就趁機玩電腦。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3206
+        "latency_ms": 0.3575
       },
       {
         "id": "8-15字:42",
@@ -7511,7 +7516,7 @@
         "guarded_out": "其實佢哋咪又係大陸人",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0975
+        "latency_ms": 0.1126
       },
       {
         "id": "8-15字:43",
@@ -7528,7 +7533,7 @@
         "guarded_out": "搵把小笤帚嚟扫下",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.2587
+        "latency_ms": 0.2479
       },
       {
         "id": "8-15字:44",
@@ -7545,7 +7550,7 @@
         "guarded_out": "一時太爽唔小心講咗出口",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2278
+        "latency_ms": 0.236
       },
       {
         "id": "8-15字:45",
@@ -7562,7 +7567,7 @@
         "guarded_out": "睇公告度，我唔識",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.199
+        "latency_ms": 0.165
       },
       {
         "id": "8-15字:46",
@@ -7579,7 +7584,7 @@
         "guarded_out": "又可能佢無避你你自己諗多咗呢",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.319
+        "latency_ms": 0.3196
       },
       {
         "id": "8-15字:47",
@@ -7596,7 +7601,7 @@
         "guarded_out": "成日好易燥咁一到春天",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2045
+        "latency_ms": 0.2121
       },
       {
         "id": "8-15字:48",
@@ -7613,7 +7618,7 @@
         "guarded_out": "呢度周街啲攤都係賣女性用品",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3412
+        "latency_ms": 0.3746
       },
       {
         "id": "8-15字:49",
@@ -7630,7 +7635,7 @@
         "guarded_out": "打工打到咁攰值唔值得",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0957
+        "latency_ms": 0.1085
       },
       {
         "id": "8-15字:50",
@@ -7647,7 +7652,7 @@
         "guarded_out": "係搵完另一半要定力夠好",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2677
+        "latency_ms": 0.279
       },
       {
         "id": "8-15字:51",
@@ -7664,7 +7669,7 @@
         "guarded_out": "我係想，我而家究竟係邊呢？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3338
+        "latency_ms": 0.4562
       },
       {
         "id": "8-15字:52",
@@ -7681,7 +7686,7 @@
         "guarded_out": "但慢慢長大壓力愈來愈大",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1569
+        "latency_ms": 0.1524
       },
       {
         "id": "8-15字:53",
@@ -7698,7 +7703,7 @@
         "guarded_out": "拉稀就食下粥水喇，咪食飯喇。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.4602
+        "latency_ms": 0.4641
       },
       {
         "id": "8-15字:54",
@@ -7715,7 +7720,7 @@
         "guarded_out": "件蛋卷我哋平分咗佢啦！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3108
+        "latency_ms": 0.3302
       },
       {
         "id": "8-15字:55",
@@ -7732,7 +7737,7 @@
         "guarded_out": "放肆！我身為皇帝使你教？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3136
+        "latency_ms": 0.3173
       },
       {
         "id": "8-15字:56",
@@ -7749,7 +7754,7 @@
         "guarded_out": "泡菜代理嘅解決手法根本有問題",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1257
+        "latency_ms": 0.1677
       },
       {
         "id": "8-15字:57",
@@ -7766,7 +7771,7 @@
         "guarded_out": "佢喺國外時時掛住個仔",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0939
+        "latency_ms": 0.1013
       },
       {
         "id": "8-15字:58",
@@ -7783,7 +7788,7 @@
         "guarded_out": "返到去睇成隻都有塵手軟腳軟",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2644
+        "latency_ms": 0.265
       },
       {
         "id": "8-15字:59",
@@ -7800,7 +7805,7 @@
         "guarded_out": "我反而想知件嘢買入要幾多錢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1355
+        "latency_ms": 0.1358
       },
       {
         "id": "8-15字:60",
@@ -7817,7 +7822,7 @@
         "guarded_out": "佢成日覺得而家識女仔好易",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1598
+        "latency_ms": 0.1647
       },
       {
         "id": "8-15字:61",
@@ -7834,7 +7839,7 @@
         "guarded_out": "咁熟喇，仲用得著數？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2908
+        "latency_ms": 0.2897
       },
       {
         "id": "8-15字:62",
@@ -7851,7 +7856,7 @@
         "guarded_out": "遲啲放假睇咗墜落天使先",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2081
+        "latency_ms": 0.2075
       },
       {
         "id": "8-15字:63",
@@ -7868,7 +7873,7 @@
         "guarded_out": "你噉做攪到佢冇修",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0937
+        "latency_ms": 0.0946
       },
       {
         "id": "8-15字:64",
@@ -7885,7 +7890,7 @@
         "guarded_out": "點解我嘅紅點成個星期都唔退",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3193
+        "latency_ms": 0.357
       },
       {
         "id": "8-15字:65",
@@ -7902,7 +7907,7 @@
         "guarded_out": "我一早明白自己冇運氣",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0833
+        "latency_ms": 0.1033
       },
       {
         "id": "8-15字:66",
@@ -7919,7 +7924,7 @@
         "guarded_out": "吾皇到箭應該預咗中產約",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2115
+        "latency_ms": 0.2271
       },
       {
         "id": "8-15字:67",
@@ -7936,7 +7941,7 @@
         "guarded_out": "但你成日會玩佢就點都會有啲殘",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1548
+        "latency_ms": 0.1622
       },
       {
         "id": "8-15字:68",
@@ -7953,7 +7958,7 @@
         "guarded_out": "你这件衣服皱皱，我幫你烫下吧",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.408
+        "latency_ms": 0.4437
       },
       {
         "id": "8-15字:69",
@@ -7970,7 +7975,7 @@
         "guarded_out": "幾廿歲人都仲咁好中氣",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2191
+        "latency_ms": 0.158
       },
       {
         "id": "8-15字:70",
@@ -7987,7 +7992,7 @@
         "guarded_out": "我又唔會覺得我哋入唔到波",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1257
+        "latency_ms": 0.1331
       },
       {
         "id": "8-15字:71",
@@ -8004,7 +8009,7 @@
         "guarded_out": "我今日真係黑過墨汁，一早俾人鬧幾次",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.4752
+        "latency_ms": 0.5309
       },
       {
         "id": "8-15字:72",
@@ -8021,7 +8026,7 @@
         "guarded_out": "同埋最主要我係唔明啲概念",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1073
+        "latency_ms": 0.1285
       },
       {
         "id": "8-15字:73",
@@ -8038,7 +8043,7 @@
         "guarded_out": "一耐咗就全部都無分別",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2033
+        "latency_ms": 0.213
       },
       {
         "id": "8-15字:74",
@@ -8055,7 +8060,7 @@
         "guarded_out": "就算承諾咗都唔代表唔出事",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1145
+        "latency_ms": 0.1385
       },
       {
         "id": "8-15字:75",
@@ -8072,7 +8077,7 @@
         "guarded_out": "鎖匙扣係最唔受歡迎嘅手信。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2296
+        "latency_ms": 0.2592
       },
       {
         "id": "8-15字:76",
@@ -8089,7 +8094,7 @@
         "guarded_out": "咁今日應該睇唔到我廢話",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1262
+        "latency_ms": 0.1316
       },
       {
         "id": "8-15字:77",
@@ -8106,7 +8111,7 @@
         "guarded_out": "冇乜特別嘢都唔識講嘢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1199
+        "latency_ms": 0.126
       },
       {
         "id": "8-15字:78",
@@ -8123,7 +8128,7 @@
         "guarded_out": "你望下嗰個母型，記唔記得佢？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.4111
+        "latency_ms": 0.4331
       },
       {
         "id": "8-15字:79",
@@ -8140,7 +8145,7 @@
         "guarded_out": "公仔返邊有咁多錢請舊人",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2381
+        "latency_ms": 0.2488
       },
       {
         "id": "8-15字:80",
@@ -8157,7 +8162,7 @@
         "guarded_out": "試下用另一個角度欣賞佢哋",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1116
+        "latency_ms": 0.1176
       },
       {
         "id": "8-15字:81",
@@ -8174,7 +8179,7 @@
         "guarded_out": "星期一番新工，有啲緊張希望無事",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.34
+        "latency_ms": 0.3702
       },
       {
         "id": "8-15字:82",
@@ -8191,7 +8196,7 @@
         "guarded_out": "你要小心佢，乜都肯",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1951
+        "latency_ms": 0.2464
       },
       {
         "id": "8-15字:83",
@@ -8208,7 +8213,7 @@
         "guarded_out": "勁豐裕真係好多次追得好勁",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.4012
+        "latency_ms": 0.4176
       },
       {
         "id": "8-15字:84",
@@ -8225,7 +8230,7 @@
         "guarded_out": "舊年佢所有考試都失敗",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.098
+        "latency_ms": 0.0993
       },
       {
         "id": "8-15字:85",
@@ -8242,7 +8247,7 @@
         "guarded_out": "我喺前面開路，你哋跟實我。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.4036
+        "latency_ms": 0.4535
       },
       {
         "id": "8-15字:86",
@@ -8259,7 +8264,7 @@
         "guarded_out": "會覺得唔鍾意就係唔鍾意",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1199
+        "latency_ms": 0.1203
       },
       {
         "id": "8-15字:87",
@@ -8276,7 +8281,7 @@
         "guarded_out": "乜嘢笑人前學下講嘢？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1927
+        "latency_ms": 0.1903
       },
       {
         "id": "8-15字:88",
@@ -8293,7 +8298,7 @@
         "guarded_out": "以前佢好唔穩陣，風一吹就會凍親",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3922
+        "latency_ms": 0.424
       },
       {
         "id": "8-15字:89",
@@ -8310,7 +8315,7 @@
         "guarded_out": "其實失蹤一個人真係唔難",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1038
+        "latency_ms": 0.1015
       },
       {
         "id": "8-15字:90",
@@ -8327,7 +8332,7 @@
         "guarded_out": "性別並唔係我考慮嘅因素",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1113
+        "latency_ms": 0.1147
       },
       {
         "id": "8-15字:91",
@@ -8344,7 +8349,7 @@
         "guarded_out": "叫你平時唔好咁弱智嫁啦",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1371
+        "latency_ms": 0.1056
       },
       {
         "id": "8-15字:92",
@@ -8361,7 +8366,7 @@
         "guarded_out": "果陣啲廣告真係幾成功",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.096
+        "latency_ms": 0.1035
       },
       {
         "id": "8-15字:93",
@@ -8378,7 +8383,7 @@
         "guarded_out": "之後朋友咁約佢佢都會出嚟",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1234
+        "latency_ms": 0.1232
       },
       {
         "id": "8-15字:94",
@@ -8395,7 +8400,7 @@
         "guarded_out": "又有錢，將來食到真係幸福",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2033
+        "latency_ms": 0.2087
       },
       {
         "id": "8-15字:95",
@@ -8412,7 +8417,7 @@
         "guarded_out": "怕佢哋心痛自己仔女成日畀人搵笨",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1329
+        "latency_ms": 0.1646
       },
       {
         "id": "8-15字:96",
@@ -8429,7 +8434,7 @@
         "guarded_out": "人工又唔係低但請你返去玩都得",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3155
+        "latency_ms": 0.3241
       },
       {
         "id": "8-15字:97",
@@ -8446,7 +8451,7 @@
         "guarded_out": "咪做囉入得嚟差唔多囉",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1014
+        "latency_ms": 0.1033
       },
       {
         "id": "8-15字:98",
@@ -8463,7 +8468,7 @@
         "guarded_out": "呢位工程師確實有先學",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1292
+        "latency_ms": 0.1266
       },
       {
         "id": "8-15字:99",
@@ -8480,7 +8485,7 @@
         "guarded_out": "陣間老鼠多咗班居民就唔好喊",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2056
+        "latency_ms": 0.2161
       },
       {
         "id": "8-15字:100",
@@ -8497,7 +8502,7 @@
         "guarded_out": "係個望落有啲壞，又好型嘅男仔",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.4318
+        "latency_ms": 0.5129
       },
       {
         "id": "8-15字:101",
@@ -8514,7 +8519,7 @@
         "guarded_out": "靚就唔係好靚，只係斯文樣",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2777
+        "latency_ms": 0.2772
       },
       {
         "id": "8-15字:102",
@@ -8531,7 +8536,7 @@
         "guarded_out": "嗰舊小腿肌見到都冇胃口",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3958
+        "latency_ms": 0.3468
       },
       {
         "id": "8-15字:103",
@@ -8548,7 +8553,7 @@
         "guarded_out": "台北夜市反而係少啲好嘢食",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2779
+        "latency_ms": 0.2902
       },
       {
         "id": "8-15字:104",
@@ -8565,7 +8570,7 @@
         "guarded_out": "背光keyboard",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0013
+        "latency_ms": 0.0014
       },
       {
         "id": "8-15字:105",
@@ -8582,7 +8587,7 @@
         "guarded_out": "依加啲連登仔真係小氣",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1012
+        "latency_ms": 0.114
       },
       {
         "id": "8-15字:106",
@@ -8599,7 +8604,7 @@
         "guarded_out": "即係話越喺高處，就越覺得受壓迫",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.5467
+        "latency_ms": 0.618
       },
       {
         "id": "8-15字:107",
@@ -8616,7 +8621,7 @@
         "guarded_out": "你好呀我哋而家做緊春季優惠",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2147
+        "latency_ms": 0.2262
       },
       {
         "id": "8-15字:108",
@@ -8633,7 +8638,7 @@
         "guarded_out": "我幫手客串吓啦",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1072
+        "latency_ms": 0.1306
       },
       {
         "id": "8-15字:109",
@@ -8650,7 +8655,7 @@
         "guarded_out": "我唔小心唔知撳錯邊個按鈕",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2276
+        "latency_ms": 0.2305
       },
       {
         "id": "8-15字:110",
@@ -8667,7 +8672,7 @@
         "guarded_out": "應該睇西醫都係中醫針灸好",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1588
+        "latency_ms": 0.1704
       },
       {
         "id": "8-15字:111",
@@ -8684,7 +8689,7 @@
         "guarded_out": "如果計上技能貼紙奧燒係勁啲",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3824
+        "latency_ms": 0.4126
       },
       {
         "id": "8-15字:112",
@@ -8701,7 +8706,7 @@
         "guarded_out": "只可以話淫真係佢嘅真係性情",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2215
+        "latency_ms": 0.2745
       },
       {
         "id": "8-15字:113",
@@ -8718,7 +8723,7 @@
         "guarded_out": "日本，朝鮮，越南曾用過作書面語",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.4598
+        "latency_ms": 0.5198
       },
       {
         "id": "8-15字:114",
@@ -8735,7 +8740,7 @@
         "guarded_out": "點講解佢都唔明",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0782
+        "latency_ms": 0.1021
       },
       {
         "id": "8-15字:115",
@@ -8752,7 +8757,7 @@
         "guarded_out": "做咗佢份出咗佢份好無",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1091
+        "latency_ms": 0.1112
       },
       {
         "id": "8-15字:116",
@@ -8769,7 +8774,7 @@
         "guarded_out": "你搵到人落去補位就得",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1612
+        "latency_ms": 0.2313
       },
       {
         "id": "8-15字:117",
@@ -8786,7 +8791,7 @@
         "guarded_out": "我都係啱啱上水，路過準備食花生",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3711
+        "latency_ms": 0.3812
       },
       {
         "id": "8-15字:118",
@@ -8803,7 +8808,7 @@
         "guarded_out": "講你杯嘢咪飲完咪走住",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1273
+        "latency_ms": 0.1305
       },
       {
         "id": "8-15字:119",
@@ -8820,7 +8825,7 @@
         "guarded_out": "老豆係海軍上將何必佢做",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2632
+        "latency_ms": 0.2749
       },
       {
         "id": "8-15字:120",
@@ -8837,7 +8842,7 @@
         "guarded_out": "如果唔係拍起身好似冇咩意思",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1417
+        "latency_ms": 0.1618
       },
       {
         "id": "8-15字:121",
@@ -8854,7 +8859,7 @@
         "guarded_out": "無論佢扮受害者又好啲都好",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1092
+        "latency_ms": 0.1225
       },
       {
         "id": "8-15字:122",
@@ -8871,7 +8876,7 @@
         "guarded_out": "反而刷嘢嗰啲冇乜特別玩過",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2516
+        "latency_ms": 0.282
       },
       {
         "id": "8-15字:123",
@@ -8888,7 +8893,7 @@
         "guarded_out": "諗住好魔法卡同佢死過",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2517
+        "latency_ms": 0.182
       },
       {
         "id": "8-15字:124",
@@ -8905,7 +8910,7 @@
         "guarded_out": "果陣我哋成日做啲好曖昧嘅嘢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.131
+        "latency_ms": 0.1576
       },
       {
         "id": "8-15字:125",
@@ -8922,7 +8927,7 @@
         "guarded_out": "因為啲反賊內奸裝忠臣",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2166
+        "latency_ms": 0.2714
       },
       {
         "id": "8-15字:126",
@@ -8939,7 +8944,7 @@
         "guarded_out": "因住睇車過馬路啊！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1614
+        "latency_ms": 0.1667
       },
       {
         "id": "8-15字:127",
@@ -8956,7 +8961,7 @@
         "guarded_out": "點解油雞個樣完全冇變",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2235
+        "latency_ms": 0.2365
       },
       {
         "id": "8-15字:128",
@@ -8973,7 +8978,7 @@
         "guarded_out": "如果唔係沾屎除咗本地雞邊個會追騎",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.4834
+        "latency_ms": 0.5172
       },
       {
         "id": "8-15字:129",
@@ -8990,7 +8995,7 @@
         "guarded_out": "女人係咪真係可以兩星期",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1205
+        "latency_ms": 0.1277
       },
       {
         "id": "8-15字:130",
@@ -9007,7 +9012,7 @@
         "guarded_out": "如果你哋想講沙拿去前鋒",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1658
+        "latency_ms": 0.1768
       },
       {
         "id": "8-15字:131",
@@ -9024,7 +9029,7 @@
         "guarded_out": "香港教育製造出嚟嘅垃圾咪你呢啲",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1392
+        "latency_ms": 0.1381
       },
       {
         "id": "8-15字:132",
@@ -9041,7 +9046,7 @@
         "guarded_out": "頭先停電，周圍黑话筒嘛",
         "guarded_ok": false,
         "outcome": "lost",
-        "latency_ms": 0.3643
+        "latency_ms": 0.4206
       },
       {
         "id": "8-15字:133",
@@ -9058,7 +9063,7 @@
         "guarded_out": "敘利亞咁大俾你炸少少",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1816
+        "latency_ms": 0.1919
       },
       {
         "id": "8-15字:134",
@@ -9075,7 +9080,7 @@
         "guarded_out": "反正我覺得大爺點諗就點諗",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3403
+        "latency_ms": 0.3482
       },
       {
         "id": "8-15字:135",
@@ -9092,7 +9097,7 @@
         "guarded_out": "有利嘅你就話唔利嘅就當冇事發生",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1477
+        "latency_ms": 0.149
       },
       {
         "id": "8-15字:136",
@@ -9109,7 +9114,7 @@
         "guarded_out": "雙方鬧戰傷心只會係水晶佢哋",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.264
+        "latency_ms": 0.3106
       },
       {
         "id": "8-15字:137",
@@ -9126,7 +9131,7 @@
         "guarded_out": "而家先五點，好早咋！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1975
+        "latency_ms": 0.1946
       },
       {
         "id": "8-15字:138",
@@ -9143,7 +9148,7 @@
         "guarded_out": "細路成日盼望住過年",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1263
+        "latency_ms": 0.1381
       },
       {
         "id": "8-15字:139",
@@ -9160,7 +9165,7 @@
         "guarded_out": "買佢鍾意食嘅嘢畀佢完",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.118
+        "latency_ms": 0.125
       },
       {
         "id": "8-15字:140",
@@ -9177,7 +9182,7 @@
         "guarded_out": "你睇下當年都未預咗碼相機",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1622
+        "latency_ms": 0.1712
       },
       {
         "id": "8-15字:141",
@@ -9194,7 +9199,7 @@
         "guarded_out": "贏咗一場一級場都算好好",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1045
+        "latency_ms": 0.151
       },
       {
         "id": "8-15字:142",
@@ -9211,7 +9216,7 @@
         "guarded_out": "好唔開心，又要自己睇戲",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3491
+        "latency_ms": 0.3627
       },
       {
         "id": "8-15字:143",
@@ -9228,7 +9233,7 @@
         "guarded_out": "加北方人嘅高鼻白皮膚",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2041
+        "latency_ms": 0.2067
       },
       {
         "id": "8-15字:144",
@@ -9245,7 +9250,7 @@
         "guarded_out": "係邊度啊你？覆機呀唔該",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2638
+        "latency_ms": 0.3611
       },
       {
         "id": "8-15字:145",
@@ -9262,7 +9267,7 @@
         "guarded_out": "過氣嘅垃圾就唔好鬼提啦",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1237
+        "latency_ms": 0.1436
       },
       {
         "id": "8-15字:146",
@@ -9279,7 +9284,7 @@
         "guarded_out": "人哋又要等又要做臭自己個名",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3088
+        "latency_ms": 0.3243
       },
       {
         "id": "8-15字:147",
@@ -9296,7 +9301,7 @@
         "guarded_out": "見到佢打到咁真係好心痛",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1172
+        "latency_ms": 0.1274
       },
       {
         "id": "8-15字:148",
@@ -9313,7 +9318,7 @@
         "guarded_out": "多數都係用嚟出能量炮",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1167
+        "latency_ms": 0.1177
       },
       {
         "id": "8-15字:149",
@@ -9330,7 +9335,7 @@
         "guarded_out": "我覺得你有啲做演員嘅潛質",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1277
+        "latency_ms": 0.1553
       },
       {
         "id": "8-15字:150",
@@ -9347,7 +9352,7 @@
         "guarded_out": "唔知係咪因為戴咗口罩",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1803
+        "latency_ms": 0.2032
       },
       {
         "id": "8-15字:151",
@@ -9364,7 +9369,7 @@
         "guarded_out": "佢唔記得仲唔記得佢唔記得未打過？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1499
+        "latency_ms": 0.1868
       },
       {
         "id": "8-15字:152",
@@ -9381,7 +9386,7 @@
         "guarded_out": "呢種髮型係最近最時款嘅。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2229
+        "latency_ms": 0.2231
       },
       {
         "id": "8-15字:153",
@@ -9398,7 +9403,7 @@
         "guarded_out": "然後發現原來已經係最終篇來",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1478
+        "latency_ms": 0.1686
       },
       {
         "id": "8-15字:154",
@@ -9415,7 +9420,7 @@
         "guarded_out": "呢條法例所涵蓋嘅範疇好廣。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3348
+        "latency_ms": 0.3763
       },
       {
         "id": "8-15字:155",
@@ -9432,7 +9437,7 @@
         "guarded_out": "但大前提係佢本身都係對你有好感",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1274
+        "latency_ms": 0.154
       },
       {
         "id": "8-15字:156",
@@ -9449,7 +9454,7 @@
         "guarded_out": "佢唔再係我巴打同陌生人一樣",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1258
+        "latency_ms": 0.1347
       },
       {
         "id": "8-15字:157",
@@ -9466,7 +9471,7 @@
         "guarded_out": "龍珠直播有得睇啊各位",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0878
+        "latency_ms": 0.0956
       },
       {
         "id": "8-15字:158",
@@ -9483,7 +9488,7 @@
         "guarded_out": "根本上佢哋冇呢個認知有呢種病",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1562
+        "latency_ms": 0.1597
       },
       {
         "id": "8-15字:159",
@@ -9500,7 +9505,7 @@
         "guarded_out": "輸就算啦老人家仲搞咁多嘢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1975
+        "latency_ms": 0.2183
       },
       {
         "id": "8-15字:160",
@@ -9517,7 +9522,7 @@
         "guarded_out": "張轉介信拎唔拎得去私家睇？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.5659
+        "latency_ms": 0.3754
       },
       {
         "id": "8-15字:161",
@@ -9534,7 +9539,7 @@
         "guarded_out": "車禍中女事主受咗輕傷",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1878
+        "latency_ms": 0.2078
       },
       {
         "id": "8-15字:162",
@@ -9551,7 +9556,7 @@
         "guarded_out": "雖然廢但佢都算做到想做嘅嘢",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2812
+        "latency_ms": 0.2875
       },
       {
         "id": "8-15字:163",
@@ -9568,7 +9573,7 @@
         "guarded_out": "選出適合自己一生一世嘅",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0958
+        "latency_ms": 0.099
       },
       {
         "id": "8-15字:164",
@@ -9585,7 +9590,7 @@
         "guarded_out": "長遠就好似香港咁比人當係狗",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1348
+        "latency_ms": 0.144
       },
       {
         "id": "8-15字:165",
@@ -9602,7 +9607,7 @@
         "guarded_out": "先生先生幫幫手畀個正評呀",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1231
+        "latency_ms": 0.1358
       },
       {
         "id": "8-15字:166",
@@ -9619,7 +9624,7 @@
         "guarded_out": "評分同狀態都唔知幾時盡",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2564
+        "latency_ms": 0.274
       },
       {
         "id": "8-15字:167",
@@ -9636,7 +9641,7 @@
         "guarded_out": "因為你起咗我咩都做唔到",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1828
+        "latency_ms": 0.1187
       },
       {
         "id": "8-15字:168",
@@ -9653,7 +9658,7 @@
         "guarded_out": "佢提住個手提箱",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.2309
+        "latency_ms": 0.26
       },
       {
         "id": "8-15字:169",
@@ -9670,7 +9675,7 @@
         "guarded_out": "我覺得咁做唔符合程序公義",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.153
+        "latency_ms": 0.1564
       },
       {
         "id": "8-15字:170",
@@ -9687,7 +9692,7 @@
         "guarded_out": "等你睇返你自己講過咩",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.106
+        "latency_ms": 0.1141
       },
       {
         "id": "8-15字:171",
@@ -9704,7 +9709,7 @@
         "guarded_out": "可能因為佢知道我都係學生",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1239
+        "latency_ms": 0.1564
       },
       {
         "id": "8-15字:172",
@@ -9721,7 +9726,7 @@
         "guarded_out": "廢老真係可以廢到賴皮到一個極點",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3267
+        "latency_ms": 0.4064
       },
       {
         "id": "8-15字:173",
@@ -9738,7 +9743,7 @@
         "guarded_out": "入到去大學仲咁斤斤計較",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1653
+        "latency_ms": 0.2182
       },
       {
         "id": "8-15字:174",
@@ -9755,7 +9760,7 @@
         "guarded_out": "定練打嘢先帶到風向？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.299
+        "latency_ms": 0.2756
       },
       {
         "id": "8-15字:175",
@@ -9772,7 +9777,7 @@
         "guarded_out": "真係唔夠力打穿下降軌",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1495
+        "latency_ms": 0.1562
       },
       {
         "id": "8-15字:176",
@@ -9789,7 +9794,7 @@
         "guarded_out": "除非嗰個人對你好重要",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0958
+        "latency_ms": 0.091
       },
       {
         "id": "8-15字:177",
@@ -9806,7 +9811,7 @@
         "guarded_out": "如果有人真係聽佢講暴飲暴食",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2126
+        "latency_ms": 0.2295
       },
       {
         "id": "8-15字:178",
@@ -9823,7 +9828,7 @@
         "guarded_out": "事實上退咗之後無以為繼",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1165
+        "latency_ms": 0.1121
       },
       {
         "id": "8-15字:179",
@@ -9840,7 +9845,7 @@
         "guarded_out": "耐咗就覺得佢想出名多特別係近期",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.309
+        "latency_ms": 0.3229
       },
       {
         "id": "8-15字:180",
@@ -9857,7 +9862,7 @@
         "guarded_out": "搞笑到我想睇多次佢嘅表演。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1566
+        "latency_ms": 0.146
       },
       {
         "id": "8-15字:181",
@@ -9874,7 +9879,7 @@
         "guarded_out": "吹到咁大過份咗有排",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1133
+        "latency_ms": 0.1237
       },
       {
         "id": "8-15字:182",
@@ -9891,7 +9896,7 @@
         "guarded_out": "戰略上嘅嘢唔可以咁睇表面",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1197
+        "latency_ms": 0.1327
       },
       {
         "id": "8-15字:183",
@@ -9908,7 +9913,7 @@
         "guarded_out": "我山長水遠去天水圍飲下午茶。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.46
+        "latency_ms": 0.6048
       },
       {
         "id": "8-15字:184",
@@ -9925,7 +9930,7 @@
         "guarded_out": "冇個盃汽水其實已經好難入佢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2978
+        "latency_ms": 0.3248
       },
       {
         "id": "8-15字:185",
@@ -9942,7 +9947,7 @@
         "guarded_out": "客隊後備有冇平時正選？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.209
+        "latency_ms": 0.2234
       },
       {
         "id": "8-15字:186",
@@ -9959,7 +9964,7 @@
         "guarded_out": "明明呢半年好咗啲最近又開始嚟料",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2065
+        "latency_ms": 0.223
       },
       {
         "id": "8-15字:187",
@@ -9976,7 +9981,7 @@
         "guarded_out": "咁打得贏最難真係幾開心嘅",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2635
+        "latency_ms": 0.2733
       },
       {
         "id": "8-15字:188",
@@ -9993,7 +9998,7 @@
         "guarded_out": "其實我都明明地你嘅意思",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1389
+        "latency_ms": 0.163
       },
       {
         "id": "8-15字:189",
@@ -10010,7 +10015,7 @@
         "guarded_out": "好似好難起訴咁觸及灰色地帶",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.423
+        "latency_ms": 0.4578
       },
       {
         "id": "8-15字:190",
@@ -10027,7 +10032,7 @@
         "guarded_out": "我唔想麻煩咁多人。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1045
+        "latency_ms": 0.1115
       },
       {
         "id": "8-15字:191",
@@ -10044,7 +10049,7 @@
         "guarded_out": "成日睇幾次嚟學中文描寫",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0984
+        "latency_ms": 0.1192
       },
       {
         "id": "8-15字:192",
@@ -10061,7 +10066,7 @@
         "guarded_out": "好怕付出咗人哋都唔想要",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1146
+        "latency_ms": 0.1255
       },
       {
         "id": "8-15字:193",
@@ -10078,7 +10083,7 @@
         "guarded_out": "你聽唔聽到雜聲啊？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1369
+        "latency_ms": 0.162
       },
       {
         "id": "8-15字:194",
@@ -10095,7 +10100,7 @@
         "guarded_out": "我唔係話今集差，今集都分得好好",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.382
+        "latency_ms": 0.4103
       },
       {
         "id": "8-15字:195",
@@ -10112,7 +10117,7 @@
         "guarded_out": "不過係做豬隊友嘅助攻",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.184
+        "latency_ms": 0.2113
       },
       {
         "id": "8-15字:196",
@@ -10129,7 +10134,7 @@
         "guarded_out": "好難先馴服到隻野馬。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2007
+        "latency_ms": 0.2273
       },
       {
         "id": "8-15字:197",
@@ -10146,7 +10151,7 @@
         "guarded_out": "都係我解釋法最適合袅",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.389
+        "latency_ms": 0.4011
       },
       {
         "id": "8-15字:198",
@@ -10163,7 +10168,7 @@
         "guarded_out": "佢又會見得愈來愈多人",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0945
+        "latency_ms": 0.1048
       },
       {
         "id": "8-15字:199",
@@ -10180,7 +10185,7 @@
         "guarded_out": "但做乜冇咗啦畀人蟹咗",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.112
+        "latency_ms": 0.1336
       },
       {
         "id": "8-15字:200",
@@ -10197,7 +10202,7 @@
         "guarded_out": "見住眼淚一粒一粒咁滴落地下",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1714
+        "latency_ms": 0.1819
       },
       {
         "id": "8-15字:201",
@@ -10214,7 +10219,7 @@
         "guarded_out": "我哋需要人去打逆境波",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1373
+        "latency_ms": 0.1415
       },
       {
         "id": "8-15字:202",
@@ -10231,7 +10236,7 @@
         "guarded_out": "你接近我呢邊少少喎。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1282
+        "latency_ms": 0.1244
       },
       {
         "id": "8-15字:203",
@@ -10248,7 +10253,7 @@
         "guarded_out": "希望返我身邊畀我親親佢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1116
+        "latency_ms": 0.0955
       },
       {
         "id": "8-15字:204",
@@ -10265,7 +10270,7 @@
         "guarded_out": "係咪你做嘅嚇？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1
+        "latency_ms": 0.1147
       },
       {
         "id": "8-15字:205",
@@ -10282,7 +10287,7 @@
         "guarded_out": "點解人哋講廣東話咁好聽",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.132
+        "latency_ms": 0.1293
       },
       {
         "id": "8-15字:206",
@@ -10299,7 +10304,7 @@
         "guarded_out": "識異性朋友都要睇有冇錢",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.191
+        "latency_ms": 0.2025
       },
       {
         "id": "8-15字:207",
@@ -10316,7 +10321,7 @@
         "guarded_out": "有興趣一齊玩嘅就加我",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.096
+        "latency_ms": 0.1037
       },
       {
         "id": "8-15字:208",
@@ -10333,7 +10338,7 @@
         "guarded_out": "仲要係隊長呀過嚟之前",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1684
+        "latency_ms": 0.1747
       },
       {
         "id": "8-15字:209",
@@ -10350,7 +10355,7 @@
         "guarded_out": "落咗嚟幾耐？有冇搭過飛機？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.36
+        "latency_ms": 0.3806
       },
       {
         "id": "8-15字:210",
@@ -10367,7 +10372,7 @@
         "guarded_out": "我會捐一萬港幣畀慈善機構",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1972
+        "latency_ms": 0.2045
       },
       {
         "id": "8-15字:211",
@@ -10384,7 +10389,7 @@
         "guarded_out": "仲有好多飛都未到最後都仲可以買",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1565
+        "latency_ms": 0.1526
       },
       {
         "id": "8-15字:212",
@@ -10401,7 +10406,7 @@
         "guarded_out": "外國律師喺香港有執業資格",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1905
+        "latency_ms": 0.2008
       },
       {
         "id": "8-15字:213",
@@ -10418,7 +10423,7 @@
         "guarded_out": "畢竟我哋以前係好朋友",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0943
+        "latency_ms": 0.1032
       },
       {
         "id": "8-15字:214",
@@ -10435,7 +10440,7 @@
         "guarded_out": "白咗最鍾意講人東方主義",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1467
+        "latency_ms": 0.1719
       },
       {
         "id": "8-15字:215",
@@ -10452,7 +10457,7 @@
         "guarded_out": "五月尾去日本，準備帶幾個口罩去",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.4235
+        "latency_ms": 0.4411
       },
       {
         "id": "8-15字:216",
@@ -10469,7 +10474,7 @@
         "guarded_out": "完全唔係女友諗唔想嘅問題",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1157
+        "latency_ms": 0.1378
       },
       {
         "id": "8-15字:217",
@@ -10486,7 +10491,7 @@
         "guarded_out": "根本美帝就只想順佢者昌佢者亡",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.6585
+        "latency_ms": 0.3737
       },
       {
         "id": "8-15字:218",
@@ -10503,7 +10508,7 @@
         "guarded_out": "出到去就搵返女朋友入場睇戲",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1232
+        "latency_ms": 0.1399
       },
       {
         "id": "8-15字:219",
@@ -10520,7 +10525,7 @@
         "guarded_out": "全軍向前推進五公里！",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1978
+        "latency_ms": 0.2197
       },
       {
         "id": "8-15字:220",
@@ -10537,7 +10542,7 @@
         "guarded_out": "我就係一直喺問先生住邊個巿？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3173
+        "latency_ms": 0.3314
       },
       {
         "id": "8-15字:221",
@@ -10554,7 +10559,7 @@
         "guarded_out": "我試下單人會唔會咁",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1028
+        "latency_ms": 0.1218
       },
       {
         "id": "8-15字:222",
@@ -10571,7 +10576,7 @@
         "guarded_out": "反對派大本營已經冇咗",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0905
+        "latency_ms": 0.1014
       },
       {
         "id": "8-15字:223",
@@ -10588,7 +10593,7 @@
         "guarded_out": "抡块垃圾落垃圾桶度。",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.1656
+        "latency_ms": 0.1724
       },
       {
         "id": "8-15字:224",
@@ -10605,7 +10610,7 @@
         "guarded_out": "一切都得嚟唔易。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0867
+        "latency_ms": 0.1002
       },
       {
         "id": "8-15字:225",
@@ -10622,7 +10627,7 @@
         "guarded_out": "我講咁耐都冇話唔質疑到",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1202
+        "latency_ms": 0.1349
       },
       {
         "id": "8-15字:226",
@@ -10639,7 +10644,7 @@
         "guarded_out": "有冇新嘅嘢？",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.0787
+        "latency_ms": 0.0804
       },
       {
         "id": "8-15字:227",
@@ -10656,7 +10661,7 @@
         "guarded_out": "呢個小朋友真係好醒目下。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2061
+        "latency_ms": 0.2448
       },
       {
         "id": "8-15字:228",
@@ -10673,7 +10678,7 @@
         "guarded_out": "唔再同佢合作無機會比佢小心",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1282
+        "latency_ms": 0.1311
       },
       {
         "id": "8-15字:229",
@@ -10690,7 +10695,7 @@
         "guarded_out": "我有啲牙痛，想請假去睇牙醫。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3573
+        "latency_ms": 0.3895
       },
       {
         "id": "8-15字:230",
@@ -10707,7 +10712,7 @@
         "guarded_out": "有樣嘢我想請你幫手。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1124
+        "latency_ms": 0.1421
       },
       {
         "id": "8-15字:231",
@@ -10724,7 +10729,7 @@
         "guarded_out": "我諗係之前畀巴打爆破嘅嗰張",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.247
+        "latency_ms": 0.2696
       },
       {
         "id": "8-15字:232",
@@ -10741,7 +10746,7 @@
         "guarded_out": "講真你畀錢同解啦真係冇得諗",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2469
+        "latency_ms": 0.2807
       },
       {
         "id": "8-15字:233",
@@ -10758,7 +10763,7 @@
         "guarded_out": "消委會可以做嘅最盡得公開譴責",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.391
+        "latency_ms": 0.4511
       },
       {
         "id": "8-15字:234",
@@ -10792,7 +10797,7 @@
         "guarded_out": "你呢個分手理由真係夠笨鳩啦",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1622
+        "latency_ms": 0.1675
       },
       {
         "id": "8-15字:236",
@@ -10809,7 +10814,7 @@
         "guarded_out": "我琴日食咗，真係有雞肉喺度。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.4855
+        "latency_ms": 0.4345
       },
       {
         "id": "8-15字:237",
@@ -10826,7 +10831,7 @@
         "guarded_out": "今次用城網係咪都會係咁？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3817
+        "latency_ms": 0.4037
       },
       {
         "id": "8-15字:238",
@@ -10843,7 +10848,7 @@
         "guarded_out": "係全場笑到最大聲嘅一段",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1132
+        "latency_ms": 0.1856
       },
       {
         "id": "8-15字:239",
@@ -10860,7 +10865,7 @@
         "guarded_out": "佢講鬧鐘單嘢好多人都知",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1395
+        "latency_ms": 0.1202
       },
       {
         "id": "8-15字:240",
@@ -10877,7 +10882,7 @@
         "guarded_out": "我喺公司影出街都冇事",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1985
+        "latency_ms": 0.2024
       },
       {
         "id": "8-15字:241",
@@ -10894,7 +10899,7 @@
         "guarded_out": "啲細路仔好鍾意漲水",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1203
+        "latency_ms": 0.1382
       },
       {
         "id": "8-15字:242",
@@ -10911,7 +10916,7 @@
         "guarded_out": "你冇勇氣見佢係點解呢",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1076
+        "latency_ms": 0.1204
       },
       {
         "id": "8-15字:243",
@@ -10928,7 +10933,7 @@
         "guarded_out": "咁同原作真係差好多",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1907
+        "latency_ms": 0.239
       },
       {
         "id": "8-15字:244",
@@ -10945,7 +10950,7 @@
         "guarded_out": "光頭佬永遠都要擺一個無能嘅係陣入面",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1722
+        "latency_ms": 0.1836
       },
       {
         "id": "8-15字:245",
@@ -10962,7 +10967,7 @@
         "guarded_out": "meet target",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3128
+        "latency_ms": 0.3872
       },
       {
         "id": "8-15字:246",
@@ -10979,7 +10984,7 @@
         "guarded_out": "同埋穿佢行啲唔平嘅路嘅腳會好痛",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3685
+        "latency_ms": 0.3873
       },
       {
         "id": "8-15字:247",
@@ -10996,7 +11001,7 @@
         "guarded_out": "佢後生輕輕就學人偷嘢。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1204
+        "latency_ms": 0.1254
       },
       {
         "id": "8-15字:248",
@@ -11013,7 +11018,7 @@
         "guarded_out": "第一次見有紫色嘅乳牛",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1142
+        "latency_ms": 0.1262
       },
       {
         "id": "8-15字:249",
@@ -11030,7 +11035,7 @@
         "guarded_out": "好想好似前你咁玩咁平",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1208
+        "latency_ms": 0.1336
       },
       {
         "id": "8-15字:250",
@@ -11047,7 +11052,7 @@
         "guarded_out": "點解英國人去白宮嘅？",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1599
+        "latency_ms": 0.1747
       },
       {
         "id": "8-15字:251",
@@ -11064,7 +11069,7 @@
         "guarded_out": "攞唔到簽證，移民嘅事别糟咗？",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.6691
+        "latency_ms": 0.6779
       },
       {
         "id": "8-15字:252",
@@ -11081,7 +11086,7 @@
         "guarded_out": "聽講仲有公司肯請佢影相",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.175
+        "latency_ms": 0.1798
       },
       {
         "id": "8-15字:253",
@@ -11098,7 +11103,7 @@
         "guarded_out": "頭段到中尾段真係世界級",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.4138
+        "latency_ms": 0.3695
       },
       {
         "id": "8-15字:254",
@@ -11115,7 +11120,7 @@
         "guarded_out": "打打下飞机，就嚟贏時斷咗線。",
         "guarded_ok": false,
         "outcome": "both_wrong",
-        "latency_ms": 0.3483
+        "latency_ms": 0.366
       },
       {
         "id": "8-15字:255",
@@ -11132,7 +11137,7 @@
         "guarded_out": "只係我覺得好似跑車咁",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0954
+        "latency_ms": 0.1103
       },
       {
         "id": "8-15字:256",
@@ -11149,7 +11154,7 @@
         "guarded_out": "只係呢啲色同我上返正常都唔得",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1263
+        "latency_ms": 0.1427
       },
       {
         "id": "8-15字:257",
@@ -11166,7 +11171,7 @@
         "guarded_out": "就地就有個巴士站",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0925
+        "latency_ms": 0.094
       },
       {
         "id": "8-15字:258",
@@ -11183,7 +11188,7 @@
         "guarded_out": "肉眼真係分得擺咗間唔中",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1002
+        "latency_ms": 0.1162
       },
       {
         "id": "8-15字:259",
@@ -11200,7 +11205,7 @@
         "guarded_out": "唔好怕傷害人，唔好怕俾傷害。",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3792
+        "latency_ms": 0.4064
       },
       {
         "id": "8-15字:260",
@@ -11217,7 +11222,7 @@
         "guarded_out": "當然唔捨得大哥冇咗大哥成日派錢",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.134
+        "latency_ms": 0.1406
       },
       {
         "id": "8-15字:261",
@@ -11234,7 +11239,7 @@
         "guarded_out": "係山邊捉住啲木爬上山",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.227
+        "latency_ms": 0.2612
       },
       {
         "id": "8-15字:262",
@@ -11251,7 +11256,7 @@
         "guarded_out": "視覺上或者會覺得瘦咗",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1699
+        "latency_ms": 0.1735
       },
       {
         "id": "8-15字:263",
@@ -11268,7 +11273,7 @@
         "guarded_out": "拜仁球員咪踢走咗好君子先",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2442
+        "latency_ms": 0.2425
       },
       {
         "id": "8-15字:264",
@@ -11285,7 +11290,7 @@
         "guarded_out": "仲有首塵埃落定都好正",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2229
+        "latency_ms": 0.2344
       },
       {
         "id": "8-15字:265",
@@ -11302,7 +11307,7 @@
         "guarded_out": "可以放上網收費畀人睇",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1023
+        "latency_ms": 0.148
       },
       {
         "id": "8-15字:266",
@@ -11319,7 +11324,7 @@
         "guarded_out": "佢學嘅嘢好雜，乜都識啲。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3628
+        "latency_ms": 0.3965
       },
       {
         "id": "8-15字:267",
@@ -11336,7 +11341,7 @@
         "guarded_out": "而家流傳嗰個好多未出嘅角色",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1268
+        "latency_ms": 0.1334
       },
       {
         "id": "8-15字:268",
@@ -11353,7 +11358,7 @@
         "guarded_out": "收啦，你都唱唔啱",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1543
+        "latency_ms": 0.1756
       },
       {
         "id": "8-15字:269",
@@ -11370,7 +11375,7 @@
         "guarded_out": "祝咁多位師弟師妹好彩",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2116
+        "latency_ms": 0.2262
       },
       {
         "id": "8-15字:270",
@@ -11387,7 +11392,7 @@
         "guarded_out": "冇可能，總之呢件事免傾！",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.344
+        "latency_ms": 0.3381
       },
       {
         "id": "8-15字:271",
@@ -11404,7 +11409,7 @@
         "guarded_out": "有幾個人出嚟去馬場一齊拉頭馬",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2348
+        "latency_ms": 0.2375
       },
       {
         "id": "8-15字:272",
@@ -11421,7 +11426,7 @@
         "guarded_out": "認為可以感化中國人真係太天真",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3305
+        "latency_ms": 0.3493
       },
       {
         "id": "8-15字:273",
@@ -11438,7 +11443,7 @@
         "guarded_out": "佢唔適合渣車仔士啦",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1965
+        "latency_ms": 0.1957
       },
       {
         "id": "8-15字:274",
@@ -11455,7 +11460,7 @@
         "guarded_out": "私家呀私家都咁多人睇",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2246
+        "latency_ms": 0.2966
       },
       {
         "id": "8-15字:275",
@@ -11472,7 +11477,7 @@
         "guarded_out": "唔畀啲賣帳商浪費管理資源",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3035
+        "latency_ms": 0.3094
       },
       {
         "id": "8-15字:276",
@@ -11489,7 +11494,7 @@
         "guarded_out": "結果讀到中五之後我就離開咗中學",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.128
+        "latency_ms": 0.1361
       },
       {
         "id": "8-15字:277",
@@ -11506,7 +11511,7 @@
         "guarded_out": "我玩咗好耐，但技术好差劲",
         "guarded_ok": false,
         "outcome": "lost",
-        "latency_ms": 0.5571
+        "latency_ms": 0.5219
       },
       {
         "id": "8-15字:278",
@@ -11523,7 +11528,7 @@
         "guarded_out": "真係對唔住，我嚟遲咗",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1783
+        "latency_ms": 0.1975
       },
       {
         "id": "8-15字:279",
@@ -11540,7 +11545,7 @@
         "guarded_out": "其中一個好有可能嘅原因",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1143
+        "latency_ms": 0.1602
       },
       {
         "id": "8-15字:280",
@@ -11557,7 +11562,7 @@
         "guarded_out": "盡講上次已經報咗警佢打",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.2339
+        "latency_ms": 0.2488
       },
       {
         "id": "8-15字:281",
@@ -11574,7 +11579,7 @@
         "guarded_out": "以為可以變到人哋咁刺人咁",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1603
+        "latency_ms": 0.1784
       },
       {
         "id": "8-15字:282",
@@ -11591,7 +11596,7 @@
         "guarded_out": "今集佢話劇本嗰陣我一嘢飛咗",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1175
+        "latency_ms": 0.1298
       },
       {
         "id": "8-15字:283",
@@ -11608,7 +11613,7 @@
         "guarded_out": "跟住書上面嘅步驟做就得喇。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3729
+        "latency_ms": 0.4035
       },
       {
         "id": "8-15字:284",
@@ -11625,7 +11630,7 @@
         "guarded_out": "雖然係佢自己揀上戰場",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1609
+        "latency_ms": 0.1569
       },
       {
         "id": "8-15字:285",
@@ -11642,7 +11647,7 @@
         "guarded_out": "沖完涼，成塊鏡都係霞氣",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.3014
+        "latency_ms": 0.3369
       },
       {
         "id": "8-15字:286",
@@ -11659,7 +11664,7 @@
         "guarded_out": "佢衰肯邊？只可以話佢手段偏激",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.4204
+        "latency_ms": 0.4347
       },
       {
         "id": "8-15字:287",
@@ -11676,7 +11681,7 @@
         "guarded_out": "想搵個正常無仔嘅都難",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2384
+        "latency_ms": 0.2101
       },
       {
         "id": "8-15字:288",
@@ -11693,7 +11698,7 @@
         "guarded_out": "因為朋友唔去多咗兩張",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0935
+        "latency_ms": 0.0973
       },
       {
         "id": "8-15字:289",
@@ -11710,7 +11715,7 @@
         "guarded_out": "問題係有人特登買多嚟炒嘛",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.1427
+        "latency_ms": 0.153
       },
       {
         "id": "8-15字:290",
@@ -11727,7 +11732,7 @@
         "guarded_out": "但你聽完真係唔會試咩",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.0952
+        "latency_ms": 0.1002
       },
       {
         "id": "8-15字:291",
@@ -11744,7 +11749,7 @@
         "guarded_out": "我喺中學教英文。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1119
+        "latency_ms": 0.1218
       },
       {
         "id": "8-15字:292",
@@ -11761,7 +11766,7 @@
         "guarded_out": "睇唔出你上文下理有咩關係",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.5123
+        "latency_ms": 0.5827
       },
       {
         "id": "8-15字:293",
@@ -11778,7 +11783,7 @@
         "guarded_out": "呢啲好靠運氣炸係你就係你嘅",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3415
+        "latency_ms": 0.3858
       },
       {
         "id": "8-15字:294",
@@ -11795,7 +11800,7 @@
         "guarded_out": "要溫暖嘅咪搵個啱嘅人",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.14
+        "latency_ms": 0.1589
       },
       {
         "id": "8-15字:295",
@@ -11812,7 +11817,7 @@
         "guarded_out": "食煙不特冇好處，而且仲有害處",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3195
+        "latency_ms": 0.3385
       },
       {
         "id": "8-15字:296",
@@ -11829,7 +11834,7 @@
         "guarded_out": "失戀嗰位師兄早日走出阴霾",
         "guarded_ok": true,
         "outcome": "fixed_right",
-        "latency_ms": 0.5249
+        "latency_ms": 0.5735
       },
       {
         "id": "8-15字:297",
@@ -11846,7 +11851,7 @@
         "guarded_out": "大勇嘅對白諗起陳啟泰做老婆",
         "guarded_ok": false,
         "outcome": "pass",
-        "latency_ms": 0.3642
+        "latency_ms": 0.4025
       },
       {
         "id": "8-15字:298",
@@ -11863,7 +11868,7 @@
         "guarded_out": "唔需要後悔食咗源氏手",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.1268
+        "latency_ms": 0.137
       },
       {
         "id": "8-15字:299",
@@ -11880,7 +11885,7 @@
         "guarded_out": "今日我哋會講廣東話嘅拼寫方法。",
         "guarded_ok": true,
         "outcome": "pass",
-        "latency_ms": 0.2876
+        "latency_ms": 0.3056
       }
     ]
   }

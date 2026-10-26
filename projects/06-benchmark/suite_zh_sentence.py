@@ -81,15 +81,6 @@ def select_questions(params: dict):
     return valid, invalid, len(sentences)
 
 
-def load_lexicon_for(params: dict):
-    """export/score 共用：词库与 word_map（题面已导出时评分侧只需重建答案）。"""
-    from eval_sentence import build_word_map
-    from ipinyin.lexicon import Lexicon
-    lexicon_path = params.get("lexicon") or repo("data", "lexicon.tsv")
-    lexicon = Lexicon.load(lexicon_path)
-    return lexicon, build_word_map(lexicon)
-
-
 def run(params: dict) -> tuple[str, dict | None, str | None]:
     quick = params["quick"]
     pairs_path = params.get("pairs") or DEFAULT_PAIRS
@@ -111,7 +102,7 @@ def run(params: dict) -> tuple[str, dict | None, str | None]:
         lm = CharLM.load(lm_path)
         if lm is None:
             return "error", None, f"语言模型加载失败：{lm_path}"
-        ime.attach_lm(lm, float(params.get("lm_weight") or 0.4))
+        ime.attach_lm(lm, float(params.get("lm_weight") or 0.6))
 
     valid, invalid, scanned = select_questions(params)
 
@@ -119,7 +110,7 @@ def run(params: dict) -> tuple[str, dict | None, str | None]:
 
     def leg(items: list[tuple[str, str]], use_lm: bool) -> dict[str, tuple[bool, bool, int, str]]:
         saved = ime.lm
-        ime.attach_lm(lm if use_lm else None, float(params.get("lm_weight") or 0.4))
+        ime.attach_lm(lm if use_lm else None, float(params.get("lm_weight") or 0.6))
         out: dict[str, tuple[bool, bool, int, str]] = {}
         for key, s in items:
             if cand_fn is not None:
@@ -130,7 +121,7 @@ def run(params: dict) -> tuple[str, dict | None, str | None]:
                     ime.insert(ch)
                 words = ime.view().words
             out[s] = (words[:1] == [s], s in words[:9], len(key), key)
-        ime.attach_lm(saved, float(params.get("lm_weight") or 0.4))
+        ime.attach_lm(saved, float(params.get("lm_weight") or 0.6))
         return out
 
     out_buckets: "OrderedDict[str, dict]" = OrderedDict()
@@ -196,7 +187,7 @@ def run(params: dict) -> tuple[str, dict | None, str | None]:
     if lm is not None and rr_tot["n"]:
         rerank = {
             "lm": lm_path,
-            "lm_weight": float(params.get("lm_weight") or 0.4),
+            "lm_weight": float(params.get("lm_weight") or 0.6),
             "top1_no_lm": r4(rr_tot["base_top1"] / rr_tot["n"]),
             "top1_lm": r4(rr_tot["cur_top1"] / rr_tot["n"]),
             "saved": rr_tot["saved"],

@@ -22,7 +22,7 @@ import json
 import os
 import sys
 
-from bench_common import BENCH_DIR, DEFAULT_GUARD, DEFAULT_LEXICON, DEFAULT_LM, \
+from bench_common import BENCH_DIR, DEFAULT_GUARD, DEFAULT_LEXICON, \
     DEFAULT_MODEL, DEFAULT_PAIRS, now_iso, question_hash
 
 sys.path.insert(0, BENCH_DIR)

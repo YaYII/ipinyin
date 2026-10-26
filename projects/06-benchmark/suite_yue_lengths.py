@@ -14,7 +14,8 @@ from __future__ import annotations
 import time
 from collections import OrderedDict
 
-from bench_common import (DEFAULT_MODEL, DEFAULT_PAIRS, accept_forms, file_ok,
+from bench_common import (DEFAULT_GUARD, DEFAULT_MODEL, DEFAULT_PAIRS,
+                          DEFAULT_WORD_PAIRS, accept_forms, file_ok,
                           fingerprint, load_variant_map, load_yue_nn,
                           median, repo, r4, stub_nn, question_hash,
                           wilson)
@@ -138,6 +139,7 @@ def run(params: dict) -> tuple[str, dict | None, str | None]:
     nn_from_ckpt = (params.get("nn") or "auto") == "auto" and not params.get("_nn_fn")
     data_paths = [pairs_path,
                   (params.get("model") or DEFAULT_MODEL) if nn_from_ckpt else None,
+                  DEFAULT_GUARD, DEFAULT_WORD_PAIRS,      # v1.3 变体判分的输入
                   repo("data", "yue.marshal"), repo("data", "yue.tsv"),
                   repo("data", "s2t.marshal"), _idioms_path(), _poems_path()]
     for p in data_paths:

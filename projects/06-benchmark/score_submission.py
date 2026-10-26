@@ -275,7 +275,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--guard", default=DEFAULT_GUARD,
                     help="yue-guard 评分需要守卫数据（给出 guarded/saved/lost）")
     ap.add_argument("--lexicon", default=DEFAULT_LEXICON)
-    ap.add_argument("--ctx-max", type=int, default=7)
+    ap.add_argument("--ctx-max", type=int, default=5,
+                    help="守卫语境门槛（与生产/套件默认一致；v1.3 裁决值）")
     args = ap.parse_args(argv)
 
     stem = f"{args.suite}__{args.mode}"
