@@ -262,12 +262,12 @@ def test_real_engine_guard_fixes_poem():
 
 @pytest.mark.skipif(not HAS_DATA, reason="仓库 data/ 不齐")
 def test_default_chunking_blocks_idiom_inside_sentence():
-    # 7 字单位下每个片段都走守卫严格路径：句中成语不再被静默改坏
-    # （36 字一次性整句会漏拦成 亡羊補監，见 README 局限）
+    # 7 字单位下每个片段都走守卫严格路径 + 典籍白名单：句中成语不再被改坏，
+    # 且按白名单语义给繁体外壳（亡羊補牢；简体期望是白名单上线前的旧行为）
     pipe = convert.Pipeline(convert.load_engine())
     out = pipe.convert_line("亡羊补牢，为时未晚。")
     assert "監" not in out
-    assert "亡羊补牢" in out
+    assert "亡羊補牢" in out
     assert sum(r.guard_fixes for r in pipe.records) >= 1
 
 
