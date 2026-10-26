@@ -98,6 +98,7 @@ class ImeState:
         self.context: str | None = None          # 上一次上屏的词，用来猜下一个词
         self.last_build_ms = 0.0
         self.last_commit_key = ""                # 最近一次上屏消耗掉的拼音
+        self._yue_cache: dict[str, str] = {}     # 首选候选的粤语神经结果（切模式不重算）
         self._candidates: list[str] = []         # 实际上屏用（按繁体开关转换）
         self._display: list[str] = []            # 候选窗显示用（简/繁并列）
         self._keys: list[str] = []               # 每个候选消耗的拼音前缀
@@ -435,8 +436,19 @@ class ImeState:
             # 神经模型只在粤语模式、且只对首选候选推理：
             # convert() 在候选重建路径上，2~4 字词单次 7~10ms，9 个候选全算就是 60ms+/键。
             # 非首选候选走规则（0.02ms）够用，用户真正要看的粤语写法就是首选那条。
-            neural = self.mode == "yue" and rank == 0
-            yue = self.yue.convert(simp, neural=neural) if self.yue else trad
+            neural = rank == 0
+            if self.yue is None:
+                yue = trad
+            elif neural:
+                cached = self._yue_cache.get(simp)
+                if cached is None:
+                    cached = self.yue.convert(simp, neural=True)
+                    if len(self._yue_cache) > 512:
+                        self._yue_cache.clear()
+                    self._yue_cache[simp] = cached
+                yue = cached
+            else:
+                yue = self.yue.convert(simp, neural=False)
             if converter:
                 yue = converter.to_traditional(yue)   # 粤语书面一律用繁体字
             forms = {"simp": simp, "trad": trad, "yue": yue}
