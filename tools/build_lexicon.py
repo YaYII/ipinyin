@@ -207,7 +207,7 @@ def main() -> int:
             word, _, key = line.rstrip("\n").partition("\t")
             word, key = word.strip(), key.strip()
             if word and key:
-                put(key, word, 1e9)      # 人工收录的现代词：明确标记，运行时能识别
+                put(key, word, 1e7)      # 人工收录的现代词：明确标记，运行时能识别
                 added += 1
         print(f"现代常用词补充：{added}")
 

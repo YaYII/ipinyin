@@ -422,6 +422,10 @@ class ImeState:
                 score *= 0.02
             elif syllables and len(word) == len(syllables) and len(syllables) > 1:
                 score += 1.5e5        # 整串匹配：音节数=字数，优先于零散单字（但不能压过用户选过的词）
+            elif syllables and len(word) > len(syllables):
+                # 只打了一个音节却出多字词（wei → 微博/微信），每多一个音节打对折，
+                # 否则「为」这种你打了 35 次的字永远排不到前面
+                score *= 0.5 ** (len(word) - len(syllables))
             if self.user_model:
                 score += self.user_model.picks(text, word) * PICKS_BONUS
                 score += self.user_model.hit_rate(text, word) * RATE_BONUS
