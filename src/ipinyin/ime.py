@@ -388,7 +388,10 @@ class ImeState:
             items.extend((word, text, freq) for word, freq in self.lexicon.mixed_entries(text))
 
         # 单字候选：长拼音里也能直接选字，选完剩余拼音继续组词
-        for syllable in (self.lexicon.split_syllables(text) or [])[:2]:
+        # 末音节必须有：diyiye 想选「页」时，只给前两个音节就永远选不到
+        syllables = self.lexicon.split_syllables(text) or []
+        wanted = syllables[:2] + ([syllables[-1]] if syllables and syllables[-1] not in syllables[:2] else [])
+        for syllable in wanted:
             for word, freq in self.lexicon.entries(syllable)[:5]:
                 if len(word) == 1:
                     items.append((word, syllable, freq))
@@ -460,11 +463,13 @@ class ImeState:
             # 有中文候选时，只丢掉「字母本身」这类候选；表情/符号要留着
             unique = [item for item in unique
                       if not (item[0].isascii() and item[0].isalnum() and len(item[0]) <= 3)]
-        # 表情永远排最后（别抢「微信」这类真词）
+        # 表情：放第一页；但人工收录的词（微信/支付宝）仍然优先
         emoji_word = self.lexicon.emoji_for(text)
         if emoji_word and len(unique) > 1:
-            unique = [item for item in unique if item[0] != emoji_word] + \
-                     [item for item in unique if item[0] == emoji_word]
+            others = [item for item in unique if item[0] != emoji_word]
+            curated = any(freq >= 1e8 for _, _, freq in others)
+            tail = [item for item in unique if item[0] == emoji_word]
+            unique = (others + tail) if curated else (tail + others)
         if not unique:
             unique = [(word, text, 0) for word in self._fallback(text)]
         if not unique:

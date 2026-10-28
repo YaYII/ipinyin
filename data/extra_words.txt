@@ -49,3 +49,14 @@
 预算	yusuan
 发票	fapiao
 合同	hetong
+第一页	diyiye
+第二页	dierye
+第三页	disanye
+上一页	shangyiye
+下一页	xiayiye
+第一行	diyihang
+第一张	diyizhang
+第一步	diyibu
+第一天	diyitian
+第一版	diyiban
+最后页	zuihouye

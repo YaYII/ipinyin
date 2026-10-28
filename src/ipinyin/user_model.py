@@ -232,6 +232,14 @@ class UserModel:
         if self._dirty:
             self.compact()
 
+    def __bool__(self) -> bool:
+        """真值判断必须是 O(1)。
+
+        Python 在没有 __bool__ 时会退回 __len__，而 __len__ 要遍历全部词条——
+        `if self.user_model:` 每次重建候选都触发一次，1.8 万词条就是 8ms/键。
+        """
+        return True
+
     def __len__(self) -> int:
         return sum(len(bucket) for bucket in self._data.values()) + sum(
             len(bucket) for bucket in self._bigrams.values()

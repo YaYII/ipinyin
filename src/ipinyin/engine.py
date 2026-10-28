@@ -395,7 +395,7 @@ class PinyinEngine(IBus.Engine):
         if not previous:
             return
         prev_key, prev_text, prev_time = previous
-        if now - prev_time > 2.0:
+        if now - prev_time > 6.0:
             return
         joined = prev_text + text
         joined_key = prev_key + key
