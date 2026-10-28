@@ -99,6 +99,15 @@ def get_lm():
     return _LM or None
 
 
+def _read_input_mode() -> bool:
+    """输入方案：full（全拼，默认）/ flypy（小鹤双拼）。"""
+    try:
+        with open(config.input_mode_path(), encoding="utf-8") as fh:
+            return fh.read().strip() == "flypy"
+    except OSError:
+        return False
+
+
 def _read_mode() -> str:
     """记住上次的简/繁选择。"""
     try:
@@ -204,6 +213,7 @@ class PinyinEngine(IBus.Engine):
             if lm is not None:
                 self._ime.attach_lm(lm)
             self._ime.mode = _read_mode()
+            self._ime.shuangpin = _read_input_mode()
         return self._ime
 
     # ---------- IBus 虚函数 ----------

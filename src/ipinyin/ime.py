@@ -92,6 +92,7 @@ class ImeState:
         self.lm = None             # 可选：字级语言模型（有 logp(text) 即可，可以是神经模型）
         self.lm_weight = 0.6
         self.mode = "simp"          # simp / trad / yue
+        self.shuangpin = False      # True = 小鹤双拼输入
         self.page_size = page_size
         self.user_model = user_model
         self.buffer = ""
@@ -316,6 +317,10 @@ class ImeState:
     def _rebuild(self) -> None:
         started = time.perf_counter()
         text = self.active_text()
+        if self.shuangpin and text:
+            from . import shuangpin
+
+            text = shuangpin.to_full(text)
         if not self.buffer:
             self._candidates, self._keys = [], []
             return

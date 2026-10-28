@@ -51,6 +51,10 @@ def _find_data(name: str) -> str:
     return user
 
 
+def input_mode_path() -> str:
+    return os.path.join(data_home(), "input_mode")
+
+
 def initials_path() -> str:
     return _find_data("initials.marshal")
 

@@ -29,6 +29,7 @@ find "$STAGE/usr/lib/ipinyin" -name "__pycache__" -type d -prune -exec rm -rf {}
 install -m 755 "$ROOT/packaging/deb/ipinyin-engine" "$STAGE/usr/bin/ipinyin-engine"
 install -m 755 "$ROOT/packaging/deb/ipinyin-setup" "$STAGE/usr/bin/ipinyin-setup"
 install -m 755 "$ROOT/packaging/deb/ipinyin-ensure" "$STAGE/usr/bin/ipinyin-ensure"
+install -m 755 "$ROOT/packaging/deb/ipinyin-input-mode" "$STAGE/usr/bin/ipinyin-input-mode"
 
 say "打包 onnxruntime（粤语神经模型的开箱依赖）"
 WHEEL=$(ls "$ROOT"/packaging/vendor/onnxruntime-*.whl 2>/dev/null | head -1 || true)
@@ -90,7 +91,7 @@ install -m 755 "$ROOT/packaging/deb/postrm" "$STAGE/DEBIAN/postrm"
 say "规范权限（避免把 umask 带进包里）"
 find "$STAGE" -type d -exec chmod 755 {} +
 find "$STAGE" -type f -exec chmod 644 {} +
-chmod 755 "$STAGE/usr/bin/ipinyin-engine" "$STAGE/usr/bin/ipinyin-setup" "$STAGE/usr/bin/ipinyin-ensure" "$STAGE/DEBIAN/postinst" "$STAGE/DEBIAN/postrm"
+chmod 755 "$STAGE/usr/bin/ipinyin-engine" "$STAGE/usr/bin/ipinyin-setup" "$STAGE/usr/bin/ipinyin-ensure" "$STAGE/usr/bin/ipinyin-input-mode" "$STAGE/DEBIAN/postinst" "$STAGE/DEBIAN/postrm"
 
 say "生成 md5sums"
 (cd "$STAGE" && find usr -type f -print0 | sort -z | xargs -0 md5sum > DEBIAN/md5sums)
