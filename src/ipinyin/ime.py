@@ -403,61 +403,36 @@ class ImeState:
             seen.add(word)
             unique.append((word, key, freq))
 
-        # 统一打分：每个候选一个分数，按分数排序。
-        # 分数 = 词频 + 选过次数×10万 + 命中率×3万 + 上下文加成5万
-        # （用户选过的、上下文预测、人工收录词都在这一个标尺上比较，改一个系数就能调手感）
-        PICKS_BONUS = 8e5
-        RATE_BONUS = 2e5
-        BIGRAM_BONUS = 4e5
+        # 排序完全按「你选过的」：选中一次 +1，次数多的在前。
+        # 分数只在同等条件下当补充依据（整串匹配 > 上下文 > 词频），
+        # 任何规则都不许压过你的选择。
+        syllables = self.lexicon.split_syllables(text) or []
         context_words: set[str] = set()
         if self.user_model and self.context:
             context_words = set(self.user_model.after(self.context))
 
-        syllables = self.lexicon.split_syllables(text) or []
-        scores: dict[str, float] = {}
-        for word, _key, freq in unique:
-            score = float(freq)
-            # 只匹配了一部分音节的单字/短词，不能压过整串匹配的词
-            if syllables and 1 <= len(word) < len(syllables):
-                score *= 0.02
-            elif syllables and len(word) == len(syllables) and len(syllables) > 1:
-                score += 1.5e5        # 整串匹配：音节数=字数，优先于零散单字（但不能压过用户选过的词）
-            elif syllables and len(word) > len(syllables):
-                # 只打了一个音节却出多字词（wei → 微博/微信），每多一个音节打对折，
-                # 否则「为」这种你打了 35 次的字永远排不到前面
-                score *= 0.5 ** (len(word) - len(syllables))
-            if self.user_model:
-                score += self.user_model.picks(text, word) * PICKS_BONUS
-                score += self.user_model.hit_rate(text, word) * RATE_BONUS
-            if word in context_words:
-                score += BIGRAM_BONUS
-            scores[word] = score
+        def rank_key(item: tuple[str, str, int]) -> tuple:
+            word, _key, freq = item
+            picks = self.user_model.picks(text, word) if self.user_model else 0
+            full = 1 if (syllables and len(word) == len(syllables)) else 0
+            near = 1 if word in context_words else 0
+            return (-picks, -full, -near, -freq)
 
-        # 学过的词即使候选里没有，也要补进来（用它的学习分参与排序）
+        # 学过的词即使候选里没有，也要补进来（照样按选中次数排）
         if self.user_model:
             for word in self.user_model.preferred(text):
                 if word in seen or (len(word) <= 2 and word.isascii()):
                     continue
                 seen.add(word)
                 unique.append((word, text, 0))
-                score = (self.user_model.picks(text, word) * PICKS_BONUS
-                         + self.user_model.hit_rate(text, word) * RATE_BONUS)
-                if word in context_words:
-                    score += BIGRAM_BONUS
-                scores[word] = score
 
-        # 表情也是普通候选：没选过就是 0 分，自然沉底；选过就按次数往上抬
+        # 表情也是普通候选：没选过就是 0 次，排在选过的和整串词之后
         emoji_word = self.lexicon.emoji_for(text)
         if emoji_word and emoji_word not in seen:
             seen.add(emoji_word)
             unique.append((emoji_word, text, 0))
-            score = 0.0
-            if self.user_model:
-                score = (self.user_model.picks(text, emoji_word) * PICKS_BONUS
-                         + self.user_model.hit_rate(text, emoji_word) * RATE_BONUS)
-            scores[emoji_word] = score
 
-        unique.sort(key=lambda item: -scores.get(item[0], float(item[2])))
+        unique.sort(key=rank_key)
         picked = {word for word, _k, _f in unique
                   if self.user_model and self.user_model.picks(text, word) > 0}
 
