@@ -22,7 +22,7 @@ _CACHE_LIMIT = 4096
 class Lexicon:
     __slots__ = (
         "_raw", "_prefix_table", "_keys", "max_key_len", "log_total", "total_freq",
-        "_cache", "_syllables", "_syllable_prefixes", "_split_cache",
+        "_cache", "_syllables", "_syllable_prefixes", "_split_cache", "_initials",
     )
 
     def __init__(self, raw: dict[str, str], total_freq: int, prefix_table: dict[str, str] | None = None):
@@ -40,6 +40,7 @@ class Lexicon:
             if any(len(word) == 1 for word, _ in self.entries(key))
         }
         # 所有音节的前缀（用来判断"这串字母像不像打了一半的拼音"）
+        self._initials: dict[str, list[tuple[str, int]]] = {}
         self._syllable_prefixes = {
             syllable[:length]
             for syllable in self._syllables
@@ -133,6 +134,41 @@ class Lexicon:
             self._split_cache.clear()
         self._split_cache[key] = result
         return result
+
+    def load_initials(self, path: str) -> "Lexicon":
+        """载入简拼索引（如果→rg）。文件不存在就只是不启用，不影响其它功能。"""
+        if not path or not os.path.exists(path):
+            return self
+        try:
+            import zlib
+
+            with open(path, "rb") as fh:
+                raw = fh.read()
+            try:
+                raw = zlib.decompress(raw)
+            except zlib.error:
+                pass
+            table = marshal.loads(raw)
+        except (OSError, ValueError, EOFError):
+            return self
+        parsed: dict[str, list[tuple[str, int]]] = {}
+        for code, payload in table.items():
+            items: list[tuple[str, int]] = []
+            for piece in payload.split("|"):
+                if ":" not in piece:
+                    continue
+                word, _, freq = piece.rpartition(":")
+                try:
+                    items.append((word, int(freq)))
+                except ValueError:
+                    continue
+            if items:
+                parsed[code] = items
+        self._initials = parsed
+        return self
+
+    def initials_entries(self, code: str) -> list[tuple[str, int]]:
+        return self._initials.get(code, [])
 
     def is_syllable_prefix(self, text: str) -> bool:
         return text in self._syllable_prefixes

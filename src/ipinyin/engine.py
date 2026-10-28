@@ -44,6 +44,7 @@ def get_lexicon() -> Lexicon:
         path = config.lexicon_path()
         LOG.info("加载词库 %s", path)
         _LEXICON = Lexicon.load(path)
+        _LEXICON.load_initials(config.initials_path())
         LOG.info("词库就绪：%d 个拼音键", len(_LEXICON))
     return _LEXICON
 

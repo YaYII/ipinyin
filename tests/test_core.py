@@ -273,3 +273,19 @@ def test_simplified_is_only_a_mapping_not_a_model():
     assert conv.to_traditional(src) == "今天天氣不錯，我們出去走走吧"
     # 粤语才需要模型：我们 → 我哋，这不是字形映射能做出来的
     assert conv.to_traditional(src) != "今日天氣唔錯，我哋出去行下啦"
+
+
+def test_abbreviation_initials(lexicon):
+    """简拼：rg → 如果（首字母缩写，搜狗/Rime 同一原理）。"""
+    import os
+
+    path = os.path.join(ROOT, "data", "initials.marshal")
+    if not os.path.exists(path):
+        import pytest
+
+        pytest.skip("缺 data/initials.marshal，先跑 tools/build_initials.py")
+    lexicon.load_initials(path)
+    ime = ImeState(lexicon)
+    for char in "rg":
+        ime.insert(char)
+    assert ime.view().words[0] == "如果"

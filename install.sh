@@ -72,6 +72,7 @@ cp "$ROOT/data/ipinyin.svg" "$PREFIX/data/ipinyin.svg"
 cp "$ROOT/data/s2t.marshal" "$PREFIX/data/s2t.marshal"
 cp "$ROOT/data/yue.tsv" "$PREFIX/data/yue.tsv"
 cp "$ROOT/data/yue.marshal" "$PREFIX/data/yue.marshal"
+[ -f "$ROOT/data/initials.marshal" ] && cp "$ROOT/data/initials.marshal" "$PREFIX/data/initials.marshal"
 [ -f "$ROOT/data/yue_phrase.marshal" ] && cp "$ROOT/data/yue_phrase.marshal" "$PREFIX/data/yue_phrase.marshal"
 # 粤语神经模型（ONNX，随仓库分发；没有它自动退回规则+守卫）
 [ -f "$ROOT/data/yue_nn.onnx" ] && cp "$ROOT/data/yue_nn.onnx" "$PREFIX/data/yue_nn.onnx"

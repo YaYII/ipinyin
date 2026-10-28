@@ -367,6 +367,11 @@ class ImeState:
             items += [(w, text, 0) for w in composed]
             items += [(w, k, f) for k, w, f in far]
 
+        # 简拼：rg → 如果（每个音节取首字母，搜狗/Rime 同一原理）
+        # 去重交给下面的统一去重环节
+        if text.isalpha() and 2 <= len(text) <= 6:
+            items.extend((word, text, freq) for word, freq in self.lexicon.initials_entries(text))
+
         # 单字候选：长拼音里也能直接选字，选完剩余拼音继续组词
         for syllable in (self.lexicon.split_syllables(text) or [])[:2]:
             for word, freq in self.lexicon.entries(syllable)[:5]:
