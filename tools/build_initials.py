@@ -43,9 +43,31 @@ def main() -> int:
         code: "|".join(f"{w}:{f}" for w, f in sorted(items.items(), key=lambda kv: -kv[1])[:12])
         for code, items in table.items()
     }
+
+    # 混拼码：首音节取首字母 + 其余音节全拼（wmen→我们、rguo→如果、nhao→你好）
+    mixed: defaultdict[str, dict[str, int]] = defaultdict(dict)
+    for key in lex.iter_keys():
+        syllables = lex.split_syllables(key)
+        if not syllables or not (2 <= len(syllables) <= 4) or len(syllables) != len(key) - sum(len(s) - 1 for s in syllables):
+            pass
+        if not syllables or not (2 <= len(syllables) <= 4):
+            continue
+        code = syllables[0][0] + "".join(syllables[1:])
+        for word, freq in lex.entries(key):
+            if len(word) != len(syllables):
+                continue
+            if freq > mixed[code].get(word, 0):
+                mixed[code][word] = freq
+    compact_mixed = {
+        code: "|".join(f"{w}:{f}" for w, f in sorted(items.items(), key=lambda kv: -kv[1])[:8])
+        for code, items in mixed.items() if max(items.values()) >= 50
+    }
     with open(OUT, "wb") as fh:
-        fh.write(zlib.compress(marshal.dumps(compact), 6))
-    print(f"简拼码 {len(compact)} 个（来自 {keys} 个拼音键）→ {OUT}（{os.path.getsize(OUT)/1024:.0f} KiB）")
+        fh.write(zlib.compress(marshal.dumps({"initials": compact, "mixed": compact_mixed}), 6))
+    print(f"简拼码 {len(compact)} 个 / 混拼码 {len(compact_mixed)} 个（来自 {keys} 个拼音键）"
+          f"→ {OUT}（{os.path.getsize(OUT)/1024:.0f} KiB）")
+    for probe in ("wmen", "rguo", "nhao"):
+        print(f"  混拼 {probe}: {compact_mixed.get(probe, '—')[:50]}")
     for probe in ("rg", "nh", "wm", "zhg"):
         print(f"  {probe}: {compact.get(probe, '—')[:60]}")
     return 0

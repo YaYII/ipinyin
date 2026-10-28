@@ -373,6 +373,9 @@ class ImeState:
         # 去重交给下面的统一去重环节
         if text.isalpha() and 2 <= len(text) <= 6:
             items.extend((word, text, freq) for word, freq in self.lexicon.initials_entries(text))
+        # 混拼：首音节首字母 + 其余全拼（wmen→我们、rguo→如果）
+        if text.isalpha() and 3 <= len(text) <= 10:
+            items.extend((word, text, freq) for word, freq in self.lexicon.mixed_entries(text))
 
         # 单字候选：长拼音里也能直接选字，选完剩余拼音继续组词
         for syllable in (self.lexicon.split_syllables(text) or [])[:2]:

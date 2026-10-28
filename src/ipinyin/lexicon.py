@@ -22,7 +22,7 @@ _CACHE_LIMIT = 4096
 class Lexicon:
     __slots__ = (
         "_raw", "_prefix_table", "_keys", "max_key_len", "log_total", "total_freq",
-        "_cache", "_syllables", "_syllable_prefixes", "_split_cache", "_initials",
+        "_cache", "_syllables", "_syllable_prefixes", "_split_cache", "_initials", "_mixed",
     )
 
     def __init__(self, raw: dict[str, str], total_freq: int, prefix_table: dict[str, str] | None = None):
@@ -41,6 +41,7 @@ class Lexicon:
         }
         # 所有音节的前缀（用来判断"这串字母像不像打了一半的拼音"）
         self._initials: dict[str, list[tuple[str, int]]] = {}
+        self._mixed: dict[str, list[tuple[str, int]]] = {}
         self._syllable_prefixes = {
             syllable[:length]
             for syllable in self._syllables
@@ -151,7 +152,15 @@ class Lexicon:
             table = marshal.loads(raw)
         except (OSError, ValueError, EOFError):
             return self
+        # 兼容两种格式：旧 {code: payload} / 新 {"initials": {...}, "mixed": {...}}
+        mixed_raw: dict[str, str] = {}
+        if isinstance(table.get("initials"), dict):
+            mixed_raw = table.get("mixed", {}) or {}
+            table = table["initials"]
         parsed: dict[str, list[tuple[str, int]]] = {}
+        parsed_mixed: dict[str, list[tuple[str, int]]] = {}
+        for code, payload in mixed_raw.items():
+            parsed_mixed[code] = self._parse_payload(payload)
         for code, payload in table.items():
             items: list[tuple[str, int]] = []
             for piece in payload.split("|"):
@@ -165,7 +174,24 @@ class Lexicon:
             if items:
                 parsed[code] = items
         self._initials = parsed
+        self._mixed = parsed_mixed
         return self
+
+    @staticmethod
+    def _parse_payload(payload: str) -> list[tuple[str, int]]:
+        items: list[tuple[str, int]] = []
+        for piece in payload.split("|"):
+            if ":" not in piece:
+                continue
+            word, _, freq = piece.rpartition(":")
+            try:
+                items.append((word, int(freq)))
+            except ValueError:
+                continue
+        return items
+
+    def mixed_entries(self, code: str) -> list[tuple[str, int]]:
+        return self._mixed.get(code, [])
 
     def initials_entries(self, code: str) -> list[tuple[str, int]]:
         return self._initials.get(code, [])
