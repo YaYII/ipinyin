@@ -376,8 +376,6 @@ class ImeState:
 
         # 表情：wx → 😊（整串命中才出，避免干扰正常输入）
         emoji = self.lexicon.emoji_for(text)
-        if emoji:
-            items.append((emoji, text, 0))      # 放最后：别抢「微信」这类真词
 
         # 简拼：rg → 如果（每个音节取首字母，搜狗/Rime 同一原理）
         # 去重交给下面的统一去重环节
@@ -463,13 +461,13 @@ class ImeState:
             # 有中文候选时，只丢掉「字母本身」这类候选；表情/符号要留着
             unique = [item for item in unique
                       if not (item[0].isascii() and item[0].isalnum() and len(item[0]) <= 3)]
-        # 表情：放第一页；但人工收录的词（微信/支付宝）仍然优先
+        # 表情只是普通候选：默认排在第一页靠后位置，选过之后由个人词频把它提上来；
+        # 不选它就自然沉底（和搜狗一样，表情也参与学习，不是硬钉在第一）
         emoji_word = self.lexicon.emoji_for(text)
-        if emoji_word and len(unique) > 1:
-            others = [item for item in unique if item[0] != emoji_word]
-            curated = any(freq >= 1e8 for _, _, freq in others)
-            tail = [item for item in unique if item[0] == emoji_word]
-            unique = (others + tail) if curated else (tail + others)
+        if emoji_word:
+            if emoji_word not in seen:
+                seen.add(emoji_word)
+                unique.insert(min(3, len(unique)), (emoji_word, text, 0))
         if not unique:
             unique = [(word, text, 0) for word in self._fallback(text)]
         if not unique:
