@@ -327,7 +327,9 @@ class ImeState:
             self.last_build_ms = (time.perf_counter() - started) * 1000
             return
 
-        exact = self.lexicon.entries(text)
+        # 词库里偶有「w → w」这种字母当词的垃圾条目，会顶掉真正的候选
+        exact = [(w, f) for w, f in self.lexicon.entries(text)
+                 if not (len(w) <= 2 and w.isascii())]
         keyed = self.lexicon.prefix_entries(text)
         paths = best_paths_scored(self.lexicon, text, k=SENTENCE_CANDIDATES)
         if self.lm is not None and len(paths) > 1:
@@ -396,6 +398,8 @@ class ImeState:
                     priority.setdefault(word, len(priority))
         if self.user_model:
             for rank, word in enumerate(self.user_model.preferred(text)):
+                if len(word) <= 2 and word.isascii():
+                    continue          # 别把「w → w」这种坏记录再放回候选
                 if word not in seen:
                     seen.add(word)
                     unique.insert(0, (word, text, 0))     # 学过的词补进候选
@@ -430,6 +434,10 @@ class ImeState:
                     insert_at += 1
                 unique[insert_at:insert_at] = head
 
+        # 只要有中文候选，就不要把字母本身列在候选里（w / abc 这类只配在纯英文输入时出现）
+        if any(any("\u4e00" <= ch <= "\u9fff" for ch in w) for w, _, _ in unique):
+            unique = [item for item in unique
+                      if any("\u4e00" <= ch <= "\u9fff" for ch in item[0])]
         if not unique:
             unique = [(word, text, 0) for word in self._fallback(text)]
         if not unique:

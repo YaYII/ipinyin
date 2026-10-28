@@ -120,8 +120,14 @@ def _write_mode(mode: str) -> None:
 
 
 def _valid_pair(key: str, word: str) -> bool:
-    """拼音键能切成几个音节，就该对应几个汉字；对不上的是脏数据（如 zenm→怎唔）。"""
+    """拼音键能切成几个音节，就该对应几个汉字；对不上的是脏数据（如 zenm→怎唔）。
+
+    但简拼键（w / wm / rg）音节数少于字数，属于正常输入，必须放行——
+    否则「w → 我们」永远学不进来。
+    """
     if any(not ("\u4e00" <= ch <= "\u9fff") for ch in word):
+        return True
+    if key.isascii() and key.isalpha():
         return True
     return len(word) in get_lexicon().syllable_counts(key)
 

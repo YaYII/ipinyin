@@ -31,7 +31,7 @@ _VALID_KEY = re.compile(r"^[a-z]+$")
 MAX_WORD_LEN = 8
 MAX_KEY_LEN = 24
 # 唔/嗯/呣 这类叹词在词库里会跟前面任意音节拼成"怎唔/我唔"这种垃圾候选
-JUNK_KEYS = {"m", "n", "ng", "hm", "hng"}
+JUNK_KEYS = set(__import__('string').ascii_lowercase) | {"m", "n", "ng", "hm", "hng"}
 
 
 # 每天都会用、但词频库里排名不高的词：给它们加权，保证第一候选
