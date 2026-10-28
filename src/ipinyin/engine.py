@@ -45,6 +45,7 @@ def get_lexicon() -> Lexicon:
         LOG.info("加载词库 %s", path)
         _LEXICON = Lexicon.load(path)
         _LEXICON.load_initials(config.initials_path())
+        _LEXICON.load_emoji(config.emoji_path())
         LOG.info("词库就绪：%d 个拼音键", len(_LEXICON))
     return _LEXICON
 
@@ -322,7 +323,11 @@ class PinyinEngine(IBus.Engine):
             self.ime.backspace()
             self._sync()
         elif action is Action.COMMIT:
-            self._finish(self.ime.commit_current(), key)
+            text = self.ime.commit_current()
+            # 中英混输：原样上屏的英文后面补一个空格，避免「你好world」黏在一起
+            if text and text.isascii() and text.isalpha():
+                text += " "
+            self._finish(text, key)
         elif action is Action.COMMIT_RAW:
             self._finish(self.ime.commit_raw(), key)
         elif action is Action.CLEAR:

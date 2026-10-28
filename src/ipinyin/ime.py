@@ -374,6 +374,11 @@ class ImeState:
             items += [(w, text, 0) for w in composed]
             items += [(w, k, f) for k, w, f in far]
 
+        # 表情：wx → 😊（整串命中才出，避免干扰正常输入）
+        emoji = self.lexicon.emoji_for(text)
+        if emoji:
+            items.append((emoji, text, 0))      # 放最后：别抢「微信」这类真词
+
         # 简拼：rg → 如果（每个音节取首字母，搜狗/Rime 同一原理）
         # 去重交给下面的统一去重环节
         if text.isalpha() and 2 <= len(text) <= 6:
@@ -405,9 +410,17 @@ class ImeState:
                 if word in seen:
                     priority.setdefault(word, len(priority))
         if self.user_model:
+            freq_of = {w: f for w, _, f in unique}
             for rank, word in enumerate(self.user_model.preferred(text)):
                 if len(word) <= 2 and word.isascii():
                     continue          # 别把「w → w」这种坏记录再放回候选
+                # 只按空格误选过几次（picks<5）的低置信记录，不该压过明显更高频的词
+                # （典型：wx 学过「文学」，但「微信」进词库后应当赢回来）
+                if self.user_model.picks(text, word) < 5:
+                    # 只让「人工收录的现代词」（标记为 1e9）压过低置信学习，
+                    # 普通高频词不压——否则会退化成「学什么都不生效」
+                    if any(f >= 1e8 for w, f in freq_of.items() if w != word):
+                        continue
                 if word not in seen:
                     seen.add(word)
                     unique.insert(0, (word, text, 0))     # 学过的词补进候选
@@ -444,8 +457,14 @@ class ImeState:
 
         # 只要有中文候选，就不要把字母本身列在候选里（w / abc 这类只配在纯英文输入时出现）
         if any(any("\u4e00" <= ch <= "\u9fff" for ch in w) for w, _, _ in unique):
+            # 有中文候选时，只丢掉「字母本身」这类候选；表情/符号要留着
             unique = [item for item in unique
-                      if any("\u4e00" <= ch <= "\u9fff" for ch in item[0])]
+                      if not (item[0].isascii() and item[0].isalnum() and len(item[0]) <= 3)]
+        # 表情永远排最后（别抢「微信」这类真词）
+        emoji_word = self.lexicon.emoji_for(text)
+        if emoji_word and len(unique) > 1:
+            unique = [item for item in unique if item[0] != emoji_word] + \
+                     [item for item in unique if item[0] == emoji_word]
         if not unique:
             unique = [(word, text, 0) for word in self._fallback(text)]
         if not unique:

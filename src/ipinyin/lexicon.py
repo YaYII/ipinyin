@@ -22,7 +22,7 @@ _CACHE_LIMIT = 4096
 class Lexicon:
     __slots__ = (
         "_raw", "_prefix_table", "_keys", "max_key_len", "log_total", "total_freq",
-        "_cache", "_syllables", "_syllable_prefixes", "_split_cache", "_initials", "_mixed",
+        "_cache", "_syllables", "_syllable_prefixes", "_split_cache", "_initials", "_mixed", "_emoji",
     )
 
     def __init__(self, raw: dict[str, str], total_freq: int, prefix_table: dict[str, str] | None = None):
@@ -42,6 +42,7 @@ class Lexicon:
         # 所有音节的前缀（用来判断"这串字母像不像打了一半的拼音"）
         self._initials: dict[str, list[tuple[str, int]]] = {}
         self._mixed: dict[str, list[tuple[str, int]]] = {}
+        self._emoji: dict[str, str] = {}
         self._syllable_prefixes = {
             syllable[:length]
             for syllable in self._syllables
@@ -192,6 +193,27 @@ class Lexicon:
 
     def mixed_entries(self, code: str) -> list[tuple[str, int]]:
         return self._mixed.get(code, [])
+
+    def load_emoji(self, path: str) -> "Lexicon":
+        """表情表：拼音码 → emoji（搜狗式 wx→😊）。"""
+        if not path or not os.path.exists(path):
+            return self
+        table: dict[str, str] = {}
+        try:
+            with open(path, encoding="utf-8") as fh:
+                for line in fh:
+                    if line.startswith("#") or "\t" not in line:
+                        continue
+                    code, _, emoji = line.rstrip("\n").partition("\t")
+                    if code and emoji:
+                        table[code.strip()] = emoji.strip()
+        except OSError:
+            return self
+        self._emoji = table
+        return self
+
+    def emoji_for(self, code: str) -> str | None:
+        return self._emoji.get(code)
 
     def initials_entries(self, code: str) -> list[tuple[str, int]]:
         return self._initials.get(code, [])

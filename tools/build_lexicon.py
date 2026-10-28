@@ -197,6 +197,20 @@ def main() -> int:
             if factor:
                 bucket[word] *= factor
 
+    # 现代常用词（品牌/职场），基础词典常缺；给高权重保证优先
+    extra_path = os.path.join(ROOT, "data", "extra_words.txt") if "ROOT" in globals() else os.path.join("data", "extra_words.txt")
+    if os.path.exists(extra_path):
+        added = 0
+        for line in open(extra_path, encoding="utf-8"):
+            if line.startswith("#") or "\t" not in line:
+                continue
+            word, _, key = line.rstrip("\n").partition("\t")
+            word, key = word.strip(), key.strip()
+            if word and key:
+                put(key, word, 1e9)      # 人工收录的现代词：明确标记，运行时能识别
+                added += 1
+        print(f"现代常用词补充：{added}")
+
     # 统计与裁剪
     pairs = sum(len(v) for v in table.values())
     print(f"拼音键 {len(table)} 个，候选词条 {pairs} 条")
