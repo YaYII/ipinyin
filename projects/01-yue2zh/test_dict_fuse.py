@@ -5,6 +5,8 @@ import json
 import os
 import sys
 
+import pytest
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
@@ -98,11 +100,30 @@ def test_rerank_lambda_zero_keeps_order():
     assert out[0][1] == "我不行"
 
 
+def _corpus_pairs():
+    """平行语料：优先用生成好的 merged_pairs.json；没有就从仓库 vendor 现造一份。
+
+    data/ 是 gitignore 的（27MB，可再生产），新克隆下来直接跑测试时这里必须能自愈，
+    否则「我哋→我们」会因为平票被丢掉，看起来像代码坏了。
+    """
+    merged = os.path.join(HERE, "data", "merged_pairs.json")
+    if os.path.exists(merged):
+        return json.load(open(merged, encoding="utf-8"))
+    vendor = os.path.join(ROOT, "vendor", "yue_pairs.json")
+    if not os.path.exists(vendor):
+        return None
+    pairs = json.load(open(vendor, encoding="utf-8"))[:60000]
+    os.makedirs(os.path.dirname(merged), exist_ok=True)
+    json.dump(pairs, open(merged, "w", encoding="utf-8"), ensure_ascii=False)
+    return pairs
+
+
 def test_real_sources_build():
     if not (os.path.exists(df.YUE_TSV) and os.path.exists(df.YUE_WORD_PAIRS)):
         return
-    merged = os.path.join(HERE, "data", "merged_pairs.json")
-    corpus = json.load(open(merged, encoding="utf-8")) if os.path.exists(merged) else None
+    corpus = _corpus_pairs()
+    if corpus is None:
+        pytest.skip("缺 data/merged_pairs.json 与 vendor/yue_pairs.json，跳过真实语料校验")
     d = df.load_default_reverse_dict(corpus_pairs=corpus)
     assert len(d) > 1000
     # 高频功能词必须正确（共现校验后）

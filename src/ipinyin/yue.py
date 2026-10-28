@@ -80,9 +80,19 @@ class YueConverter:
         return cls(mapping, chars, words, phrase)
 
     def _premap(self, text: str) -> str:
-        """只替换目标不含粤语专用字的词条（犀利/厲害 这类），避免干扰神经模型。"""
+        """只替换目标不含粤语专用字的词条（犀利/厲害 这类），避免干扰神经模型。
+
+        若文本里出现「目标含粤语专用字」的词条（不知道→唔知），说明主流程要处理它，
+        这里整段都不动——否则 知道→知 会先把「不知道」吃成「不知」。
+        """
         if not self._map:
             return text
+        size = len(text)
+        for start in range(size):
+            for length in range(min(self._max_len, size - start), 1, -1):
+                target = self._map.get(text[start:start + length])
+                if target is not None and (_CANTONESE_ONLY & set(target)):
+                    return text
         out: list[str] = []
         index = 0
         size = len(text)
