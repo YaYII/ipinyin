@@ -74,6 +74,7 @@ cp "$ROOT/data/yue.tsv" "$PREFIX/data/yue.tsv"
 cp "$ROOT/data/yue.marshal" "$PREFIX/data/yue.marshal"
 [ -f "$ROOT/data/initials.marshal" ] && cp "$ROOT/data/initials.marshal" "$PREFIX/data/initials.marshal"
 [ -f "$ROOT/data/lm_char.marshal" ] && cp "$ROOT/data/lm_char.marshal" "$PREFIX/data/lm_char.marshal"
+[ -f "$ROOT/data/emoji.tsv" ] && cp "$ROOT/data/emoji.tsv" "$PREFIX/data/emoji.tsv"
 [ -f "$ROOT/data/yue_phrase.marshal" ] && cp "$ROOT/data/yue_phrase.marshal" "$PREFIX/data/yue_phrase.marshal"
 # 粤语神经模型（ONNX，随仓库分发；没有它自动退回规则+守卫）
 [ -f "$ROOT/data/yue_nn.onnx" ] && cp "$ROOT/data/yue_nn.onnx" "$PREFIX/data/yue_nn.onnx"
