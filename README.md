@@ -189,3 +189,8 @@ open sources (see THIRD_PARTY.md).
 ## License
 
 [MIT](LICENSE)
+
+
+## 候选排序
+
+所有候选共用一个分数（词频 + 选中次数 + 命中率 + 上下文），见 [docs/ranking.md](docs/ranking.md)。

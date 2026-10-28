@@ -403,35 +403,62 @@ class ImeState:
             seen.add(word)
             unique.append((word, key, freq))
 
-        # 上下文预测 + 个人词频：不光调顺序，学过的词没在候选里也要补进来
-        # （饿了吗 不在词库、组合也没拼出来，只靠"排序"永远看不到它）
-        priority: dict[str, int] = {}
+        # 统一打分：每个候选一个分数，按分数排序。
+        # 分数 = 词频 + 选过次数×10万 + 命中率×3万 + 上下文加成5万
+        # （用户选过的、上下文预测、人工收录词都在这一个标尺上比较，改一个系数就能调手感）
+        PICKS_BONUS = 8e5
+        RATE_BONUS = 2e5
+        BIGRAM_BONUS = 4e5
+        context_words: set[str] = set()
         if self.user_model and self.context:
-            for word in self.user_model.after(self.context):
-                if word in seen:
-                    priority.setdefault(word, len(priority))
+            context_words = set(self.user_model.after(self.context))
+
+        syllables = self.lexicon.split_syllables(text) or []
+        scores: dict[str, float] = {}
+        for word, _key, freq in unique:
+            score = float(freq)
+            # 只匹配了一部分音节的单字/短词，不能压过整串匹配的词
+            if syllables and 1 <= len(word) < len(syllables):
+                score *= 0.02
+            elif syllables and len(word) == len(syllables) and len(syllables) > 1:
+                score += 1.5e5        # 整串匹配：音节数=字数，优先于零散单字（但不能压过用户选过的词）
+            if self.user_model:
+                score += self.user_model.picks(text, word) * PICKS_BONUS
+                score += self.user_model.hit_rate(text, word) * RATE_BONUS
+            if word in context_words:
+                score += BIGRAM_BONUS
+            scores[word] = score
+
+        # 学过的词即使候选里没有，也要补进来（用它的学习分参与排序）
         if self.user_model:
-            freq_of = {w: f for w, _, f in unique}
-            for rank, word in enumerate(self.user_model.preferred(text)):
-                if len(word) <= 2 and word.isascii():
-                    continue          # 别把「w → w」这种坏记录再放回候选
-                # 只按空格误选过几次（picks<5）的低置信记录，不该压过明显更高频的词
-                # （典型：wx 学过「文学」，但「微信」进词库后应当赢回来）
-                if self.user_model.picks(text, word) < 5:
-                    # 只让「人工收录的现代词」（标记为 1e9）压过低置信学习，
-                    # 普通高频词不压——否则会退化成「学什么都不生效」
-                    if any(f >= 1e8 for w, f in freq_of.items() if w != word):
-                        continue
-                if word not in seen:
-                    seen.add(word)
-                    unique.insert(0, (word, text, 0))     # 学过的词补进候选
-                priority.setdefault(word, rank)
-        if priority:
-            unique.sort(key=lambda item: priority.get(item[0], len(priority)))
+            for word in self.user_model.preferred(text):
+                if word in seen or (len(word) <= 2 and word.isascii()):
+                    continue
+                seen.add(word)
+                unique.append((word, text, 0))
+                score = (self.user_model.picks(text, word) * PICKS_BONUS
+                         + self.user_model.hit_rate(text, word) * RATE_BONUS)
+                if word in context_words:
+                    score += BIGRAM_BONUS
+                scores[word] = score
+
+        # 表情也是普通候选：没选过就是 0 分，自然沉底；选过就按次数往上抬
+        emoji_word = self.lexicon.emoji_for(text)
+        if emoji_word and emoji_word not in seen:
+            seen.add(emoji_word)
+            unique.append((emoji_word, text, 0))
+            score = 0.0
+            if self.user_model:
+                score = (self.user_model.picks(text, emoji_word) * PICKS_BONUS
+                         + self.user_model.hit_rate(text, emoji_word) * RATE_BONUS)
+            scores[emoji_word] = score
+
+        unique.sort(key=lambda item: -scores.get(item[0], float(item[2])))
+        picked = {word for word, _k, _f in unique
+                  if self.user_model and self.user_model.picks(text, word) > 0}
 
         # 模糊音：只在首选很弱时启用，且只收比首选更高频的
         # 但是——用户手动选过的词绝不能被模糊音挤下去
-        picked = set(priority)
         top_freq = unique[0][2] if unique else 0
         weak = (not unique) or (len(text) <= 8 and top_freq < 1000)
         if len(text) >= 2 and not exact and weak and picked.isdisjoint([unique[0][0]] if unique else []):
@@ -461,13 +488,6 @@ class ImeState:
             # 有中文候选时，只丢掉「字母本身」这类候选；表情/符号要留着
             unique = [item for item in unique
                       if not (item[0].isascii() and item[0].isalnum() and len(item[0]) <= 3)]
-        # 表情只是普通候选：默认排在第一页靠后位置，选过之后由个人词频把它提上来；
-        # 不选它就自然沉底（和搜狗一样，表情也参与学习，不是硬钉在第一）
-        emoji_word = self.lexicon.emoji_for(text)
-        if emoji_word:
-            if emoji_word not in seen:
-                seen.add(emoji_word)
-                unique.insert(min(3, len(unique)), (emoji_word, text, 0))
         if not unique:
             unique = [(word, text, 0) for word in self._fallback(text)]
         if not unique:
