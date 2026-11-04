@@ -401,6 +401,11 @@ class PinyinEngine(IBus.Engine):
         joined_key = prev_key + key
         if len(joined) > 6 or len(joined_key) > 24:
             return
+        # 只合成「拼音能切成音节、且音节数=字数」的组合，
+        # 否则会把 ranh+huigun 拼成「然回滚」这种垃圾词，还越点越靠前
+        syllables = self.ime.lexicon.split_syllables(joined_key) if self.ime else []
+        if not syllables or len(syllables) != len(joined):
+            return
         model.learn(joined_key, joined, weight=2)
         LOG.info("合成词组 %r → %r", joined_key, joined)
 
