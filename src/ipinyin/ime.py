@@ -166,6 +166,10 @@ class ImeState:
             return None
         word = self._candidates[index]
         key = self._keys[index] if index < len(self._keys) else self.buffer
+        # 前缀补全：候选的完整拼音比输入的还长（shif → 是否/shifou），
+        # 学习要记在「你实际打的 shif」上，否则选多少次都记不到 shif 名下
+        if key and len(key) > len(self.buffer):
+            key = self.buffer
         self.last_commit_key = key
         # 只吃掉了部分拼音时，剩下的继续组词（长拼音里选单字不用删字母）
         if key and len(key) < len(self.buffer) and self.buffer.startswith(key):
