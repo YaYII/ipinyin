@@ -4,7 +4,7 @@ Section: utils
 Priority: optional
 Architecture: all
 Depends: python3 (>= 3.8), python3-gi, gir1.2-ibus-1.0, ibus, python3-numpy
-Recommends: python3-pip
+Recommends: python3-pip, espeak-ng
 Maintainer: @MAINTAINER@
 Installed-Size: @SIZE@
 Description: IPinyin - 轻量级中文拼音输入法（IBus 引擎）
@@ -14,5 +14,6 @@ Description: IPinyin - 轻量级中文拼音输入法（IBus 引擎）
  词库：pinyin-data / phrase-pinyin-data / jieba 词频 / CC-CEDICT。
  粤语链路：神经模型（ONNX）+ onnxruntime 运行时 + 实证守卫，全部随包分发，
  装完即启用，无需联网或 pip。
+ 朗读：粤语模式下按 Ctrl+回车念出当前候选（espeak-ng 机器人音，纯本地）。
  安装后运行 ipinyin-setup 注册到当前用户，注销重登生效。
 Homepage: https://example.invalid/ipinyin

@@ -73,6 +73,7 @@ PYEOF
 say "文档"
 cp "$ROOT/README.md" "$STAGE/usr/share/doc/$PKG/README.md"
 cp "$ROOT/docs/typing-profile.md" "$STAGE/usr/share/doc/$PKG/typing-profile.md" 2>/dev/null || true
+cp "$ROOT/docs/tts.md" "$STAGE/usr/share/doc/$PKG/tts.md" 2>/dev/null || true
 cat > "$STAGE/usr/share/doc/$PKG/copyright" <<'COPY'
 IPinyin
 词库来源与许可：

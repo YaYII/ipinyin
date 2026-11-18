@@ -14,5 +14,13 @@ IPinyin 已安装。接下来（用你自己的账号，不要用 sudo）：
 
   grep 神经模型 ~/.cache/ipinyin/engine.log
 
+朗读（Tab 切到粤语模式后按 Ctrl+回车）需要 espeak-ng：
+
+  sudo apt install espeak-ng
+
+没装也不影响打字，只是按 Ctrl+回车没有声音。装完可用这条确认粤语声在：
+
+  espeak-ng --voices | grep yue
+
 MSG
 exit 0
