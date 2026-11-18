@@ -36,7 +36,7 @@ def test_to_pinyin_keeps_ascii_and_drops_symbols():
 
 def test_without_espeak_is_silent(tmp_path):
     """没装 espeak-ng：不可用、念不出来，但绝不抛异常。"""
-    speaker = speak.Speaker(binary="", player=["true"], cache_dir=str(tmp_path), edge=None)
+    speaker = speak.Speaker(binary="", player=["true"], cache_dir=str(tmp_path), edge=None, unit_lib=None)
     assert not speaker.available
     assert speaker.speak("你好", "yue") is False
     assert speaker.wav("你好", "yue") is None
@@ -48,7 +48,7 @@ def test_wav_hits_cache(tmp_path):
     fake.write_text(f"#!/bin/sh\necho x >> {calls}\nprintf 'RIFFfake'\n")
     fake.chmod(fake.stat().st_mode | stat.S_IEXEC)
     speaker = speak.Speaker(
-        binary=str(fake), player=["true"], cache_dir=str(tmp_path / "cache"), edge=None
+        binary=str(fake), player=["true"], cache_dir=str(tmp_path / "cache"), edge=None, unit_lib=None
     )
     assert speaker.wav("你好", speak.YUE_VOICE) == b"RIFFfake"
     assert speaker.wav("你好", speak.YUE_VOICE) == b"RIFFfake"
@@ -89,7 +89,7 @@ def test_edge_wins_over_espeak(tmp_path, monkeypatch):
     ffmpeg = _fake_script(tmp_path / "fake-ffmpeg", 'for last; do :; done\nprintf "RIFFedge" > "$last"\n')
     monkeypatch.setattr(speak.shutil, "which", lambda name: ffmpeg if name == "ffmpeg" else None)
     speaker = speak.Speaker(
-        binary=espeak, player=["true"], cache_dir=str(tmp_path / "cache"), edge=[edge]
+        binary=espeak, player=["true"], cache_dir=str(tmp_path / "cache"), edge=[edge], unit_lib=None
     )
     assert speaker.wav("你好", speak.YUE_VOICE) == b"RIFFedge"
     assert not espeak_calls.exists(), "edge 成功时不该再调 espeak"
@@ -105,7 +105,7 @@ def test_edge_failure_falls_back_to_espeak(tmp_path, monkeypatch):
     ffmpeg = _fake_script(tmp_path / "fake-ffmpeg", "exit 0\n")
     monkeypatch.setattr(speak.shutil, "which", lambda name: ffmpeg if name == "ffmpeg" else None)
     speaker = speak.Speaker(
-        binary=espeak, player=["true"], cache_dir=str(tmp_path / "cache"), edge=[edge]
+        binary=espeak, player=["true"], cache_dir=str(tmp_path / "cache"), edge=[edge], unit_lib=None
     )
     assert speaker.wav("你好", speak.YUE_VOICE) == b"RIFFespeak"
     assert espeak_calls.read_text().count("x") == 1
@@ -139,7 +139,7 @@ def test_rapid_speak_only_last_one_plays(tmp_path):
     espeak = _fake_script(tmp_path / "fake-espeak", "sleep 0.2\nprintf 'RIFF'\n")
     player = _fake_script(tmp_path / "fake-player", f"echo x >> {plays}\n")
     speaker = speak.Speaker(
-        binary=espeak, player=[player], cache_dir=str(tmp_path / "cache"), edge=None
+        binary=espeak, player=[player], cache_dir=str(tmp_path / "cache"), edge=None, unit_lib=None
     )
     assert speaker.speak("第一句", speak.YUE_VOICE)
     assert speaker.speak("第二句", speak.YUE_VOICE)

@@ -8,6 +8,7 @@
 """
 from __future__ import annotations
 
+import array
 import json
 import logging
 import os
@@ -21,6 +22,9 @@ LOG = logging.getLogger("ipinyin")
 SR = 22050          # 单元统一采样率：edge 输出是 24kHz，转成 22.05k 体积小一点
 GAP_MS = 40         # 词间静音：太短会黏成一片，太长就变成逐字念
 CACHE_LIMIT = 400   # 解码后的 PCM 缓存条数（约 400 × 1s × 44KB ≈ 17MB）
+SILENCE = 300       # 静音阈值（16bit 幅度）：edge 对短文本会补到 1.87s，必须裁掉
+HEAD_MS = 20        # 裁完留一点头，避免起音被切
+TAIL_MS = 60        # 留一点尾，避免尾音被切
 
 
 def default_root() -> str:
@@ -40,6 +44,27 @@ def _wav_header(n: int, sr: int = SR) -> bytes:
         + struct.pack("<IHHIIHH", 16, 1, 1, sr, sr * 2, 2, 16)
         + b"data" + struct.pack("<I", n)
     )
+
+
+def _trim(pcm: bytes, sr: int = SR) -> bytes:
+    """裁掉首尾静音：edge 会把短文本补到 1.87s，不裁就是每个词后面停 1.3 秒。"""
+    if len(pcm) < 2:
+        return b""
+    samples = array.array("h")
+    samples.frombytes(pcm[: len(pcm) // 2 * 2])
+    start = 0
+    while start < len(samples) and abs(samples[start]) < SILENCE:
+        start += 1
+    end = len(samples)
+    while end > start and abs(samples[end - 1]) < SILENCE:
+        end -= 1
+    if end <= start:
+        return b""
+    head = int(sr * HEAD_MS / 1000)
+    tail = int(sr * TAIL_MS / 1000)
+    start = max(0, start - head)
+    end = min(len(samples), end + tail)
+    return samples[start:end].tobytes()
 
 
 class UnitLibrary:
@@ -78,6 +103,12 @@ class UnitLibrary:
         out: list[str] = []
         i = 0
         while i < len(text):
+            ch = text[i]
+            if not ("\u4e00" <= ch <= "\u9fff"):
+                if ch.isalnum():
+                    return None      # 数字/字母拼接念不好，整句交给 edge
+                i += 1               # 标点不出声，直接跳过
+                continue
             for n in range(min(self._maxlen, len(text) - i), 0, -1):
                 piece = text[i:i + n]
                 if piece in self._index:
@@ -123,6 +154,10 @@ class UnitLibrary:
         if done.returncode != 0 or not done.stdout:
             LOG.warning("音库单元解码失败：%s 退出码 %s", name, done.returncode)
             return None
+        done_stdout = _trim(done.stdout)
+        if not done_stdout:
+            return None
+        done = subprocess.CompletedProcess(done.args, 0, done_stdout, b"")
         with self._lock:
             if len(self._pcm) >= CACHE_LIMIT:
                 self._pcm.clear()
