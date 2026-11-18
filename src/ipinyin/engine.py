@@ -23,14 +23,14 @@ from .keys import Action, translate  # noqa: E402
 from .lexicon import Lexicon  # noqa: E402
 from .t2s import Converter  # noqa: E402
 from .yue import YueConverter  # noqa: E402
-from .user_model import UserModel  # noqa: E402
+from .user_model import ModeModels, UserModel  # noqa: E402
 
 LOG = logging.getLogger("ipinyin")
 
 _LEXICON: Lexicon | None = None
 # 打字很快时，候选窗没必要每键都重画：把 UI 刷新合并到 15ms 一次（约 60fps）
 SYNC_INTERVAL = 0.015
-_USER_MODEL: UserModel | None = None
+_MODELS: ModeModels | None = None
 _CONVERTER: Converter | None = None
 _YUE: YueConverter | None = None
 _LM = None            # 字级语言模型；False 表示明确没有/已关闭
@@ -142,18 +142,29 @@ def _valid_pair(key: str, word: str) -> bool:
     return len(word) in get_lexicon().syllable_counts(key)
 
 
+def get_models() -> ModeModels:
+    """三份个人词频（简/繁/粤各一份），互不干扰。"""
+    global _MODELS
+    if _MODELS is None:
+        _MODELS = ModeModels({
+            mode: UserModel(
+                config.user_model_path(mode),
+                config.user_seed_path(),
+                config.user_bigram_path(mode),
+                config.user_bigram_seed_path(),
+                validator=_valid_pair,
+            )
+            for mode in ModeModels.MODES
+        })
+        LOG.info("个人词频 %s 条（简 %d / 繁 %d / 粤 %d）", len(_MODELS),
+                 len(_MODELS.for_mode("simp")), len(_MODELS.for_mode("trad")),
+                 len(_MODELS.for_mode("yue")))
+    return _MODELS
+
+
 def get_user_model() -> UserModel:
-    global _USER_MODEL
-    if _USER_MODEL is None:
-        _USER_MODEL = UserModel(
-            config.user_model_path(),
-            config.user_seed_path(),
-            config.user_bigram_path(),
-            config.user_bigram_seed_path(),
-            validator=_valid_pair,
-        )
-        LOG.info("个人词频 %d 条", len(_USER_MODEL))
-    return _USER_MODEL
+    """兼容旧调用：返回简体那份。新代码请用 get_models() / ime.user_model。"""
+    return get_models().for_mode("simp")
 
 
 def get_converter() -> Converter:
@@ -189,6 +200,7 @@ class PinyinEngine(IBus.Engine):
         super().__init__(*args, **kwargs)
         self._ime: ImeState | None = None
         self._last_commit: str | None = None
+        self._last_base: str | None = None   # 上屏词的简体形（学习/上下文用）
         self._last_sync = 0.0
         self._sync_source = 0
         self._last_commit_info: tuple[str, str, float] | None = None
@@ -208,7 +220,7 @@ class PinyinEngine(IBus.Engine):
     @property
     def ime(self) -> ImeState:
         if self._ime is None:
-            self._ime = ImeState(get_lexicon(), user_model=get_user_model(),
+            self._ime = ImeState(get_lexicon(), user_model=get_models(),
                                  converter=get_converter(), yue=get_yue())
             lm = get_lm()
             if lm is not None:
@@ -369,21 +381,25 @@ class PinyinEngine(IBus.Engine):
         if text:
             if self._ime is not None and self._ime.last_commit_key:
                 key = self._ime.last_commit_key
+            # 学的是「简体形」：繁体/粤语只是显示层转换，选了「聲音」要记成「声音」，
+            # 否则下次简体模式会把它当成另一个词的命中。
+            base = self._ime.base_form(text) if self._ime is not None else text
             # 只在"你主动选了某个候选"时学习；空格直接收首选不算选择，
             # 否则输入法会把自己猜错的词学进去，越学越歪。
             if key and learn:
-                model = get_user_model()
-                model.learn(key, text, weight)
-                exposures = model.exposures(key, text)
-                rate = f"{model.hit_rate(key, text):.0%}" if exposures else "-"
-                LOG.info("上屏 %r → %r（选中 %d 次 / 展示 %d 次 / 命中率 %s）",
-                         key, text, model.picks(key, text), exposures, rate)
+                model = self._ime.user_model if self._ime is not None else get_user_model()
+                model.learn(key, base, weight)
+                exposures = model.exposures(key, base)
+                rate = f"{model.hit_rate(key, base):.0%}" if exposures else "-"
+                LOG.info("上屏 %r → %r（记 %r；选中 %d 次 / 展示 %d 次 / 命中率 %s）",
+                         key, text, base, model.picks(key, base), exposures, rate)
                 # 记住"上个词 → 这个词"，下次打完上一个词，下一个词会被提前
-                model.learn_bigram(self._last_commit, text)
-                self._learn_phrase(key, text, model)
-                self._last_commit = text
+                model.learn_bigram(self._last_base, base)
+                self._learn_phrase(key, base, model)
+                self._last_base = base
                 if self._ime is not None:
-                    self._ime.context = text
+                    self._ime.context = base
+            self._last_commit = text
             self.commit_text(IBus.Text.new_from_string(text))
         self._sync_now()
 

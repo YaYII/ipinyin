@@ -12,7 +12,7 @@ from .lexicon import Lexicon
 from .segmenter import best_paths_scored
 from .t2s import Converter
 from .yue import YueConverter
-from .user_model import UserModel
+from .user_model import ModeModels, UserModel
 
 PAGE_SIZE = 9
 MAX_BUFFER = 48
@@ -84,7 +84,8 @@ def fuzzy_variants(text: str, limit: int = 16, depth: int = 2) -> list[str]:
 
 class ImeState:
     def __init__(self, lexicon: Lexicon, page_size: int = PAGE_SIZE,
-                 user_model: UserModel | None = None, converter: Converter | None = None,
+                 user_model: UserModel | ModeModels | None = None,
+                 converter: Converter | None = None,
                  yue: YueConverter | None = None):
         self.lexicon = lexicon
         self.converter = converter
@@ -94,7 +95,13 @@ class ImeState:
         self.mode = "simp"          # simp / trad / yue
         self.shuangpin = False      # True = 小鹤双拼输入
         self.page_size = page_size
-        self.user_model = user_model
+        # 词频按模式分家：粤语的选择不参与简体排序
+        if isinstance(user_model, ModeModels):
+            self._models: ModeModels | None = user_model
+        elif user_model is not None:
+            self._models = ModeModels({"simp": user_model})
+        else:
+            self._models = None
         self.buffer = ""
         self.context: str | None = None          # 上一次上屏的词，用来猜下一个词
         self.last_build_ms = 0.0
@@ -198,6 +205,21 @@ class ImeState:
         self._segment = -1 if target == total else target
         self._rebuild()
         return True
+
+    @property
+    def user_model(self) -> UserModel | None:
+        """当前输出模式对应的那份个人词频。"""
+        if self._models is None:
+            return None
+        return self._models.for_mode(self.mode)
+
+    def base_form(self, text: str) -> str:
+        """上屏学习一律记简体形。
+
+        繁体/粤语只是显示层的转换：选了「聲音」要记成「声音」，
+        否则下次简体模式会把它当成另一个词的命中。
+        """
+        return self.converter.to_simplified(text) if self.converter else text
 
     def active_text(self) -> str:
         syllables = self.lexicon.split_syllables(self.buffer)
@@ -486,6 +508,8 @@ class ImeState:
         converter = self.converter
         words: list[str] = []
         displays: list[str] = []
+        keys: list[str] = []
+        seen_out: set[str] = set()   # 同一个词的不同字形（聲音/声音）只留第一条
         for rank, (word, key, _freq) in enumerate(unique):
             simp = word
             trad = converter.to_traditional(simp) if converter else simp
@@ -509,7 +533,11 @@ class ImeState:
                 yue = converter.to_traditional(yue)   # 粤语书面一律用繁体字
             forms = {"simp": simp, "trad": trad, "yue": yue}
             output = forms.get(self.mode, simp)
+            if output in seen_out:
+                continue
+            seen_out.add(output)
             words.append(output)
+            keys.append(key)
             # 固定四列：普通话 / 繁体 / 粤语 / 粤拼，方便对照学习
             if not any("\u4e00" <= ch <= "\u9fff" for ch in simp):
                 displays.append(simp)
@@ -524,7 +552,7 @@ class ImeState:
             displays.append("  ".join(columns))
         self._candidates = words
         self._display = displays
-        self._keys = [key for _, key, _ in unique]
+        self._keys = keys
         self.last_build_ms = (time.perf_counter() - started) * 1000
         if len(self._cache) > 64:
             self._cache.clear()

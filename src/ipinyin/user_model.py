@@ -244,3 +244,29 @@ class UserModel:
         return sum(len(bucket) for bucket in self._data.values()) + sum(
             len(bucket) for bucket in self._bigrams.values()
         )
+
+
+class ModeModels:
+    """按输出模式分开的个人词频。
+
+    为什么必须分：粤语里选「嘅 / 唔啱」和简体里选「的 / 不对」是同一个拼音键，
+    混在一份表里，粤语的命中会把简体候选顶下去，反之亦然。
+    繁体同理——「聲音」在简体模式里应该显示成「声音」，而不是原样冒出来。
+
+    三个模式各一份文件；种子（user_seed.tsv）三份都吃，因为它只是先验，
+    不算「你选过」。
+    """
+
+    MODES = ("simp", "trad", "yue")
+
+    def __init__(self, models: dict[str, "UserModel"]):
+        self._models = dict(models)
+
+    def for_mode(self, mode: str) -> "UserModel":
+        return self._models.get(mode) or self._models["simp"]
+
+    def __iter__(self):
+        return iter(self._models.values())
+
+    def __len__(self) -> int:
+        return sum(len(model) for model in self._models.values())

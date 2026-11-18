@@ -33,8 +33,13 @@ def lexicon_path() -> str:
     raise FileNotFoundError("找不到词库 lexicon.tsv，请先运行 install.sh")
 
 
-def user_model_path() -> str:
-    return os.path.join(data_home(), "data", "user_model.tsv")
+def user_model_path(mode: str = "simp") -> str:
+    """个人词频按输出模式分开存：粤语里选过的词不该算进普通话的命中。
+
+    简体沿用旧文件名（兼容老数据），繁体/粤语各一份。
+    """
+    name = "user_model.tsv" if mode == "simp" else f"user_model.{mode}.tsv"
+    return os.path.join(data_home(), "data", name)
 
 
 SYSTEM_DATA = "/usr/share/ipinyin/data"
@@ -80,8 +85,10 @@ def s2t_path() -> str:
     return _find_data("s2t.marshal")
 
 
-def user_bigram_path() -> str:
-    return os.path.join(data_home(), "data", "user_bigram.tsv")
+def user_bigram_path(mode: str = "simp") -> str:
+    """词对预测同样按模式分开——粤语的「上一词→下一词」不能喂给简体。"""
+    name = "user_bigram.tsv" if mode == "simp" else f"user_bigram.{mode}.tsv"
+    return os.path.join(data_home(), "data", name)
 
 
 def user_bigram_seed_path() -> str:
