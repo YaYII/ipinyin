@@ -205,6 +205,13 @@ class ImeState:
             return self.buffer
         return "".join(syllables[: self._segment])
 
+    def current_word(self) -> str | None:
+        """当前高亮的候选——就是按空格会上屏的那个（已按模式转好简/繁/粤）。"""
+        index = self._page * self.page_size + self._highlighted
+        if 0 <= index < len(self._candidates):
+            return self._candidates[index]
+        return None
+
     # ---------- 浏览 ----------
     def move(self, delta: int) -> bool:
         total = len(self._candidates)

@@ -98,3 +98,13 @@ def mode_path() -> str:
 
 def log_path() -> str:
     return os.path.join(cache_home(), "engine.log")
+
+
+def tts_cache_dir() -> str:
+    """朗读的 wav 缓存目录。"""
+    return os.path.join(cache_home(), "tts")
+
+
+def tts_enabled() -> bool:
+    """IPINYIN_TTS=0 可整体关掉朗读（默认开）。"""
+    return os.environ.get("IPINYIN_TTS", "1") != "0"

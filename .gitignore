@@ -21,3 +21,6 @@ projects/04-locale-convert/data/raw/
 projects/05-typo-correct/data/lm_eval.marshal
 projects/05-typo-correct/data/train_typos.jsonl
 packaging/vendor/*.whl
+
+# 改动预算工具产物
+.change-budget.json

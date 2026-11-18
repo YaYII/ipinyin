@@ -15,5 +15,11 @@
 | CanCLID/sentences | 粤语对话语料（仅统计高频用法，不转载原文） | 未标注许可，仅作词频统计 | https://github.com/CanCLID/sentences |
 | CanCLID/awesome-cantonese-nlp | 资源索引 | — | https://github.com/CanCLID/awesome-cantonese-nlp |
 
+## 运行时调用的外部程序（不链接、不随包分发）
+
+| 程序 | 用途 | 许可 | 调用方式 |
+| --- | --- | --- | --- |
+| espeak-ng | 朗读（`Ctrl+回车`）的语音合成 | GPLv3 | 仅以子进程调用，二进制由系统包提供 |
+
 `tools/fetch_data.sh` 会下载上述数据到 `vendor/`，`tools/build_lexicon.py` 编译成
 `data/lexicon.tsv` 与 `data/lexicon.marshal`（不含在仓库里，按需生成）。

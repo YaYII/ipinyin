@@ -289,3 +289,13 @@ def test_abbreviation_initials(lexicon):
     for char in "rg":
         ime.insert(char)
     assert ime.view().words[0] == "如果"
+
+
+def test_current_word_is_the_one_space_commits(ime):
+    """朗读念的必须就是「按空格会上屏的那个」——高亮跟着走，清空后没有。"""
+    type_text(ime, "nihao")
+    assert ime.current_word() == ime._candidates[0]
+    ime.move(1)
+    assert ime.current_word() == ime._candidates[1]
+    ime.clear()
+    assert ime.current_word() is None

@@ -46,12 +46,16 @@ class Action(Enum):
     SEG_PREV = auto()   # 左右：切拼音段（你/nihao/nihaoma）
     SEG_NEXT = auto()
     TOGGLE_TRAD = auto()
+    SPEAK = auto()        # Ctrl+回车：朗读当前候选（没候选就念刚上屏的那句）
     PASSTHROUGH = auto()  # 输入中遇到标点：先提交再交给应用
 
 
 def translate(keyval: int, state: int) -> tuple[Action, str]:
     if state & RELEASE_MASK:
         return Action.IGNORE, ""
+    # Ctrl+回车：朗读。要在「带修饰键一律放行」之前判，否则永远轮不到
+    if keyval in (KEY_RETURN, KEY_KP_ENTER) and (state & CONTROL_MASK):
+        return Action.SPEAK, ""
     if state & (CONTROL_MASK | MOD1_MASK | SUPER_MASK):
         return Action.IGNORE, ""
 

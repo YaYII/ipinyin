@@ -294,6 +294,10 @@ class PinyinEngine(IBus.Engine):
 
         composing = bool(self.ime.buffer)
 
+        # 朗读不依赖是否有候选：没在打拼音时念刚上屏的那句
+        if action is Action.SPEAK:
+            return self._speak()
+
         if action is Action.LETTER:
             now = time.monotonic()
             if keyval == self._repeat_key and (now - self._repeat_at) < 0.05:
@@ -382,6 +386,33 @@ class PinyinEngine(IBus.Engine):
                     self._ime.context = text
             self.commit_text(IBus.Text.new_from_string(text))
         self._sync_now()
+
+    def _speak(self) -> bool:
+        """Ctrl+回车：念当前候选；没候选就念刚上屏的那句。
+
+        粤语模式念粤语（候选已经是粤语写法），简繁模式念普通话。
+        合成与播放都在后台线程，这里只是发一条指令，绝不阻塞主循环。
+        """
+        if not config.tts_enabled():
+            return False
+        text: str | None = None
+        voice = "cmn"
+        if self._ime is not None:
+            word = self._ime.current_word()
+            if word:
+                from .speak import voice_for
+
+                text, voice = word, voice_for(self._ime.mode)
+            elif self._last_commit:
+                text = self._last_commit
+        if not text:
+            return False
+        from .speak import get_speaker
+
+        if not get_speaker().speak(text, voice):
+            return False
+        LOG.info("朗读 %r（%s）", text, voice)
+        return True
 
     def _learn_phrase(self, key: str, text: str, model) -> None:
         """连着打的两次上屏，合成一个词组记下来。
