@@ -390,25 +390,20 @@ class PinyinEngine(IBus.Engine):
     def _speak(self) -> bool:
         """Ctrl+回车：念当前候选；没候选就念刚上屏的那句。
 
-        粤语模式念粤语（候选已经是粤语写法），简繁模式念普通话。
+        声线只由当前模式决定（粤语模式念粤语，简繁念普通话），
+        念上屏句时也一样——否则粤语模式会拿普通话音去读「嘅 / 唔啱」。
         合成与播放都在后台线程，这里只是发一条指令，绝不阻塞主循环。
         """
         if not config.tts_enabled():
             return False
-        text: str | None = None
-        voice = "cmn"
-        if self._ime is not None:
-            word = self._ime.current_word()
-            if word:
-                from .speak import voice_for
+        from .speak import get_speaker, target
 
-                text, voice = word, voice_for(self._ime.mode)
-            elif self._last_commit:
-                text = self._last_commit
-        if not text:
+        word = self._ime.current_word() if self._ime is not None else None
+        mode = self._ime.mode if self._ime is not None else "simp"
+        picked = target(mode, word, self._last_commit)
+        if picked is None:
             return False
-        from .speak import get_speaker
-
+        text, voice = picked
         if not get_speaker().speak(text, voice):
             return False
         LOG.info("朗读 %r（%s）", text, voice)

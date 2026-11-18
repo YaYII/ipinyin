@@ -105,6 +105,16 @@ def tts_cache_dir() -> str:
     return os.path.join(cache_home(), "tts")
 
 
+def chars_path() -> str:
+    """汉字 → 带调号拼音表（普通话朗读用）。"""
+    repo = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__)))), "data", "chars.marshal")
+    found = _find_data("chars.marshal")
+    if not os.path.exists(found) and os.path.exists(repo):
+        return repo
+    return found
+
+
 def tts_enabled() -> bool:
     """IPINYIN_TTS=0 可整体关掉朗读（默认开）。"""
     return os.environ.get("IPINYIN_TTS", "1") != "0"

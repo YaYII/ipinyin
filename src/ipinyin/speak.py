@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import marshal
 import os
 import shutil
 import subprocess
@@ -22,8 +23,13 @@ DEFAULT_SPEED = 165      # 比 espeak 默认稍慢：粤语六个声调，听清
 MAX_CHARS = 80           # 再长就别念了——一句话念十秒没人受得了
 CACHE_LIMIT = 200        # 缓存 wav 条数上限
 
-# 输出模式 → 声线。粤语模式念粤语；简繁都念普通话（繁体字 espeak 也认）
-VOICE_BY_MODE = {"simp": "cmn", "trad": "cmn", "yue": "yue"}
+# 普通话声线读汉字会逐字拼英文字母（们→m-e-n-f-a-i-v），必须喂拼音；
+# 粤语声线字典完整，简繁汉字都认，直接给汉字。
+PINYIN_VOICE = "cmn-Latn-pinyin"
+YUE_VOICE = "yue"
+
+# 输出模式 → 声线
+VOICE_BY_MODE = {"simp": PINYIN_VOICE, "trad": PINYIN_VOICE, "yue": YUE_VOICE}
 
 # 按优先级找播放器：pipewire/pulse → alsa → ffmpeg
 PLAYERS = (
@@ -35,7 +41,19 @@ PLAYERS = (
 
 def voice_for(mode: str) -> str:
     """输出模式 → espeak 声线。"""
-    return VOICE_BY_MODE.get(mode, "cmn")
+    return VOICE_BY_MODE.get(mode, PINYIN_VOICE)
+
+
+def target(mode: str, word: str | None, last: str | None) -> tuple[str, str] | None:
+    """念什么、用什么声线：优先当前候选，其次刚上屏那句。
+
+    声线只由模式决定——念上屏句时也必须跟着模式走，
+    否则粤语模式下会拿普通话音去读「嘅 / 唔啱」，听起来完全是另一个字。
+    """
+    text = word or last
+    if not text:
+        return None
+    return text, voice_for(mode)
 
 
 def normalize(text: str) -> str:
@@ -45,6 +63,40 @@ def normalize(text: str) -> str:
     """
     cleaned = "".join(ch for ch in text if ch.isprintable() or ch.isspace())
     return " ".join(cleaned.split())[:MAX_CHARS]
+
+
+def to_pinyin(text: str, table: dict[str, str]) -> str:
+    """汉字 → 带调号拼音，喂给 espeak 的 cmn-Latn-pinyin 声线。
+
+    espeak 的普通话声线读汉字会逐字拼字母（`们`→`m-e-n-f-a-i-v`），
+    读拼音才是对的。ASCII 字母数字留着（API、v2、2026 这些），
+    其余全角标点/emoji 丢掉——念出来只会是噪音。
+    """
+    out: list[str] = []
+    for char in text:
+        if "\u4e00" <= char <= "\u9fff" or char == "〇":
+            reading = table.get(char)
+            if reading:
+                out.append(" " + reading)   # 每个汉字一个音节，音节之间必须有空格
+        elif char.isascii() and (char.isalnum() or char in " .,!?;:'-"):
+            out.append(char)
+    return "".join(out).strip()
+
+
+_CHARS: dict[str, str] | None = None
+
+
+def _char_pinyin() -> dict[str, str]:
+    """懒加载汉字读音表；缺文件时返回空表（朗读会退回原样文本）。"""
+    global _CHARS
+    if _CHARS is None:
+        try:
+            with open(config.chars_path(), "rb") as handle:
+                _CHARS = marshal.load(handle)
+        except (OSError, ValueError, EOFError):
+            LOG.warning("缺汉字读音表，普通话朗读会退回原样文本（跑 tools/build_char_pinyin.py）")
+            _CHARS = {}
+    return _CHARS
 
 
 def _find_espeak() -> str | None:
@@ -87,12 +139,15 @@ class Speaker:
         return bool(self._binary and self._player)
 
     # ---------- 合成 ----------
-    def wav(self, text: str, voice: str = "cmn") -> bytes | None:
+    def wav(self, text: str, voice: str = PINYIN_VOICE) -> bytes | None:
         """合成一段 wav；命中缓存就不再调 espeak。失败返回 None（绝不抛）。"""
         text = normalize(text)
         if not text or not self._binary:
             return None
-        path = self._cache_path(text, voice)
+        spoken = to_pinyin(text, _char_pinyin()) if voice == PINYIN_VOICE else text
+        if not spoken:
+            return None
+        path = self._cache_path(spoken, voice)
         try:
             with open(path, "rb") as handle:
                 return handle.read()
@@ -100,7 +155,7 @@ class Speaker:
             pass
         try:
             done = subprocess.run(
-                [self._binary, "-v", voice, "-s", str(self._speed), "--stdout", "--", text],
+                [self._binary, "-v", voice, "-s", str(self._speed), "--stdout", "--", spoken],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.DEVNULL,
                 timeout=5,
@@ -116,7 +171,7 @@ class Speaker:
         return done.stdout
 
     # ---------- 播放 ----------
-    def speak(self, text: str, voice: str = "cmn") -> bool:
+    def speak(self, text: str, voice: str = PINYIN_VOICE) -> bool:
         """念一句。立刻返回，合成与播放在后台线程里做。"""
         if not self.available:
             if not self._warned:
