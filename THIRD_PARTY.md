@@ -20,6 +20,7 @@
 | 程序 | 用途 | 许可 | 调用方式 |
 | --- | --- | --- | --- |
 | espeak-ng | 朗读（`Ctrl+回车`）的语音合成 | GPLv3 | 仅以子进程调用，二进制由系统包提供 |
+| edge-tts | 朗读的神经声线（可选，粤语声调准确） | GPL-3.0 | 仅以子进程调用，装在 `~/.local/share/ipinyin/lib`，不随包分发 |
 
 `tools/fetch_data.sh` 会下载上述数据到 `vendor/`，`tools/build_lexicon.py` 编译成
 `data/lexicon.tsv` 与 `data/lexicon.marshal`（不含在仓库里，按需生成）。

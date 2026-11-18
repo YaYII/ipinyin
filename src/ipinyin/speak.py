@@ -1,9 +1,13 @@
 """朗读：把当前候选或刚上屏的文字念出来（粤语模式念粤语）。
 
-后端是 espeak-ng（系统包，GPLv3）——只以子进程方式调用，不链接、不复制其代码，
-本项目仍是 MIT。合成与播放都放在后台线程，IBus 主循环发一个指令就返回。
+两级后端，都是子进程调用、不链接、不复制代码，本项目仍是 MIT：
 
-没装 espeak-ng 时静默降级：朗读不可用，输入法其他一切照常。
+1. edge-tts（可选，GPLv3）：微软神经声线，粤语声调准确、接近真人；合成要联网，
+   失败就退回 espeak。装上才用，没装不影响任何功能。
+2. espeak-ng（系统包，GPLv3）：纯本地兜底，机器人音，粤语六声调实测不准。
+
+合成与播放都放在后台线程，IBus 主循环发一个指令就返回。
+两个后端都没有时静默降级：朗读不可用，输入法其他一切照常。
 """
 from __future__ import annotations
 
@@ -13,6 +17,7 @@ import marshal
 import os
 import shutil
 import subprocess
+import tempfile
 import threading
 
 from . import config
@@ -37,6 +42,13 @@ PLAYERS = (
     ("aplay", ("aplay", "-q")),
     ("ffplay", ("ffplay", "-nodisp", "-autoexit", "-loglevel", "quiet")),
 )
+
+# 神经网络声线（可选）。espeak 的粤语六声调实测与调值不符
+# （si1 该高平却下滑 50Hz、si3 该中平却上扬 42Hz），装上 edge-tts 就优先用它：
+# 粤语走香港男声，简繁走普通话男声；失败（离线/超时）自动回落 espeak。
+EDGE_VOICES = {YUE_VOICE: "zh-HK-WanLungNeural", PINYIN_VOICE: "zh-CN-YunxiNeural"}
+EDGE_RATE = "+0%"
+EDGE_TIMEOUT = 15   # 单句合成上限：网络卡住时宁可回落 espeak，也不能占着朗读线程
 
 
 def voice_for(mode: str) -> str:
@@ -122,11 +134,40 @@ def _find_player() -> list[str] | None:
     return None
 
 
+def _find_edge() -> list[str] | None:
+    """找 edge-tts：PATH → 项目私有 lib → 免 root 安装位 → 系统 python 模块。
+
+    项目私有 lib（~/.local/share/ipinyin/lib）是免 root 位置：Ubuntu 24.04 的
+    PEP 668 会拒绝 `pip install --user`，所以依赖装到项目目录、用 -c 注入 sys.path。
+    """
+    if not config.tts_edge_enabled():
+        return None
+    found = shutil.which("edge-tts")
+    if found:
+        return [found]
+    for base in ("~/.local/share/ipinyin/bin", "~/.local/bin"):
+        candidate = os.path.expanduser(os.path.join(base, "edge-tts"))
+        if os.access(candidate, os.X_OK):
+            return [candidate]
+    python = shutil.which("python3") or shutil.which("python")
+    lib = os.path.expanduser("~/.local/share/ipinyin/lib")
+    if python and os.path.isdir(os.path.join(lib, "edge_tts")):
+        code = (
+            "import sys; sys.path.insert(0, %r); "
+            "from edge_tts.util import main; main()" % lib
+        )
+        return [python, "-c", code]
+    return None
+
+
 class Speaker:
     """一次只念一条：新的朗读先打断上一条，不叠音。"""
 
-    def __init__(self, binary=None, player=None, cache_dir=None, speed: int = DEFAULT_SPEED):
+    def __init__(self, binary=None, player=None, cache_dir=None, speed: int = DEFAULT_SPEED,
+                 edge: list[str] | None | str = "auto"):
         self._binary = binary if binary is not None else _find_espeak()
+        # "auto" = 自己探测；None = 明确不要 edge（测试用）；列表 = 指定命令
+        self._edge = _find_edge() if edge == "auto" else (list(edge) if edge else None)
         self._player = list(player) if player is not None else _find_player()
         self._cache_dir = cache_dir or config.tts_cache_dir()
         self._speed = speed
@@ -136,23 +177,44 @@ class Speaker:
 
     @property
     def available(self) -> bool:
-        return bool(self._binary and self._player)
+        return bool((self._edge or self._binary) and self._player)
 
     # ---------- 合成 ----------
     def wav(self, text: str, voice: str = PINYIN_VOICE) -> bytes | None:
-        """合成一段 wav；命中缓存就不再调 espeak。失败返回 None（绝不抛）。"""
+        """合成一段 wav；命中缓存就不再调引擎。失败返回 None（绝不抛）。"""
+        got = self._render(text, voice)
+        return got[0] if got else None
+
+    def _render(self, text: str, voice: str) -> tuple[bytes, str] | None:
+        """按 edge → espeak 的顺序合成，返回 (音频, 缓存路径)。
+
+        缓存键带 backend：同一句话两种引擎产出的音频不能互相冒充，
+        否则装了 edge 之后会一直播到旧的 espeak 机械音。
+        """
         text = normalize(text)
-        if not text or not self._binary:
+        if not text:
             return None
+        backends = ["edge", "espeak"] if self._edge else ["espeak"]
+        for backend in backends:
+            if backend == "espeak" and not self._binary:
+                continue
+            path = self._cache_path(text, voice, backend)
+            try:
+                with open(path, "rb") as handle:
+                    return handle.read(), path
+            except OSError:
+                pass
+            data = self._edge_wav(text, voice) if backend == "edge" else self._espeak_wav(text, voice)
+            if data is None:
+                continue
+            self._store(path, data)
+            return data, path
+        return None
+
+    def _espeak_wav(self, text: str, voice: str) -> bytes | None:
         spoken = to_pinyin(text, _char_pinyin()) if voice == PINYIN_VOICE else text
         if not spoken:
             return None
-        path = self._cache_path(spoken, voice)
-        try:
-            with open(path, "rb") as handle:
-                return handle.read()
-        except OSError:
-            pass
         try:
             done = subprocess.run(
                 [self._binary, "-v", voice, "-s", str(self._speed), "--stdout", "--", spoken],
@@ -162,13 +224,50 @@ class Speaker:
                 check=False,
             )
         except (OSError, subprocess.SubprocessError) as exc:
-            LOG.warning("朗读合成失败：%s", exc)
+            LOG.warning("朗读合成失败（espeak）：%s", exc)
             return None
         if done.returncode != 0 or not done.stdout:
-            LOG.warning("朗读合成失败：espeak-ng 退出码 %s", done.returncode)
+            LOG.warning("朗读合成失败（espeak）：退出码 %s", done.returncode)
             return None
-        self._store(path, done.stdout)
         return done.stdout
+
+    def _edge_wav(self, text: str, voice: str) -> bytes | None:
+        """edge-tts 合成 → ffmpeg 转 wav；任何一步失败都返回 None 让上层回落。"""
+        edge_voice = EDGE_VOICES.get(voice)
+        ffmpeg = shutil.which("ffmpeg")
+        if not edge_voice or not self._edge or not ffmpeg:
+            return None
+        try:
+            with tempfile.TemporaryDirectory(prefix="ipinyin-tts-") as tmp:
+                mp3 = os.path.join(tmp, "a.mp3")
+                wav = os.path.join(tmp, "a.wav")
+                done = subprocess.run(
+                    [*self._edge, "--voice", edge_voice, "--rate", EDGE_RATE,
+                     "--text", text, "--write-media", mp3],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    timeout=EDGE_TIMEOUT,
+                    check=False,
+                )
+                if done.returncode != 0 or not os.path.exists(mp3):
+                    LOG.warning("朗读合成失败（edge）：退出码 %s，回落 espeak", done.returncode)
+                    return None
+                conv = subprocess.run(
+                    [ffmpeg, "-y", "-loglevel", "error", "-i", mp3,
+                     "-ar", "22050", "-ac", "1", wav],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    timeout=EDGE_TIMEOUT,
+                    check=False,
+                )
+                if conv.returncode != 0 or not os.path.exists(wav):
+                    LOG.warning("朗读转码失败（ffmpeg）：退出码 %s，回落 espeak", conv.returncode)
+                    return None
+                with open(wav, "rb") as handle:
+                    return handle.read()
+        except (OSError, subprocess.SubprocessError) as exc:
+            LOG.warning("朗读合成失败（edge）：%s，回落 espeak", exc)
+            return None
 
     # ---------- 播放 ----------
     def speak(self, text: str, voice: str = PINYIN_VOICE) -> bool:
@@ -176,7 +275,8 @@ class Speaker:
         if not self.available:
             if not self._warned:
                 self._warned = True
-                LOG.warning("朗读不可用：缺 espeak-ng 或音频播放器（apt install espeak-ng）")
+                LOG.warning("朗读不可用：缺 espeak-ng / edge-tts / 音频播放器"
+                            "（apt install espeak-ng 或 pip install --user edge-tts）")
             return False
         text = normalize(text)
         if not text:
@@ -196,10 +296,10 @@ class Speaker:
                 pass
 
     def _play(self, text: str, voice: str) -> None:
-        data = self.wav(text, voice)
-        if not data:
+        got = self._render(text, voice)
+        if not got:
             return
-        path = self._cache_path(text, voice)
+        data, path = got
         if not os.path.exists(path):
             path = self._spill(data)
             if not path:
@@ -219,8 +319,10 @@ class Speaker:
             proc.kill()
 
     # ---------- 内部 ----------
-    def _cache_path(self, text: str, voice: str) -> str:
-        key = hashlib.sha1(f"{voice}|{self._speed}|{text}".encode("utf-8")).hexdigest()[:16]
+    def _cache_path(self, text: str, voice: str, backend: str = "espeak") -> str:
+        key = hashlib.sha1(
+            f"{backend}|{voice}|{self._speed}|{text}".encode("utf-8")
+        ).hexdigest()[:16]
         return os.path.join(self._cache_dir, f"{key}.wav")
 
     def _store(self, path: str, data: bytes) -> None:

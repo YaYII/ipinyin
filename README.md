@@ -68,11 +68,17 @@ python3 tools/build_s2t.py
 pip3 install --user onnxruntime    # 然后重跑一次 ./install.sh
 ```
 
-朗读（`Ctrl+回车`）要一个语音合成器，不装也不影响其他功能：
+朗读（`Ctrl+回车`）要一个语音合成器，不装也不影响其他功能。两级后端，能装哪个用哪个：
 
 ```bash
-sudo apt install espeak-ng         # 粤语声在数据包里已含，装完即可用
+# 1) 本地兜底：espeak-ng（机器人音，粤语六声调实测不准）
+sudo apt install espeak-ng
+
+# 2) 神经声线（可选，粤语男声/普通话男声，声调准；合成时联网，断网自动回落 espeak）
+pip3 install --target ~/.local/share/ipinyin/lib edge-tts
 ```
+
+`IPINYIN_TTS_EDGE=0` 可强制只用本地 espeak。详见 [docs/tts.md](docs/tts.md)。
 
 ### macOS
 

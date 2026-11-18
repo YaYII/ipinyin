@@ -46,6 +46,34 @@
 
 粤语不用转：`yue` 声线自带完整字典（`yue_dict`），简体繁体都能读对。
 
+## 两级后端：edge-tts 优先，espeak 兜底
+
+espeak 的粤语六声调实测与调值不符（同一音节的 `si1` 该高平却下滑 50Hz、`si3` 该中平却上扬 42Hz），
+听感就是「音素对、声调怪」。所以装上 edge-tts 就用神经声线，失败（断网/超时）自动回落 espeak，绝不没声音。
+
+| 后端 | 声线 | 首次合成 | 缓存命中 | 联网 | 许可 |
+| --- | --- | --- | --- | --- | --- |
+| edge-tts | 粤语 `zh-HK-WanLungNeural`、普通話 `zh-CN-YunxiNeural` | 1.2–1.8s | 0.1ms | 要 | GPLv3（子进程） |
+| espeak-ng | `yue` / `cmn-Latn-pinyin` | 37–42ms | 0.1ms | 不要 | GPLv3（子进程） |
+
+装法（免 root；依赖落在项目私有目录，不碰系统 Python——Ubuntu 24.04 有 PEP 668，
+`pip install --user` 会被拒）：
+
+```bash
+pip3 install --target ~/.local/share/ipinyin/lib edge-tts
+```
+
+装到项目私有目录（不碰系统 Python——Ubuntu 24.04 的 PEP 668 会拒绝 `pip install --user`），
+`_find_edge()` 直接给这个目录注入 `sys.path`，不需要额外包装脚本，也不用改 `PATH`。
+
+| 环境变量 | 作用 |
+| --- | --- |
+| `IPINYIN_TTS=0` | 整体关掉朗读 |
+| `IPINYIN_TTS_EDGE=0` | 只用本地 espeak，不要联网声线 |
+
+缓存键带 backend（`sha1(backend|voice|speed|text)`），所以断网后不会播到 edge 留下的缓存，
+装上 edge 也不会一直播旧的机械音。
+
 ## 实现要点
 
 | 关注点 | 做法 | 原因 |

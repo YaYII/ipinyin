@@ -118,3 +118,8 @@ def chars_path() -> str:
 def tts_enabled() -> bool:
     """IPINYIN_TTS=0 可整体关掉朗读（默认开）。"""
     return os.environ.get("IPINYIN_TTS", "1") != "0"
+
+
+def tts_edge_enabled() -> bool:
+    """IPINYIN_TTS_EDGE=0 可只用本地 espeak（不要联网声线）。"""
+    return os.environ.get("IPINYIN_TTS_EDGE", "1") != "0"
