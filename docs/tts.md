@@ -74,6 +74,29 @@ pip3 install --target ~/.local/share/ipinyin/lib edge-tts
 缓存键带 backend（`sha1(backend|voice|speed|text)`），所以断网后不会播到 edge 留下的缓存，
 装上 edge 也不会一直播旧的机械音。
 
+## 词级音库：离线、可逐条校对
+
+edge-tts 是端到端模型，读哪个音由模型决定；要「每个音都标准、且不依赖别人的服务」，
+就把常用词用 edge **预合成**成本地单元，朗读时按词拼接（20 句 A/B 对比，用户确认可接受）：
+
+```
+文本 → 最长匹配切词（词表 101,811）→ 词单元（Opus 24kbps）
+     → 该词不在库：退单字
+     → 单字也不在：整句回落 edge → espeak
+```
+
+| 项 | 数值 |
+| --- | --- |
+| 建库 | `python3 tools/build_tts_units.py`（默认 3000 词 + 1500 字） |
+| 选词 | **语料词频**（`vendor/yue_pairs.json` 16.9 万句对的粤语侧），不是通用词频——通用词频只能覆盖日常句 11%，语料词频 78%，加单字兜底到 100% |
+| 体积 | 约 4500 单元，Opus 24kbps，约 15–20MB |
+| 校对 | 单元文件名 = 词哈希；发现哪个词读错，删掉那一个 `.opus` 重跑即可，不必重建 |
+| 播放 | 解码后 PCM 缓存 400 条（约 17MB），词间 40ms 间隙 |
+| 关掉 | `IPINYIN_TTS_UNITS=0`；目录可用 `IPINYIN_TTS_UNITS_DIR` 改 |
+
+优先级：**units → edge → espeak**。音库是粤语男声，只对粤语声线生效；
+普通话仍走 edge（`zh-CN-YunxiNeural`）或 espeak 拼音。
+
 ## 实现要点
 
 | 关注点 | 做法 | 原因 |

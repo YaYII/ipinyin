@@ -20,7 +20,7 @@ import subprocess
 import tempfile
 import threading
 
-from . import config
+from . import config, units
 
 LOG = logging.getLogger("ipinyin")
 
@@ -127,6 +127,17 @@ def _find_espeak() -> str | None:
     return None
 
 
+def _find_units() -> units.UnitLibrary | None:
+    """词级音库（tools/build_tts_units.py 预生成）；没建库或关掉就返回 None。
+
+    只在粤语声线用：库里的单元是粤语男声，拿去念普通话会是另一种语言。
+    """
+    if os.environ.get("IPINYIN_TTS_UNITS", "1") == "0":
+        return None
+    library = units.UnitLibrary(units.default_root())
+    return library if library.available else None
+
+
 def _find_player() -> list[str] | None:
     for name, argv in PLAYERS:
         if shutil.which(name):
@@ -164,10 +175,12 @@ class Speaker:
     """一次只念一条：新的朗读先打断上一条，不叠音。"""
 
     def __init__(self, binary=None, player=None, cache_dir=None, speed: int = DEFAULT_SPEED,
-                 edge: list[str] | None | str = "auto"):
+                 edge: list[str] | None | str = "auto",
+                 unit_lib: units.UnitLibrary | None | str = "auto"):
         self._binary = binary if binary is not None else _find_espeak()
         # "auto" = 自己探测；None = 明确不要 edge（测试用）；列表 = 指定命令
         self._edge = _find_edge() if edge == "auto" else (list(edge) if edge else None)
+        self._units = _find_units() if unit_lib == "auto" else unit_lib
         self._player = list(player) if player is not None else _find_player()
         self._cache_dir = cache_dir or config.tts_cache_dir()
         self._speed = speed
@@ -178,7 +191,7 @@ class Speaker:
 
     @property
     def available(self) -> bool:
-        return bool((self._edge or self._binary) and self._player)
+        return bool((self._units or self._edge or self._binary) and self._player)
 
     # ---------- 合成 ----------
     def wav(self, text: str, voice: str = PINYIN_VOICE) -> bytes | None:
@@ -195,17 +208,26 @@ class Speaker:
         text = normalize(text)
         if not text:
             return None
-        backends = ["edge", "espeak"] if self._edge else ["espeak"]
+        backends = []
+        if self._units is not None and voice == YUE_VOICE:
+            backends.append("units")
+        if self._edge:
+            backends.append("edge")
+        if self._binary:
+            backends.append("espeak")
         for backend in backends:
-            if backend == "espeak" and not self._binary:
-                continue
             path = self._cache_path(text, voice, backend)
             try:
                 with open(path, "rb") as handle:
                     return handle.read(), path
             except OSError:
                 pass
-            data = self._edge_wav(text, voice) if backend == "edge" else self._espeak_wav(text, voice)
+            if backend == "units":
+                data = self._units.render(text)
+            elif backend == "edge":
+                data = self._edge_wav(text, voice)
+            else:
+                data = self._espeak_wav(text, voice)
             if data is None:
                 continue
             self._store(path, data)
