@@ -129,3 +129,19 @@ def test_edge_cache_does_not_leak_into_espeak(tmp_path, monkeypatch):
                          edge=[edge]).wav("你好", speak.YUE_VOICE) == b"RIFFedge"
     assert speak.Speaker(binary=espeak, player=["true"], cache_dir=cache,
                          edge=None).wav("你好", speak.YUE_VOICE) == b"RIFFespeak"
+
+
+def test_rapid_speak_only_last_one_plays(tmp_path):
+    """edge 合成要 1–5s，这期间连按不能叠音：先合成完的那条必须作废。"""
+    import time
+
+    plays = tmp_path / "plays"
+    espeak = _fake_script(tmp_path / "fake-espeak", "sleep 0.2\nprintf 'RIFF'\n")
+    player = _fake_script(tmp_path / "fake-player", f"echo x >> {plays}\n")
+    speaker = speak.Speaker(
+        binary=espeak, player=[player], cache_dir=str(tmp_path / "cache"), edge=None
+    )
+    assert speaker.speak("第一句", speak.YUE_VOICE)
+    assert speaker.speak("第二句", speak.YUE_VOICE)
+    time.sleep(1.2)
+    assert plays.read_text().count("x") == 1, "只应播最后一条"

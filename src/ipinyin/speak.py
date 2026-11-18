@@ -173,6 +173,7 @@ class Speaker:
         self._speed = speed
         self._lock = threading.Lock()
         self._proc: subprocess.Popen | None = None
+        self._gen = 0        # 朗读代次：慢合成（edge 要 1–5s）期间连按，只有最后一条能出声
         self._warned = False
 
     @property
@@ -282,12 +283,16 @@ class Speaker:
         if not text:
             return False
         self.stop()
-        threading.Thread(target=self._play, args=(text, voice), name="tts", daemon=True).start()
+        with self._lock:
+            self._gen += 1
+            gen = self._gen
+        threading.Thread(target=self._play, args=(text, voice, gen), name="tts", daemon=True).start()
         return True
 
     def stop(self) -> None:
-        """打断正在念的那条。"""
+        """打断正在念的那条（含还在合成的：代次一变，旧线程合成完也不许出声）。"""
         with self._lock:
+            self._gen += 1
             proc, self._proc = self._proc, None
         if proc is not None and proc.poll() is None:
             try:
@@ -295,10 +300,13 @@ class Speaker:
             except OSError:
                 pass
 
-    def _play(self, text: str, voice: str) -> None:
+    def _play(self, text: str, voice: str, gen: int) -> None:
         got = self._render(text, voice)
         if not got:
             return
+        with self._lock:
+            if gen != self._gen:      # 合成期间用户又按了（或 stop），这条作废
+                return
         data, path = got
         if not os.path.exists(path):
             path = self._spill(data)
@@ -312,6 +320,9 @@ class Speaker:
             LOG.warning("朗读播放失败：%s", exc)
             return
         with self._lock:
+            if gen != self._gen:      # 起播前最后一刻再确认一次，避免叠音
+                proc.terminate()
+                return
             self._proc = proc
         try:
             proc.wait(timeout=60)
