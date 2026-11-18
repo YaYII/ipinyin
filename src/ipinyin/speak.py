@@ -209,10 +209,13 @@ class Speaker:
         if not text:
             return None
         backends = []
-        if self._units is not None and voice == YUE_VOICE:
-            backends.append("units")
-        if self._edge:
+        offline = os.environ.get("IPINYIN_TTS_OFFLINE", "0") == "1"
+        if self._edge and not offline:
+            # 整句合成韵律自然；结果进缓存，同一句第二次起离线也能播
             backends.append("edge")
+        if self._units is not None and voice == YUE_VOICE:
+            # 离线兜底：词级拼接，每个音固定、可逐条校对，但词间有边界
+            backends.append("units")
         if self._binary:
             backends.append("espeak")
         for backend in backends:

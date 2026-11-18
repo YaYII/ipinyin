@@ -20,11 +20,11 @@ import threading
 LOG = logging.getLogger("ipinyin")
 
 SR = 22050          # 单元统一采样率：edge 输出是 24kHz，转成 22.05k 体积小一点
-GAP_MS = 40         # 词间静音：太短会黏成一片，太长就变成逐字念
+GAP_MS = 15         # 词间静音：40ms 听起来一字一顿，收到 15ms 才连贯
 CACHE_LIMIT = 400   # 解码后的 PCM 缓存条数（约 400 × 1s × 44KB ≈ 17MB）
 SILENCE = 300       # 静音阈值（16bit 幅度）：edge 对短文本会补到 1.87s，必须裁掉
-HEAD_MS = 20        # 裁完留一点头，避免起音被切
-TAIL_MS = 60        # 留一点尾，避免尾音被切
+HEAD_MS = 5         # 裁完留一点头，避免起音被切
+TAIL_MS = 25        # 留一点尾，避免尾音被切；太长会吃掉连读
 
 
 def default_root() -> str:

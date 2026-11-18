@@ -401,7 +401,17 @@ class PinyinEngine(IBus.Engine):
                     self._ime.context = base
             self._last_commit = text
             self.commit_text(IBus.Text.new_from_string(text))
+            self._speak_auto(text)
         self._sync_now()
+
+    def _speak_auto(self, text: str) -> None:
+        """上屏即读：IPINYIN_TTS_AUTO=1 才开（默认关，打字时不吵）。"""
+        if not config.tts_enabled() or os.environ.get("IPINYIN_TTS_AUTO", "0") != "1":
+            return
+        from .speak import get_speaker, voice_for
+
+        mode = self._ime.mode if self._ime is not None else "simp"
+        get_speaker().speak(text, voice_for(mode))
 
     def _speak(self) -> bool:
         """Ctrl+回车：念当前候选；没候选就念刚上屏的那句。

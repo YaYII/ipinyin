@@ -94,8 +94,15 @@ edge-tts 是端到端模型，读哪个音由模型决定；要「每个音都�
 | 播放 | 解码后 PCM 缓存 400 条（约 17MB），词间 40ms 间隙 |
 | 关掉 | `IPINYIN_TTS_UNITS=0`；目录可用 `IPINYIN_TTS_UNITS_DIR` 改 |
 
-优先级：**units → edge → espeak**。音库是粤语男声，只对粤语声线生效；
-普通话仍走 edge（`zh-CN-YunxiNeural`）或 espeak 拼音。
+优先级：**edge（整句）→ units（离线兜底）→ espeak**。
+
+为什么 edge 排前面：词级单元是单独录的，每个词自带句尾语调，拼起来会有词边界
+（实测词间必须留 15ms 以上才不黏，但仍听得出停顿）。整句合成韵律自然，且结果
+会进缓存——同一句第二次起离线也能播。要强制离线（不用云端），设 `IPINYIN_TTS_OFFLINE=1`。
+
+音库是粤语男声，只对粤语声线生效；普通话仍走 edge（`zh-CN-YunxiNeural`）或 espeak 拼音。
+
+上屏即读：`IPINYIN_TTS_AUTO=1`（默认关，打字时不吵）。
 
 ## 实现要点
 
