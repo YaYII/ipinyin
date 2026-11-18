@@ -1,5 +1,14 @@
 #!/bin/sh
 set -e
+
+# 升级时把正在跑的引擎进程收掉：IBus 会在下次按键时用新代码重新拉起，
+# 于是「装完即生效」，不用你自己 ibus restart，更不用重开应用。
+# 输入法引擎是独立进程，杀掉它不会影响任何正在运行的应用。
+#
+# 匹配必须锚定整行开头：pkill -f 是对「完整命令行」做正则，
+# 不锚定就会连带杀掉命令行里恰好含这串字的进程（比如正在 grep 它的终端）。
+pkill -f '^/usr/bin/python3[.0-9]* /usr/bin/ipinyin-engine' >/dev/null 2>&1 || true
+
 cat <<'MSG'
 
 IPinyin 已安装。接下来（用你自己的账号，不要用 sudo）：
@@ -13,6 +22,8 @@ IPinyin 已安装。接下来（用你自己的账号，不要用 sudo）：
 无需联网或 pip。若想看它是否加载：
 
   grep 神经模型 ~/.cache/ipinyin/engine.log
+
+升级说明：装完即生效——引擎进程已自动重启，正在运行的应用不用关。
 
 朗读（Tab 切到粤语模式后按 Ctrl+回车）需要 espeak-ng：
 
