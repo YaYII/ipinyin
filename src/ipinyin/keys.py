@@ -65,7 +65,9 @@ def translate(keyval: int, state: int) -> tuple[Action, str]:
     if 0x61 <= keyval <= 0x7A:
         return Action.LETTER, chr(keyval)
     if 0x41 <= keyval <= 0x5A:
-        return Action.LETTER, chr(keyval).lower()
+        # Shift+字母 / Caps Lock：大写字母原样交给应用。
+        # 以前这里 lower() 成小写当拼音吃，结果打 API / SQL 永远出不来大写。
+        return Action.PASSTHROUGH, chr(keyval)
     # 数字 1-9（0 留给标点/空格场景）
     if 0x31 <= keyval <= 0x39:
         return Action.DIGIT, chr(keyval)

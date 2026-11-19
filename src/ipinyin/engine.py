@@ -476,13 +476,18 @@ class PinyinEngine(IBus.Engine):
             self._reset_comp()
             # 只在"你主动选了某个候选"时学习；空格直接收首选不算选择，
             # 否则输入法会把自己猜错的词学进去，越学越歪。
+            typed = key
             if key and learn:
                 model = self._ime.user_model if self._ime is not None else get_user_model()
-                model.learn(key, base, weight)
+                keys = (self._ime.learn_keys(typed, key, self._ime.last_commit_full)
+                        if self._ime is not None else [key])
+                for learn_key in keys:
+                    model.learn(learn_key, base, weight)
                 exposures = model.exposures(key, base)
                 rate = f"{model.hit_rate(key, base):.0%}" if exposures else "-"
-                LOG.info("上屏 %r → %r（记 %r；选中 %d 次 / 展示 %d 次 / 命中率 %s）",
-                         key, text, base, model.picks(key, base), exposures, rate)
+                LOG.info("上屏 %r → %r（记 %s；选中 %d 次 / 展示 %d 次 / 命中率 %s）",
+                         key, text, "、".join(repr(k) for k in keys),
+                         model.picks(key, base), exposures, rate)
                 # 记住"上个词 → 这个词"，下次打完上一个词，下一个词会被提前
                 model.learn_bigram(self._last_base, base)
                 self._learn_phrase(key, base, model)

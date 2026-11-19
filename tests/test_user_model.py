@@ -137,3 +137,64 @@ def test_learned_word_appears_even_if_not_in_candidates(lexicon, tmp_path):
     for char in "elema":
         ime.insert(char)
     assert ime.view().words[0] == "饿了吗"
+
+
+def test_exposures_are_not_double_counted(tmp_path):
+    """曝光是累计值：文件里多行记录不能相加（旧版每重启一次翻一倍）。"""
+    path = tmp_path / "model.tsv"
+    path.write_text(
+        "# 拼音键\t词\t选中次数\t曝光次数\n"
+        "de\t的\t10\t500\n"      # 一次 compact 的快照
+        "de\t的\t1\t0\n"         # 之后的增量行（曝光写 0）
+        "de\t的\t1\t0\n",
+        encoding="utf-8",
+    )
+    model = UserModel(str(path))
+    assert model.picks("de", "的") == 12          # 选中次数按增量累加
+    assert model.exposures("de", "的") == 500     # 曝光取最大值，不相加
+    assert 0.0 < model.hit_rate("de", "的") <= 1.0
+
+
+def test_absurd_exposures_are_repaired(tmp_path):
+    """历史脏数据（2.5e15 那种）加载时自愈，命中率不能恒为 0。"""
+    path = tmp_path / "model.tsv"
+    path.write_text(
+        "# 拼音键\t词\t选中次数\t曝光次数\n"
+        "de\t的\t6461\t2548047116115232\n",
+        encoding="utf-8",
+    )
+    model = UserModel(str(path))
+    exposures = model.exposures("de", "的")
+    assert exposures < 6461 * 1000, "异常曝光应被重置"
+    assert model.hit_rate("de", "的") > 0.01, "命中率应恢复成可用值"
+
+
+def test_learn_keys_cover_abbreviation(lexicon):
+    """上屏要记三个键：敲的、完整的、它的简拼。"""
+    ime = ImeState(lexicon)
+    assert ime.learn_keys("jianp", "jianp", "jianpin") == ["jianp", "jp"]
+    assert ime.learn_keys("jianpin", "jianpin", "jianpin") == ["jianpin", "jp"]
+    # 单音节不生成简拼，避免 d → 的 这种噪音
+    assert ime.learn_keys("de", "de", "de") == ["de"]
+
+
+def test_initials_hit_after_picking_full_pinyin(tmp_path):
+    """打全拼选过「简拼」，下次打 jp 必须能命中——这就是「简拼命不中」的修复。"""
+    from ipinyin import config
+
+    lex = Lexicon.load("data/lexicon.tsv").load_initials(config.initials_path())
+    model = UserModel(str(tmp_path / "m.tsv"))
+    ime = ImeState(lex, user_model=model)
+
+    for ch in "jianpin":
+        ime.insert(ch)
+    index = ime.view().words.index("简拼")
+    ime.select_page_index(index)
+    for key in ime.learn_keys(ime.last_commit_typed, ime.last_commit_key,
+                              ime.last_commit_full):
+        model.learn(key, "简拼", 3)
+
+    ime.clear()
+    for ch in "jp":
+        ime.insert(ch)
+    assert ime.view().words[0] == "简拼"

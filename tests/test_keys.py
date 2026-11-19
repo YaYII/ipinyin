@@ -8,7 +8,7 @@ from ipinyin import keys
     "keyval, expected",
     [
         (0x6E, keys.Action.LETTER),   # n
-        (0x4E, keys.Action.LETTER),   # N（Shift+n）
+        (0x4E, keys.Action.PASSTHROUGH),  # N（Shift+n）：大写原样交给应用
         (0x31, keys.Action.DIGIT),    # 1
         (0x20, keys.Action.COMMIT),   # space
         (0xFF0D, keys.Action.COMMIT_RAW),  # Return
@@ -42,3 +42,12 @@ def test_modifier_keys_are_ignored():
 
 def test_release_events_are_ignored():
     assert keys.translate(0x6E, keys.RELEASE_MASK)[0] is keys.Action.IGNORE
+
+
+def test_uppercase_goes_to_the_application():
+    """Shift+字母 / Caps Lock 出来的大写必须原样交给应用——打 API/SQL 要能出大写。"""
+    action, value = keys.translate(0x41, keys.SHIFT_MASK)   # Shift+A
+    assert action is keys.Action.PASSTHROUGH
+    assert value == "A"
+    # 小写仍是拼音
+    assert keys.translate(0x61, 0)[0] is keys.Action.LETTER

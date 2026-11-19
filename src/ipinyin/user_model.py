@@ -11,10 +11,13 @@
 """
 from __future__ import annotations
 
+import logging
 import os
 import threading
 
 MAX_WORDS_PER_KEY = 12
+
+LOG = logging.getLogger("ipinyin")
 
 
 class UserModel:
@@ -42,10 +45,30 @@ class UserModel:
             self._load_bigrams(bigram_seed_path)
         if bigram_path and os.path.exists(bigram_path):
             self._load_bigrams(bigram_path)
+        fixed = self._repair_exposures()
+        if fixed:
+            LOG.warning("修复 %d 条异常曝光计数（历史 bug 导致命中率恒为 0）", fixed)
+            self.compact()
         if self._dropped:
             self.compact()  # 把脏学习从磁盘上清掉
 
     # ---------- 读 ----------
+    def _repair_exposures(self) -> int:
+        """修复被历史 bug 放大的曝光数。
+
+        旧版 learn() 追加的是累计曝光，加载时又累加一遍，于是每重启一次就翻倍：
+        实测「的」的曝光到了 2.5e15，命中率恒显示 0%，候选排序里那一分等于没了。
+        这里把明显不合理的值重置成中性先验（按 10% 命中率估），让命中率重新可用。
+        """
+        fixed = 0
+        for bucket in self._data.values():
+            for cell in bucket.values():
+                picks = cell[0]
+                if cell[1] > picks * 1000 + 1000:
+                    cell[1] = picks * 10 + 10
+                    fixed += 1
+        return fixed
+
     def _load_file(self, path: str, learned: bool = True) -> None:
         try:
             with open(path, encoding="utf-8") as fh:
@@ -73,7 +96,9 @@ class UserModel:
                     cell = bucket.setdefault(word, [0, 0, 0])
                     if learned:
                         cell[0] += max(picks, 1)
-                        cell[1] += max(exposures, 0)
+                        # 曝光是「累计值」不是「增量」：追加行里写的是当时的累计数，
+                        # 累加会把同一批曝光重复计入（旧版就是这么炸到 2.5e15 的）
+                        cell[1] = max(cell[1], max(exposures, 0))
                         self._learned.add((key, word))
                     else:
                         cell[2] += max(picks, 1)   # 种子只做先验，不算"你选过"
@@ -178,7 +203,9 @@ class UserModel:
                 return
             try:
                 with open(self._path, "a", encoding="utf-8") as fh:
-                    fh.write(f"{key}\t{word}\t{weight}\t{cell[1]}\n")
+                    # 追加行只带「选中次数增量」，曝光写 0：曝光由 compact() 整表落盘，
+                    # 写累计值会被下次加载再累加一遍（翻倍 bug 的根源）
+                    fh.write(f"{key}\t{word}\t{weight}\t0\n")
             except OSError:
                 pass
 

@@ -106,6 +106,8 @@ class ImeState:
         self.context: str | None = None          # 上一次上屏的词，用来猜下一个词
         self.last_build_ms = 0.0
         self.last_commit_key = ""                # 最近一次上屏消耗掉的拼音
+        self.last_commit_full = ""               # 候选原本对应的完整拼音键
+        self.last_commit_typed = ""              # 你实际敲的（简拼/前缀补全时更短）
         self._yue_cache: dict[str, str] = {}     # 首选候选的粤语神经结果（切模式不重算）
         self._candidates: list[str] = []         # 实际上屏用（按繁体开关转换）
         self._display: list[str] = []            # 候选窗显示用（简/繁并列）
@@ -172,12 +174,15 @@ class ImeState:
         if index < 0 or index >= len(self._candidates):
             return None
         word = self._candidates[index]
-        key = self._keys[index] if index < len(self._keys) else self.buffer
+        full = self._keys[index] if index < len(self._keys) else self.buffer
+        key = full
         # 前缀补全：候选的完整拼音比输入的还长（shif → 是否/shifou），
         # 学习要记在「你实际打的 shif」上，否则选多少次都记不到 shif 名下
         if key and len(key) > len(self.buffer):
             key = self.buffer
         self.last_commit_key = key
+        self.last_commit_full = full
+        self.last_commit_typed = self.buffer
         # 只吃掉了部分拼音时，剩下的继续组词（长拼音里选单字不用删字母）
         if key and len(key) < len(self.buffer) and self.buffer.startswith(key):
             self.buffer = self.buffer[len(key):]
@@ -212,6 +217,35 @@ class ImeState:
         if self._models is None:
             return None
         return self._models.for_mode(self.mode)
+
+    def learn_keys(self, typed: str | None, consumed: str,
+                   full: str | None = None) -> list[str]:
+        """上屏后要记进词频的键（可能不止一个）。
+
+        少记一个就会出现「明明选过却永远不命中」：
+
+        1. 实际敲的键（jianp / shif）——前缀补全时它比完整键短；
+        2. 完整拼音键（jianpin）——下次老实打全拼也要能命中；
+        3. 它的简拼（jianpin → jp）——这条是「简拼命不中」的根因：
+           你打全拼选过「简拼」，却从来没教过输入法 jp 也等于它，
+           而简拼候选表按词频排、只给前几十个，冷门词根本翻不到，
+           于是永远选不到、永远学不会。选中一次就把简拼一起教了。
+        """
+        keys: list[str] = []
+        for candidate in (consumed, typed):
+            if candidate and candidate not in keys:
+                keys.append(candidate)
+        initials = self._initials_of(full or consumed)
+        if initials and initials not in keys:
+            keys.append(initials)
+        return keys
+
+    def _initials_of(self, key: str) -> str:
+        """拼音串 → 简拼（jianpin → jp）。单音节不生成，避免 d → 的 这种噪音。"""
+        syllables = self.lexicon.split_syllables(key)
+        if len(syllables) < 2:
+            return ""
+        return "".join(syllable[0] for syllable in syllables)
 
     def base_form(self, text: str) -> str:
         """上屏学习一律记简体形。
