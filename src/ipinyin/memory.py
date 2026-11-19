@@ -62,17 +62,27 @@ def _has_cjk(text: str) -> bool:
 
 
 def record(key: str | None, text: str, mode: str = "simp", rank: int = 0,
-           gap_ms: int = 0) -> None:
-    """记一次上屏。任何异常都不许冒泡到输入路径。"""
-    if not enabled() or not text:
+           gap_ms: int = 0, keys: int = 0, backs: int = 0, flips: int = 0,
+           ms: int = 0, kind: str = "commit") -> None:
+    """记一次输入事件（上屏或放弃）。任何异常都不许冒泡到输入路径。
+
+    除上屏本身，还记这次输入的「手感」：敲了几个键、退了几次、翻了几页、
+    从第一个键到上屏用了多久——这些才是判断「输入法懂不懂你」的依据。
+    """
+    if not enabled() or (not text and kind == "commit"):
         return
     entry = {
         "ts": round(time.time(), 3),
+        "kind": kind,
         "key": key or "",
         "text": text,
         "mode": mode,
         "rank": int(rank),
         "gap_ms": int(gap_ms),
+        "keys": int(keys),
+        "backs": int(backs),
+        "flips": int(flips),
+        "ms": int(ms),
     }
     try:
         with _LOCK:
@@ -141,8 +151,9 @@ def _load_profile() -> dict:
             return data
     except (OSError, ValueError):
         pass
-    return {"commits": 0, "words": {}, "keys": {}, "modes": {}, "hours": {},
-            "gaps": [], "corrections": {}}
+    return {"commits": 0, "abandons": 0, "focus_switches": 0, "backs": 0, "keystrokes": 0,
+            "words": {}, "keys": {}, "modes": {}, "hours": {},
+            "gaps": [], "corrections": {}, "decisions": []}
 
 
 def _save_profile(profile: dict) -> None:
@@ -169,10 +180,20 @@ def consolidate() -> dict:
         hours = profile.setdefault("hours", {})
         corrections = profile.setdefault("corrections", {})
         gaps = profile.setdefault("gaps", [])
+        decisions = profile.setdefault("decisions", [])
 
         for event in events:
             text = str(event.get("text") or "")
-            profile["commits"] = int(profile.get("commits", 0)) + 1
+            if event.get("kind") == "abandon":
+                profile["abandons"] = int(profile.get("abandons", 0)) + 1
+            elif event.get("kind") == "focus":
+                profile["focus_switches"] = int(profile.get("focus_switches", 0)) + 1
+            else:
+                profile["commits"] = int(profile.get("commits", 0)) + 1
+            profile["backs"] = int(profile.get("backs", 0)) + int(event.get("backs") or 0)
+            profile["keystrokes"] = int(profile.get("keystrokes", 0)) + int(event.get("keys") or 0)
+            if int(event.get("ms") or 0) > 0:
+                decisions.append(int(event["ms"]))
             modes[str(event.get("mode") or "?")] = modes.get(str(event.get("mode") or "?"), 0) + 1
             key = str(event.get("key") or "")
             if key:
@@ -197,6 +218,7 @@ def consolidate() -> dict:
             sorted(corrections.items(), key=lambda kv: -kv[1])[:MAX_WORDS]
         )
         profile["gaps"] = gaps[-2000:]
+        profile["decisions"] = decisions[-2000:]
         profile["updated"] = time.strftime("%Y-%m-%dT%H:%M:%S")
         _save_profile(profile)
         _write_corrections(profile["corrections"])
@@ -248,6 +270,12 @@ def export_markdown(top: int = 50) -> str:
     if gaps:
         gaps_sorted = sorted(gaps)
         lines.append(f"- 输入节奏：中位间隔 {gaps_sorted[len(gaps_sorted) // 2]}ms")
+    if profile.get("commits"):
+        backs = profile.get("backs", 0)
+        keys = profile.get("keystrokes", 0) or 1
+        lines.append(f"- 退格率：{backs / keys:.1%}（越高说明越常打错/改主意）")
+        lines.append(f"- 放弃率：{profile.get('abandons', 0)} 次打到一半按 Esc")
+        lines.append(f"- 焦点切换：{profile.get('focus_switches', 0)} 次（多任务切换频率）")
     lines.append("")
 
     lines.append(f"## 高频词 Top {top}")

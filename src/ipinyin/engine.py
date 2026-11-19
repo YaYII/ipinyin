@@ -231,6 +231,12 @@ class PinyinEngine(IBus.Engine):
         # 记忆体：上屏采集 + 空闲 60 秒后台整理
         self._last_key_at = time.monotonic()
         self._last_commit_at = 0.0
+        self._last_focus_at = 0.0
+        # 一次输入的「手感」：敲了几个键、退了几次、翻了几页、用了多久
+        self._comp_start = 0.0
+        self._comp_keys = 0
+        self._comp_backs = 0
+        self._comp_flips = 0
         GLib.timeout_add_seconds(10, self._memory_tick)
         self._english = False       # 轻按 Shift 在中/英之间切换
         # 系统按键连发（auto-repeat）防护：同键 50ms 内反复到达，只认前两次
@@ -282,6 +288,11 @@ class PinyinEngine(IBus.Engine):
         get_user_model().flush_if_dirty()
 
     def do_focus_in(self):
+        # 焦点切换也是一种触角：切得越频繁，说明越在多个任务间跳
+        gap = int((time.monotonic() - self._last_focus_at) * 1000) if self._last_focus_at else 0
+        self._last_focus_at = time.monotonic()
+        memory.record(None, "", self._ime.mode if self._ime is not None else "simp",
+                      kind="focus", gap_ms=gap)
         self._sync()
 
     def do_reset(self):
@@ -361,6 +372,9 @@ class PinyinEngine(IBus.Engine):
                 self._repeat_at = now
             if value == "'" and not composing:
                 return False
+            if not composing:
+                self._comp_start = time.monotonic()
+            self._comp_keys += 1
             self.ime.insert(value)
             self._push_preedit()   # 先把字画出来，候选慢一点也不会觉得"卡"
             self._sync()
@@ -373,6 +387,7 @@ class PinyinEngine(IBus.Engine):
         if action is Action.DIGIT:
             self._finish(self.ime.select(int(value)), key, weight=3, rank=int(value))
         elif action is Action.BACKSPACE:
+            self._comp_backs += 1
             self.ime.backspace()
             self._sync()
         elif action is Action.COMMIT:
@@ -384,11 +399,14 @@ class PinyinEngine(IBus.Engine):
         elif action is Action.COMMIT_RAW:
             self._finish(self.ime.commit_raw(), key)
         elif action is Action.CLEAR:
+            self._record_abandon()
             self._reset()
         elif action is Action.PAGE_PREV:
+            self._comp_flips += 1
             self.ime.page_by(-1)
             self._sync()
         elif action is Action.PAGE_NEXT:
+            self._comp_flips += 1
             self.ime.page_by(1)
             self._sync()
         elif action is Action.TOGGLE_TRAD:
@@ -414,6 +432,22 @@ class PinyinEngine(IBus.Engine):
             return False
         return True
 
+    def _reset_comp(self) -> None:
+        self._comp_start = 0.0
+        self._comp_keys = 0
+        self._comp_backs = 0
+        self._comp_flips = 0
+
+    def _record_abandon(self) -> None:
+        """打到一半按 Esc：这是最有价值的负样本——说明候选里没有你想要的。"""
+        if not self._comp_keys:
+            return
+        ms = int((time.monotonic() - self._comp_start) * 1000) if self._comp_start else 0
+        memory.record(None, "", self._ime.mode if self._ime is not None else "simp",
+                      kind="abandon", keys=self._comp_keys, backs=self._comp_backs,
+                      flips=self._comp_flips, ms=ms)
+        self._reset_comp()
+
     def _memory_tick(self) -> bool:
         """空闲 60 秒且有待整理数据时，后台聚合一次（不占按键路径）。"""
         try:
@@ -435,8 +469,11 @@ class PinyinEngine(IBus.Engine):
             base = self._ime.base_form(text) if self._ime is not None else text
             gap_ms = int((time.monotonic() - self._last_commit_at) * 1000) if self._last_commit_at else 0
             self._last_commit_at = time.monotonic()
+            decision_ms = int((time.monotonic() - self._comp_start) * 1000) if self._comp_start else 0
             memory.record(key, text, self._ime.mode if self._ime is not None else "simp",
-                          rank, gap_ms)
+                          rank, gap_ms, keys=self._comp_keys, backs=self._comp_backs,
+                          flips=self._comp_flips, ms=decision_ms)
+            self._reset_comp()
             # 只在"你主动选了某个候选"时学习；空格直接收首选不算选择，
             # 否则输入法会把自己猜错的词学进去，越学越歪。
             if key and learn:

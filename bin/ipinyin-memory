@@ -3,6 +3,7 @@
 
 用法：
     ipinyin-memory status        看采集了多少、待整理多少
+    ipinyin-memory sensors       看有哪些「触角」、哪些拿不到
     ipinyin-memory show          看高频词 Top 20
     ipinyin-memory consolidate   立刻整理一次（不等空闲）
     ipinyin-memory export [文件] 导出 Markdown（默认打印到 stdout）
@@ -36,6 +37,26 @@ def main(argv: list[str]) -> int:
         print(f"改选记录：{info['corrections']}")
         print(f"待整理：{info['pending_bytes']} 字节")
         print(f"最近整理：{info['updated'] or '（还没整理过）'}")
+        return 0
+    if command == "sensors":
+        info = memory.status()
+        print("== 已启用的触角（IBus 引擎能拿到的信号）==")
+        print("  上屏词 / 拼音键 / 输出模式      ← do_process_key_event  ✅ 采集中")
+        print("  候选排名（越过首选=首选不准）    ← 数字选词 / 点击     ✅ 采集中")
+        print("  退格次数（打错 / 改主意）        ← Backspace           ✅ 采集中")
+        print("  翻页次数（候选不够好）           ← PageUp/PageDown     ✅ 采集中")
+        print("  决策耗时（首键→上屏，犹豫多久）  ← 时间戳              ✅ 采集中")
+        print("  放弃（打到一半按 Esc）           ← Escape              ✅ 采集中")
+        print("  输入节奏（两次上屏的间隔）       ← 时间戳              ✅ 采集中")
+        print("  时段分布（几点在写东西）         ← 时间戳              ✅ 采集中")
+        print()
+        print("== 拿不到的（不是没做，是 IBus 不给）==")
+        print("  窗口标题 / 应用名               ← GNOME Wayland 不提供 ❌")
+        print("  上屏后在应用里的修改            ← IBus 只看自己上屏的 ❌")
+        print("  剪贴板 / 鼠标位置               ← IBus 不提供          ❌")
+        print()
+        print(f"当前：上屏 {info['commits']} 次，高频词 {info['words']} 条，"
+              f"改选 {info['corrections']} 条，待整理 {info['pending_bytes']} 字节")
         return 0
     if command == "show":
         profile = memory._load_profile()

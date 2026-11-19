@@ -88,3 +88,26 @@ def test_ascii_and_raw_pinyin_not_counted(tmp_path, monkeypatch):
     assert "ai" not in words
     assert "cansyu " not in words
     assert "工程师" in words
+
+
+def test_abandon_and_input_feel(tmp_path, monkeypatch):
+    """打到一半放弃是最有价值的负样本；退格/翻页/耗时都要能记下来。"""
+    _isolate(tmp_path, monkeypatch)
+    memory.record(None, "", kind="abandon", keys=4, backs=2, flips=1, ms=3200)
+    memory.record("gongchengshi", "工程师", keys=11, backs=1, flips=0, ms=2400)
+    memory.consolidate()
+    profile = memory._load_profile()
+    assert profile["abandons"] == 1
+    assert profile["commits"] == 1
+    assert profile["backs"] == 3
+    assert profile["keystrokes"] == 15
+    text = memory.export_markdown()
+    assert "退格率" in text and "放弃率" in text
+
+
+def test_focus_switch_counted(tmp_path, monkeypatch):
+    _isolate(tmp_path, monkeypatch)
+    memory.record(None, "", kind="focus", gap_ms=1000)
+    memory.record(None, "", kind="focus", gap_ms=2500)
+    memory.consolidate()
+    assert memory._load_profile()["focus_switches"] == 2
