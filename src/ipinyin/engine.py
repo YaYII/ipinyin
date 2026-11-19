@@ -199,6 +199,35 @@ def get_converter() -> Converter:
     return _CONVERTER
 
 
+_BUS = None
+_ENGINE_CHECK_AT = 0.0
+
+
+def _ensure_global_engine(reason: str) -> None:
+    """全局引擎为空时自荐。
+
+    升级（postinst 杀引擎）或 ibus-daemon 重启后，IBus 会把「当前引擎」清空：
+    此时输入法完全消失，按键原样进应用，用户看到的就是「打出来全是拼音」。
+    """
+    global _ENGINE_CHECK_AT
+    _ENGINE_CHECK_AT = time.monotonic()
+    bus = _BUS
+    if bus is None:
+        return
+    try:
+        current = bus.get_global_engine()
+        name = current.get_name() if current is not None else ""
+    except GLib.Error:
+        name = ""
+    if name:
+        return
+    LOG.info("全局引擎为空（%s），自荐回 ipinyin", reason)
+    try:
+        bus.set_global_engine("ipinyin")
+    except GLib.Error as exc:
+        LOG.warning("自动设置全局引擎失败：%s", exc.message)
+
+
 def setup_logging() -> None:
     if LOG.handlers:
         return
@@ -305,6 +334,10 @@ class PinyinEngine(IBus.Engine):
             pass
 
     def do_focus_in(self):
+        # 引擎位空了就自荐（节流 15s）：升级/重启后 ibus-daemon 会把当前引擎清掉，
+        # 表现就是「输入法不见了，打出来全是拼音」
+        if time.monotonic() - _ENGINE_CHECK_AT > 15:
+            _ensure_global_engine("焦点切换")
         # 焦点切换也是一种触角：切得越频繁，说明越在多个任务间跳
         gap = int((time.monotonic() - self._last_focus_at) * 1000) if self._last_focus_at else 0
         self._last_focus_at = time.monotonic()
@@ -837,17 +870,12 @@ def main(argv: list[str] | None = None) -> int:
 
     # 引擎被杀后重启时，ibus-daemon 会把"当前引擎"清空（表现为完全打不了字）。
     # 这里发现引擎位空缺就自荐，恢复可用状态。
-    try:
-        current = bus.get_global_engine()
-        current_name = current.get_name() if current is not None else ""
-    except GLib.Error:
-        current_name = ""
-    if not current_name:
-        LOG.info("当前没有全局引擎，自动切回 ipinyin")
-        try:
-            bus.set_global_engine("ipinyin")
-        except GLib.Error as exc:
-            LOG.warning("自动设置全局引擎失败：%s", exc.message)
+    global _BUS
+    _BUS = bus
+    _ensure_global_engine("启动")
+    # 启动时自荐可能被 ibus-daemon 随后的初始化覆盖，隔几秒再复查几次
+    for delay in (2000, 6000, 15000):
+        GLib.timeout_add(delay, lambda: (_ensure_global_engine("启动后复查"), False)[1])
 
     LOG.info("引擎已注册，进入主循环")
     IBus.main()
