@@ -145,3 +145,15 @@ def test_rapid_speak_only_last_one_plays(tmp_path):
     assert speaker.speak("第二句", speak.YUE_VOICE)
     time.sleep(1.2)
     assert plays.read_text().count("x") == 1, "只应播最后一条"
+
+
+def test_edge_output_is_trimmed():
+    """edge 把短文本补到 1.87s；不裁的话两个字的词听起来像两秒。"""
+    from ipinyin import units
+
+    pcm = b"\x00\x00" * 500 + b"\x00\x10" * 100 + b"\x00\x00" * 500
+    wav = units._wav_header(len(pcm)) + pcm
+    out = speak._trim_wav(wav)
+    assert out[:4] == b"RIFF"
+    assert len(out) < len(wav)
+    assert len(out) >= 44 + 100 * 2          # 有声部分完整保留

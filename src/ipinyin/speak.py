@@ -27,6 +27,7 @@ LOG = logging.getLogger("ipinyin")
 DEFAULT_SPEED = 165      # 比 espeak 默认稍慢：粤语六个声调，听清楚比听快重要
 MAX_CHARS = 80           # 再长就别念了——一句话念十秒没人受得了
 CACHE_LIMIT = 200        # 缓存 wav 条数上限
+CACHE_VERSION = "2"      # 裁静音后旧缓存（短句 1.87s）作废，键里带版本号
 
 # 普通话声线读汉字会逐字拼英文字母（们→m-e-n-f-a-i-v），必须喂拼音；
 # 粤语声线字典完整，简繁汉字都认，直接给汉字。
@@ -125,6 +126,20 @@ def _find_espeak() -> str | None:
         if os.access(candidate, os.X_OK):
             return candidate
     return None
+
+
+def _trim_wav(data: bytes) -> bytes:
+    """裁掉 edge 补的静音。
+
+    edge 对短文本会把音频补到 1.87s（「聽日」两个字也 1.87s），不裁的话
+    两个字的词听起来像两秒，远低于正常语速（粤语连续语流约 4–6 音节/秒）。
+    """
+    if len(data) <= 44:
+        return data
+    pcm = units._trim(data[44:])
+    if not pcm:
+        return data
+    return units._wav_header(len(pcm)) + pcm
 
 
 def _find_units() -> units.UnitLibrary | None:
@@ -290,7 +305,7 @@ class Speaker:
                     LOG.warning("朗读转码失败（ffmpeg）：退出码 %s，回落 espeak", conv.returncode)
                     return None
                 with open(wav, "rb") as handle:
-                    return handle.read()
+                    return _trim_wav(handle.read())
         except (OSError, subprocess.SubprocessError) as exc:
             LOG.warning("朗读合成失败（edge）：%s，回落 espeak", exc)
             return None
@@ -357,7 +372,7 @@ class Speaker:
     # ---------- 内部 ----------
     def _cache_path(self, text: str, voice: str, backend: str = "espeak") -> str:
         key = hashlib.sha1(
-            f"{backend}|{voice}|{self._speed}|{text}".encode("utf-8")
+            f"{CACHE_VERSION}|{backend}|{voice}|{self._speed}|{text}".encode("utf-8")
         ).hexdigest()[:16]
         return os.path.join(self._cache_dir, f"{key}.wav")
 
