@@ -343,9 +343,13 @@ class PinyinEngine(IBus.Engine):
         if keyval in (0xFFE1, 0xFFE2):
             if state & (1 << 30):
                 if self._shift_down and self._shift_clean:
+                    # 切换前把正在打的词上屏：macOS 也是这个行为，
+                    # 不然打到一半手一抖按 Shift，整串拼音就没了
+                    if self._ime is not None and self._ime.buffer:
+                        self._finish(self._ime.commit_current(), self._ime.buffer)
                     self._english = not self._english
-                    self._reset()
                     LOG.info("切换到%s输入", "英文" if self._english else "中文")
+                    self._push_mode_hint(force=True)
                 self._shift_down = False
             else:
                 self._shift_down = True
@@ -687,6 +691,10 @@ class PinyinEngine(IBus.Engine):
     def _push_mode_hint(self, force: bool = False) -> None:
         """在预编辑上方显示当前模式与朗读开关，避免忘了自己在哪个状态。"""
         if self._ime is None:
+            return
+        if self._english:
+            # 英文态必须显示：按 Shift 切到英文后没有任何提示，用户会以为没生效
+            self.update_auxiliary_text(IBus.Text.new_from_string("英文"), True)
             return
         self._refresh_tts_auto()   # CLI 改了状态也要立刻反映到提示上
         label = {"simp": "简体", "trad": "繁体", "yue": "粤语"}.get(self.ime.mode, "")
