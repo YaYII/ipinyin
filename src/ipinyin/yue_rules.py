@@ -39,6 +39,8 @@ RULES: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"正在(?P<v>[\u4e00-\u9fff]{1,4})"), r"喺度\g<v>"),
     # 太 + 形容词 + 了  →  太 + 形容词 + 喇
     (re.compile(r"太(?P<x>[\u4e00-\u9fff]{1,3})了"), r"太\g<x>喇"),
+    # 给 + 人 + 打电话/发消息  →  打电话/发消息 + 畀 + 人
+    (re.compile(rf"给(?P<who>{PRONOUNS})(?P<v>打电话|打電话|发消息|发信息|传话)"), r"\g<v>畀\g<who>"),
     # 一下  →  下（睇一下 → 睇下）
     (re.compile(r"一下(?![儿])"), "下"),
     # 才 + 动词  →  先 + 动词

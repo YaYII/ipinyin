@@ -38,3 +38,18 @@ def test_shipped_dictionary_uses_main_reading():
     assert chars["去"] == "heoi3"
     assert chars["阿"] == "aa3"
     assert chars["雅"] == "ngaa5"
+
+
+def test_colloquial_post_edits():
+    """口语补丁：神经模型和词表都漏的常见句式，确定性替换。"""
+    from ipinyin.yue import YueConverter
+
+    converter = YueConverter.load_dict("data/yue.marshal", YueConverter.load("data/yue.tsv")._map)
+    cases = {
+        "还没吃饭": "仲未食饭",
+        "我很想你": "我好掛住你",
+        "我吃过了": "我食咗喇",
+        "干什么": "做乜嘢",
+    }
+    for source, want in cases.items():
+        assert converter.convert(source, neural=False) == want

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import marshal
 import os
+import re
 import zlib
 
 from . import yue_rules
@@ -79,6 +80,24 @@ class YueConverter:
                 pass
         return cls(mapping, chars, words, phrase)
 
+    # 神经模型和词表都会漏的口语补丁：确定性替换，跑在最后
+    POST_EDITS: tuple[tuple[re.Pattern[str], str], ...] = (
+        (re.compile(r"还没(?=[\u4e00-\u9fff])"), "仲未"),
+        (re.compile(r"还没(?=$)"), "仲未"),
+        (re.compile(r"很想你"), "好掛住你"),
+        (re.compile(r"想你(?=[，。！？]|$)"), "掛住你"),
+        (re.compile(r"你在干什么"), "你喺度做緊乜嘢"),
+        (re.compile(r"在干什么"), "喺度做緊乜嘢"),
+        (re.compile(r"干什么(?=[，。！？]|$)"), "做乜嘢"),
+        (re.compile(r"食过(?=喇|了)"), "食咗"),
+    )
+
+    def _post_edit(self, text: str) -> str:
+        out = text
+        for pattern, replacement in self.POST_EDITS:
+            out = pattern.sub(replacement, out)
+        return out
+
     def _premap(self, text: str) -> str:
         """只替换目标不含粤语专用字的词条（犀利/厲害 这类），避免干扰神经模型。
 
@@ -138,6 +157,10 @@ class YueConverter:
         return " ".join(out)
 
     def convert(self, text: str, rules: bool = True, neural: bool | None = None) -> str:
+        """对外入口：先跑原来的转换，再做一层口语后处理。"""
+        return self._post_edit(self._convert_raw(text, rules=rules, neural=neural))
+
+    def _convert_raw(self, text: str, rules: bool = True, neural: bool | None = None) -> str:
         # 人工词表里明确写死的词（厉害→犀利）优先于神经模型——
         # 模型只会做繁体/常规转换，会把 厉害 输出成「厲害」，丢掉粤语说法
         # neural=None 时默认走神经（装了模型就用）。但调用方要注意：
