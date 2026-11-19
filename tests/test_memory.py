@@ -111,3 +111,21 @@ def test_focus_switch_counted(tmp_path, monkeypatch):
     memory.record(None, "", kind="focus", gap_ms=2500)
     memory.consolidate()
     assert memory._load_profile()["focus_switches"] == 2
+
+
+def test_typos_needs_both_signals(tmp_path, monkeypatch):
+    """词库缺 + 模型也觉得不像话，才报。只用一条会误报（很好 不在词库，屏幕 模型不认识）。"""
+    _isolate(tmp_path, monkeypatch)
+
+    class FakeLM:
+        def logp(self, text):
+            return -60.0 if text == "顺连" else -6.0
+
+    monkeypatch.setattr(memory, "_load_lm", lambda: FakeLM())
+    monkeypatch.setattr(memory, "_lexicon_words", lambda: {"屏幕"})
+    memory.record("shunlian", "顺连")
+    memory.record("pingmu", "屏幕")
+    memory.consolidate()
+    rows = memory.typos()
+    assert [row["word"] for row in rows] == ["顺连"]
+    assert rows[0]["in_lexicon"] is False

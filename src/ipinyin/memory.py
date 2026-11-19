@@ -315,6 +315,124 @@ def wipe() -> None:
     shutil.rmtree(home(), ignore_errors=True)
 
 
+def _all_events() -> list[dict]:
+    rows: list[dict] = []
+    for path in (events_path(), events_path() + ".1"):
+        try:
+            with open(path, encoding="utf-8") as handle:
+                for line in handle:
+                    try:
+                        rows.append(json.loads(line))
+                    except ValueError:
+                        continue
+        except OSError:
+            continue
+    return rows
+
+
+def _lexicon_words() -> set[str]:
+    """词库里的词。只在 CLI 里读一次，不进按键路径。"""
+    words: set[str] = set()
+    try:
+        path = config.lexicon_path()
+    except FileNotFoundError:
+        return words
+    try:
+        with open(path, encoding="utf-8") as handle:
+            for line in handle:
+                parts = line.rstrip("\n").split("\t")
+                if len(parts) >= 2:
+                    words.add(parts[1])
+    except OSError:
+        return words
+    return words
+
+
+TYPO_THRESHOLD = -8.5     # 平均 logp 低于它 = 语言模型也觉得不像话
+
+
+def _load_lm():
+    try:
+        from .lm import CharLM
+
+        return CharLM.load(os.path.join(config.data_home(), "data", "lm_char.marshal"))
+    except Exception:
+        return None
+
+
+def typos(limit: int = 20, threshold: float = TYPO_THRESHOLD) -> list[dict]:
+    """可疑上屏：语言模型打分异常低的词。
+
+    只报「模型也觉得不像话」的，不自动改。判定依据是字级语言模型的
+    平均 logp（校准过：好词 -4~-8，错字/乱码 -9 以下），词库只做辅助。
+    """
+    lm = _load_lm()
+    if lm is None:
+        return []
+    words = _lexicon_words()
+    hits: dict[str, dict] = {}
+    for event in _all_events():
+        if event.get("kind") not in (None, "commit"):
+            continue
+        text = str(event.get("text") or "")
+        if len(text) < 2 or not _has_cjk(text):
+            continue
+        score = lm.logp(text) / len(text)
+        # 双条件：词库不收 + 模型也觉得不像话。只用一条都会误报
+        # （词库缺常用词如「很好」，模型又不认识「屏幕/线程」这类技术词）
+        if score >= threshold or text in words:
+            continue
+        row = hits.setdefault(text, {"word": text, "count": 0, "score": round(score, 2),
+                                     "in_lexicon": text in words})
+        row["count"] += 1
+    ranked = sorted(hits.values(), key=lambda row: (row["score"], -row["count"]))
+    return ranked[:limit]
+
+
+def proofread(limit: int = 120) -> str:
+    """把最近的上屏文本交给大模型挑错别字（用 DSH 同一个 opencode-go 通道）。"""
+    import subprocess
+
+    texts: list[str] = []
+    for event in _all_events()[-2000:]:
+        text = str(event.get("text") or "")
+        if event.get("kind") in (None, "commit") and len(text) >= 2 and _has_cjk(text):
+            texts.append(text)
+    texts = texts[-limit:]
+    if not texts:
+        return ""
+    try:
+        from . import vision
+
+        key = vision._opencode_key()
+        if not key:
+            return ""
+        body = {
+            "model": vision.OPENCODE_MODEL,
+            "max_tokens": 6000,   # 这个模型先吐推理，给小了 content 会是空
+            "messages": [{"role": "user", "content": (
+                "下面是某人输入法上屏的文本片段（不完整、可能只是词）。"
+                "逐条找出明显的错别字、同音误用、别字。"
+                "只列确实有问题的，格式：`原文 → 建议（一句话理由）`。"
+                "没有问题就只回答「没有发现」。不要解释过程。\n\n"
+                + "\n".join(f"{i+1}. {t}" for i, t in enumerate(texts))) }],
+        }
+        done = subprocess.run(
+            ["curl", "-sS", "--max-time", "90", "-A", "ipinyin-proofread/1.0",
+             vision.OPENCODE_BASE + "/chat/completions",
+             "-H", f"Authorization: Bearer {key}",
+             "-H", "Content-Type: application/json",
+             "-H", f"x-opencode-session: {vision.OPENCODE_SESSION}",
+             "--data-binary", "@-"],
+            input=json.dumps(body), capture_output=True, text=True, timeout=120, check=False)
+        if done.returncode != 0:
+            return ""
+        payload = json.loads(done.stdout)
+        return (payload["choices"][0]["message"].get("content") or "").strip()
+    except Exception:
+        return ""
+
+
 def status() -> dict:
     profile = _load_profile()
     return {

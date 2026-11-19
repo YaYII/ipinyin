@@ -4,6 +4,8 @@
 用法：
     ipinyin-memory status        看采集了多少、待整理多少
     ipinyin-memory sensors       看有哪些「触角」、哪些拿不到
+    ipinyin-memory typos [N]     找出不在词库里的上屏词（疑似错别字/新词）
+    ipinyin-memory proofread [N] 把最近的上屏文本交给大模型挑错别字
     ipinyin-memory show          看高频词 Top 20
     ipinyin-memory consolidate   立刻整理一次（不等空闲）
     ipinyin-memory export [文件] 导出 Markdown（默认打印到 stdout）
@@ -37,6 +39,23 @@ def main(argv: list[str]) -> int:
         print(f"改选记录：{info['corrections']}")
         print(f"待整理：{info['pending_bytes']} 字节")
         print(f"最近整理：{info['updated'] or '（还没整理过）'}")
+        return 0
+    if command == "proofread":
+        limit = int(argv[2]) if len(argv) > 2 else 120
+        print(f"交给大模型校对最近 {limit} 条上屏文本…")
+        text = memory.proofread(limit)
+        print(text or "（模型没有返回，可能通道不可用）")
+        return 0
+    if command == "typos":
+        limit = int(argv[2]) if len(argv) > 2 else 20
+        rows = memory.typos(limit)
+        if not rows:
+            print("没有发现词库外的上屏词（要么都认识，要么还没采到）")
+            return 0
+        print(f"语言模型觉得可疑的上屏词：{len(rows)} 个（越低越可疑）")
+        for row in rows:
+            mark = "" if row["in_lexicon"] else "  [不在词库]"
+            print(f"  {row['word']}\t{row['count']} 次\t得分 {row['score']}{mark}")
         return 0
     if command == "sensors":
         info = memory.status()
