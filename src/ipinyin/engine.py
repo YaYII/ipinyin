@@ -260,6 +260,7 @@ class PinyinEngine(IBus.Engine):
         # 上屏即读：F9 切换，持久化到 ~/.local/share/ipinyin/tts_auto
         self._tts_auto = os.environ.get("IPINYIN_TTS_AUTO") == "1" or _read_tts_auto()
         self._hint_source = 0   # 切换后短暂显示状态用的 GLib 定时器
+        self._last_hint: tuple[str, bool] = ("", False)
         # 记忆体：上屏采集 + 空闲 60 秒后台整理
         self._last_key_at = time.monotonic()
         self._last_commit_at = 0.0
@@ -473,6 +474,9 @@ class PinyinEngine(IBus.Engine):
             _write_mode(mode)
             LOG.info("切换到%s输出", {"simp": "简体", "trad": "繁体", "yue": "粤语"}[mode])
             self._sync_now()
+            # 没在打字时也要看得见：闪 2 秒状态条（aux 需要候选窗在场，
+            # 所以这只是尽力而为；真正的持久指示见 docs/mode-indicator.md）
+            self._flash_mode_hint()
         elif action is Action.SEG_PREV:
             if self.ime.move_segment(-1):
                 self._sync_now()
@@ -721,13 +725,20 @@ class PinyinEngine(IBus.Engine):
             self._ai_on = False
         return self._ai_on
 
+    def _send_hint(self, text: str, visible: bool, force: bool = False) -> None:
+        """发状态条，内容没变就不发（每次同步都发会多一次 D-Bus 往返）。"""
+        if not force and (text, visible) == self._last_hint:
+            return
+        self._last_hint = (text, visible)
+        self.update_auxiliary_text(IBus.Text.new_from_string(text), visible)
+
     def _push_mode_hint(self, force: bool = False) -> None:
         """在预编辑上方显示当前模式与朗读开关，避免忘了自己在哪个状态。"""
         if self._ime is None:
             return
         if self._english:
             # 英文态必须显示：按 Shift 切到英文后没有任何提示，用户会以为没生效
-            self.update_auxiliary_text(IBus.Text.new_from_string("英文"), True)
+            self._send_hint("英文", True, force)
             return
         self._refresh_tts_auto()   # CLI 改了状态也要立刻反映到提示上
         label = {"simp": "简体", "trad": "繁体", "yue": "粤语"}.get(self.ime.mode, "")
@@ -735,7 +746,7 @@ class PinyinEngine(IBus.Engine):
         label = (f"{label} · 音:{'开' if self._tts_auto else '关'}"
                  f" · AI:{'开' if self._ai_active() else '关'}")
         visible = bool(self.ime.buffer) or force
-        self.update_auxiliary_text(IBus.Text.new_from_string(label if visible else ""), visible)
+        self._send_hint(label if visible else "", visible, force)
 
     def _push_preedit(self) -> None:
         if self._ime is None:
@@ -773,6 +784,8 @@ class PinyinEngine(IBus.Engine):
         if not view.visible:
             self.hide_preedit_text()
             self.hide_lookup_table()
+            # 空输入时也要刷新状态栏：否则按 Tab 切了模式，提示还停在旧的那行
+            self._push_mode_hint()
             return
 
         preedit = IBus.Text.new_from_string(view.preedit)
@@ -786,6 +799,10 @@ class PinyinEngine(IBus.Engine):
             table.set_label(index, IBus.Text.new_from_string(str(index + 1)))
         table.set_cursor_pos(view.highlighted)
         self.update_lookup_table(table, True)
+        # 状态栏（简体/繁体/粤语 · 音 · AI）必须跟着候选一起刷新——
+        # 以前只有 _push_preedit()（敲字母）会刷它，按 Tab 切模式时它不动，
+        # 于是候选变了、提示还是旧的
+        self._push_mode_hint()
 
 
 def _acquire_singleton() -> object | None:
