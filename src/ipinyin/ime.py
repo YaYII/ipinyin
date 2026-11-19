@@ -458,6 +458,14 @@ class ImeState:
         if self.buffer:                 # 候选是上次按键算的，挂上模型后要重算一遍
             self._rebuild()
 
+    def _yue_confidence(self, simp: str, yue: str) -> str:
+        """粤语写法的来源：词表直译（可信）还是模型/规则推测（要核对）。"""
+        if self.yue is None or yue == simp:
+            return ""
+        if self.yue._map.get(simp) is not None:
+            return ""          # 人工词表收录过，直接信
+        return "?"
+
     def rebuild_neural(self) -> bool:
         """把首选候选升级成神经粤语（引擎在按键空闲 200ms 后调用）。
 
@@ -772,27 +780,31 @@ class ImeState:
             if self.mode == "chao" and self.chao is not None:
                 # 潮汕档：只留三列——原文 / 潮汕文字 / 潮拼，方便对照
                 pengim = self.chao.pengim(chao_text)
-                columns = [chao_text or simp]
+                # 简体永远在第一列：先核对拼音打对了没有，再看潮汕写法。
+                # 没查到潮汕说法（和简体一样）标「?」，避免把普通话当潮汕话发出去
+                mark = "?" if (chao_text or simp) == simp else ""
+                columns = [simp, (chao_text or simp) + mark]
                 if pengim:
                     columns.append(pengim)
-                columns.append(simp if simp != chao_text else "—")
                 displays.append("  ".join(columns))
                 continue
             # 每档都把「本档会写出去的那个写法」放最左：粤语档以前左边是「我不知道」，
             # 用户会以为输出的是普通话（实际输出的是右边的 我唔知）
             if self.mode == "yue":
-                columns = [yue]
                 reading = ""
                 if self.yue is not None:
                     yue_trad = converter.to_traditional(yue) if converter else yue
                     reading = self.yue.jyutping(yue_trad) or self.yue.jyutping(yue)
+                # 简体在前（核对输入），粤语写法在后（上屏的才是它）。
+                # 词表直译的标「✓」，模型推测的标「?」——不认识粤语的人据此决定要不要核对
+                mark = self._yue_confidence(simp, yue)
+                columns = [simp, yue + mark]
                 if reading:
                     columns.append(reading)
-                columns.append(simp if simp != yue else "—")
                 displays.append("  ".join(columns))
                 continue
             if self.mode == "trad":
-                columns = [trad, simp if simp != trad else "—"]
+                columns = [simp, trad]
             else:
                 columns = [simp, trad if trad != simp else "—"]
             columns.append(yue if yue != simp else "—")
