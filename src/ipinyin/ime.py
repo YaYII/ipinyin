@@ -433,6 +433,21 @@ class ImeState:
         if self.buffer:                 # 候选是上次按键算的，挂上模型后要重算一遍
             self._rebuild()
 
+    def rebuild_neural(self) -> bool:
+        """把首选候选升级成神经粤语（引擎在按键空闲 200ms 后调用）。
+
+        为什么不在按键路径上做：一次推理 8~45ms，每键都做就是「打字很卡」。
+        先给规则版（0.02ms），停手了再换成神经版，用户看到的顺序不变、手感不卡。
+        """
+        if self.mode != "yue" or self.yue is None or not self.buffer:
+            return False
+        text = self.active_text()
+        cached = self._cache.get(text)
+        if cached and cached[0] == (self.user_model.version if self.user_model else 0):
+            self._cache.pop(text, None)
+        self._rebuild(neural=True)
+        return True
+
     def view(self) -> View:
         if not self.buffer:
             return View(visible=False, preedit="")
@@ -507,11 +522,13 @@ class ImeState:
                 result.append(word)
         return result[:9]
 
-    def _rebuild(self) -> None:
+    def _rebuild(self, neural: bool = False) -> None:
+        """重建候选。neural=True 时首选候选走神经粤语（慢，留给空闲时做）。"""
         # 英文档：不产生任何候选，按键原样交给应用
         if self.mode == "en":
             self._candidates, self._display, self._keys = [], [], []
             return
+        neural_pass = neural
         started = time.perf_counter()
         text = self.active_text()
         if self.shuangpin and text:
@@ -699,7 +716,7 @@ class ImeState:
             # 神经模型只在粤语模式、且只对首选候选推理：
             # convert() 在候选重建路径上，2~4 字词单次 7~10ms，9 个候选全算就是 60ms+/键。
             # 非首选候选走规则（0.02ms）够用，用户真正要看的粤语写法就是首选那条。
-            neural = rank == 0
+            neural = neural_pass and rank == 0
             if self.yue is None:
                 yue = trad
             elif neural:

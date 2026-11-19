@@ -264,6 +264,7 @@ class PinyinEngine(IBus.Engine):
         # 上屏即读：F9 切换，持久化到 ~/.local/share/ipinyin/tts_auto
         self._tts_auto = os.environ.get("IPINYIN_TTS_AUTO") == "1" or _read_tts_auto()
         self._hint_source = 0   # 切换后短暂显示状态用的 GLib 定时器
+        self._neural_source = 0  # 粤语档：空闲后升级神经写法的定时器
         self._last_hint: tuple[str, bool] = ("", False)
         # 记忆体：上屏采集 + 空闲 60 秒后台整理
         self._last_key_at = time.monotonic()
@@ -461,6 +462,7 @@ class PinyinEngine(IBus.Engine):
             self.ime.insert(value)
             self._push_preedit()   # 先把字画出来，候选慢一点也不会觉得"卡"
             self._sync()
+            self._schedule_neural()
             return True
 
         if not composing:
@@ -612,7 +614,14 @@ class PinyinEngine(IBus.Engine):
         self._sync_now()
 
     def _refresh_tts_auto(self) -> None:
-        """状态文件可能被 bin/ipinyin-tts 改过：上屏前重读，不用重启引擎。"""
+        """状态文件可能被 bin/ipinyin-tts 改过：上屏前重读，不用重启引擎。
+
+        节流 1 秒：这个函数现在挂在每次同步上，每键都 open() 一次是浪费。
+        """
+        now = time.monotonic()
+        if now - getattr(self, "_tts_checked", 0.0) < 1.0:
+            return
+        self._tts_checked = now
         if os.environ.get("IPINYIN_TTS_AUTO") == "1":
             self._tts_auto = True
             return
@@ -631,6 +640,24 @@ class PinyinEngine(IBus.Engine):
 
         mode = self._ime.mode if self._ime is not None else "simp"
         get_speaker().speak(text, voice_for(mode))
+
+    def _schedule_neural(self) -> None:
+        """粤语档：停手 200ms 后再把首选换成神经写法。
+
+        神经推理 8~45ms，放在按键路径上就是「打字很卡」；先给规则版（0.02ms），
+        停手再升级，看到的顺序不变、手感不卡。
+        """
+        if self._ime is None or self._ime.mode != "yue":
+            return
+        if self._neural_source:
+            GLib.source_remove(self._neural_source)
+        self._neural_source = GLib.timeout_add(200, self._neural_pass)
+
+    def _neural_pass(self) -> bool:
+        self._neural_source = 0
+        if self._ime is not None and self._ime.rebuild_neural():
+            self._sync_now()
+        return False
 
     def _speak(self) -> bool:
         """Ctrl+回车：念当前候选；没候选就念刚上屏的那句。
