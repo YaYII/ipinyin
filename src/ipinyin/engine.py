@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import gc
+import json
 import logging
 import os
 import subprocess
@@ -237,6 +238,7 @@ class PinyinEngine(IBus.Engine):
         self._ai_on = False
         self._ai_checked = 0.0
         self._ai_want: bool | None = None   # F10 的目标状态（None = 跟随心跳）
+        self._boost_mtime = 0.0             # AI 提权队列的 mtime
         # 一次输入的「手感」：敲了几个键、退了几次、翻了几页、用了多久
         self._comp_start = 0.0
         self._comp_keys = 0
@@ -467,9 +469,43 @@ class PinyinEngine(IBus.Engine):
                       flips=self._comp_flips, ms=ms)
         self._reset_comp()
 
+    def _apply_boosts(self) -> None:
+        """应用 AI 校对提出的提权：读队列 → 学进个人词频 → 删队列。"""
+        path = config.boost_queue_path()
+        try:
+            mtime = os.path.getmtime(path)
+        except OSError:
+            return
+        if mtime == self._boost_mtime:
+            return
+        self._boost_mtime = mtime
+        model = self._ime.user_model if self._ime is not None else None
+        if model is None:
+            return
+        try:
+            with open(path, encoding="utf-8") as handle:
+                lines = handle.readlines()
+        except OSError:
+            return
+        applied = 0
+        for line in lines:
+            try:
+                item = json.loads(line)
+                model.learn(str(item["key"]), str(item["word"]), weight=int(item.get("weight", 3)))
+                applied += 1
+            except (ValueError, KeyError, TypeError):
+                continue
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+        if applied:
+            LOG.info("应用 AI 提权 %d 条", applied)
+
     def _memory_tick(self) -> bool:
         """空闲 60 秒且有待整理数据时，后台聚合一次（不占按键路径）。"""
         try:
+            self._apply_boosts()
             idle = time.monotonic() - self._last_key_at
             if idle >= 60 and memory.pending() > 0:
                 threading.Thread(target=memory.consolidate, daemon=True).start()

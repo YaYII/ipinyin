@@ -433,6 +433,132 @@ def proofread(limit: int = 120) -> str:
         return ""
 
 
+def _ask_llm(prompt: str, max_tokens: int = 4000) -> str:
+    """走 opencode-go 通道问一次；失败返回空串。"""
+    import subprocess
+
+    try:
+        from . import vision
+
+        key = vision._opencode_key()
+        if not key:
+            return ""
+        body = {"model": vision.OPENCODE_MODEL, "max_tokens": max_tokens,
+                "messages": [{"role": "user", "content": prompt}]}
+        done = subprocess.run(
+            ["curl", "-sS", "--max-time", "120", "-A", "ipinyin-fix/1.0",
+             vision.OPENCODE_BASE + "/chat/completions",
+             "-H", f"Authorization: Bearer {key}",
+             "-H", "Content-Type: application/json",
+             "-H", f"x-opencode-session: {vision.OPENCODE_SESSION}",
+             "--data-binary", "@-"],
+            input=json.dumps(body), capture_output=True, text=True, timeout=150, check=False)
+        if done.returncode != 0:
+            return ""
+        payload = json.loads(done.stdout)
+        return (payload["choices"][0]["message"].get("content") or "").strip()
+    except Exception:
+        return ""
+
+
+def suggest_fixes(limit: int = 40) -> list[dict]:
+    """让大模型从最近上屏里找错别字，返回 [{"wrong","right","why"}]。"""
+    import re
+
+    texts = []
+    for event in _all_events()[-2000:]:
+        text = str(event.get("text") or "")
+        if event.get("kind") in (None, "commit") and len(text) >= 2 and _has_cjk(text):
+            texts.append(text)
+    texts = texts[-limit:]
+    if not texts:
+        return []
+    # 分批：一次给太多，模型的推理会把 token 吃光、content 变空
+    found: list[dict] = []
+    for start in range(0, len(texts), 40):
+        found.extend(_suggest_batch(texts[start:start + 40]))
+    seen: set[tuple[str, str]] = set()
+    unique: list[dict] = []
+    for row in found:
+        tag = (row["wrong"], row["right"])
+        if tag not in seen:
+            seen.add(tag)
+            unique.append(row)
+    return unique
+
+
+def _suggest_batch(texts: list[str]) -> list[dict]:
+    import re
+
+    prompt = (
+        "下面是某人输入法上屏的文本片段。找出其中明显的错别字、同音误用。"
+        "只输出 JSON 数组，元素形如 {\"wrong\":\"哪个\",\"right\":\"那个\",\"why\":\"同音误用\"}。"
+        "没有错就输出 []。不要输出任何解释文字。\n\n"
+        + "\n".join(f"{i+1}. {t}" for i, t in enumerate(texts)))
+    raw = _ask_llm(prompt)
+    if not raw:
+        return []
+    match = re.search(r"\[.*\]", raw, re.S)
+    if not match:
+        return []
+    try:
+        rows = json.loads(match.group(0))
+    except ValueError:
+        return []
+    out = []
+    for row in rows if isinstance(rows, list) else []:
+        if not isinstance(row, dict):
+            continue
+        wrong, right = str(row.get("wrong") or "").strip(), str(row.get("right") or "").strip()
+        if wrong and right and wrong != right and _has_cjk(right):
+            out.append({"wrong": wrong, "right": right, "why": str(row.get("why") or "")})
+    return out
+
+
+def _pinyin_keys_for(words: set[str]) -> dict[str, list[str]]:
+    """反查：词 → 它出现过的拼音键（扫一遍词库，CLI 用）。"""
+    found: dict[str, list[str]] = {word: [] for word in words}
+    try:
+        path = config.lexicon_path()
+    except FileNotFoundError:
+        return found
+    try:
+        with open(path, encoding="utf-8") as handle:
+            for line in handle:
+                parts = line.rstrip("\n").split("\t")
+                if len(parts) >= 2 and parts[1] in found and parts[0] not in found[parts[1]]:
+                    found[parts[1]].append(parts[0])
+    except OSError:
+        pass
+    return found
+
+
+def apply_fixes(pairs: list[dict], weight: int = 3) -> list[dict]:
+    """把「正确写法」写进提权队列，由引擎应用到个人词频。
+
+    键用**错误写法**的拼音（你敲的就是这个音），词换成正确写法——
+    这样下次打同样的音，首选就是对的。
+    """
+    if not pairs:
+        return []
+    keys_map = _pinyin_keys_for({pair["wrong"] for pair in pairs} | {pair["right"] for pair in pairs})
+    path = config.boost_queue_path()
+    applied = []
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "a", encoding="utf-8") as handle:
+            for pair in pairs:
+                wrong, right = pair["wrong"], pair["right"]
+                keys = keys_map.get(wrong) or keys_map.get(right) or []
+                for key in keys[:3]:
+                    handle.write(json.dumps({"key": key, "word": right, "weight": weight,
+                                             "why": pair.get("why", "")}, ensure_ascii=False) + "\n")
+                applied.append({"wrong": wrong, "right": right, "keys": keys[:3]})
+    except OSError:
+        return []
+    return applied
+
+
 def status() -> dict:
     profile = _load_profile()
     return {

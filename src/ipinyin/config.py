@@ -33,6 +33,11 @@ def lexicon_path() -> str:
     raise FileNotFoundError("找不到词库 lexicon.tsv，请先运行 install.sh")
 
 
+def boost_queue_path() -> str:
+    """AI 校对提出的提权请求。引擎读它、应用、然后清空。"""
+    return os.path.join(data_home(), "data", "boost_queue.jsonl")
+
+
 def user_model_path(mode: str = "simp") -> str:
     """个人词频按输出模式分开存：粤语里选过的词不该算进普通话的命中。
 

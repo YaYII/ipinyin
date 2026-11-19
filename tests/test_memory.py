@@ -129,3 +129,29 @@ def test_typos_needs_both_signals(tmp_path, monkeypatch):
     rows = memory.typos()
     assert [row["word"] for row in rows] == ["顺连"]
     assert rows[0]["in_lexicon"] is False
+
+
+def test_apply_fixes_writes_boost_queue(tmp_path, monkeypatch):
+    """提权键用「错误写法」的拼音，词换成正确写法——下次打同样的音首选就对。"""
+    import json
+
+    _isolate(tmp_path, monkeypatch)
+    monkeypatch.setattr(memory, "_pinyin_keys_for",
+                        lambda words: {"哪个": ["nage"], "那个": ["nage"]})
+    monkeypatch.setattr(memory.config, "boost_queue_path",
+                        lambda: str(tmp_path / "boost.jsonl"))
+    applied = memory.apply_fixes([{"wrong": "哪个", "right": "那个", "why": "同音误用"}])
+    assert applied[0]["keys"] == ["nage"]
+    lines = (tmp_path / "boost.jsonl").read_text(encoding="utf-8").splitlines()
+    item = json.loads(lines[0])
+    assert item["key"] == "nage" and item["word"] == "那个" and item["weight"] == 3
+
+
+def test_suggest_fixes_parses_llm_json(tmp_path, monkeypatch):
+    _isolate(tmp_path, monkeypatch)
+    memory.record("nage", "哪个")
+    memory.consolidate()
+    monkeypatch.setattr(memory, "_ask_llm", lambda prompt, max_tokens=4000: (
+        '好的：[{"wrong":"哪个","right":"那个","why":"同音误用"}]'))
+    rows = memory.suggest_fixes(10)
+    assert rows == [{"wrong": "哪个", "right": "那个", "why": "同音误用"}]

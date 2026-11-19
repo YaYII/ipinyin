@@ -6,6 +6,7 @@
     ipinyin-memory sensors       看有哪些「触角」、哪些拿不到
     ipinyin-memory typos [N]     找出不在词库里的上屏词（疑似错别字/新词）
     ipinyin-memory proofread [N] 把最近的上屏文本交给大模型挑错别字
+    ipinyin-memory fix [N]       挑错别字并提权正确写法（引擎自动应用）
     ipinyin-memory show          看高频词 Top 20
     ipinyin-memory consolidate   立刻整理一次（不等空闲）
     ipinyin-memory export [文件] 导出 Markdown（默认打印到 stdout）
@@ -39,6 +40,21 @@ def main(argv: list[str]) -> int:
         print(f"改选记录：{info['corrections']}")
         print(f"待整理：{info['pending_bytes']} 字节")
         print(f"最近整理：{info['updated'] or '（还没整理过）'}")
+        return 0
+    if command == "fix":
+        limit = int(argv[2]) if len(argv) > 2 else 40
+        print(f"让大模型校对最近 {limit} 条上屏…")
+        pairs = memory.suggest_fixes(limit)
+        if not pairs:
+            print("没有发现错别字（或模型没返回）")
+            return 0
+        print(f"发现 {len(pairs)} 处：")
+        for pair in pairs:
+            print(f"  {pair['wrong']} → {pair['right']}  {pair['why']}")
+        applied = memory.apply_fixes(pairs)
+        print(f"已提交 {len(applied)} 条提权，引擎 10 秒内应用")
+        for row in applied:
+            print(f"  {row['right']} 提权到 {row['keys'] or '（找不到拼音键）'}")
         return 0
     if command == "proofread":
         limit = int(argv[2]) if len(argv) > 2 else 120
