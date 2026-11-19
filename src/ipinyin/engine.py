@@ -236,6 +236,7 @@ class PinyinEngine(IBus.Engine):
         # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
         self._ai_on = False
         self._ai_checked = 0.0
+        self._ai_want: bool | None = None   # F10 的目标状态（None = 跟随心跳）
         # 一次输入的「手感」：敲了几个键、退了几次、翻了几页、用了多久
         self._comp_start = 0.0
         self._comp_keys = 0
@@ -600,10 +601,13 @@ class PinyinEngine(IBus.Engine):
 
     def _toggle_ai(self) -> None:
         """F10：启停屏幕感知（抓帧 + 理解两个 systemd 用户服务）。"""
-        want_on = not self._ai_active()
+        current = self._ai_want if self._ai_want is not None else self._ai_active()
+        want_on = not current
+        self._ai_want = want_on
         threading.Thread(target=self._set_ai, args=(want_on,), daemon=True).start()
         LOG.info("AI 屏幕感知 %s", "开启" if want_on else "关闭")
-        # 服务启停有延迟，3 秒后再刷新提示
+        self._flash_mode_hint()          # 立刻给反馈，别等 3 秒
+        # 服务启停有延迟，3 秒后再刷新一次
         GLib.timeout_add(3000, self._refresh_hint_soon)
 
     def _refresh_hint_soon(self) -> bool:
@@ -629,6 +633,8 @@ class PinyinEngine(IBus.Engine):
 
     def _ai_active(self) -> bool:
         """AI 感知（ScreenCast 抓帧）是否在跑：看心跳文件，3 秒缓存。"""
+        if self._ai_want is not None:
+            return self._ai_want        # F10 按过之后以目标状态为准
         now = time.monotonic()
         if now - self._ai_checked < 3:
             return self._ai_on
