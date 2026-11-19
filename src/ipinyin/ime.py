@@ -783,7 +783,7 @@ class ImeState:
                 # 简体永远在第一列：先核对拼音打对了没有，再看潮汕写法。
                 # 没查到潮汕说法（和简体一样）标「?」，避免把普通话当潮汕话发出去
                 mark = "?" if (chao_text or simp) == simp else ""
-                columns = [simp, (chao_text or simp) + mark]
+                columns = [simp, "→ " + (chao_text or simp) + mark]
                 if pengim:
                     columns.append(pengim)
                 displays.append("  ".join(columns))
@@ -798,7 +798,7 @@ class ImeState:
                 # 简体在前（核对输入），粤语写法在后（上屏的才是它）。
                 # 词表直译的标「✓」，模型推测的标「?」——不认识粤语的人据此决定要不要核对
                 mark = self._yue_confidence(simp, yue)
-                columns = [simp, yue + mark]
+                columns = [simp, "→ " + yue + mark]
                 if reading:
                     columns.append(reading)
                 displays.append("  ".join(columns))
