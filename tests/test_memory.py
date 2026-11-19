@@ -140,7 +140,8 @@ def test_apply_fixes_writes_boost_queue(tmp_path, monkeypatch):
                         lambda words: {"哪个": ["nage"], "那个": ["nage"]})
     monkeypatch.setattr(memory.config, "boost_queue_path",
                         lambda: str(tmp_path / "boost.jsonl"))
-    applied = memory.apply_fixes([{"wrong": "哪个", "right": "那个", "why": "同音误用"}])
+    # 显式给 weight，避免依赖「按差距算」那条路径（它要读真实词频）
+    applied = memory.apply_fixes([{"wrong": "哪个", "right": "那个", "why": "同音误用"}], weight=3)
     assert applied[0]["keys"] == ["nage"]
     lines = (tmp_path / "boost.jsonl").read_text(encoding="utf-8").splitlines()
     item = json.loads(lines[0])
