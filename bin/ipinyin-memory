@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+"""输入法记忆体 CLI：看状态、手动整理、导出画像、清空。
+
+用法：
+    ipinyin-memory status        看采集了多少、待整理多少
+    ipinyin-memory show          看高频词 Top 20
+    ipinyin-memory consolidate   立刻整理一次（不等空闲）
+    ipinyin-memory export [文件] 导出 Markdown（默认打印到 stdout）
+    ipinyin-memory wipe          删掉所有采集与整理结果
+"""
+import os
+import sys
+
+_HERE = os.path.dirname(os.path.realpath(__file__))
+for _candidate in (
+    os.path.join(_HERE, "..", "lib"),                    # 安装后：~/.local/share/ipinyin/lib
+    os.path.join(_HERE, "..", "src"),                    # 仓库里直接跑
+    os.path.expanduser("~/.local/share/ipinyin/lib"),    # 放在 ~/.local/bin 时
+    "/usr/lib/ipinyin",                                  # 系统包
+):
+    if os.path.isdir(os.path.join(_candidate, "ipinyin")):
+        sys.path.insert(0, os.path.abspath(_candidate))
+        break
+
+from ipinyin import memory  # noqa: E402
+
+
+def main(argv: list[str]) -> int:
+    command = argv[1] if len(argv) > 1 else "status"
+    if command == "status":
+        info = memory.status()
+        print(f"采集开关：{'开' if info['enabled'] else '关'}")
+        print(f"数据目录：{info['home']}")
+        print(f"上屏总数：{info['commits']}")
+        print(f"高频词条：{info['words']}")
+        print(f"改选记录：{info['corrections']}")
+        print(f"待整理：{info['pending_bytes']} 字节")
+        print(f"最近整理：{info['updated'] or '（还没整理过）'}")
+        return 0
+    if command == "show":
+        profile = memory._load_profile()
+        words = list(profile.get("words", {}).items())[:20]
+        print(f"上屏 {profile.get('commits', 0)} 次，高频词 Top 20：")
+        for word, count in words:
+            print(f"  {word}\t{count}")
+        return 0
+    if command == "consolidate":
+        result = memory.consolidate()
+        print(f"整理完成：处理 {result.get('processed', 0)} 条，累计 {result.get('commits', 0)} 次上屏")
+        return 0
+    if command == "export":
+        text = memory.export_markdown()
+        if len(argv) > 2:
+            with open(argv[2], "w", encoding="utf-8") as handle:
+                handle.write(text)
+            print(f"已导出到 {argv[2]}")
+        else:
+            print(text)
+        return 0
+    if command == "wipe":
+        memory.wipe()
+        print("已清空记忆体")
+        return 0
+    print(__doc__)
+    return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

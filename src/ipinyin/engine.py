@@ -17,7 +17,7 @@ import gi
 gi.require_version("IBus", "1.0")
 from gi.repository import Gio, GLib, GObject, IBus  # noqa: E402
 
-from . import config  # noqa: E402
+from . import config, memory  # noqa: E402
 from .ime import ImeState  # noqa: E402
 from .keys import Action, translate  # noqa: E402
 from .lexicon import Lexicon  # noqa: E402
@@ -228,6 +228,10 @@ class PinyinEngine(IBus.Engine):
         # 上屏即读：F9 切换，持久化到 ~/.local/share/ipinyin/tts_auto
         self._tts_auto = os.environ.get("IPINYIN_TTS_AUTO") == "1" or _read_tts_auto()
         self._hint_source = 0   # 切换后短暂显示状态用的 GLib 定时器
+        # 记忆体：上屏采集 + 空闲 60 秒后台整理
+        self._last_key_at = time.monotonic()
+        self._last_commit_at = 0.0
+        GLib.timeout_add_seconds(10, self._memory_tick)
         self._english = False       # 轻按 Shift 在中/英之间切换
         # 系统按键连发（auto-repeat）防护：同键 50ms 内反复到达，只认前两次
         self._repeat_key = -1
@@ -257,6 +261,7 @@ class PinyinEngine(IBus.Engine):
     def do_process_key_event(self, keyval, keycode, state):
         try:
             started = time.perf_counter()
+            self._last_key_at = time.monotonic()
             handled = self._handle(keyval, state)
             cost = (time.perf_counter() - started) * 1000
             if cost > 20:  # 超过 20ms 就是肉眼可感的卡顿，单独记一条
@@ -289,7 +294,7 @@ class PinyinEngine(IBus.Engine):
     def do_candidate_clicked(self, index, button, state):
         try:
             key = self.ime.buffer
-            self._finish(self.ime.select_page_index(int(index)), key, weight=3)
+            self._finish(self.ime.select_page_index(int(index)), key, weight=3, rank=int(index) + 1)
         except Exception:
             LOG.exception("候选词点击失败 index=%s", index)
         return True
@@ -366,7 +371,7 @@ class PinyinEngine(IBus.Engine):
 
         key = self.ime.buffer
         if action is Action.DIGIT:
-            self._finish(self.ime.select(int(value)), key, weight=3)
+            self._finish(self.ime.select(int(value)), key, weight=3, rank=int(value))
         elif action is Action.BACKSPACE:
             self.ime.backspace()
             self._sync()
@@ -409,13 +414,29 @@ class PinyinEngine(IBus.Engine):
             return False
         return True
 
-    def _finish(self, text: str | None, key: str | None = None, learn: bool = True, weight: int = 1) -> None:
+    def _memory_tick(self) -> bool:
+        """空闲 60 秒且有待整理数据时，后台聚合一次（不占按键路径）。"""
+        try:
+            idle = time.monotonic() - self._last_key_at
+            if idle >= 60 and memory.pending() > 0:
+                threading.Thread(target=memory.consolidate, daemon=True).start()
+                self._last_key_at = time.monotonic()   # 避免重复触发
+        except Exception:
+            LOG.exception("记忆整理失败")
+        return True
+
+    def _finish(self, text: str | None, key: str | None = None, learn: bool = True,
+                weight: int = 1, rank: int = 0) -> None:
         if text:
             if self._ime is not None and self._ime.last_commit_key:
                 key = self._ime.last_commit_key
             # 学的是「简体形」：繁体/粤语只是显示层转换，选了「聲音」要记成「声音」，
             # 否则下次简体模式会把它当成另一个词的命中。
             base = self._ime.base_form(text) if self._ime is not None else text
+            gap_ms = int((time.monotonic() - self._last_commit_at) * 1000) if self._last_commit_at else 0
+            self._last_commit_at = time.monotonic()
+            memory.record(key, text, self._ime.mode if self._ime is not None else "simp",
+                          rank, gap_ms)
             # 只在"你主动选了某个候选"时学习；空格直接收首选不算选择，
             # 否则输入法会把自己猜错的词学进去，越学越歪。
             if key and learn:
