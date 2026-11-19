@@ -21,7 +21,8 @@ mkdir -p "$STAGE/DEBIAN" \
          "$STAGE/usr/lib/ipinyin" \
          "$STAGE/usr/share/ipinyin/data" \
          "$STAGE/usr/share/ibus/component" \
-         "$STAGE/usr/share/doc/$PKG"
+         "$STAGE/usr/share/doc/$PKG" \
+         "$STAGE/usr/lib/systemd/user"
 
 say "拷贝代码"
 cp -r "$ROOT/src/ipinyin" "$STAGE/usr/lib/ipinyin/"
@@ -30,6 +31,8 @@ install -m 755 "$ROOT/packaging/deb/ipinyin-engine" "$STAGE/usr/bin/ipinyin-engi
 install -m 755 "$ROOT/packaging/deb/ipinyin-setup" "$STAGE/usr/bin/ipinyin-setup"
 install -m 755 "$ROOT/packaging/deb/ipinyin-ensure" "$STAGE/usr/bin/ipinyin-ensure"
 install -m 755 "$ROOT/packaging/deb/ipinyin-input-mode" "$STAGE/usr/bin/ipinyin-input-mode"
+install -m 755 "$ROOT/packaging/deb/ipinyin-watch" "$STAGE/usr/bin/ipinyin-watch"
+install -m 644 "$ROOT/packaging/deb/systemd/ipinyin-watch.service" "$STAGE/usr/lib/systemd/user/ipinyin-watch.service"
 
 say "打包 onnxruntime（粤语神经模型的开箱依赖）"
 WHEEL=$(ls "$ROOT"/packaging/vendor/onnxruntime-*.whl 2>/dev/null | head -1 || true)
@@ -92,7 +95,7 @@ install -m 755 "$ROOT/packaging/deb/postrm" "$STAGE/DEBIAN/postrm"
 say "规范权限（避免把 umask 带进包里）"
 find "$STAGE" -type d -exec chmod 755 {} +
 find "$STAGE" -type f -exec chmod 644 {} +
-chmod 755 "$STAGE/usr/bin/ipinyin-engine" "$STAGE/usr/bin/ipinyin-setup" "$STAGE/usr/bin/ipinyin-ensure" "$STAGE/usr/bin/ipinyin-input-mode" "$STAGE/DEBIAN/postinst" "$STAGE/DEBIAN/postrm"
+chmod 755 "$STAGE/usr/bin/ipinyin-engine" "$STAGE/usr/bin/ipinyin-setup" "$STAGE/usr/bin/ipinyin-ensure" "$STAGE/usr/bin/ipinyin-input-mode" "$STAGE/usr/bin/ipinyin-watch" "$STAGE/DEBIAN/postinst" "$STAGE/DEBIAN/postrm"
 
 say "生成 md5sums"
 (cd "$STAGE" && find usr -type f -print0 | sort -z | xargs -0 md5sum > DEBIAN/md5sums)

@@ -1,0 +1,39 @@
+#!/usr/bin/python3
+"""IPinyin 守护：每隔几秒确认输入法在位，不在就强制拉起来。
+
+为什么需要它：IBus 在引擎被杀 / daemon 重启后会把「当前引擎」清空，
+这时按键原样进应用——用户看到的就是「输入法不见了，打出来全是拼音」。
+引擎自己会自荐，但引擎要是没起来就没人自荐，所以必须有外部看门狗。
+"""
+import subprocess
+import sys
+import time
+
+INTERVAL = 3
+NAME = "ipinyin"
+
+
+def ibus(*args: str) -> str:
+    try:
+        done = subprocess.run(["ibus", *args], capture_output=True, text=True, timeout=5)
+        return (done.stdout or "").strip()
+    except (OSError, subprocess.SubprocessError):
+        return ""
+
+
+def main() -> int:
+    misses = 0
+    while True:
+        if ibus("engine") == NAME:
+            misses = 0
+        else:
+            # 连续两次不对才动手：切输入源的瞬间也会读到空，别自己打自己
+            misses += 1
+            if misses >= 2:
+                ibus("engine", NAME)
+                misses = 0
+        time.sleep(INTERVAL)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

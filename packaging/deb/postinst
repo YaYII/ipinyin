@@ -25,6 +25,9 @@ IPinyin 已安装。接下来（用你自己的账号，不要用 sudo）：
 
 升级说明：装完即生效——引擎进程已自动重启，正在运行的应用不用关。
 
+输入法守护：ipinyin-setup 会启用 ipinyin-watch 用户服务，
+每 3 秒确认一次输入法在位，被清空/被杀会自动拉起来（不用你手动 ibus restart）。
+
 朗读（Tab 切到粤语模式后按 Ctrl+回车）需要 espeak-ng：
 
   sudo apt install espeak-ng

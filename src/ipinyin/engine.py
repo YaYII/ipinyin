@@ -117,7 +117,8 @@ def _read_mode() -> str:
     try:
         with open(config.mode_path(), encoding="utf-8") as fh:
             mode = fh.read().strip()
-        return mode if mode in ("simp", "trad", "yue", "en") else "simp"
+        # 历史数据里可能有 en：那是临时档，启动时一律回中文
+        return mode if mode in ("simp", "trad", "yue") else "simp"
     except OSError:
         return "simp"
 
@@ -479,7 +480,8 @@ class PinyinEngine(IBus.Engine):
             self._sync()
         elif action is Action.TOGGLE_TRAD:
             mode = self.ime.cycle_mode()
-            _write_mode(mode)
+            if mode != "en":
+                _write_mode(mode)      # 英文档不落盘：重启必须回到中文，否则看起来像坏了
             if mode != "en":
                 self._last_cn_mode = mode
             LOG.info("切换到%s", {"simp": "简体", "trad": "繁体", "yue": "粤语", "en": "英文"}[mode])

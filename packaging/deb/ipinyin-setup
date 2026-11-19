@@ -82,6 +82,10 @@ def main() -> int:
         if subprocess.run(cmd, capture_output=True).returncode == 0:
             break
     subprocess.run(["ibus", "engine", "ipinyin"], capture_output=True)
+    # 看门狗：引擎位被清空时自动拉起来（systemd 用户服务，登录后常驻）
+    subprocess.run(["systemctl", "--user", "daemon-reload"], capture_output=True)
+    subprocess.run(["systemctl", "--user", "enable", "--now", "ipinyin-watch.service"],
+                   capture_output=True)
     name = subprocess.run(["ibus", "engine"], capture_output=True, text=True).stdout.strip()
     print(f"输入源：{sources}")
     print(f"当前引擎：{name or '(未生效，请注销重登一次)'}")

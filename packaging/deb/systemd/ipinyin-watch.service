@@ -1,0 +1,12 @@
+[Unit]
+Description=IPinyin 输入法守护（引擎位空了就拉起来）
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ipinyin-watch
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target
