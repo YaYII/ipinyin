@@ -223,7 +223,9 @@ def _ensure_global_engine(reason: str) -> None:
         return
     LOG.info("全局引擎为空（%s），自荐回 ipinyin", reason)
     try:
-        bus.set_global_engine("ipinyin")
+        ok = bus.set_global_engine("ipinyin")
+        if not ok:
+            LOG.warning("自荐被拒绝（set_global_engine 返回 False）")
     except GLib.Error as exc:
         LOG.warning("自动设置全局引擎失败：%s", exc.message)
 
@@ -891,7 +893,7 @@ def main(argv: list[str] | None = None) -> int:
     _BUS = bus
     _ensure_global_engine("启动")
     # 启动时自荐可能被 ibus-daemon 随后的初始化覆盖，隔几秒再复查几次
-    for delay in (2000, 6000, 15000):
+    for delay in (2000, 6000, 15000, 30000, 60000):
         GLib.timeout_add(delay, lambda: (_ensure_global_engine("启动后复查"), False)[1])
 
     LOG.info("引擎已注册，进入主循环")
