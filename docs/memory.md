@@ -70,3 +70,29 @@ ipinyin-memory wipe           # 清空全部
 
 「拿不到」的三项不是没做，是平台限制：Wayland 下引擎拿不到焦点窗口信息，
 XWayland 应用理论上可以用 `xdotool` 取到，但原生 Wayland 应用一律不可见。
+
+## 屏幕感知（vision）
+
+输入法自己截不了图：GNOME Wayland 下 `org.gnome.Shell.Screenshot` 直接返回
+`AccessDenied: Screenshot is not allowed`，Screenshot portal 每次都要弹窗确认。
+
+所以当前用「监看截图目录」：你按 PrintScreen，`ipinyin-vision` 发现新图后调用
+可插拔的视觉模型命令，把「这一屏在做什么」写进 `vision.jsonl`。
+
+```bash
+ipinyin-vision status      # 监看哪些目录、模型命令配没配
+ipinyin-vision scan        # 只列新截图
+ipinyin-vision once        # 扫一次并调用模型
+ipinyin-vision watch       # 每 20 秒扫一次
+ipinyin-vision recent 10   # 最近 10 条上下文
+
+# 模型命令（{image}/{prompt} 会被替换）
+export IPINYIN_VISION_CMD='opencode run --model deepseek-v4.1-flash -f {image} "{prompt}"'
+```
+
+默认监看 `~/Pictures/截图`、`~/Pictures/Screenshots` 和 `vision/inbox`，
+可用 `IPINYIN_VISION_DIRS` 覆盖（`:` 分隔）。
+
+**真正的全自动**需要 ScreenCast portal 的一次性授权 + `restore_token`
+（GNOME 42+ 支持恢复令牌，授权一次之后可静默重连）；或者切到 Xorg 会话，
+X11 下 `import`/`xwd` 截屏无需任何授权。
