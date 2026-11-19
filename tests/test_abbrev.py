@@ -65,3 +65,23 @@ def test_partial_typing_does_not_expand(ime):
     assert ime._abbrev_segments("nih") is None
     assert ime._abbrev_segments("qingkx") is not None
     assert ime._abbrev_segments("qingkuangxia") is None   # 整拼不展开
+
+
+def test_mixed_abbreviation_three_segments(ime):
+    """zenmhuituran / huichux：中间夹一个首字母的混合式，不能退化成原文。
+
+    回归：曾经因为「英文直出」的判定过宽，这类输入被当成英文直接上屏，
+    打出来的就是拼音字母本身。
+    """
+    for text, want in (("zenmhuituran", "怎么会突然"), ("huichux", "会出现")):
+        ime.clear()
+        for char in text:
+            ime.insert(char)
+        assert ime.view().words[0] == want
+
+
+def test_normal_prefix_not_broken(ime):
+    """nih 这种正常打一半的，仍然走前缀补全。"""
+    for char in "nih":
+        ime.insert(char)
+    assert ime.view().words[0] == "你好"

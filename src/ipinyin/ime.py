@@ -17,6 +17,7 @@ from .yue import YueConverter
 from .user_model import ModeModels, UserModel
 
 PAGE_SIZE = 9
+ABBREV_MAX_INITIALS = 3
 ABBREV_COMBOS = 200      # 简拼展开最多试多少条完整拼音
 ABBREV_OPTIONS = 12      # 每个首字母最多展开几个音节（kuang 这种排在 7~9 位，6 个不够）
 MAX_BUFFER = 48
@@ -114,7 +115,6 @@ class ImeState:
         self.last_commit_key = ""                # 最近一次上屏消耗掉的拼音
         self.last_commit_full = ""               # 候选原本对应的完整拼音键
         self.last_commit_typed = ""              # 你实际敲的（简拼/前缀补全时更短）
-        self.plain_text = False                  # 当前串不像拼音（英文直出用）
         self._yue_cache: dict[str, str] = {}     # 首选候选的粤语神经结果（切模式不重算）
         self._candidates: list[str] = []         # 实际上屏用（按繁体开关转换）
         self._display: list[str] = []            # 候选窗显示用（简/繁并列）
@@ -129,7 +129,6 @@ class ImeState:
         if not char or len(self.buffer) >= MAX_BUFFER:
             return False
         self.buffer += char
-        self.plain_text = False
         self._segment = -1
         self._rebuild()
         return True
@@ -146,7 +145,6 @@ class ImeState:
         if not self.buffer:
             return False
         self.buffer = ""
-        self.plain_text = False
         self._candidates = []
         self._keys = []
         self._page = 0
@@ -261,9 +259,18 @@ class ImeState:
             segments.append((text[index], options))
             initials += 1
             index += 1
-        # 只展开「首音节全拼 + 1 个首字母」这种两段式（qingkx / banbl）：
-        # 三段以上（qkx）组合爆炸，交给静态简拼表 + 一次全拼学习即可
-        return segments if initials == 2 else None
+        # 展开 1~3 个首字母的混合式：
+        #   qingkx（1 个）→ 情况下      banbl（1 个）→ 办不了
+        #   zenmhuituran（1 个，在中间）→ 怎么会突然
+        # 每段都按音节词频剪枝到 ABBREV_COMBOS 条，所以三段也不会爆炸。
+        # 4 个以上不展开：收益低、组合多。
+        if not (1 <= initials <= ABBREV_MAX_INITIALS):
+            return None
+        # 「nih」这种两段、首字母在末尾的，交给前缀补全（展开反而多花几毫秒）；
+        # 「huichux」是三段、末尾也是首字母，那种必须展开，否则只剩原文
+        if len(segments) == 2 and segments[-1][1] is not None:
+            return None
+        return segments
 
     def _expand_abbreviation(self, text: str) -> list[str]:
         """简拼 → 若干条候选完整拼音串（按音节词频剪枝）。
@@ -303,6 +310,17 @@ class ImeState:
             return []
         fixed = "".join(piece for piece, options in segments if options is None)
         tail = [piece for piece, options in segments if options is not None]
+        if len(tail) != 2:
+            # 1 个或 3 个首字母（zenmhuituran / huichux）：走通用展开 + 整句切分。
+            # 2 个的那种有专门的「按词组合」逻辑，见下面。
+            scored: list[tuple[float, str]] = []
+            for full in self._expand_abbreviation(text)[:12]:
+                for _score, path in best_paths_scored(self.lexicon, full, k=2):
+                    word = "".join(path)
+                    if len(word) > 1:
+                        scored.append((self._lm_score(word, 0.0), word))
+            scored.sort(key=lambda item: -item[0])
+            return scored[:9]
         options1 = [s for s, _ in self.lexicon.syllable_options(tail[0], 24)]
         options2 = [s for s, _ in self.lexicon.syllable_options(tail[1], 24)]
 
@@ -552,23 +570,6 @@ class ImeState:
             _, _, self._candidates, self._display, self._keys = cached
             self.last_build_ms = (time.perf_counter() - started) * 1000
             return
-
-        # 快路径：不像拼音的串（hello / word / nice 这类英文）只要没有可补的前缀，
-        # 就直接把原文当唯一候选——跳过整句切分、语言模型、粤语转换。
-        # 英文打字本来就不该走中文那套（实测每键 20~30ms，卡得明显）。
-        if not self.lexicon.split_syllables(text):
-            learned = self.user_model.preferred(text) if self.user_model else []
-            if (not learned and self._abbrev_segments(text) is None
-                    and not self.lexicon.prefix_entries(text)[:1]
-                    and not self.lexicon.initials_entries(text)):
-                self.plain_text = True
-                self._candidates = [text]
-                self._display = [text]
-                self._keys = [text]
-                self._page = 0
-                self._highlighted = 0
-                self.last_build_ms = (time.perf_counter() - started) * 1000
-                return
 
         # 词库里偶有「w → w」这种字母当词的垃圾条目，会顶掉真正的候选
         exact = [(w, f) for w, f in self.lexicon.entries(text)
