@@ -436,8 +436,20 @@ class PinyinEngine(IBus.Engine):
             self._speak_auto(text)
         self._sync_now()
 
+    def _refresh_tts_auto(self) -> None:
+        """状态文件可能被 bin/ipinyin-tts 改过：上屏前重读，不用重启引擎。"""
+        if os.environ.get("IPINYIN_TTS_AUTO") == "1":
+            self._tts_auto = True
+            return
+        try:
+            with open(_tts_auto_path(), encoding="utf-8") as handle:
+                self._tts_auto = handle.read().strip() == "1"
+        except OSError:
+            self._tts_auto = False
+
     def _speak_auto(self, text: str) -> None:
-        """上屏即读：IPINYIN_TTS_AUTO=1 才开（默认关，打字时不吵）。"""
+        """上屏即读：开关由 F9 或 ipinyin-tts on/off 控制（默认关，打字时不吵）。"""
+        self._refresh_tts_auto()
         if not config.tts_enabled() or not self._tts_auto:
             return
         from .speak import get_speaker, voice_for
@@ -509,6 +521,7 @@ class PinyinEngine(IBus.Engine):
         """在预编辑上方显示当前模式与朗读开关，避免忘了自己在哪个状态。"""
         if self._ime is None:
             return
+        self._refresh_tts_auto()   # CLI 改了状态也要立刻反映到提示上
         label = {"simp": "简体", "trad": "繁体", "yue": "粤语"}.get(self.ime.mode, "")
         # 状态可见：音:开 = 上屏即读；音:关 = 只按 Ctrl+回车 才念
         label = f"{label} · 音:{'开' if self._tts_auto else '关'}"

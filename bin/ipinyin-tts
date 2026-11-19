@@ -1,0 +1,17 @@
+#!/bin/sh
+# 上屏即读 开/关。改状态文件，引擎在下次上屏时读取生效，不用重启。
+# 用法：ipinyin-tts on | off | status
+FILE="${XDG_DATA_HOME:-$HOME/.local/share}/ipinyin/tts_auto"
+mkdir -p "$(dirname "$FILE")" 2>/dev/null
+case "$1" in
+    on)  printf '1' > "$FILE" && echo "上屏即读：开（每次上屏自动念）" ;;
+    off) printf '0' > "$FILE" && echo "上屏即读：关（只有 Ctrl+回车 才念）" ;;
+    ""|status)
+        if [ "$(cat "$FILE" 2>/dev/null)" = "1" ]; then
+            echo "上屏即读：开"
+        else
+            echo "上屏即读：关"
+        fi
+        ;;
+    *) echo "用法: ipinyin-tts on|off|status"; exit 2 ;;
+esac
