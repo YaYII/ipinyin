@@ -193,3 +193,19 @@ python3 tools/tts_doctor.py --no-env # 只看记录
   接进朗读前先用它洗一遍。
 - **多音字**：词级优先的 `yue.marshal` 解决了大半，人名/生僻词仍会读错——接受。
 - **朗读与输入抢焦点**：朗读时继续打字会立刻停声（新朗读打断旧朗读），不排队。
+
+
+## 三档朗读（2026-11-19）
+
+`F9` 循环三档，状态条显示 `音:关` / `音:粤语` / `音:汕头`：
+
+| 档 | 念什么 | 声线 |
+|---|---|---|
+| 关 | 不念（Ctrl+回车 仍可手念） | — |
+| 粤语 | 粤语写法（汉字） | espeak `yue` / edge `zh-HK-WanLungNeural` |
+| 汕头 | **潮拼**（如 `le2 ho2`） | espeak `yue-Latn-jyutping` |
+
+**注意**：espeak-ng 没有潮州话声线（132 个声线里只有 cmn / yue），
+汕头档是拿粤拼声线读潮拼，属于**近似**——声调数和韵母都不完全对得上。
+要真声需要自己训 TTS：现成数据有 [Teochew-Wild](https://huggingface.co/datasets/panlr/teochew_wild)
+（18.9 小时、正字+拼音标注）和 [BigVGAN 潮州话声码器](https://huggingface.co/panlr/BigVGAN_22khz_teochew)。

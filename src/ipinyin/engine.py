@@ -161,19 +161,27 @@ def _tts_auto_path() -> str:
     return os.path.join(config.data_home(), "tts_auto")
 
 
-def _read_tts_auto() -> bool:
+# 朗读三档：关 / 粤语 / 汕头。文件里存 off|yue|chao（旧的 1/0 兼容成 yue/off）
+TTS_STATES = ("off", "yue", "chao")
+TTS_LABELS = {"off": "关", "yue": "粤语", "chao": "汕头"}
+
+
+def _read_tts_auto() -> str:
     try:
         with open(_tts_auto_path(), encoding="utf-8") as handle:
-            return handle.read().strip() == "1"
+            raw = handle.read().strip()
     except OSError:
-        return False
+        return "off"
+    if raw in TTS_STATES:
+        return raw
+    return "yue" if raw == "1" else "off"
 
 
-def _write_tts_auto(on: bool) -> None:
+def _write_tts_auto(state: str) -> None:
     try:
         os.makedirs(os.path.dirname(_tts_auto_path()), exist_ok=True)
         with open(_tts_auto_path(), "w", encoding="utf-8") as handle:
-            handle.write("1" if on else "0")
+            handle.write(state if state in TTS_STATES else "off")
     except OSError:
         pass
 
@@ -273,7 +281,7 @@ class PinyinEngine(IBus.Engine):
         self._sync_source = 0
         self._last_commit_info: tuple[str, str, float] | None = None
         # 上屏即读：F9 切换，持久化到 ~/.local/share/ipinyin/tts_auto
-        self._tts_auto = os.environ.get("IPINYIN_TTS_AUTO") == "1" or _read_tts_auto()
+        self._tts_state = "yue" if os.environ.get("IPINYIN_TTS_AUTO") == "1" else _read_tts_auto()
         self._hint_source = 0   # 切换后短暂显示状态用的 GLib 定时器
         self._neural_source = 0  # 粤语档：空闲后升级神经写法的定时器
         self._last_hint: tuple[str, bool] = ("", False)
@@ -450,9 +458,10 @@ class PinyinEngine(IBus.Engine):
 
         # F9：上屏即读 开/关（随时可按，不用在输入中）
         if action is Action.TOGGLE_TTS:
-            self._tts_auto = not self._tts_auto
-            _write_tts_auto(self._tts_auto)
-            LOG.info("上屏即读 %s", "开启" if self._tts_auto else "关闭")
+            index = TTS_STATES.index(self._tts_state) if self._tts_state in TTS_STATES else 0
+            self._tts_state = TTS_STATES[(index + 1) % len(TTS_STATES)]
+            _write_tts_auto(self._tts_state)
+            LOG.info("上屏即读：%s", TTS_LABELS[self._tts_state])
             self._flash_mode_hint()
             return True
 
@@ -645,21 +654,24 @@ class PinyinEngine(IBus.Engine):
             return
         self._tts_checked = now
         if os.environ.get("IPINYIN_TTS_AUTO") == "1":
-            self._tts_auto = True
+            self._tts_state = "yue"
             return
-        try:
-            with open(_tts_auto_path(), encoding="utf-8") as handle:
-                self._tts_auto = handle.read().strip() == "1"
-        except OSError:
-            self._tts_auto = False
+        self._tts_state = _read_tts_auto()
 
     def _speak_auto(self, text: str) -> None:
-        """上屏即读：开关由 F9 或 ipinyin-tts on/off 控制（默认关，打字时不吵）。"""
+        """上屏即读：F9 三档循环 关 → 粤语 → 汕头（默认关，打字时不吵）。"""
         self._refresh_tts_auto()
-        if not config.tts_enabled() or not self._tts_auto:
+        state = getattr(self, "_tts_state", "off")
+        if not config.tts_enabled() or state == "off" or not text:
             return
         from .speak import get_speaker, voice_for
 
+        if state == "chao":
+            # espeak 没有潮州话声线，用粤拼声线读潮拼（近似，不是真人）
+            if self._ime is not None and self._ime.chao is not None:
+                text = self._ime.chao.pengim(text) or text
+            get_speaker().speak(text, voice_for("chao"))
+            return
         mode = self._ime.mode if self._ime is not None else "simp"
         get_speaker().speak(text, voice_for(mode))
 
@@ -807,8 +819,9 @@ class PinyinEngine(IBus.Engine):
         self._refresh_tts_auto()   # CLI 改了状态也要立刻反映到提示上
         label = {"simp": "简体", "trad": "繁体", "yue": "粤语",
                  "chao": "潮汕·汕头"}.get(self.ime.mode, "")
-        # 状态可见：音:开 = 上屏即读；音:关 = 只按 Ctrl+回车 才念
-        label = (f"{label} · 音:{'开' if self._tts_auto else '关'}"
+        # 状态可见：音:关/粤语/汕头 = 上屏即读的三档（Ctrl+回车 另算）
+        state = getattr(self, "_tts_state", "off")
+        label = (f"{label} · 音:{TTS_LABELS.get(state, '关')}"
                  f" · AI:{'开' if self._ai_active() else '关'}")
         visible = bool(self.ime.buffer) or force
         self._send_hint(label if visible else "", visible, force)

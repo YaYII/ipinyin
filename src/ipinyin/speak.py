@@ -36,7 +36,10 @@ PINYIN_VOICE = "cmn-Latn-pinyin"
 YUE_VOICE = "yue"
 
 # 输出模式 → 声线
-VOICE_BY_MODE = {"simp": PINYIN_VOICE, "trad": PINYIN_VOICE, "yue": YUE_VOICE}
+# espeak 没有潮州话声线：潮拼借用粤拼声线读（同属粤闽音节结构，近似但不等于真人）
+CHAO_VOICE = "yue-Latn-jyutping"
+VOICE_BY_MODE = {"simp": PINYIN_VOICE, "trad": PINYIN_VOICE, "yue": YUE_VOICE,
+                 "chao": CHAO_VOICE}
 
 # 按优先级找播放器：pipewire/pulse → alsa → ffmpeg
 PLAYERS = (
