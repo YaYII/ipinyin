@@ -86,8 +86,29 @@ ipinyin-vision once        # 扫一次并调用模型
 ipinyin-vision watch       # 每 20 秒扫一次
 ipinyin-vision recent 10   # 最近 10 条上下文
 
-# 模型命令（{image}/{prompt} 会被替换）
+# 模型命令（{image}/{prompt} 会被替换）——不配也行，默认走 opencode-go
 export IPINYIN_VISION_CMD='opencode run --model deepseek-v4.1-flash -f {image} "{prompt}"'
+```
+
+### 默认模型：复用 opencode-go 订阅
+
+不配置任何东西时，`describe()` 会走 opencode-go（OpenAI 兼容），
+key 从 DSH 凭证 `~/.dsh/.credentials.yaml` 的 `OPENCODE_GO_API_KEY` 读取——
+和 DSH 用的是同一个订阅，不需要另外申请。
+
+| 变量 | 默认 | 说明 |
+| --- | --- | --- |
+| `IPINYIN_VISION_BASE` | `https://opencode.ai/zen/go/v1` | 网关地址 |
+| `IPINYIN_VISION_MODEL` | `deepseek-v4.1-flash` | 视觉模型 |
+| `IPINYIN_VISION_SESSION` | `ses_ipinyin_vision` | 网关要求的路由头 `x-opencode-session` |
+| `IPINYIN_VISION_CMD` | 空 | 自定义命令，优先于内置通道 |
+
+实测（三张真实截图）：
+
+```
+财务/还款管理后台核对 2026年9月还款结果，MOP 666,116.00
+中葡双语公文表单，日期栏已填入 05/10/2026
+文档查看器中的标识符 20261007364/DAPE/FR P
 ```
 
 默认监看 `~/Pictures/截图`、`~/Pictures/Screenshots` 和 `vision/inbox`，

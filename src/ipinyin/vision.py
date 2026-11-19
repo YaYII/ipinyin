@@ -91,8 +91,8 @@ def _save_state(state: dict) -> None:
         pass
 
 
-def scan() -> list[str]:
-    """返回上次之后新增的截图（按修改时间排序）。"""
+def scan(mark: bool = True) -> list[str]:
+    """返回上次之后新增的截图（按修改时间排序）；mark=False 时先不记，处理完再记。"""
     state = _load_state()
     seen: dict[str, float] = state.get("seen", {})
     fresh: list[tuple[float, str]] = []
@@ -119,17 +119,99 @@ def scan() -> list[str]:
     if len(seen) > 500:
         for key in sorted(seen, key=lambda k: seen[k])[: len(seen) - 500]:
             seen.pop(key, None)
-    state["seen"] = seen
-    _save_state(state)
+    if mark:
+        state["seen"] = seen
+        _save_state(state)
     return [path for _, path in fresh]
 
 
+def mark_seen(path: str) -> None:
+    """处理完一张再标记，避免「扫到 392 张只处理 3 张，其余被吞掉」。"""
+    state = _load_state()
+    seen = state.setdefault("seen", {})
+    try:
+        seen[path] = os.path.getmtime(path)
+    except OSError:
+        return
+    _save_state(state)
+
+
+OPENCODE_BASE = os.environ.get("IPINYIN_VISION_BASE", "https://opencode.ai/zen/go/v1")
+OPENCODE_MODEL = os.environ.get("IPINYIN_VISION_MODEL", "deepseek-v4.1-flash")
+OPENCODE_CRED = os.path.expanduser("~/.dsh/.credentials.yaml")
+# 该网关要求带会话标识做路由；给视觉单独一个，别和 DSH 会话混在一起
+OPENCODE_SESSION = os.environ.get("IPINYIN_VISION_SESSION", "ses_ipinyin_vision")
+
+
+def _opencode_key() -> str | None:
+    """从 DSH 凭证里取 opencode-go 的 key（同一个订阅，不额外申请）。"""
+    env_key = os.environ.get("OPENCODE_GO_API_KEY", "").strip()
+    if env_key:
+        return env_key
+    try:
+        import re
+
+        with open(OPENCODE_CRED, encoding="utf-8") as handle:
+            text = handle.read()
+    except OSError:
+        return None
+    match = re.search(r"OPENCODE_GO_API_KEY:\s*(\S+)", text)
+    return match.group(1) if match else None
+
+
+def _describe_opencode(image: str, prompt: str) -> str | None:
+    """走 opencode-go（OpenAI 兼容）的视觉模型，用 curl 免得被 UA 拦。"""
+    key = _opencode_key()
+    if not key:
+        return None
+    import base64
+    import json
+
+    try:
+        with open(image, "rb") as handle:
+            encoded = base64.b64encode(handle.read()).decode()
+    except OSError:
+        return None
+    body = {
+        "model": OPENCODE_MODEL,
+        "max_tokens": 1500,
+        "messages": [{"role": "user", "content": [
+            {"type": "text", "text": prompt},
+            {"type": "image_url", "image_url": {"url": "data:image/png;base64," + encoded}},
+        ]}],
+    }
+    try:
+        done = subprocess.run(
+            ["curl", "-sS", "--max-time", "90", "-A", "ipinyin-vision/1.0",
+             OPENCODE_BASE + "/chat/completions",
+             "-H", f"Authorization: Bearer {key}",
+             "-H", "Content-Type: application/json",
+             "-H", f"x-opencode-session: {OPENCODE_SESSION}",
+             "--data-binary", "@-"],
+            input=json.dumps(body), capture_output=True, text=True, timeout=120, check=False,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        LOG.warning("视觉模型调用失败：%s", exc)
+        return None
+    if done.returncode != 0:
+        LOG.warning("视觉模型调用失败：curl %s", done.returncode)
+        return None
+    try:
+        payload = json.loads(done.stdout)
+        message = payload["choices"][0]["message"]
+    except (ValueError, KeyError, IndexError):
+        LOG.warning("视觉模型返回不可解析：%s", (done.stdout or "")[:200])
+        return None
+    text = " ".join((message.get("content") or "").split())
+    return text[:MAX_DESC] or None
+
+
 def describe(image: str) -> str | None:
-    """调用视觉模型命令；没配置或失败返回 None（绝不抛）。"""
+    """调用视觉模型：自定义命令优先，其次 opencode-go；都不可用返回 None。"""
+    prompt = os.environ.get("IPINYIN_VISION_PROMPT", DEFAULT_PROMPT)
     template = os.environ.get("IPINYIN_VISION_CMD", "").strip()
     if not template:
-        return None
-    prompt = os.environ.get("IPINYIN_VISION_PROMPT", DEFAULT_PROMPT)
+        return _describe_opencode(image, prompt)
     command = template.replace("{image}", shlex.quote(image)).replace(
         "{prompt}", shlex.quote(prompt))
     try:
@@ -149,7 +231,8 @@ def describe(image: str) -> str | None:
 def capture_context(limit: int = 3) -> list[dict]:
     """扫新截图 → 逐张描述 → 落 vision.jsonl。"""
     results: list[dict] = []
-    for path in scan()[:limit]:
+    for path in scan(mark=False)[:limit]:
+        mark_seen(path)
         frame = _copy_frame(path)
         desc = describe(frame)
         entry = {

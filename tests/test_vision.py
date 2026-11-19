@@ -107,3 +107,30 @@ def test_cleanup_never_touches_original_dirs(tmp_path, monkeypatch):
     original.write_bytes(b"x")
     vision.cleanup()
     assert original.exists(), "原图目录不在清理范围"
+
+
+def test_opencode_key_reads_dsh_credentials(tmp_path, monkeypatch):
+    cred = tmp_path / "credentials.yaml"
+    cred.write_text("version: 1\nrefs:\n  OPENCODE_GO_API_KEY: sk-test-123\n", encoding="utf-8")
+    monkeypatch.setattr(vision, "OPENCODE_CRED", str(cred))
+    monkeypatch.delenv("OPENCODE_GO_API_KEY", raising=False)
+    assert vision._opencode_key() == "sk-test-123"
+
+
+def test_opencode_key_prefers_env(tmp_path, monkeypatch):
+    cred = tmp_path / "credentials.yaml"
+    cred.write_text("refs:\n  OPENCODE_GO_API_KEY: from-file\n", encoding="utf-8")
+    monkeypatch.setattr(vision, "OPENCODE_CRED", str(cred))
+    monkeypatch.setenv("OPENCODE_GO_API_KEY", "from-env")
+    assert vision._opencode_key() == "from-env"
+
+
+def test_describe_without_any_backend(tmp_path, monkeypatch):
+    """没有自定义命令、也没有 key：返回 None，不能抛。"""
+    shots = _isolate(tmp_path, monkeypatch)
+    image = shots / "a.png"
+    image.write_bytes(b"x")
+    monkeypatch.delenv("IPINYIN_VISION_CMD", raising=False)
+    monkeypatch.delenv("OPENCODE_GO_API_KEY", raising=False)
+    monkeypatch.setattr(vision, "OPENCODE_CRED", str(tmp_path / "missing.yaml"))
+    assert vision.describe(str(image)) is None
