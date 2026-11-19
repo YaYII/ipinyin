@@ -23,6 +23,7 @@ KEY_BRACKET_LEFT = 0x5B    # [
 KEY_BRACKET_RIGHT = 0x5D   # ]
 KEY_BRACE_LEFT = 0x7B      # {
 KEY_BRACE_RIGHT = 0x7D     # }
+KEY_F9 = 0xFFC6            # F9：切换「上屏即读」
 
 RELEASE_MASK = 1 << 30
 SHIFT_MASK = 1 << 0
@@ -46,6 +47,7 @@ class Action(Enum):
     SEG_PREV = auto()   # 左右：切拼音段（你/nihao/nihaoma）
     SEG_NEXT = auto()
     TOGGLE_TRAD = auto()
+    TOGGLE_TTS = auto()   # F9：上屏即读 开/关
     SPEAK = auto()        # Ctrl+回车：朗读当前候选（没候选就念刚上屏的那句）
     PASSTHROUGH = auto()  # 输入中遇到标点：先提交再交给应用
 
@@ -78,6 +80,8 @@ def translate(keyval: int, state: int) -> tuple[Action, str]:
         return Action.BACKSPACE, ""
     if keyval == KEY_TAB:
         return Action.TOGGLE_TRAD, ""
+    if keyval == KEY_F9:
+        return Action.TOGGLE_TTS, ""
     if keyval == KEY_ESCAPE:
         return Action.CLEAR, ""
 

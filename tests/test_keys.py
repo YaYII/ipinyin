@@ -17,6 +17,7 @@ from ipinyin import keys
         (0xFF55, keys.Action.PAGE_PREV),
         (0x2D, keys.Action.PAGE_PREV),
         (0xFF56, keys.Action.PAGE_NEXT),
+        (0xFFC6, keys.Action.TOGGLE_TTS),   # F9：上屏即读 开/关
         (0x3D, keys.Action.PAGE_NEXT),
         (0x5B, keys.Action.PAGE_PREV),      # [
         (0x5D, keys.Action.PAGE_NEXT),      # ]

@@ -142,6 +142,27 @@ def _valid_pair(key: str, word: str) -> bool:
     return len(word) in get_lexicon().syllable_counts(key)
 
 
+def _tts_auto_path() -> str:
+    return os.path.join(config.data_home(), "tts_auto")
+
+
+def _read_tts_auto() -> bool:
+    try:
+        with open(_tts_auto_path(), encoding="utf-8") as handle:
+            return handle.read().strip() == "1"
+    except OSError:
+        return False
+
+
+def _write_tts_auto(on: bool) -> None:
+    try:
+        os.makedirs(os.path.dirname(_tts_auto_path()), exist_ok=True)
+        with open(_tts_auto_path(), "w", encoding="utf-8") as handle:
+            handle.write("1" if on else "0")
+    except OSError:
+        pass
+
+
 def get_models() -> ModeModels:
     """三份个人词频（简/繁/粤各一份），互不干扰。"""
     global _MODELS
@@ -204,6 +225,8 @@ class PinyinEngine(IBus.Engine):
         self._last_sync = 0.0
         self._sync_source = 0
         self._last_commit_info: tuple[str, str, float] | None = None
+        # 上屏即读：F9 切换，持久化到 ~/.local/share/ipinyin/tts_auto
+        self._tts_auto = os.environ.get("IPINYIN_TTS_AUTO") == "1" or _read_tts_auto()
         self._english = False       # 轻按 Shift 在中/英之间切换
         # 系统按键连发（auto-repeat）防护：同键 50ms 内反复到达，只认前两次
         self._repeat_key = -1
@@ -310,6 +333,14 @@ class PinyinEngine(IBus.Engine):
         if action is Action.SPEAK:
             return self._speak()
 
+        # F9：上屏即读 开/关（随时可按，不用在输入中）
+        if action is Action.TOGGLE_TTS:
+            self._tts_auto = not self._tts_auto
+            _write_tts_auto(self._tts_auto)
+            LOG.info("上屏即读 %s", "开启" if self._tts_auto else "关闭")
+            self._push_mode_hint()
+            return True
+
         if action is Action.LETTER:
             now = time.monotonic()
             if keyval == self._repeat_key and (now - self._repeat_at) < 0.05:
@@ -406,7 +437,7 @@ class PinyinEngine(IBus.Engine):
 
     def _speak_auto(self, text: str) -> None:
         """上屏即读：IPINYIN_TTS_AUTO=1 才开（默认关，打字时不吵）。"""
-        if not config.tts_enabled() or os.environ.get("IPINYIN_TTS_AUTO", "0") != "1":
+        if not config.tts_enabled() or not self._tts_auto:
             return
         from .speak import get_speaker, voice_for
 
@@ -466,6 +497,8 @@ class PinyinEngine(IBus.Engine):
         if self._ime is None:
             return
         label = {"simp": "简体", "trad": "繁体", "yue": "粤语"}.get(self.ime.mode, "")
+        # 状态可见：音:开 = 上屏即读；音:关 = 只按 Ctrl+回车 才念
+        label = f"{label} · 音:{'开' if self._tts_auto else '关'}"
         visible = bool(self.ime.buffer)
         self.update_auxiliary_text(IBus.Text.new_from_string(label if visible else ""), visible)
 
