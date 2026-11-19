@@ -287,6 +287,15 @@ class PinyinEngine(IBus.Engine):
             self.hide_lookup_table()
         get_user_model().flush_if_dirty()
 
+    def do_set_cursor_location(self, x, y, w, h):
+        """输入框光标的屏幕坐标：屏幕感知靠它判断「你在哪块屏幕打字」。"""
+        try:
+            from . import screencast
+
+            screencast.write_cursor(x, y, w, h)
+        except Exception:
+            pass
+
     def do_focus_in(self):
         # 焦点切换也是一种触角：切得越频繁，说明越在多个任务间跳
         gap = int((time.monotonic() - self._last_focus_at) * 1000) if self._last_focus_at else 0

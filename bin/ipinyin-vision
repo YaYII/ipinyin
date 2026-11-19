@@ -8,6 +8,7 @@
     ipinyin-vision watch           常驻：每 20 秒扫一次（Ctrl+C 退出）
     ipinyin-vision recent [N]      看最近 N 条上下文
     ipinyin-vision cleanup [天数]  删掉自己帧目录里过期的图（默认保留 1 天）
+    ipinyin-vision screencast      常驻截屏（首次会弹一次授权，之后靠 restore_token 静默）
 
 模型命令用环境变量配置（{image} / {prompt} 会被替换）：
     export IPINYIN_VISION_CMD='opencode run --model deepseek-v4.1-flash -f {image} "{prompt}"'
@@ -40,6 +41,11 @@ def main(argv: list[str]) -> int:
         print(f"模型命令：{'已配置' if info['cmd'] else '未配置（只记录截图路径）'}")
         print(f"已记录上下文：{info['entries']} 条")
         print(f"自有帧：{info['frames']} 张（保留 {info['retention_days']} 天，过期自动删）")
+        from ipinyin import screencast
+
+        sc = screencast.status()
+        print(f"屏幕感知：{'已授权' if sc['authorized'] else '未授权'}，"
+              f"{len(sc['streams'])} 块屏幕，{sc['frames']} 帧待处理")
         print(f"数据目录：{info['home']}")
         return 0
     if command == "scan":
@@ -54,6 +60,10 @@ def main(argv: list[str]) -> int:
         for row in rows:
             print(f"  {os.path.basename(row['image'])}: {row['desc'] or '（未调用模型）'}")
         return 0
+    if command == "screencast":
+        from ipinyin import screencast
+
+        return screencast.main(argv)
     if command == "cleanup":
         days = int(argv[2]) if len(argv) > 2 else None
         result = vision.cleanup(days)
