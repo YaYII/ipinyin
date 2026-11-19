@@ -86,7 +86,7 @@ def test_edge_wins_over_espeak(tmp_path, monkeypatch):
         "done\n"
         'printf "MP3" > "$out"\n',
     )
-    ffmpeg = _fake_script(tmp_path / "fake-ffmpeg", 'for last; do :; done\nprintf "RIFFedge" > "$last"\n')
+    ffmpeg = _fake_script(tmp_path / "fake-ffmpeg", 'for last; do :; done\n[ "$last" = "-" ] && exit 0\nprintf "RIFFedge" > "$last"\n')
     monkeypatch.setattr(speak.shutil, "which", lambda name: ffmpeg if name == "ffmpeg" else None)
     speaker = speak.Speaker(
         binary=espeak, player=["true"], cache_dir=str(tmp_path / "cache"), edge=[edge], unit_lib=None
@@ -122,13 +122,13 @@ def test_edge_cache_does_not_leak_into_espeak(tmp_path, monkeypatch):
         "done\n"
         'printf "MP3" > "$out"\n',
     )
-    ffmpeg = _fake_script(tmp_path / "fake-ffmpeg", 'for last; do :; done\nprintf "RIFFedge" > "$last"\n')
+    ffmpeg = _fake_script(tmp_path / "fake-ffmpeg", 'for last; do :; done\n[ "$last" = "-" ] && exit 0\nprintf "RIFFedge" > "$last"\n')
     monkeypatch.setattr(speak.shutil, "which", lambda name: ffmpeg if name == "ffmpeg" else None)
     cache = str(tmp_path / "cache")
     assert speak.Speaker(binary=espeak, player=["true"], cache_dir=cache,
-                         edge=[edge]).wav("你好", speak.YUE_VOICE) == b"RIFFedge"
+                         edge=[edge], unit_lib=None).wav("你好", speak.YUE_VOICE) == b"RIFFedge"
     assert speak.Speaker(binary=espeak, player=["true"], cache_dir=cache,
-                         edge=None).wav("你好", speak.YUE_VOICE) == b"RIFFespeak"
+                         edge=None, unit_lib=None).wav("你好", speak.YUE_VOICE) == b"RIFFespeak"
 
 
 def test_rapid_speak_only_last_one_plays(tmp_path):
