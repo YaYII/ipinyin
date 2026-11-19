@@ -173,7 +173,7 @@ def test_learn_keys_cover_abbreviation(lexicon):
     """上屏要记三个键：敲的、完整的、它的简拼。"""
     ime = ImeState(lexicon)
     assert ime.learn_keys("jianp", "jianp", "jianpin") == ["jianp", "jp"]
-    assert ime.learn_keys("jianpin", "jianpin", "jianpin") == ["jianpin", "jp"]
+    assert ime.learn_keys("jianpin", "jianpin", "jianpin") == ["jianpin", "jp", "jianp"]
     # 单音节不生成简拼，避免 d → 的 这种噪音
     assert ime.learn_keys("de", "de", "de") == ["de"]
 

@@ -4,6 +4,7 @@
 """
 from __future__ import annotations
 
+import math
 import time
 from dataclasses import dataclass, field
 from itertools import product
@@ -15,6 +16,8 @@ from .yue import YueConverter
 from .user_model import ModeModels, UserModel
 
 PAGE_SIZE = 9
+ABBREV_COMBOS = 200      # 简拼展开最多试多少条完整拼音
+ABBREV_OPTIONS = 12      # 每个首字母最多展开几个音节（kuang 这种排在 7~9 位，6 个不够）
 MAX_BUFFER = 48
 WORDS_PER_SYLLABLE = 2
 MAX_COMPOSED = 9
@@ -218,6 +221,130 @@ class ImeState:
             return None
         return self._models.for_mode(self.mode)
 
+    def _lm_score(self, text: str, fallback: float) -> float:
+        """展开候选的排序分：有语言模型就用它，没有就用词频。"""
+        if self.lm is None:
+            return fallback
+        score = self.lm.logp(text)
+        return score if score == score and score > -1e9 else fallback
+
+    def _abbrev_segments(self, text: str):
+        """把 qingkx / qkx 切成「已知音节 + 待展开首字母」的序列。
+
+        返回 None 表示不像简拼：能整段切成音节（nihao），或首字母段少于 2 个
+        （nih 这种正常打一半的交给前缀补全，不要在这里展开）。
+        """
+        segments: list[tuple[str, list[tuple[str, int]] | None]] = []
+        syllables = self.lexicon.syllables()
+        initials = 0
+        index = 0
+        while index < len(text):
+            matched = ""
+            for length in range(min(6, len(text) - index), 0, -1):
+                piece = text[index:index + length]
+                if piece in syllables:
+                    matched = piece
+                    break
+            if matched:
+                segments.append((matched, None))
+                index += len(matched)
+                continue
+            options = self.lexicon.syllable_options(text[index], ABBREV_OPTIONS)
+            if not options:
+                return None
+            segments.append((text[index], options))
+            initials += 1
+            index += 1
+        # 只展开「首音节全拼 + 1 个首字母」这种两段式（qingkx / banbl）：
+        # 三段以上（qkx）组合爆炸，交给静态简拼表 + 一次全拼学习即可
+        return segments if initials == 2 else None
+
+    def _expand_abbreviation(self, text: str) -> list[str]:
+        """简拼 → 若干条候选完整拼音串（按音节词频剪枝）。
+
+        `qingkx` 展开成 qing+kuang+xia、qing+ke+xi… 等 40 条以内，
+        再交给整句切分去认「情况下」——这类短语不在词库里，
+        是 情况 + 下 拼出来的，静态简拼表永远查不到。
+        """
+        segments = self._abbrev_segments(text)
+        if not segments:
+            return []
+        combos: list[tuple[float, str]] = [(0.0, "")]
+        for piece, options in segments:
+            if options is None:
+                combos = [(score, partial + piece) for score, partial in combos]
+                continue
+            expanded: list[tuple[float, str]] = []
+            for score, partial in combos:
+                for syllable, freq in options:
+                    expanded.append((score + math.log1p(freq), partial + syllable))
+            expanded.sort(key=lambda item: -item[0])
+            combos = expanded[:ABBREV_COMBOS]
+        return [full for _score, full in combos]
+
+    def _abbrev_candidates(self, text: str) -> list[tuple[float, str]]:
+        """qingkx → 情况下、banbl → 办不了。
+
+        做法是「按词组合」而不是「展开整串再切分」：候选由 词+词 或 字+字+字 拼出来，
+        天然过滤掉「请科学」这种不是词的东西，最后交给字级 LM 排序
+        （LM 分得清 情况下 -12.7 与 请科学 -19.5）。
+
+        每条路径只取词频前几名再送 LM——全量送进去会被「版本(1000万)」这类
+        超高频词淹没，LM 根本没机会看到正确答案。
+        """
+        segments = self._abbrev_segments(text)
+        if not segments:
+            return []
+        fixed = "".join(piece for piece, options in segments if options is None)
+        tail = [piece for piece, options in segments if options is not None]
+        options1 = [s for s, _ in self.lexicon.syllable_options(tail[0], 24)]
+        options2 = [s for s, _ in self.lexicon.syllable_options(tail[1], 24)]
+
+        def words_of(key: str, limit: int = 2) -> list[tuple[str, int]]:
+            return self.lexicon.entries(key)[:limit]
+
+        def rank(pairs: list[tuple[float, str]], limit: int = 8) -> list[tuple[float, str]]:
+            best: dict[str, float] = {}
+            for score, word in pairs:
+                if len(word) >= 2 and score > best.get(word, -1e9):
+                    best[word] = score
+            return sorted(((s, w) for w, s in best.items()), reverse=True)[:limit]
+
+        # ① 词 + 词：情况 + 下
+        heads = [(w, f) for first in options1 for w, f in words_of(fixed + first)]
+        tails = [(w, f) for second in options2 for w, f in words_of(second)]
+        path1 = rank([(math.log1p(hf) + math.log1p(tf), h + t)
+                      for h, hf in heads for t, tf in tails])
+
+        # ② 词 + 词：办 + 不了
+        path2 = rank([(math.log1p(hf) + math.log1p(tf), h + t)
+                      for h, hf in words_of(fixed)
+                      for first in options1[:8]
+                      for second in options2[:8]
+                      for t, tf in words_of(first + second)])
+
+        # ③ 字 + 字 + 字：办 + 不 + 了
+        path3 = rank([(math.log1p(hf) + math.log1p(mf) + math.log1p(lf), h + m + last)
+                      for h, hf in words_of(fixed)
+                      for first in options1[:5]
+                      for m, mf in words_of(first)
+                      for second in options2[:5]
+                      for last, lf in words_of(second, 1)])
+
+        scored = [(self._lm_score(word, score), word)
+                  for score, word in path1 + path2 + path3]
+        scored.sort(key=lambda item: -item[0])
+        return scored
+
+    def _abbrev_keys(self, key: str) -> list[str]:
+        """一个完整拼音键的缩写形式：全首字母（qkx）+ 首音节全拼（qingkx）。"""
+        syllables = self.lexicon.split_syllables(key)
+        if len(syllables) < 2:
+            return []
+        initials = "".join(syllable[0] for syllable in syllables)
+        head = syllables[0] + "".join(syllable[0] for syllable in syllables[1:])
+        return [initials] if head == initials else [initials, head]
+
     def learn_keys(self, typed: str | None, consumed: str,
                    full: str | None = None) -> list[str]:
         """上屏后要记进词频的键（可能不止一个）。
@@ -235,17 +362,10 @@ class ImeState:
         for candidate in (consumed, typed):
             if candidate and candidate not in keys:
                 keys.append(candidate)
-        initials = self._initials_of(full or consumed)
-        if initials and initials not in keys:
-            keys.append(initials)
+        for abbrev in self._abbrev_keys(full or consumed):
+            if abbrev not in keys:
+                keys.append(abbrev)
         return keys
-
-    def _initials_of(self, key: str) -> str:
-        """拼音串 → 简拼（jianpin → jp）。单音节不生成，避免 d → 的 这种噪音。"""
-        syllables = self.lexicon.split_syllables(key)
-        if len(syllables) < 2:
-            return ""
-        return "".join(syllable[0] for syllable in syllables)
 
     def base_form(self, text: str) -> str:
         """上屏学习一律记简体形。
@@ -440,6 +560,25 @@ class ImeState:
             items += [(s, text, 0) for s in sentences]
             items += [(w, text, 0) for w in composed]
             items += [(w, k, f) for k, w, f in far]
+
+        # 简拼：qingkx → 情况下、banbl → 办不了。
+        # 这些短语不在词库里（是 情况 + 下 拼出来的），静态简拼表查不到，只能现场展开，
+        # 再用语言模型挑：展开出来的同音组合很多，词频分不清「请科学」和「情况下」，
+        # 字级 LM 分得清（-12.7 vs -19.5）。
+        # 静态简拼表已经能给出候选（rg → 如果）就别展开，否则会把老行为顶掉
+        if not exact and not close and not self.lexicon.initials_entries(text):
+            scored = self._abbrev_candidates(text)
+            seen_abbrev: set[str] = set()
+            scored.sort(key=lambda item: -item[0])
+            rank = 0
+            for _score, word in scored:
+                if word in seen_abbrev:
+                    continue
+                seen_abbrev.add(word)
+                items.append((word, text, 100000 - rank * 100))
+                rank += 1
+                if rank >= 9:
+                    break
 
         # 表情：wx → 😊（整串命中才出，避免干扰正常输入）
         emoji = self.lexicon.emoji_for(text)

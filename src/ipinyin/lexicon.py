@@ -23,6 +23,7 @@ class Lexicon:
     __slots__ = (
         "_raw", "_prefix_table", "_keys", "max_key_len", "log_total", "total_freq",
         "_cache", "_syllables", "_syllable_prefixes", "_split_cache", "_initials", "_mixed", "_emoji",
+        "_option_cache",
     )
 
     def __init__(self, raw: dict[str, str], total_freq: int, prefix_table: dict[str, str] | None = None):
@@ -43,6 +44,7 @@ class Lexicon:
         self._initials: dict[str, list[tuple[str, int]]] = {}
         self._mixed: dict[str, list[tuple[str, int]]] = {}
         self._emoji: dict[str, str] = {}
+        self._option_cache: dict[str, list[tuple[str, int]]] = {}
         self._syllable_prefixes = {
             syllable[:length]
             for syllable in self._syllables
@@ -220,6 +222,39 @@ class Lexicon:
 
     def is_syllable_prefix(self, text: str) -> bool:
         return text in self._syllable_prefixes
+
+    def warm_options(self) -> None:
+        """预热每个首字母的音节展开表（简拼用）。
+
+        不预热的话，第一次打简拼会现场扫 430 个音节，多花 30ms——正好卡在打字路径上。
+        放到词库预加载线程里做，用户无感。
+        """
+        for letter in "abcdefghijklmnopqrstuvwxyz":
+            self.syllable_options(letter)
+
+    def syllables(self) -> set[str]:
+        """全部合法音节。"""
+        return self._syllables
+
+    def syllable_options(self, letter: str, limit: int = 6) -> list[tuple[str, int]]:
+        """以某个字母开头的音节，按该音节下的最高词频排序。
+
+        简拼展开用：`qingkx` 里的 `k` 要展开成 ke/kuai/kan/kuang…，
+        按词频排才能把常见组合排前面（kuang 这类低频音节靠后但仍有机会）。
+        """
+        cached = self._option_cache.get(letter)
+        if cached is None:
+            options: list[tuple[str, int]] = []
+            for syllable in self._syllables:
+                if not syllable.startswith(letter):
+                    continue
+                entries = self.entries(syllable)
+                if entries:
+                    options.append((syllable, entries[0][1]))
+            options.sort(key=lambda item: -item[1])
+            cached = options
+            self._option_cache[letter] = cached
+        return cached[:limit]
 
     def split_syllables(self, key: str) -> list[str]:
         """把拼音串切成音节（最长匹配），切不开返回空表。"""
