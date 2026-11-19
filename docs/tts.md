@@ -149,6 +149,32 @@ espeak-ng -v yue -x -q "我哋"       # 应输出 ŋɔː5 dei2 一类的音素
 顺带一提：Piper 至今没有粤语 voice（[issue #511](https://github.com/rhasspy/piper/issues/511) 开着），
 训出来是可以单独发 release 的东西。
 
+## 自监控：异常自动记录，下次直接看数据
+
+每次朗读都记一条 JSONL（`~/.cache/ipinyin/tts-metrics.jsonl`）：后端
+（edge / units / espeak / cache）、合成耗时、音频时长、语速（字/秒）、样本（前两个字）。
+
+异常按规则自动标记——规则都是踩过的坑，不靠人记：
+
+| 规则 | 判定 | 对应的坑 |
+| --- | --- | --- |
+| `padding` | ≤3 字却 >1.5s | edge 把短文本补到 1.87s |
+| `too-slow` / `too-fast` | 语速 <2 或 >9 字/秒 | 补静音没裁 / 合成吞字 |
+| `slow-synth` | 单次合成 >8s | 网络抖动，用户觉得「按了没反应」 |
+| `fallback-espeak` / `fallback-units` | 回落 | edge 不可用 |
+| `empty-audio` | 音频为空 | 引擎或转码失败 |
+
+体检命令：
+
+```bash
+python3 tools/tts_doctor.py          # 语速/耗时分布 + 异常清单 + 环境（输出设备/音库/后端）
+python3 tools/tts_doctor.py --all    # 连上一轮（.1）一起看
+python3 tools/tts_doctor.py --no-env # 只看记录
+```
+
+记录只留样本前两个字，**不存原文**（朗读内容比翻译更敏感）；文件超过 1MB 自动轮转成 `.1`。
+缓存命中也会记（后端记为 `cache`），所以命中率一眼可见。
+
 ## 已知限制
 
 - **数字/英文混读**：espeak 会把 `2026` 念成英文数字。`g2p.py` 里已有中文数字规范化（4 位年逐位读），

@@ -19,8 +19,9 @@ import shutil
 import subprocess
 import tempfile
 import threading
+import time
 
-from . import config, units
+from . import config, tts_metrics, units
 
 LOG = logging.getLogger("ipinyin")
 
@@ -237,9 +238,13 @@ class Speaker:
             path = self._cache_path(text, voice, backend)
             try:
                 with open(path, "rb") as handle:
-                    return handle.read(), path
+                    data = handle.read()
+                seconds = max(len(data) - 44, 0) / 2 / units.SR
+                tts_metrics.record(text, "cache", 0, seconds)   # 命中率也要看得见
+                return data, path
             except OSError:
                 pass
+            started = time.time()
             if backend == "units":
                 data = self._units.render(text)
             elif backend == "edge":
@@ -249,6 +254,8 @@ class Speaker:
             if data is None:
                 continue
             self._store(path, data)
+            seconds = max(len(data) - 44, 0) / 2 / units.SR
+            tts_metrics.record(text, backend, (time.time() - started) * 1000, seconds)
             return data, path
         return None
 
