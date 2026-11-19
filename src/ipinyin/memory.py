@@ -533,7 +533,27 @@ def _pinyin_keys_for(words: set[str]) -> dict[str, list[str]]:
     return found
 
 
-def apply_fixes(pairs: list[dict], weight: int = 3) -> list[dict]:
+def _needed_weight(key: str, right: str, model=None) -> int:
+    """算出「要让正确写法排到第一」需要加多少权。
+
+    用户明确纠正过，就该压过历史统计；但压多少要算，不然 +3 根本翻不动
+    （实测 哪个 131.79 分、那个 93.67 分，差 39）。
+    """
+    try:
+        from .user_model import UserModel
+
+        model = model or UserModel(config.user_model_path("simp"))
+        others = [w for w in model.preferred(key, 9) if w != right]
+        if not others:
+            return 5
+        top = max(model.score(key, w) for w in others)
+        current = model.score(key, right)
+        return max(5, int(top - current) + 5)
+    except Exception:
+        return 20
+
+
+def apply_fixes(pairs: list[dict], weight: int = 0) -> list[dict]:
     """把「正确写法」写进提权队列，由引擎应用到个人词频。
 
     键用**错误写法**的拼音（你敲的就是这个音），词换成正确写法——
@@ -551,9 +571,11 @@ def apply_fixes(pairs: list[dict], weight: int = 3) -> list[dict]:
                 wrong, right = pair["wrong"], pair["right"]
                 keys = keys_map.get(wrong) or keys_map.get(right) or []
                 for key in keys[:3]:
-                    handle.write(json.dumps({"key": key, "word": right, "weight": weight,
+                    gain = weight or _needed_weight(key, right)
+                    handle.write(json.dumps({"key": key, "word": right, "weight": gain,
                                              "why": pair.get("why", "")}, ensure_ascii=False) + "\n")
-                applied.append({"wrong": wrong, "right": right, "keys": keys[:3]})
+                applied.append({"wrong": wrong, "right": right, "keys": keys[:3],
+                                "weight": weight or (_needed_weight(keys[0], right) if keys else 0)})
     except OSError:
         return []
     return applied

@@ -155,3 +155,15 @@ def test_suggest_fixes_parses_llm_json(tmp_path, monkeypatch):
         '好的：[{"wrong":"哪个","right":"那个","why":"同音误用"}]'))
     rows = memory.suggest_fixes(10)
     assert rows == [{"wrong": "哪个", "right": "那个", "why": "同音误用"}]
+
+
+def test_needed_weight_beats_current_top(monkeypatch):
+    """+3 翻不动历史统计（实测 131.79 vs 93.67），必须按差距算。"""
+    class FakeModel:
+        def preferred(self, key, limit=9):
+            return ["哪个", "那个"]
+
+        def score(self, key, word):
+            return 131.79 if word == "哪个" else 93.67
+
+    assert memory._needed_weight("nage", "那个", FakeModel()) == 43
