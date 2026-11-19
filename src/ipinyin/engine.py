@@ -468,6 +468,14 @@ class PinyinEngine(IBus.Engine):
         if not composing:
             return False
 
+        # 上屏前先把挂起的神经升级补上：200ms 内就选词的话，
+        # 否则会把规则版的粤语写法定稿（质量差一截）
+        if action in (Action.COMMIT, Action.DIGIT) and self._neural_source:
+            GLib.source_remove(self._neural_source)
+            self._neural_source = 0
+            if self._ime is not None and self._ime.rebuild_neural():
+                self._sync_now()
+
         key = self.ime.buffer
         if action is Action.DIGIT:
             self._finish(self.ime.select(int(value)), key, weight=3, rank=int(value))
