@@ -1,0 +1,15 @@
+[Unit]
+Description=IPinyin 屏幕感知（ScreenCast 常驻抓帧）
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+Environment=GIO_LAUNCHED_DESKTOP_FILE=%h/.local/share/applications/ipinyin-vision.desktop
+Environment=IPINYIN_VISION_INTERVAL=20
+ExecStart=%h/.local/bin/ipinyin-vision screencast
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target

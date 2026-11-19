@@ -1,0 +1,15 @@
+[Unit]
+Description=IPinyin 屏幕理解（消费抓到的帧，调用视觉模型）
+After=ipinyin-screencast.service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+Environment=IPINYIN_VISION_DIRS=%h/.local/share/ipinyin/vision/incoming
+Environment=IPINYIN_VISION_INTERVAL=30
+ExecStart=%h/.local/bin/ipinyin-vision watch
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=graphical-session.target

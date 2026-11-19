@@ -68,6 +68,7 @@ def watch_dirs() -> list[str]:
     dirs = [
         os.path.expanduser("~/Pictures/截图"),
         os.path.expanduser("~/Pictures/Screenshots"),
+        os.path.join(home(), "incoming"),   # screencast 常驻抓的帧
         os.path.join(home(), "inbox"),
     ]
     return [d for d in dirs if os.path.isdir(d)]

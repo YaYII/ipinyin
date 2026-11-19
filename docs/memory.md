@@ -131,3 +131,36 @@ ipinyin-vision cleanup 7      # 保留 7 天
 **真正的全自动**需要 ScreenCast portal 的一次性授权 + `restore_token`
 （GNOME 42+ 支持恢复令牌，授权一次之后可静默重连）；或者切到 Xorg 会话，
 X11 下 `import`/`xwd` 截屏无需任何授权。
+
+## 全自动屏幕感知（ScreenCast，方案 A）
+
+授权一次之后不再弹窗，常驻服务自己抓帧、自己理解。
+
+| 服务 | 作用 | 周期 |
+| --- | --- | --- |
+| `ipinyin-screencast.service` | ScreenCast 授权 + 抓帧到 `vision/incoming/` | 20 秒 |
+| `ipinyin-vision-watch.service` | 消费新帧 → 视觉模型 → `vision.jsonl` | 30 秒扫一次 |
+| `ipinyin-vision-cleanup.timer` | 删 1 天前的帧副本 | 每天 00:05 |
+
+### 双屏：你在哪块屏幕打字就抓哪块
+
+1. 授权时勾选**两块屏幕**，`Start` 返回两条串流，各带 `position/size`
+2. IBus 引擎的 `do_set_cursor_location` 把输入光标坐标写进 `vision/cursor.json`
+3. 抓帧前按坐标判断落在哪块屏的矩形里，就抓那条串流
+
+实测：左屏 `2560x1440 @ (0,474)`、右屏 `3840x2160 @ (2560,0)`，
+光标移动后下一帧立即切换（日志里节点 78 ⇄ 77）。
+
+### 免重复授权
+
+`SelectSources` 带 `persist_mode=2` 才会返回 `restore_token`（默认不返回）。
+实测：第二次启动 10 秒内直接抓到帧，没有弹窗。
+
+### 踩过的坑（都写进代码注释了）
+
+| 坑 | 表现 | 正确做法 |
+| --- | --- | --- |
+| Response 回调少一个参数 | 永远收不到结果，看起来像「不弹窗」 | 回调要接 7 个参数（多一个 user_data） |
+| `Start` 签名 | `(oa{sv})` 报 InvalidArgs | 是 `(osa{sv})`，中间要 `parent_window` |
+| D-Bus `h` 类型 | 拿到 `fd: 0`，gst 报 not-negotiated | 用 `call_with_unix_fd_list_sync` + `UnixFDList` 取真 fd |
+| 少了 `x-opencode-session` | 视觉接口报 MissingSessionID | 请求头必须带 |
