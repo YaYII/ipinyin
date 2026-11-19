@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""AI 屏幕感知开关：ipinyin-ai on|off|status（等价于按 F10）。"""
+import subprocess
+import sys
+
+UNITS = ["ipinyin-screencast.service", "ipinyin-vision-watch.service"]
+
+
+def main(argv: list[str]) -> int:
+    command = argv[1] if len(argv) > 1 else "status"
+    if command in ("on", "off"):
+        action = "start" if command == "on" else "stop"
+        done = subprocess.run(["systemctl", "--user", action, *UNITS],
+                              capture_output=True, text=True)
+        if done.returncode != 0:
+            print(f"切换失败：{done.stderr.strip()[:200]}")
+            return done.returncode
+        print(f"AI 屏幕感知：{'已开启' if command == 'on' else '已关闭'}")
+        return 0
+    if command == "status":
+        done = subprocess.run(["systemctl", "--user", "is-active", *UNITS],
+                              capture_output=True, text=True)
+        states = done.stdout.split()
+        active = bool(states) and all(state == "active" for state in states)
+        print(f"AI 屏幕感知：{'开' if active else '关'}")
+        for unit, state in zip(UNITS, states):
+            print(f"  {unit}: {state}")
+        return 0
+    print(__doc__)
+    return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

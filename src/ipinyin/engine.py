@@ -7,6 +7,7 @@ from __future__ import annotations
 import gc
 import logging
 import os
+import subprocess
 import sys
 import threading
 import time
@@ -362,6 +363,11 @@ class PinyinEngine(IBus.Engine):
         if action is Action.SPEAK:
             return self._speak()
 
+        # F10：AI 屏幕感知 开/关（随时可按）
+        if action is Action.TOGGLE_AI:
+            self._toggle_ai()
+            return True
+
         # F9：上屏即读 开/关（随时可按，不用在输入中）
         if action is Action.TOGGLE_TTS:
             self._tts_auto = not self._tts_auto
@@ -591,6 +597,35 @@ class PinyinEngine(IBus.Engine):
         self._hint_source = 0
         self.update_auxiliary_text(IBus.Text.new_from_string(""), False)
         return False
+
+    def _toggle_ai(self) -> None:
+        """F10：启停屏幕感知（抓帧 + 理解两个 systemd 用户服务）。"""
+        want_on = not self._ai_active()
+        threading.Thread(target=self._set_ai, args=(want_on,), daemon=True).start()
+        LOG.info("AI 屏幕感知 %s", "开启" if want_on else "关闭")
+        # 服务启停有延迟，3 秒后再刷新提示
+        GLib.timeout_add(3000, self._refresh_hint_soon)
+
+    def _refresh_hint_soon(self) -> bool:
+        self._ai_checked = 0.0        # 强制重读心跳
+        self._flash_mode_hint()
+        return False
+
+    def _set_ai(self, on: bool) -> None:
+        units = ["ipinyin-screencast.service", "ipinyin-vision-watch.service"]
+        try:
+            subprocess.run(["systemctl", "--user", "start" if on else "stop", *units],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=20)
+            if not on:
+                # 关掉后心跳还在 90 秒有效期内，界面会误显示「开」——直接删掉心跳
+                try:
+                    from . import screencast
+
+                    os.remove(screencast.heartbeat_path())
+                except OSError:
+                    pass
+        except (OSError, subprocess.SubprocessError) as exc:
+            LOG.warning("切换 AI 感知失败：%s", exc)
 
     def _ai_active(self) -> bool:
         """AI 感知（ScreenCast 抓帧）是否在跑：看心跳文件，3 秒缓存。"""

@@ -51,3 +51,9 @@ def test_uppercase_goes_to_the_application():
     assert value == "A"
     # 小写仍是拼音
     assert keys.translate(0x61, 0)[0] is keys.Action.LETTER
+
+
+def test_f10_is_ai_toggle():
+    """F10 与 F9 对称：F9 管朗读，F10 管 AI 屏幕感知。"""
+    assert keys.translate(0xFFC7, 0)[0] is keys.Action.TOGGLE_AI
+    assert keys.translate(0xFFC6, 0)[0] is keys.Action.TOGGLE_TTS
