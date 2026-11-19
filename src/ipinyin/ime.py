@@ -111,6 +111,7 @@ class ImeState:
         self.last_commit_key = ""                # 最近一次上屏消耗掉的拼音
         self.last_commit_full = ""               # 候选原本对应的完整拼音键
         self.last_commit_typed = ""              # 你实际敲的（简拼/前缀补全时更短）
+        self.plain_text = False                  # 当前串不像拼音（英文直出用）
         self._yue_cache: dict[str, str] = {}     # 首选候选的粤语神经结果（切模式不重算）
         self._candidates: list[str] = []         # 实际上屏用（按繁体开关转换）
         self._display: list[str] = []            # 候选窗显示用（简/繁并列）
@@ -125,6 +126,7 @@ class ImeState:
         if not char or len(self.buffer) >= MAX_BUFFER:
             return False
         self.buffer += char
+        self.plain_text = False
         self._segment = -1
         self._rebuild()
         return True
@@ -141,6 +143,7 @@ class ImeState:
         if not self.buffer:
             return False
         self.buffer = ""
+        self.plain_text = False
         self._candidates = []
         self._keys = []
         self._page = 0
@@ -554,6 +557,7 @@ class ImeState:
             if (not learned and self._abbrev_segments(text) is None
                     and not self.lexicon.prefix_entries(text)[:1]
                     and not self.lexicon.initials_entries(text)):
+                self.plain_text = True
                 self._candidates = [text]
                 self._display = [text]
                 self._keys = [text]

@@ -30,6 +30,7 @@ def harness(monkeypatch):
         _shift_down=False,
         _shift_clean=True,
         _last_cn_mode="simp",
+        _plain=False,
         _sync_now=lambda: None,
         _flash_mode_hint=lambda: None,
         _push_mode_hint=lambda *args, **kwargs: None,

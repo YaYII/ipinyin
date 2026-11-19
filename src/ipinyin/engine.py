@@ -265,6 +265,7 @@ class PinyinEngine(IBus.Engine):
         self._tts_auto = os.environ.get("IPINYIN_TTS_AUTO") == "1" or _read_tts_auto()
         self._hint_source = 0   # 切换后短暂显示状态用的 GLib 定时器
         self._neural_source = 0  # 粤语档：空闲后升级神经写法的定时器
+        self._plain = False      # 英文直出：不像拼音后，后续字母直接交给应用
         self._last_hint: tuple[str, bool] = ("", False)
         # 记忆体：上屏采集 + 空闲 60 秒后台整理
         self._last_key_at = time.monotonic()
@@ -401,6 +402,14 @@ class PinyinEngine(IBus.Engine):
             return False
         if self._shift_down:
             self._shift_clean = False
+
+        # 英文直出：判定「不像拼音」之后，字母不再进候选，直接交给应用；
+        # 空格/标点/回车本身就该交出去，同时结束这段英文
+        if self._plain:
+            if 0x61 <= keyval <= 0x7A or 0x41 <= keyval <= 0x5A:
+                return False
+            self._plain = False
+
         action, value = translate(keyval, state)
         LOG.debug("key %#x state=%#x -> %s %r buffer=%r", keyval, state, action.name, value, self.ime.buffer)
         if action is Action.IGNORE:
@@ -460,6 +469,13 @@ class PinyinEngine(IBus.Engine):
                 self._comp_start = time.monotonic()
             self._comp_keys += 1
             self.ime.insert(value)
+            if self.ime.plain_text:
+                # 判定为英文：把已敲的这段直接上屏，后续字母走 _plain 直出
+                text = self.ime.buffer
+                self.ime.clear()
+                self._plain = True
+                self._finish(text, None, learn=False)
+                return True
             self._push_preedit()   # 先把字画出来，候选慢一点也不会觉得"卡"
             self._sync()
             self._schedule_neural()
