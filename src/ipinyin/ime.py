@@ -12,6 +12,7 @@ from itertools import product
 from .lexicon import Lexicon
 from .segmenter import best_paths_scored
 from .t2s import Converter
+from .chaoshan import ChaoshanConverter
 from .yue import YueConverter
 from .user_model import ModeModels, UserModel
 
@@ -89,13 +90,15 @@ class ImeState:
     def __init__(self, lexicon: Lexicon, page_size: int = PAGE_SIZE,
                  user_model: UserModel | ModeModels | None = None,
                  converter: Converter | None = None,
-                 yue: YueConverter | None = None):
+                 yue: YueConverter | None = None,
+                 chao: ChaoshanConverter | None = None):
         self.lexicon = lexicon
         self.converter = converter
         self.yue = yue
+        self.chao = chao
         self.lm = None             # 可选：字级语言模型（有 logp(text) 即可，可以是神经模型）
         self.lm_weight = 0.6
-        self.mode = "simp"          # simp / trad / yue
+        self.mode = "simp"          # simp / trad / yue / chao / en
         self.shuangpin = False      # True = 小鹤双拼输入
         self.page_size = page_size
         # 词频按模式分家：粤语的选择不参与简体排序
@@ -408,7 +411,8 @@ class ImeState:
         英文是「固定的一档」，不是 Shift 随手按出来的：
         Shift 只负责强制回到中文（见 engine 的 Shift 处理）。
         """
-        self.mode = {"simp": "trad", "trad": "yue", "yue": "en", "en": "simp"}[self.mode]
+        self.mode = {"simp": "trad", "trad": "yue", "yue": "chao",
+                     "chao": "en", "en": "simp"}[self.mode]
         if self.mode == "en":
             self.buffer = ""        # 进英文档不留半截拼音
         self._rebuild()
@@ -751,7 +755,9 @@ class ImeState:
                 yue = self.yue.convert(simp, neural=False)
             if converter:
                 yue = converter.to_traditional(yue)   # 粤语书面一律用繁体字
-            forms = {"simp": simp, "trad": trad, "yue": yue}
+            # 潮州话（汕头音）：只给读音，不给改写——没有平行语料，整句翻不了
+            chao = self.chao.pengim(simp) if self.chao is not None else ""
+            forms = {"simp": simp, "trad": trad, "yue": yue, "chao": chao or simp}
             output = forms.get(self.mode, simp)
             if output in seen_out:
                 continue
@@ -769,6 +775,8 @@ class ImeState:
                 reading = self.yue.jyutping(yue_trad) or self.yue.jyutping(yue)
                 if reading:
                     columns.append(reading)
+            if chao:
+                columns.append(chao)      # 潮拼放最后一列
             displays.append("  ".join(columns))
         self._candidates = words
         self._display = displays

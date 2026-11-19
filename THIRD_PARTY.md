@@ -24,3 +24,11 @@
 
 `tools/fetch_data.sh` 会下载上述数据到 `vendor/`，`tools/build_lexicon.py` 编译成
 `data/lexicon.tsv` 与 `data/lexicon.marshal`（不含在仓库里，按需生成）。
+
+## 潮州话字音表（汕头音）
+
+- 来源：[p1an-lin-jung/teochew-g2p](https://github.com/p1an-lin-jung/teochew-g2p)（BSD-3-Clause）
+  的 `char_*` / `word_common` 字表词表，按 `accent_convert/to_Swatow.txt` 转成汕头音。
+- 上游底本：潮州音字典、潮州母语网（潮典）、learn teochew。使用前请自行核对上游条款。
+- 生成：`tools/build_chaoshan.py` → `data/chaoshan.marshal`（9309 字 / 9320 词）。
+- 已知限制：只取每字首读音；不支持连读变调；不含练江音；只做读音不做改写。

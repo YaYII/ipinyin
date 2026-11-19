@@ -81,6 +81,11 @@ def yue_path() -> str:
     return _find_data("yue.tsv")
 
 
+def chaoshan_path() -> str:
+    """潮州话（汕头音）字音/词音表：tools/build_chaoshan.py 生成。"""
+    return _find_data("chaoshan.marshal")
+
+
 def yue_guard_path() -> str:
     """神经粤语解码的守卫数据（tools/build_yue_guard.py 生成）。"""
     return _find_data("yue_guard.marshal")

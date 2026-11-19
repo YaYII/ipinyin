@@ -24,6 +24,7 @@ from .ime import ImeState  # noqa: E402
 from .keys import Action, translate  # noqa: E402
 from .lexicon import Lexicon  # noqa: E402
 from .t2s import Converter  # noqa: E402
+from .chaoshan import ChaoshanConverter  # noqa: E402
 from .yue import YueConverter  # noqa: E402
 from .user_model import ModeModels, UserModel  # noqa: E402
 
@@ -35,6 +36,7 @@ SYNC_INTERVAL = 0.015
 _MODELS: ModeModels | None = None
 _CONVERTER: Converter | None = None
 _YUE: YueConverter | None = None
+_CHAO: ChaoshanConverter | None = None
 _LM = None            # 字级语言模型；False 表示明确没有/已关闭
 # 词库加载完成前，按键一律放行（当英文打），绝不阻塞 IBus 主循环
 _LEXICON_READY = threading.Event()
@@ -51,6 +53,15 @@ def get_lexicon() -> Lexicon:
         _LEXICON.load_emoji(config.emoji_path())
         LOG.info("词库就绪：%d 个拼音键", len(_LEXICON))
     return _LEXICON
+
+
+def get_chao() -> ChaoshanConverter | None:
+    """潮州话（汕头音）字音表：缺文件就返回空表，不影响其它功能。"""
+    global _CHAO
+    if _CHAO is None:
+        _CHAO = ChaoshanConverter.load(config.chaoshan_path()) or ChaoshanConverter({}, {})
+        LOG.info("潮州话表：%d 字 / %d 词（汕头音）", len(_CHAO._chars), len(_CHAO._words))
+    return _CHAO
 
 
 def get_yue() -> YueConverter:
@@ -118,7 +129,7 @@ def _read_mode() -> str:
         with open(config.mode_path(), encoding="utf-8") as fh:
             mode = fh.read().strip()
         # 历史数据里可能有 en：那是临时档，启动时一律回中文
-        return mode if mode in ("simp", "trad", "yue") else "simp"
+        return mode if mode in ("simp", "trad", "yue", "chao") else "simp"
     except OSError:
         return "simp"
 
@@ -299,7 +310,8 @@ class PinyinEngine(IBus.Engine):
     def ime(self) -> ImeState:
         if self._ime is None:
             self._ime = ImeState(get_lexicon(), user_model=get_models(),
-                                 converter=get_converter(), yue=get_yue())
+                                 converter=get_converter(), yue=get_yue(),
+                                 chao=get_chao())
             lm = get_lm()
             if lm is not None:
                 self._ime.attach_lm(lm)
@@ -423,7 +435,8 @@ class PinyinEngine(IBus.Engine):
             if mode != "en":
                 _write_mode(mode)      # 英文档不落盘：重启必须回中文
                 self._last_cn_mode = mode
-            LOG.info("切换到%s", {"simp": "简体", "trad": "繁体", "yue": "粤语", "en": "英文"}[mode])
+            LOG.info("切换到%s", {"simp": "简体", "trad": "繁体", "yue": "粤语",
+                                 "chao": "潮汕", "en": "英文"}[mode])
             self._sync_now()
             self._flash_mode_hint()
             return True
@@ -807,7 +820,8 @@ class PinyinEngine(IBus.Engine):
             self._send_hint("英文 · Tab 回中文", True, force)
             return
         self._refresh_tts_auto()   # CLI 改了状态也要立刻反映到提示上
-        label = {"simp": "简体", "trad": "繁体", "yue": "粤语"}.get(self.ime.mode, "")
+        label = {"simp": "简体", "trad": "繁体", "yue": "粤语",
+                 "chao": "潮汕·汕头"}.get(self.ime.mode, "")
         # 状态可见：音:开 = 上屏即读；音:关 = 只按 Ctrl+回车 才念
         label = (f"{label} · 音:{'开' if self._tts_auto else '关'}"
                  f" · AI:{'开' if self._ai_active() else '关'}")
@@ -917,7 +931,7 @@ def main(argv: list[str] | None = None) -> int:
             _LEXICON_READY.set()
             # 这三个都是懒加载：以前第一次用到时在主线程现加载，
             # 实测第一次按键会卡 946~990ms（简繁表/粤语神经模型/语言模型）
-            for warm in (get_converter, get_yue, get_lm):
+            for warm in (get_converter, get_yue, get_chao, get_lm):
                 try:
                     warm()
                 except Exception:
