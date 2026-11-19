@@ -755,9 +755,9 @@ class ImeState:
                 yue = self.yue.convert(simp, neural=False)
             if converter:
                 yue = converter.to_traditional(yue)   # 粤语书面一律用繁体字
-            # 潮州话（汕头音）：只给读音，不给改写——没有平行语料，整句翻不了
-            chao = self.chao.pengim(simp) if self.chao is not None else ""
-            forms = {"simp": simp, "trad": trad, "yue": yue, "chao": chao or simp}
+            # 潮州话（汕头音）：词级改写（吃饭→食饭、我们→阮），语序仍是普通话的
+            chao_text = self.chao.rewrite(simp) if self.chao is not None else ""
+            forms = {"simp": simp, "trad": trad, "yue": yue, "chao": chao_text or simp}
             output = forms.get(self.mode, simp)
             if output in seen_out:
                 continue
@@ -768,6 +768,14 @@ class ImeState:
             if not any("\u4e00" <= ch <= "\u9fff" for ch in simp):
                 displays.append(simp)
                 continue
+            if self.mode == "chao" and self.chao is not None:
+                # 潮汕档：只留三列——原文 / 潮汕文字 / 潮拼，方便对照
+                pengim = self.chao.pengim(chao_text)
+                columns = [simp, chao_text or simp]
+                if pengim:
+                    columns.append(pengim)
+                displays.append("  ".join(columns))
+                continue
             columns = [simp, trad if trad != simp else "—", yue if yue != simp else "—"]
             if self.yue is not None:
                 # 粤拼词表是繁体字，先把粤语写法转繁体再查（呢個/聽日/邊度），查不到再用原形
@@ -775,8 +783,8 @@ class ImeState:
                 reading = self.yue.jyutping(yue_trad) or self.yue.jyutping(yue)
                 if reading:
                     columns.append(reading)
-            if chao:
-                columns.append(chao)      # 潮拼放最后一列
+            if chao_text:
+                columns.append(chao_text if chao_text != simp else "—")   # 潮汕文字放最后一列
             displays.append("  ".join(columns))
         self._candidates = words
         self._display = displays

@@ -53,16 +53,33 @@ def test_mode_cycle_reaches_chao(lexicon, chao):
     assert ime.cycle_mode() == "simp"
 
 
-def test_chao_mode_outputs_pengim(lexicon, chao):
+def test_chao_mode_outputs_written_form(lexicon, chao):
+    """潮汕档上屏的是文字（像粤语），不是拼音。"""
     ime = ImeState(lexicon, chao=chao)
     ime.mode = "chao"
-    for char in "nihao":
+    for char in "chifan":
         ime.insert(char)
-    assert ime.view().words[0] == "le2 ho2"
+    assert ime.view().words[0] == "食饭"
 
 
-def test_candidate_shows_pengim_column(lexicon, chao):
+def test_rewrite_maps_mandarin_words(chao):
+    assert chao.rewrite("我们") == "阮"
+    assert chao.rewrite("什么") == "乜个"
+    assert chao.rewrite("吃饭") == "食饭"
+    assert chao.rewrite("不要") == "嫑"
+    assert chao.rewrite("你好") == "你好"      # 没有映射就原样保留
+
+
+def test_chao_column_shows_written_form(lexicon, chao):
     ime = ImeState(lexicon, chao=chao)
+    for char in "chifan":
+        ime.insert(char)
+    assert "食饭" in ime.view().candidates[0]
+
+
+def test_chao_mode_shows_pengim(lexicon, chao):
+    ime = ImeState(lexicon, chao=chao)
+    ime.mode = "chao"
     for char in "nihao":
         ime.insert(char)
     assert "le2 ho2" in ime.view().candidates[0]

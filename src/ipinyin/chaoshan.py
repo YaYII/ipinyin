@@ -15,14 +15,17 @@ from typing import Optional
 
 
 class ChaoshanConverter:
-    __slots__ = ("_chars", "_words", "_cache", "accent")
+    __slots__ = ("_chars", "_words", "_m2c", "_cache", "_rewrite_cache", "accent")
 
     CACHE_SIZE = 512
 
-    def __init__(self, chars: dict[str, str], words: dict[str, str], accent: str = "st"):
+    def __init__(self, chars: dict[str, str], words: dict[str, str], accent: str = "st",
+                 m2c: dict[str, str] | None = None):
         self._chars = chars
         self._words = words
+        self._m2c = m2c or {}
         self._cache: dict[str, str] = {}
+        self._rewrite_cache: dict[str, str] = {}
         self.accent = accent
 
     @classmethod
@@ -36,7 +39,8 @@ class ChaoshanConverter:
             return None
         if not isinstance(table, dict) or not table.get("chars"):
             return None
-        return cls(table.get("chars", {}), table.get("words", {}), table.get("accent", "st"))
+        return cls(table.get("chars", {}), table.get("words", {}),
+                   table.get("accent", "st"), table.get("m2c", {}))
 
     def pengim(self, text: str) -> str:
         """汉字 → 潮拼（汕头音）。词表优先，查不到再逐字；都没有就跳过该字。"""
@@ -72,6 +76,41 @@ class ChaoshanConverter:
         if len(self._cache) >= self.CACHE_SIZE:
             self._cache.clear()
         self._cache[text] = result
+        return result
+
+    def rewrite(self, text: str) -> str:
+        """普通话 → 潮汕话书面词（词级映射，最长匹配优先）。
+
+        这是粤语那套「嘅/唔/咗」的对应物：`吃饭`→`食饭`、`我们`→`阮`、
+        `什么`→`乜个`。语序仍是普通话语序——潮州话没有平行语料，
+        做不到整句改写（粤语那边靠 21 万句对训练的模型）。
+        """
+        if not text or not self._m2c:
+            return text
+        cached = self._rewrite_cache.get(text)
+        if cached is not None:
+            return cached
+        out: list[str] = []
+        index = 0
+        size = len(text)
+        while index < size:
+            matched = ""
+            for length in range(min(6, size - index), 0, -1):
+                piece = text[index:index + length]
+                replaced = self._m2c.get(piece)
+                if replaced:
+                    out.append(replaced)
+                    matched = piece
+                    break
+            if matched:
+                index += len(matched)
+                continue
+            out.append(text[index])
+            index += 1
+        result = "".join(out)
+        if len(self._rewrite_cache) >= self.CACHE_SIZE:
+            self._rewrite_cache.clear()
+        self._rewrite_cache[text] = result
         return result
 
     def __len__(self) -> int:

@@ -67,6 +67,13 @@ def build() -> dict:
                 continue
             chars[char] = to_swatow(char, first, accent)
 
+    # 普通话词 → 潮汕话书面词（粤语那种「嘅/唔」的对应物，词级映射）
+    m2c: dict[str, str] = {}
+    for mandarin, teochew in read_pairs(os.path.join(SRC, "mandarin_to_teochew.txt")):
+        key = mandarin.rstrip("0123456789")     # 「这1」是同形异读的编号
+        if key and key not in m2c:
+            m2c[key] = teochew.strip()
+
     words: dict[str, str] = {}
     for word, readings in read_pairs(os.path.join(SRC, "word_common.txt")):
         syllables = readings.split()
@@ -76,7 +83,7 @@ def build() -> dict:
             to_swatow(char, syllable, accent) for char, syllable in zip(word, syllables)
         )
 
-    return {"chars": chars, "words": words, "accent": "st"}
+    return {"chars": chars, "words": words, "m2c": m2c, "accent": "st"}
 
 
 def main() -> int:
@@ -88,7 +95,8 @@ def main() -> int:
     with open(OUT, "wb") as handle:
         marshal.dump(table, handle)
     size = os.path.getsize(OUT) / 1024
-    print(f"潮州话（汕头音）：{len(table['chars'])} 字 / {len(table['words'])} 词 → {OUT}（{size:.0f}KB）")
+    print(f"潮州话（汕头音）：{len(table['chars'])} 字 / {len(table['words'])} 词 / "
+          f"{len(table['m2c'])} 条普→潮映射 → {OUT}（{size:.0f}KB）")
     for probe in ("你好", "食饭", "自己", "潮州", "汕头"):
         readings = table["words"].get(probe) or "".join(
             table["chars"].get(ch, "?") for ch in probe
