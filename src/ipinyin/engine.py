@@ -746,10 +746,42 @@ class PinyinEngine(IBus.Engine):
         self.update_lookup_table(table, True)
 
 
+def _acquire_singleton() -> object | None:
+    """单实例锁：同一时刻只允许一个引擎注册。
+
+    没有它就会出现「两个引擎抢同一个名字」——IBus 只认第一个，
+    按鍵全部送进已经半死的那个，输入法等于坏了（真实故障）。
+    拿不到锁时先等 5 秒（给旧进程退出时间），还不行就退出。
+    """
+    import fcntl
+
+    path = os.path.join(config.cache_home(), "engine.lock")
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        handle = open(path, "w")
+    except OSError:
+        return object()          # 拿不到锁文件也不能让输入法挂掉
+    for attempt in range(11):
+        try:
+            fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            handle.write(str(os.getpid()))
+            handle.flush()
+            return handle
+        except OSError:
+            if attempt >= 10:
+                return None
+            time.sleep(0.5)
+    return None
+
+
 def main(argv: list[str] | None = None) -> int:
     setup_logging()
     argv = list(sys.argv if argv is None else argv)
     LOG.info("启动 ipinyin 引擎 pid=%d args=%s", os.getpid(), argv[1:])
+    lock = _acquire_singleton()
+    if lock is None:
+        LOG.warning("已有另一个引擎在跑（锁被占用），本进程退出，避免重复注册")
+        return 0
 
     # 词库放后台线程加载：主循环一启动就能应答按键，绝不出现「卡住 → 飙一堆字」。
     def _preload() -> None:
