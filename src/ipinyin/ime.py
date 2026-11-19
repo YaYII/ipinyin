@@ -771,12 +771,30 @@ class ImeState:
             if self.mode == "chao" and self.chao is not None:
                 # 潮汕档：只留三列——原文 / 潮汕文字 / 潮拼，方便对照
                 pengim = self.chao.pengim(chao_text)
-                columns = [simp, chao_text or simp]
+                columns = [chao_text or simp]
                 if pengim:
                     columns.append(pengim)
+                columns.append(simp if simp != chao_text else "—")
                 displays.append("  ".join(columns))
                 continue
-            columns = [simp, trad if trad != simp else "—", yue if yue != simp else "—"]
+            # 每档都把「本档会写出去的那个写法」放最左：粤语档以前左边是「我不知道」，
+            # 用户会以为输出的是普通话（实际输出的是右边的 我唔知）
+            if self.mode == "yue":
+                columns = [yue]
+                reading = ""
+                if self.yue is not None:
+                    yue_trad = converter.to_traditional(yue) if converter else yue
+                    reading = self.yue.jyutping(yue_trad) or self.yue.jyutping(yue)
+                if reading:
+                    columns.append(reading)
+                columns.append(simp if simp != yue else "—")
+                displays.append("  ".join(columns))
+                continue
+            if self.mode == "trad":
+                columns = [trad, simp if simp != trad else "—"]
+            else:
+                columns = [simp, trad if trad != simp else "—"]
+            columns.append(yue if yue != simp else "—")
             if self.yue is not None:
                 # 粤拼词表是繁体字，先把粤语写法转繁体再查（呢個/聽日/邊度），查不到再用原形
                 yue_trad = converter.to_traditional(yue) if converter else yue
