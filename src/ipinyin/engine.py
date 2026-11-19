@@ -400,12 +400,26 @@ class PinyinEngine(IBus.Engine):
             return False
         if self._shift_down:
             self._shift_clean = False
-        if self._ime is not None and self._ime.mode == "en":
-            return False
-
         action, value = translate(keyval, state)
         LOG.debug("key %#x state=%#x -> %s %r buffer=%r", keyval, state, action.name, value, self.ime.buffer)
         if action is Action.IGNORE:
+            return False
+
+        # 切档键必须在任何状态下都生效：英文档里、空输入时都要能 Tab 回中文。
+        # 以前这段写在 elif 链里（在 `if not composing: return False` 之后），
+        # 结果英文档 buffer 永远为空 → Tab 被吞 → 再也回不来（真实 bug）。
+        if action is Action.TOGGLE_TRAD:
+            mode = self.ime.cycle_mode()
+            if mode != "en":
+                _write_mode(mode)      # 英文档不落盘：重启必须回中文
+                self._last_cn_mode = mode
+            LOG.info("切换到%s", {"simp": "简体", "trad": "繁体", "yue": "粤语", "en": "英文"}[mode])
+            self._sync_now()
+            self._flash_mode_hint()
+            return True
+
+        # 英文档：除了上面的全局键，其余按键原样交给应用
+        if self._ime is not None and self._ime.mode == "en":
             return False
 
         composing = bool(self.ime.buffer)
@@ -478,17 +492,6 @@ class PinyinEngine(IBus.Engine):
             self._comp_flips += 1
             self.ime.page_by(1)
             self._sync()
-        elif action is Action.TOGGLE_TRAD:
-            mode = self.ime.cycle_mode()
-            if mode != "en":
-                _write_mode(mode)      # 英文档不落盘：重启必须回到中文，否则看起来像坏了
-            if mode != "en":
-                self._last_cn_mode = mode
-            LOG.info("切换到%s", {"simp": "简体", "trad": "繁体", "yue": "粤语", "en": "英文"}[mode])
-            self._sync_now()
-            # 没在打字时也要看得见：闪 2 秒状态条（aux 需要候选窗在场，
-            # 所以这只是尽力而为；真正的持久指示见 docs/mode-indicator.md）
-            self._flash_mode_hint()
         elif action is Action.SEG_PREV:
             if self.ime.move_segment(-1):
                 self._sync_now()
