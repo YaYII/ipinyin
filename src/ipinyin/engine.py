@@ -227,6 +227,7 @@ class PinyinEngine(IBus.Engine):
         self._last_commit_info: tuple[str, str, float] | None = None
         # 上屏即读：F9 切换，持久化到 ~/.local/share/ipinyin/tts_auto
         self._tts_auto = os.environ.get("IPINYIN_TTS_AUTO") == "1" or _read_tts_auto()
+        self._hint_source = 0   # 切换后短暂显示状态用的 GLib 定时器
         self._english = False       # 轻按 Shift 在中/英之间切换
         # 系统按键连发（auto-repeat）防护：同键 50ms 内反复到达，只认前两次
         self._repeat_key = -1
@@ -338,7 +339,7 @@ class PinyinEngine(IBus.Engine):
             self._tts_auto = not self._tts_auto
             _write_tts_auto(self._tts_auto)
             LOG.info("上屏即读 %s", "开启" if self._tts_auto else "关闭")
-            self._push_mode_hint()
+            self._flash_mode_hint()
             return True
 
         if action is Action.LETTER:
@@ -492,14 +493,26 @@ class PinyinEngine(IBus.Engine):
         model.learn(joined_key, joined, weight=2)
         LOG.info("合成词组 %r → %r", joined_key, joined)
 
-    def _push_mode_hint(self) -> None:
-        """在预编辑上方显示当前模式（简体/繁体/粤语），避免忘了在哪个模式。"""
+    def _flash_mode_hint(self) -> None:
+        """切换后先显示 2 秒——没在打字也能确认开关生效。"""
+        self._push_mode_hint(force=True)
+        if self._hint_source:
+            GLib.source_remove(self._hint_source)
+        self._hint_source = GLib.timeout_add(2000, self._clear_mode_hint)
+
+    def _clear_mode_hint(self) -> bool:
+        self._hint_source = 0
+        self.update_auxiliary_text(IBus.Text.new_from_string(""), False)
+        return False
+
+    def _push_mode_hint(self, force: bool = False) -> None:
+        """在预编辑上方显示当前模式与朗读开关，避免忘了自己在哪个状态。"""
         if self._ime is None:
             return
         label = {"simp": "简体", "trad": "繁体", "yue": "粤语"}.get(self.ime.mode, "")
         # 状态可见：音:开 = 上屏即读；音:关 = 只按 Ctrl+回车 才念
         label = f"{label} · 音:{'开' if self._tts_auto else '关'}"
-        visible = bool(self.ime.buffer)
+        visible = bool(self.ime.buffer) or force
         self.update_auxiliary_text(IBus.Text.new_from_string(label if visible else ""), visible)
 
     def _push_preedit(self) -> None:
