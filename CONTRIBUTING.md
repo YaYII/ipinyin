@@ -27,3 +27,16 @@ python3 -m pytest tests -q     # 单测
 1. fork + 分支
 2. 跑 `python3 -m pytest tests -q`
 3. 说明改了什么、为什么、验证方式
+
+
+## 密钥
+
+AI 通道（opencode-go 等）的 key 只放在 `~/.dsh/.credentials.yaml` 或环境变量里，
+**绝不入库**。提交前会跑 `tools/check_secrets.py` 检查暂存区；
+本地启用钩子：
+
+```bash
+cp tools/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+```
+
+手动检查：`make secrets`。

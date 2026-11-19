@@ -9,6 +9,10 @@ uninstall:
 test:
 	python3 -m pytest tests -q
 
+# 扫密钥：AI 通道的 key 只该在 ~/.dsh/.credentials.yaml，绝不入库
+secrets:
+	python3 tools/check_secrets.py
+
 e2e:
 	python3 tests/e2e_ibus.py
 

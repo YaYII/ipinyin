@@ -24,3 +24,11 @@ packaging/vendor/*.whl
 
 # 改动预算工具产物
 .change-budget.json
+
+# 个人凭据/密钥（AI 通道、portal token 等）：只留在 ~/.dsh 与 ~/.config，绝不入库
+.env
+.env.*
+*.pem
+*.key
+.credentials.yaml
+screencast.json

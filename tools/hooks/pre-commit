@@ -1,0 +1,6 @@
+#!/bin/sh
+# 安装：cp tools/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+python3 tools/check_secrets.py --staged || {
+    echo "提交被拦下：暂存区里有疑似密钥。用 git commit --no-verify 可以强推，但请先确认那不是真 key。"
+    exit 1
+}
