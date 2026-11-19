@@ -1,3 +1,5 @@
+import os
+
 """屏幕感知：扫描新截图、调用可插拔模型命令、落上下文。"""
 from ipinyin import vision
 
@@ -62,3 +64,46 @@ def test_capture_context_logs(tmp_path, monkeypatch):
     assert rows[0]["desc"] == "在写代码"
     assert vision.recent(5)[0]["desc"] == "在写代码"
     assert vision.capture_context() == [], "已处理过的截图不再重复"
+
+
+def test_capture_copies_frame_and_cleanup_removes_it(tmp_path, monkeypatch):
+    """原件是你的，永不删；只删自己复制过来的帧。"""
+    import os
+    import time as _time
+
+    shots = _isolate(tmp_path, monkeypatch)
+    image = shots / "a.png"
+    image.write_bytes(b"x")
+    monkeypatch.setenv("IPINYIN_VISION_CMD", "echo 看到终端")
+
+    rows = vision.capture_context()
+    frame = rows[0]["image"]
+    assert frame.startswith(vision.frames_dir())
+    assert os.path.exists(frame)
+    assert image.exists(), "原始截图必须保留"
+
+    # 把帧的修改时间改成两天前，再清理
+    old = _time.time() - 2 * 86400
+    os.utime(frame, (old, old))
+    result = vision.cleanup()
+    assert result["removed"] == 1
+    assert not os.path.exists(frame)
+    assert image.exists()
+
+
+def test_cleanup_keeps_recent_frames(tmp_path, monkeypatch):
+    shots = _isolate(tmp_path, monkeypatch)
+    (shots / "a.png").write_bytes(b"x")
+    monkeypatch.setenv("IPINYIN_VISION_CMD", "echo ok")
+    rows = vision.capture_context()
+    result = vision.cleanup()
+    assert result["removed"] == 0
+    assert os.path.exists(rows[0]["image"])
+
+
+def test_cleanup_never_touches_original_dirs(tmp_path, monkeypatch):
+    shots = _isolate(tmp_path, monkeypatch)
+    original = shots / "keep.png"
+    original.write_bytes(b"x")
+    vision.cleanup()
+    assert original.exists(), "原图目录不在清理范围"

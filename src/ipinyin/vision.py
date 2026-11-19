@@ -24,6 +24,8 @@ LOG = logging.getLogger("ipinyin")
 DEFAULT_PROMPT = "用一句话说明这个画面：使用者在做什么、在哪个应用、关键内容是什么。"
 MAX_DESC = 500
 IMAGE_EXTS = (".png", ".jpg", ".jpeg", ".webp")
+RETENTION_DAYS = 1        # 只保留自己的帧一天：昨天的自动删，避免垃圾堆积
+MAX_LOG_LINES = 2000      # 上下文日志上限，超了只留最近的部分
 
 
 def home() -> str:
@@ -36,6 +38,26 @@ def state_path() -> str:
 
 def log_path() -> str:
     return os.path.join(home(), "vision.jsonl")
+
+
+def frames_dir() -> str:
+    """我们自己的帧副本目录——只有这里的东西会被自动清理。"""
+    return os.path.join(home(), "frames")
+
+
+def _copy_frame(image: str) -> str:
+    """把要处理的截图复制一份到自己目录：原件是你的，永远不碰。"""
+    import shutil
+
+    try:
+        os.makedirs(frames_dir(), exist_ok=True)
+        stamp = time.strftime("%Y%m%d-%H%M%S")
+        name = f"{stamp}-{os.path.basename(image)}"
+        target = os.path.join(frames_dir(), name)
+        shutil.copy2(image, target)
+        return target
+    except OSError:
+        return image
 
 
 def watch_dirs() -> list[str]:
@@ -128,10 +150,12 @@ def capture_context(limit: int = 3) -> list[dict]:
     """扫新截图 → 逐张描述 → 落 vision.jsonl。"""
     results: list[dict] = []
     for path in scan()[:limit]:
-        desc = describe(path)
+        frame = _copy_frame(path)
+        desc = describe(frame)
         entry = {
             "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
-            "image": path,
+            "image": frame,
+            "source": path,
             "desc": desc or "",
         }
         results.append(entry)
@@ -144,6 +168,53 @@ def capture_context(limit: int = 3) -> list[dict]:
         if not desc:
             LOG.info("新截图 %s（未配置 IPINYIN_VISION_CMD，只记录路径）", path)
     return results
+
+
+def cleanup(days: int | None = None) -> dict:
+    """删掉自己帧目录里超过保留期的图片，并把日志裁到上限。
+
+    只碰 `vision/frames/`——你的原始截图目录（~/Pictures 等）永远不在删除范围。
+    """
+    keep_days = RETENTION_DAYS if days is None else max(int(days), 0)
+    cutoff = time.time() - keep_days * 86400
+    removed = 0
+    kept = 0
+    try:
+        names = os.listdir(frames_dir())
+    except OSError:
+        names = []
+    for name in names:
+        if not name.lower().endswith(IMAGE_EXTS):
+            continue
+        path = os.path.join(frames_dir(), name)
+        try:
+            if os.path.getmtime(path) < cutoff:
+                os.remove(path)
+                removed += 1
+            else:
+                kept += 1
+        except OSError:
+            continue
+    trimmed = _trim_log()
+    return {"removed": removed, "kept": kept, "log_trimmed": trimmed,
+            "retention_days": keep_days}
+
+
+def _trim_log() -> int:
+    try:
+        with open(log_path(), encoding="utf-8") as handle:
+            lines = handle.readlines()
+    except OSError:
+        return 0
+    if len(lines) <= MAX_LOG_LINES:
+        return 0
+    keep = lines[-MAX_LOG_LINES:]
+    try:
+        with open(log_path(), "w", encoding="utf-8") as handle:
+            handle.writelines(keep)
+    except OSError:
+        return 0
+    return len(lines) - len(keep)
 
 
 def recent(limit: int = 20) -> list[dict]:
@@ -161,9 +232,15 @@ def recent(limit: int = 20) -> list[dict]:
 
 
 def status() -> dict:
+    try:
+        frames = sum(1 for n in os.listdir(frames_dir()) if n.lower().endswith(IMAGE_EXTS))
+    except OSError:
+        frames = 0
     return {
         "dirs": watch_dirs(),
         "cmd": bool(os.environ.get("IPINYIN_VISION_CMD")),
         "entries": len(recent(10_000)),
+        "frames": frames,
+        "retention_days": RETENTION_DAYS,
         "home": home(),
     }

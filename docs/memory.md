@@ -93,6 +93,20 @@ export IPINYIN_VISION_CMD='opencode run --model deepseek-v4.1-flash -f {image} "
 默认监看 `~/Pictures/截图`、`~/Pictures/Screenshots` 和 `vision/inbox`，
 可用 `IPINYIN_VISION_DIRS` 覆盖（`:` 分隔）。
 
+### 帧的生命周期（自动清理）
+
+处理截图时**先复制一份到 `vision/frames/`**，模型看的是副本：
+
+- 你的原图（`~/Pictures/...`）**永远不删**
+- 副本保留 **1 天**，`ipinyin-vision cleanup` 或 `watch` 循环每小时自动清
+- 另装一个 systemd 定时器每天 00:05 兜底：`ipinyin-vision-cleanup.timer`
+- 上下文日志 `vision.jsonl` 超过 2000 行只留最近的
+
+```bash
+ipinyin-vision cleanup        # 手动清（默认保留 1 天）
+ipinyin-vision cleanup 7      # 保留 7 天
+```
+
 **真正的全自动**需要 ScreenCast portal 的一次性授权 + `restore_token`
 （GNOME 42+ 支持恢复令牌，授权一次之后可静默重连）；或者切到 Xorg 会话，
 X11 下 `import`/`xwd` 截屏无需任何授权。

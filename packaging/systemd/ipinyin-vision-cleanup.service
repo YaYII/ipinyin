@@ -1,0 +1,6 @@
+[Unit]
+Description=清理 IPinyin 视觉帧（只删自己的 frames，保留 1 天）
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/ipinyin-vision cleanup

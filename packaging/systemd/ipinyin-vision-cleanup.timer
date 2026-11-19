@@ -1,0 +1,10 @@
+[Unit]
+Description=每天清理一次 IPinyin 视觉帧
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=10m
+
+[Install]
+WantedBy=timers.target
