@@ -400,8 +400,14 @@ class ImeState:
         return True
 
     def cycle_mode(self) -> str:
-        """Tab：简体 → 繁体 → 粤语 → 简体"""
-        self.mode = {"simp": "trad", "trad": "yue", "yue": "simp"}[self.mode]
+        """Tab：简体 → 繁体 → 粤语 → 英文 → 简体。
+
+        英文是「固定的一档」，不是 Shift 随手按出来的：
+        Shift 只负责强制回到中文（见 engine 的 Shift 处理）。
+        """
+        self.mode = {"simp": "trad", "trad": "yue", "yue": "en", "en": "simp"}[self.mode]
+        if self.mode == "en":
+            self.buffer = ""        # 进英文档不留半截拼音
         self._rebuild()
         return self.mode
 
@@ -502,6 +508,10 @@ class ImeState:
         return result[:9]
 
     def _rebuild(self) -> None:
+        # 英文档：不产生任何候选，按键原样交给应用
+        if self.mode == "en":
+            self._candidates, self._display, self._keys = [], [], []
+            return
         started = time.perf_counter()
         text = self.active_text()
         if self.shuangpin and text:

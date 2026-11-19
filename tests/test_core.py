@@ -164,6 +164,9 @@ def test_tab_cycles_simplified_traditional_cantonese(lexicon):
     assert "我哋" in first                # 四列里始终有粤语
     assert "ngo5 dei6" in first           # 粤拼注音
     assert ime.select(1) == "我哋"
+    # Tab 循环：简体 → 繁体 → 粤语 → 英文 → 简体
+    assert ime.cycle_mode() == "en"
+    assert ime.view().words == []          # 英文档不出候选
     assert ime.cycle_mode() == "simp"
 
 

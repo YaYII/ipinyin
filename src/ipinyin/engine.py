@@ -117,7 +117,7 @@ def _read_mode() -> str:
     try:
         with open(config.mode_path(), encoding="utf-8") as fh:
             mode = fh.read().strip()
-        return mode if mode in ("simp", "trad", "yue") else "simp"
+        return mode if mode in ("simp", "trad", "yue", "en") else "simp"
     except OSError:
         return "simp"
 
@@ -199,32 +199,33 @@ def get_converter() -> Converter:
     return _CONVERTER
 
 
-_BUS = None
 _ENGINE_CHECK_AT = 0.0
 
 
 def _ensure_global_engine(reason: str) -> None:
-    """全局引擎为空时自荐。
+    """全局引擎为空时自荐（后台线程里做）。
 
-    升级（postinst 杀引擎）或 ibus-daemon 重启后，IBus 会把「当前引擎」清空：
-    此时输入法完全消失，按键原样进应用，用户看到的就是「打出来全是拼音」。
+    必须离开主线程：在主线程同步调 set_global_engine，ibus-daemon 收到后会
+    反过来让本引擎 Enable，而主线程正卡在这个同步调用上——死锁，
+    最后 IBus 超时返回「操作被取消」，输入法彻底起不来（真实踩过）。
     """
+    threading.Thread(target=_ensure_global_engine_worker, args=(reason,),
+                     name="engine-ensure", daemon=True).start()
+
+
+def _ensure_global_engine_worker(reason: str) -> None:
     global _ENGINE_CHECK_AT
     _ENGINE_CHECK_AT = time.monotonic()
-    bus = _BUS
-    if bus is None:
-        return
     try:
+        bus = IBus.Bus()
+        if not bus.is_connected():
+            return
         current = bus.get_global_engine()
         name = current.get_name() if current is not None else ""
-    except GLib.Error:
-        name = ""
-    if name:
-        return
-    LOG.info("全局引擎为空（%s），自荐回 ipinyin", reason)
-    try:
-        ok = bus.set_global_engine("ipinyin")
-        if not ok:
+        if name:
+            return
+        LOG.info("全局引擎为空（%s），自荐回 ipinyin", reason)
+        if not bus.set_global_engine("ipinyin"):
             LOG.warning("自荐被拒绝（set_global_engine 返回 False）")
     except GLib.Error as exc:
         LOG.warning("自动设置全局引擎失败：%s", exc.message)
@@ -278,7 +279,7 @@ class PinyinEngine(IBus.Engine):
         self._comp_backs = 0
         self._comp_flips = 0
         GLib.timeout_add_seconds(10, self._memory_tick)
-        self._english = False       # 轻按 Shift 在中/英之间切换
+        self._last_cn_mode = "simp"  # 上一次的中文档（Shift 强制回来用）
         # 系统按键连发（auto-repeat）防护：同键 50ms 内反复到达，只认前两次
         self._repeat_key = -1
         self._repeat_count = 0
@@ -300,6 +301,7 @@ class PinyinEngine(IBus.Engine):
             if lm is not None:
                 self._ime.attach_lm(lm)
             self._ime.mode = _read_mode()
+            self._last_cn_mode = self._ime.mode if self._ime.mode != "en" else "simp"
             self._ime.shuangpin = _read_input_mode()
         return self._ime
 
@@ -379,12 +381,16 @@ class PinyinEngine(IBus.Engine):
         if keyval in (0xFFE1, 0xFFE2):
             if state & (1 << 30):
                 if self._shift_down and self._shift_clean:
-                    # 切换前把正在打的词上屏：macOS 也是这个行为，
-                    # 不然打到一半手一抖按 Shift，整串拼音就没了
-                    if self._ime is not None and self._ime.buffer:
-                        self._finish(self._ime.commit_current(), self._ime.buffer)
-                    self._english = not self._english
-                    LOG.info("切换到%s输入", "英文" if self._english else "中文")
+                    # Shift = 强制回到中文（不是切英文）。英文只能靠 Tab 转到「英文」档，
+                    # 这样 Shift 永远不会把你带进英文，按下去一定是拼音。
+                    if self._ime is not None:
+                        if self._ime.buffer:
+                            self._finish(self._ime.commit_current(), self._ime.buffer)
+                        if self._ime.mode == "en":
+                            self._ime.mode = self._last_cn_mode
+                            _write_mode(self._ime.mode)
+                            self._ime._rebuild()
+                        LOG.info("Shift → 强制中文（%s）", self._ime.mode)
                     self._push_mode_hint(force=True)
                 self._shift_down = False
             else:
@@ -393,7 +399,7 @@ class PinyinEngine(IBus.Engine):
             return False
         if self._shift_down:
             self._shift_clean = False
-        if self._english:
+        if self._ime is not None and self._ime.mode == "en":
             return False
 
         action, value = translate(keyval, state)
@@ -474,7 +480,9 @@ class PinyinEngine(IBus.Engine):
         elif action is Action.TOGGLE_TRAD:
             mode = self.ime.cycle_mode()
             _write_mode(mode)
-            LOG.info("切换到%s输出", {"simp": "简体", "trad": "繁体", "yue": "粤语"}[mode])
+            if mode != "en":
+                self._last_cn_mode = mode
+            LOG.info("切换到%s", {"simp": "简体", "trad": "繁体", "yue": "粤语", "en": "英文"}[mode])
             self._sync_now()
             # 没在打字时也要看得见：闪 2 秒状态条（aux 需要候选窗在场，
             # 所以这只是尽力而为；真正的持久指示见 docs/mode-indicator.md）
@@ -738,9 +746,9 @@ class PinyinEngine(IBus.Engine):
         """在预编辑上方显示当前模式与朗读开关，避免忘了自己在哪个状态。"""
         if self._ime is None:
             return
-        if self._english:
-            # 英文态必须显示：按 Shift 切到英文后没有任何提示，用户会以为没生效
-            self._send_hint("英文", True, force)
+        if self.ime.mode == "en":
+            # 英文档必须显示：否则用户以为输入法坏了
+            self._send_hint("英文 · Tab 回中文", True, force)
             return
         self._refresh_tts_auto()   # CLI 改了状态也要立刻反映到提示上
         label = {"simp": "简体", "trad": "繁体", "yue": "粤语"}.get(self.ime.mode, "")
@@ -889,11 +897,8 @@ def main(argv: list[str] | None = None) -> int:
 
     # 引擎被杀后重启时，ibus-daemon 会把"当前引擎"清空（表现为完全打不了字）。
     # 这里发现引擎位空缺就自荐，恢复可用状态。
-    global _BUS
-    _BUS = bus
-    _ensure_global_engine("启动")
-    # 启动时自荐可能被 ibus-daemon 随后的初始化覆盖，隔几秒再复查几次
-    for delay in (2000, 6000, 15000, 30000, 60000):
+    # 注意：这里不能同步自荐（会死锁），一律走后台线程 + 定时复查
+    for delay in (3000, 6000, 15000, 30000, 60000):
         GLib.timeout_add(delay, lambda: (_ensure_global_engine("启动后复查"), False)[1])
 
     LOG.info("引擎已注册，进入主循环")
