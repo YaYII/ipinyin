@@ -35,6 +35,34 @@ def cursor_path() -> str:
     return os.path.join(home(), "cursor.json")
 
 
+def heartbeat_path() -> str:
+    return os.path.join(home(), "heartbeat.json")
+
+
+def write_heartbeat(streams: int = 0, frames: int = 0) -> None:
+    """每抓一帧写一次：引擎靠它判断「AI 感知是否在跑」。"""
+    try:
+        os.makedirs(home(), exist_ok=True)
+        with open(heartbeat_path(), "w", encoding="utf-8") as handle:
+            json.dump({"ts": time.time(), "streams": streams, "frames": frames}, handle)
+    except OSError:
+        pass
+
+
+def heartbeat_age() -> float | None:
+    """心跳距今多少秒；没有心跳返回 None。"""
+    try:
+        with open(heartbeat_path(), encoding="utf-8") as handle:
+            return max(time.time() - float(json.load(handle)["ts"]), 0.0)
+    except (OSError, ValueError, KeyError):
+        return None
+
+
+def is_active(max_age: float = 90.0) -> bool:
+    age = heartbeat_age()
+    return age is not None and age <= max_age
+
+
 def incoming_dir() -> str:
     return os.path.join(home(), "incoming")
 
@@ -204,6 +232,7 @@ def run(interval: float = 20.0) -> int:
     for stream in streams:
         print(f"  节点 {stream['node']}: {stream['w']}x{stream['h']} @ ({stream['x']},{stream['y']})")
     print(f"每 {interval:.0f} 秒抓一帧到 {incoming_dir()}（Ctrl+C 退出）")
+    write_heartbeat(len(streams), 0)
 
     stop = {"flag": False}
 
@@ -219,6 +248,11 @@ def run(interval: float = 20.0) -> int:
         target = os.path.join(incoming_dir(), f"frame-{int(time.time() * 1000)}.png")
         if grab(fd, stream["node"], target):
             LOG.info("抓帧 %s（节点 %s）", os.path.basename(target), stream["node"])
+            try:
+                frames = len([n for n in os.listdir(incoming_dir()) if n.endswith(".png")])
+            except OSError:
+                frames = 0
+            write_heartbeat(len(streams), frames)
         time.sleep(interval)
     return 0
 

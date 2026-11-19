@@ -232,6 +232,9 @@ class PinyinEngine(IBus.Engine):
         self._last_key_at = time.monotonic()
         self._last_commit_at = 0.0
         self._last_focus_at = 0.0
+        # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
+        self._ai_on = False
+        self._ai_checked = 0.0
         # 一次输入的「手感」：敲了几个键、退了几次、翻了几页、用了多久
         self._comp_start = 0.0
         self._comp_keys = 0
@@ -589,6 +592,20 @@ class PinyinEngine(IBus.Engine):
         self.update_auxiliary_text(IBus.Text.new_from_string(""), False)
         return False
 
+    def _ai_active(self) -> bool:
+        """AI 感知（ScreenCast 抓帧）是否在跑：看心跳文件，3 秒缓存。"""
+        now = time.monotonic()
+        if now - self._ai_checked < 3:
+            return self._ai_on
+        self._ai_checked = now
+        try:
+            from . import screencast
+
+            self._ai_on = screencast.is_active()
+        except Exception:
+            self._ai_on = False
+        return self._ai_on
+
     def _push_mode_hint(self, force: bool = False) -> None:
         """在预编辑上方显示当前模式与朗读开关，避免忘了自己在哪个状态。"""
         if self._ime is None:
@@ -596,7 +613,8 @@ class PinyinEngine(IBus.Engine):
         self._refresh_tts_auto()   # CLI 改了状态也要立刻反映到提示上
         label = {"simp": "简体", "trad": "繁体", "yue": "粤语"}.get(self.ime.mode, "")
         # 状态可见：音:开 = 上屏即读；音:关 = 只按 Ctrl+回车 才念
-        label = f"{label} · 音:{'开' if self._tts_auto else '关'}"
+        label = (f"{label} · 音:{'开' if self._tts_auto else '关'}"
+                 f" · AI:{'开' if self._ai_active() else '关'}")
         visible = bool(self.ime.buffer) or force
         self.update_auxiliary_text(IBus.Text.new_from_string(label if visible else ""), visible)
 
