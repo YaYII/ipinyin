@@ -546,6 +546,22 @@ class ImeState:
             self.last_build_ms = (time.perf_counter() - started) * 1000
             return
 
+        # 快路径：不像拼音的串（hello / word / nice 这类英文）只要没有可补的前缀，
+        # 就直接把原文当唯一候选——跳过整句切分、语言模型、粤语转换。
+        # 英文打字本来就不该走中文那套（实测每键 20~30ms，卡得明显）。
+        if not self.lexicon.split_syllables(text):
+            learned = self.user_model.preferred(text) if self.user_model else []
+            if (not learned and self._abbrev_segments(text) is None
+                    and not self.lexicon.prefix_entries(text)[:1]
+                    and not self.lexicon.initials_entries(text)):
+                self._candidates = [text]
+                self._display = [text]
+                self._keys = [text]
+                self._page = 0
+                self._highlighted = 0
+                self.last_build_ms = (time.perf_counter() - started) * 1000
+                return
+
         # 词库里偶有「w → w」这种字母当词的垃圾条目，会顶掉真正的候选
         exact = [(w, f) for w, f in self.lexicon.entries(text)
                  if not (len(w) <= 2 and w.isascii())]

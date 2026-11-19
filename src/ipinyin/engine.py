@@ -899,6 +899,13 @@ def main(argv: list[str] | None = None) -> int:
             get_lexicon()
             get_user_model().maybe_compact()
             _LEXICON_READY.set()
+            # 这三个都是懒加载：以前第一次用到时在主线程现加载，
+            # 实测第一次按键会卡 946~990ms（简繁表/粤语神经模型/语言模型）
+            for warm in (get_converter, get_yue, get_lm):
+                try:
+                    warm()
+                except Exception:
+                    LOG.exception("预热失败：%s", warm.__name__)
             # 词库是几十万个长寿命对象，冻结后不再参与 GC 扫描，省掉偶发的回收停顿
             gc.freeze()
             gc.set_threshold(50000, 100, 100)  # 减少全量回收，避免偶发几十毫秒停顿
