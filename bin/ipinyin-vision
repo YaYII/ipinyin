@@ -46,6 +46,11 @@ def main(argv: list[str]) -> int:
         sc = screencast.status()
         print(f"屏幕感知：{'已授权' if sc['authorized'] else '未授权'}，"
               f"{len(sc['streams'])} 块屏幕，{sc['frames']} 帧待处理")
+        if sc["authorized"]:
+            print(f"  授权文件：{sc['config']}")
+            print(f"  保存时间：{sc.get('saved') or '未知'}"
+                  f"  上次授权耗时：{sc.get('last_ms') or '?'}ms"
+                  f"{'（弹过窗）' if (sc.get('last_ms') or 0) > 3000 else '（静默恢复）'}")
         print(f"数据目录：{info['home']}")
         return 0
     if command == "scan":

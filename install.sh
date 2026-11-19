@@ -83,6 +83,12 @@ install -m 755 "$ROOT/bin/ipinyin-engine" "$PREFIX/bin/ipinyin-engine"
 install -m 755 "$ROOT/bin/ipinyin-ensure" "$PREFIX/bin/ipinyin-ensure"
 install -m 755 "$ROOT/bin/ipinyin-tts" "$PREFIX/bin/ipinyin-tts"
 install -m 755 "$ROOT/bin/ipinyin-memory" "$PREFIX/bin/ipinyin-memory"
+install -m 755 "$ROOT/bin/ipinyin-ai" "$PREFIX/bin/ipinyin-ai"
+install -m 755 "$ROOT/bin/ipinyin-vision" "$PREFIX/bin/ipinyin-vision"
+# ScreenCast 的应用身份：缺了它，portal 认不出是同一个应用，restore_token 会失效
+install -d "$HOME/.local/share/applications"
+sed "s|@BIN@|$PREFIX/bin/ipinyin-vision|" "$ROOT/packaging/ipinyin-vision.desktop" \
+    > "$HOME/.local/share/applications/ipinyin-vision.desktop"
 sed "s|@PREFIX@|$PREFIX|g" "$ROOT/packaging/ipinyin.xml.in" > "$PREFIX/component/ipinyin.xml"
 
 # ---------- 让 ibus-daemon 认识这个组件 ----------

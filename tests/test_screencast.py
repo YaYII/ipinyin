@@ -59,3 +59,21 @@ def test_stale_heartbeat_is_inactive(tmp_path, monkeypatch):
     with open(screencast.heartbeat_path(), "w", encoding="utf-8") as handle:
         json.dump({"ts": _time.time() - 600, "streams": 2, "frames": 1}, handle)
     assert not screencast.is_active()
+
+
+def test_token_prefers_config_dir(tmp_path, monkeypatch):
+    """授权状态优先放 ~/.config/ipinyin，重装/换数据目录都不丢。"""
+    import json
+    import os
+
+    monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path / "cfg"))
+    monkeypatch.setattr(screencast, "home", lambda: str(tmp_path / "data"))
+    os.makedirs(tmp_path / "data", exist_ok=True)
+    with open(screencast.state_path(), "w", encoding="utf-8") as handle:
+        json.dump({"restore_token": "legacy"}, handle)
+    assert screencast._load_state()["restore_token"] == "legacy", "旧位置要能读"
+
+    screencast._save_state(restore_token="new-token")
+    with open(screencast.config_path(), encoding="utf-8") as handle:
+        assert json.load(handle)["restore_token"] == "new-token"
+    assert screencast._load_state()["restore_token"] == "new-token", "新位置优先"

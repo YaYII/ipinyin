@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=IPinyin Vision
+Comment=屏幕感知：截取屏幕并用视觉模型理解上下文
+Exec=@BIN@ screencast
+Terminal=false
+Categories=Utility;

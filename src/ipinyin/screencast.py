@@ -31,6 +31,12 @@ def state_path() -> str:
     return os.path.join(home(), "screencast.json")
 
 
+def config_path() -> str:
+    """授权状态放 ~/.config：重装、清缓存、换数据目录都不影响它。"""
+    base = os.environ.get("XDG_CONFIG_HOME") or os.path.expanduser("~/.config")
+    return os.path.join(base, "ipinyin", "screencast.json")
+
+
 def cursor_path() -> str:
     return os.path.join(home(), "cursor.json")
 
@@ -68,23 +74,29 @@ def incoming_dir() -> str:
 
 
 def _load_state() -> dict:
-    try:
-        with open(state_path(), encoding="utf-8") as handle:
-            return json.load(handle)
-    except (OSError, ValueError):
-        return {}
+    """新位置优先，兼容旧位置（老版本存在 data 目录）。"""
+    for path in (config_path(), state_path()):
+        try:
+            with open(path, encoding="utf-8") as handle:
+                data = json.load(handle)
+            if isinstance(data, dict) and data:
+                return data
+        except (OSError, ValueError):
+            continue
+    return {}
 
 
 def _save_state(**fields) -> None:
     data = _load_state()
     data.update(fields)
     data["saved"] = time.strftime("%Y-%m-%dT%H:%M:%S")
-    try:
-        os.makedirs(home(), exist_ok=True)
-        with open(state_path(), "w", encoding="utf-8") as handle:
-            json.dump(data, handle, ensure_ascii=False)
-    except OSError:
-        pass
+    for path in (config_path(), state_path()):
+        try:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, "w", encoding="utf-8") as handle:
+                json.dump(data, handle, ensure_ascii=False)
+        except OSError:
+            continue
 
 
 def write_cursor(x: int, y: int, width: int = 0, height: int = 0) -> None:
@@ -218,7 +230,13 @@ def grab(fd: int, node: int, target: str, timeout: int = 15) -> bool:
 
 def run(interval: float = 20.0) -> int:
     """常驻：授权 → 按游标选屏 → 定期抓帧到 incoming/。"""
+    started = time.monotonic()
     info = authorize()
+    elapsed = int((time.monotonic() - started) * 1000)
+    _save_state(last_authorize_ms=elapsed,
+                last_authorize_at=time.strftime("%Y-%m-%dT%H:%M:%S"))
+    if elapsed > 3000:
+        LOG.info("本次授权耗时 %dms（可能弹了确认窗）", elapsed)
     if not info.get("streams"):
         print("授权失败：没有拿到屏幕串流")
         return 1
@@ -266,7 +284,10 @@ def status() -> dict:
     return {"authorized": bool(data.get("restore_token")),
             "streams": data.get("streams", []),
             "frames": frames,
-            "cursor": read_cursor()}
+            "cursor": read_cursor(),
+            "config": config_path(),
+            "saved": data.get("saved"),
+            "last_ms": data.get("last_authorize_ms")}
 
 
 def main(argv: list[str]) -> int:
