@@ -3,7 +3,8 @@
 # 直接 kill + 立刻重启会出现「两个引擎抢同一个名字」，IBus 把按键送进半死的那个。
 set -u
 
-PATTERN="python3 .*ipinyin-engine --ibus"
+# 用 ^ 锚定真实进程，避免把「命令行里提到这个字符串」的 shell 也匹配上
+PATTERN="^/usr/bin/python3 .*/ipinyin-engine --ibus"
 
 pids=$(pgrep -f "$PATTERN" 2>/dev/null || true)
 [ -n "$pids" ] && echo "停止旧引擎：$pids"
