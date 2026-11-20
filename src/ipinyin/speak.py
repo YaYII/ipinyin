@@ -345,7 +345,8 @@ class Speaker:
         got = self._render(text, voice)
         return got[0] if got else None
 
-    def _render(self, text: str, voice: str) -> tuple[bytes, str] | None:
+    def _render(self, text: str, voice: str,
+                prefer: str | None = None) -> tuple[bytes, str] | None:
         """按 edge → espeak 的顺序合成，返回 (音频, 缓存路径)。
 
         缓存键带 backend：同一句话两种引擎产出的音频不能互相冒充，
@@ -363,6 +364,14 @@ class Speaker:
         # 顺序由 tts_order 决定：model=模型优先（音库兜底）；offline=音库优先
         order = config.tts_order()
         gender = config.tts_gender()
+        if prefer == "edge" and can_edge:
+            # 整句重播指定走在线：一句一次合成，韵律天然连贯，没有拼接感
+            backends = ["edge"]
+            if unit_lib is not None:
+                backends.append("units")
+            if self._binary:
+                backends.append("espeak")
+            order = "prefer-edge"
         if order == "model":
             # 女声只有 VITS 模型有；男声只有音库（WanLung）有
             if gender == "female" and voice == YUE_VOICE and local_tts_dir():
@@ -490,7 +499,7 @@ class Speaker:
             return None
 
     # ---------- 播放 ----------
-    def speak(self, text: str, voice: str = PINYIN_VOICE) -> bool:
+    def speak(self, text: str, voice: str = PINYIN_VOICE, prefer: str | None = None) -> bool:
         """念一句。立刻返回，合成与播放在后台线程里做。"""
         if not self.available:
             if not self._warned:
@@ -505,7 +514,7 @@ class Speaker:
             # 长句切段：worker 播一段、合成下一段，感知延迟≈第一段合成时间
             pieces = chunks(text) if len(text) > CHUNK_CHARS else [text]
             for piece in pieces:
-                self._queue.append((piece, voice, False))
+                self._queue.append((piece, voice, False, prefer))
             self._cv.notify()
             if self._worker is None or not self._worker.is_alive():
                 self._worker = threading.Thread(target=self._run, name="tts", daemon=True)
@@ -522,7 +531,7 @@ class Speaker:
             if not piece:
                 continue
             with self._cv:
-                if (piece, voice) in self._prefetch:
+                if (piece, voice, None) in self._prefetch:
                     continue
             try:
                 done = self._render(piece, voice)
@@ -530,7 +539,7 @@ class Speaker:
                 continue
             if done:
                 with self._cv:
-                    self._prefetch[(piece, voice)] = done
+                    self._prefetch[(piece, voice, None)] = done
 
     def pending(self) -> int:
         """队列里还有多少条没播（诊断用：整句重播前应丢弃积压）。"""
@@ -580,7 +589,7 @@ class Speaker:
         with self._cv:
             while not self._queue:
                 self._cv.wait()
-            text, voice, mergeable = self._queue.popleft()
+            text, voice, mergeable, prefer = self._queue.popleft()
             parts = [text]
             deadline = time.monotonic() + BATCH_WAIT
             while True:
@@ -592,20 +601,20 @@ class Speaker:
                 if left <= 0:
                     break
                 self._cv.wait(left)      # 等 40ms 看还有没有字进来
-            return "".join(parts), voice, self._epoch
+            return "".join(parts), voice, self._epoch, prefer
 
     def _run(self) -> None:
         """唯一的朗读线程：取一批、念一批、念完取下一批。"""
         while True:
-            text, voice, epoch = self._take_batch()
+            text, voice, epoch, prefer = self._take_batch()
 
             try:
-                self._say(text, voice, epoch)
+                self._say(text, voice, epoch, prefer)
             except Exception:          # 朗读永远不能把主循环带崩
                 LOG.exception("朗读线程异常")
 
-    def _say(self, text: str, voice: str, epoch: int) -> None:
-        got = self._prefetch.pop((text, voice), None) or self._render(text, voice)
+    def _say(self, text: str, voice: str, epoch: int, prefer: str | None = None) -> None:
+        got = self._prefetch.pop((text, voice, prefer), None) or self._render(text, voice, prefer)
         if not got:
             return
         with self._cv:
@@ -622,7 +631,9 @@ class Speaker:
         with self._cv:
             while self._queue and self._queue[0][1] == voice:
                 nxt = self._queue[0][:2]
-                done = self._prefetch.pop(nxt, None)
+                done = self._prefetch.get((nxt[0], nxt[1], self._queue[0][3]))
+                if done:
+                    self._prefetch.pop((nxt[0], nxt[1], self._queue[0][3]), None)
                 if not done:
                     break
                 self._queue.popleft()
@@ -642,12 +653,12 @@ class Speaker:
             self._proc = proc
         # 播放期间把下一条先合成好：把 1.1s 的合成藏进 0.6s 的播放里
         with self._cv:
-            nxt = self._queue[0][:2] if self._queue else None
+            nxt = (self._queue[0][0], self._queue[0][1], self._queue[0][3]) if self._queue else None
             if len(self._prefetch) > 4:
                 self._prefetch.clear()
         if nxt is not None and nxt not in self._prefetch:
             try:
-                done = self._render(*nxt)
+                done = self._render(nxt[0], nxt[1], nxt[2])
                 if done:
                     self._prefetch[nxt] = done
             except Exception:          # 预取失败不影响当前播放

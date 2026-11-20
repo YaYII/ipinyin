@@ -877,8 +877,9 @@ class PinyinEngine(IBus.Engine):
         if pending:
             LOG.info("整句重播：丢弃逐词积压 %d 条", pending)
             speaker.stop()
-        speaker.speak(text, voice_for(lang))
-        LOG.info("整句朗读 %d 字 %r", len(text), text)
+        # 整句重播走在线：一句一次合成，韵律连贯、没有拼接感（逐词播仍用本地音库）
+        speaker.speak(text, voice_for(lang), prefer="edge")
+        LOG.info("整句朗读 %d 字（在线）%r", len(text), text)
 
     def _tts_lang(self) -> str:
         """朗读语言：F9 状态优先（off 时按当前打字模式兜底）。"""

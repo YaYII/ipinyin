@@ -244,11 +244,11 @@ def test_take_batch_merges_same_voice_only(tmp_path):
         edge=None, unit_lib=None,
     )
     with speaker._cv:
-        speaker._queue.extend([("甲", speak.YUE_VOICE, True), ("乙", speak.YUE_VOICE, True),
-                               ("丙", speak.PINYIN_VOICE, True)])
-    text, voice, _ = speaker._take_batch()
+        speaker._queue.extend([("甲", speak.YUE_VOICE, True, None), ("乙", speak.YUE_VOICE, True, None),
+                               ("丙", speak.PINYIN_VOICE, True, None)])
+    text, voice, _, _ = speaker._take_batch()
     assert text == "甲乙" and voice == speak.YUE_VOICE
-    text, voice, _ = speaker._take_batch()
+    text, voice, _, _ = speaker._take_batch()
     assert text == "丙" and voice == speak.PINYIN_VOICE
 
 
@@ -261,7 +261,7 @@ def test_enter_replays_whole_sentence(monkeypatch):
     played = []
     dropped = []
     fake = SimpleNamespace(
-        speak=lambda t, v: played.append(t) or True,
+        speak=lambda t, v, prefer=None: played.append(t) or True,
         pending=lambda: 3,
         stop=lambda: dropped.append(True),
     )
