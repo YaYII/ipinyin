@@ -29,6 +29,8 @@ LOG = logging.getLogger("ipinyin")
 
 DEFAULT_SPEED = 165      # 比 espeak 默认稍慢：粤语六个声调，听清楚比听快重要
 MAX_CHARS = 0            # 0 = 不限制：有多少念多少
+CHUNK_CHARS = 20         # 长句切段：每段约 20 字，播一段时合成下一段
+BATCH_CHARS = 24         # 打字时的合批上限（只是合并相邻短词，不影响长句分段）
 CACHE_LIMIT = 200        # 缓存 wav 条数上限
 BATCH_WAIT = 0.04        # 取批时等 40ms，让连打进来的字并进同一句（人打字间隔 >40ms 就各自播）
 CACHE_VERSION = "2"      # 裁静音后旧缓存（短句 1.87s）作废，键里带版本号
@@ -74,6 +76,27 @@ def target(mode: str, word: str | None, last: str | None) -> tuple[str, str] | N
     if not text:
         return None
     return text, voice_for(mode)
+
+
+PUNCT = "，。！？；：、,.!?;: \n"
+
+def chunks(text: str) -> list[str]:
+    """把长句切成若干段：优先在标点处断，太长再硬切。
+
+    分段是为了流水线：播第一段的同时合成第二段，用户感知不到合成延迟。
+    """
+    out: list[str] = []
+    buf = ""
+    for ch in text:
+        buf += ch
+        if (ch in PUNCT and len(buf) >= 8) or len(buf) >= CHUNK_CHARS:
+            piece = buf.strip()
+            if piece:
+                out.append(piece)
+            buf = ""
+    if buf.strip():
+        out.append(buf.strip())
+    return out
 
 
 def normalize(text: str) -> str:
@@ -372,7 +395,9 @@ class Speaker:
         if not text:
             return False
         with self._cv:
-            self._queue.append((text, voice))
+            # 长句切段：worker 播一段、合成下一段，感知延迟≈第一段合成时间
+            for piece in (chunks(text) if len(text) > CHUNK_CHARS else [text]):
+                self._queue.append((piece, voice, False))
             self._cv.notify()
             if self._worker is None or not self._worker.is_alive():
                 self._worker = threading.Thread(target=self._run, name="tts", daemon=True)
@@ -422,13 +447,13 @@ class Speaker:
         with self._cv:
             while not self._queue:
                 self._cv.wait()
-            text, voice = self._queue.popleft()
+            text, voice, mergeable = self._queue.popleft()
             parts = [text]
             deadline = time.monotonic() + BATCH_WAIT
             while True:
-                while (self._queue and self._queue[0][1] == voice
-                       and (MAX_CHARS <= 0
-                            or len("".join(parts)) + len(self._queue[0][0]) <= MAX_CHARS)):
+                while (mergeable and self._queue and self._queue[0][1] == voice
+                       and self._queue[0][2]
+                       and len("".join(parts)) + len(self._queue[0][0]) <= BATCH_CHARS):
                     parts.append(self._queue.popleft()[0])
                 left = deadline - time.monotonic()
                 if left <= 0:
@@ -472,7 +497,7 @@ class Speaker:
             self._proc = proc
         # 播放期间把下一条先合成好：把 1.1s 的合成藏进 0.6s 的播放里
         with self._cv:
-            nxt = self._queue[0] if self._queue else None
+            nxt = self._queue[0][:2] if self._queue else None
             if len(self._prefetch) > 4:
                 self._prefetch.clear()
         if nxt is not None and nxt not in self._prefetch:

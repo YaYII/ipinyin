@@ -134,20 +134,20 @@ def test_edge_cache_does_not_leak_into_espeak(tmp_path, monkeypatch):
                          edge=None, unit_lib=None).wav("你好", speak.YUE_VOICE) == b"RIFFespeak"
 
 
-def test_rapid_speak_merges_backlog(tmp_path):
-    """连按不丢字：积压的条目合并成一句播（只合成一次，所以只播一次）。"""
+def test_rapid_speak_plays_everything(tmp_path):
+    """连按不丢字：每条都会播（分段流水线），不会因为积压被丢掉。"""
     import time
 
     plays = tmp_path / "plays"
-    espeak = _fake_script(tmp_path / "fake-espeak", "sleep 0.2\nprintf 'RIFF'\n")
+    espeak = _fake_script(tmp_path / "fake-espeak", "sleep 0.05\nprintf 'RIFF'\n")
     player = _fake_script(tmp_path / "fake-player", f"echo x >> {plays}\n")
     speaker = speak.Speaker(
         binary=espeak, player=[player], cache_dir=str(tmp_path / "cache"), edge=None, unit_lib=None
     )
     assert speaker.speak("第一句", speak.YUE_VOICE)
     assert speaker.speak("第二句", speak.YUE_VOICE)
-    time.sleep(1.6)
-    assert plays.read_text().count("x") == 1, "积压两条应合并成一句，只播一次"
+    time.sleep(1.5)
+    assert plays.read_text().count("x") == 2, "两条都要播，一条都不能丢"
 
 
 def test_stop_clears_queue(tmp_path):
@@ -244,8 +244,8 @@ def test_take_batch_merges_same_voice_only(tmp_path):
         edge=None, unit_lib=None,
     )
     with speaker._cv:
-        speaker._queue.extend([("甲", speak.YUE_VOICE), ("乙", speak.YUE_VOICE),
-                               ("丙", speak.PINYIN_VOICE)])
+        speaker._queue.extend([("甲", speak.YUE_VOICE, True), ("乙", speak.YUE_VOICE, True),
+                               ("丙", speak.PINYIN_VOICE, True)])
     text, voice, _ = speaker._take_batch()
     assert text == "甲乙" and voice == speak.YUE_VOICE
     text, voice, _ = speaker._take_batch()
@@ -362,3 +362,16 @@ def test_commit_stage_sends_everything_at_once():
     assert eng._commit_stage() is True
     assert sent == ["我唔知你講乜", "<speak>"], "整句一次上屏，然后整句念"
     assert eng._stage == ""
+
+
+def test_chunks_splits_long_sentence_at_punctuation():
+    """长句分段：播一段时合成下一段，感知延迟≈第一段。"""
+    from ipinyin import speak
+
+    text = "我哋今日去行街買嘢食，順便睇下戲然後返屋企食飯，夜晚再出去散步傾下偈。"
+    parts = speak.chunks(text)
+    assert len(parts) >= 3
+    assert "".join(parts) == text, "切段不能丢字"
+    assert all(len(p) <= speak.CHUNK_CHARS + 8 for p in parts)
+    # 短句不切
+    assert speak.chunks("你好") == ["你好"]
