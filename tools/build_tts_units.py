@@ -26,7 +26,8 @@ sys.path.insert(0, os.path.join(ROOT, "src"))
 
 from ipinyin import config, t2s  # noqa: E402
 
-VOICE = "zh-HK-WanLungNeural"     # 粤语男声：声调准，且不需要情感
+# 声线：粤语男声（声调准）默认；普通话音库用 IPINYIN_TTS_VOICE=zh-CN-YunxiNeural
+VOICE = os.environ.get("IPINYIN_TTS_VOICE", "zh-HK-WanLungNeural")
 OPUS_BITRATE = "24k"
 DEFAULT_OUT = os.path.expanduser("~/.local/share/ipinyin/tts-units")
 

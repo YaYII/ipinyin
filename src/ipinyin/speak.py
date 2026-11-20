@@ -250,7 +250,8 @@ class Speaker:
         self._binary = binary if binary is not None else _find_espeak()
         # "auto" = 自己探测；None = 明确不要 edge（测试用）；列表 = 指定命令
         self._edge = _find_edge() if edge == "auto" else (list(edge) if edge else None)
-        self._units = _find_units() if unit_lib == "auto" else unit_lib
+        self._unit_spec = unit_lib          # "auto" / None / 显式库
+        self._unit_cache: dict = {}          # voice -> UnitLibrary|None（按语言各取一套）
         self._player = list(player) if player is not None else _find_player()
         self._cache_dir = cache_dir or config.tts_cache_dir()
         self._speed = speed
@@ -266,7 +267,27 @@ class Speaker:
 
     @property
     def available(self) -> bool:
-        return bool((self._units or self._edge or self._binary) and self._player)
+        return bool((self._units_for(YUE_VOICE) or self._units_for(PINYIN_VOICE)
+                     or self._edge or self._binary) and self._player)
+
+    def _units_for(self, voice: str):
+        """按声线取音库：粤语一套、普通话一套，各建各的目录。"""
+        if self._unit_spec is None:
+            return None
+        if voice in self._unit_cache:
+            return self._unit_cache[voice]
+        lib = None
+        if self._unit_spec == "auto":
+            lang = "cmn" if voice == PINYIN_VOICE else "yue"
+            try:
+                candidate = units.UnitLibrary(units.root_for(lang))
+                lib = candidate if candidate.available else None
+            except Exception:
+                lib = None
+        elif voice == YUE_VOICE:
+            lib = self._unit_spec            # 显式传入的库按粤语库对待
+        self._unit_cache[voice] = lib
+        return lib
 
     # ---------- 合成 ----------
     def wav(self, text: str, voice: str = PINYIN_VOICE) -> bytes | None:
@@ -287,7 +308,8 @@ class Speaker:
         offline = (os.environ.get("IPINYIN_TTS_OFFLINE", "0") == "1"
                    or not config.tts_edge_enabled())     # 状态文件可运行时切换
         # 本地音库优先：命中就 30-200ms 出声；没命中才联网，联网结果再收进音库
-        if self._units is not None and voice == YUE_VOICE:
+        unit_lib = self._units_for(voice)
+        if unit_lib is not None:
             backends.append("units")
         if self._edge and not offline:
             backends.append("edge")
@@ -305,13 +327,13 @@ class Speaker:
                 pass
             started = time.time()
             if backend == "units":
-                data = self._units.render(text)
+                data = unit_lib.render(text)
             elif backend == "edge":
                 data = self._edge_wav(text, voice)
                 # 在线合成成功就顺手收进本地音库：下次同一個词离线可播
-                if data and voice == YUE_VOICE and self._units is not None:
+                if data and unit_lib is not None:
                     try:
-                        self._units.add(text, data)
+                        unit_lib.add(text, data)
                     except Exception:
                         pass
             else:

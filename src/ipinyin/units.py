@@ -40,6 +40,13 @@ _SYL2CHAR: dict | None = None
 _YUE_CONV = None
 
 
+def root_for(lang: str) -> str:
+    """按语言取音库目录：粤语 = tts-units，普通话 = tts-units-cmn（各建各的）。"""
+    if lang == "cmn":
+        return os.path.join(os.path.dirname(default_root()), "tts-units-cmn")
+    return default_root()
+
+
 def default_root() -> str:
     """音库目录：默认在用户数据目录，可用 IPINYIN_TTS_UNITS_DIR 覆盖。
 

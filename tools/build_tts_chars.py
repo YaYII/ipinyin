@@ -45,6 +45,8 @@ def main() -> int:
     ap.add_argument("--chars", type=int, default=8000, help="字上限（默认 8000）")
     ap.add_argument("--workers", type=int, default=8, help="并发数（默认 8）")
     ap.add_argument("--out", default=None, help="输出目录")
+    ap.add_argument("--skip-syllables", action="store_true",
+                    help="不并入音节代表字（普通话音库用，粤语音节表与它无关）")
     args = ap.parse_args()
 
     out = args.out or units.default_root()
@@ -54,7 +56,7 @@ def main() -> int:
     # 音节代表字也要覆盖，否则音节兜底会缺音
     rep_path = os.path.join(out, "syllables.json")
     rep: dict[str, str] = {}
-    if os.path.exists(rep_path):
+    if not args.skip_syllables and os.path.exists(rep_path):
         with open(rep_path, encoding="utf-8") as fh:
             rep = json.load(fh)
 
