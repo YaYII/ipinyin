@@ -103,6 +103,22 @@ def chunks(text: str) -> list[str]:
 CLAUSE_PUNCT = "，。！？；：、,.!?;:"
 
 
+def split_clauses(text: str) -> list[str]:
+    """按标点切子句（保留标点）：这就是「一句」的边界。"""
+    out: list[str] = []
+    buf = ""
+    for ch in text:
+        buf += ch
+        if ch in CLAUSE_PUNCT:
+            piece = buf.strip()
+            if piece:
+                out.append(piece)
+            buf = ""
+    if buf.strip():
+        out.append(buf.strip())
+    return out
+
+
 def completed_clauses(text: str) -> list[str]:
     """已经以标点结尾的子句——这些不会再变，可以立刻预热。"""
     out: list[str] = []

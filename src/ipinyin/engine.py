@@ -912,7 +912,7 @@ class PinyinEngine(IBus.Engine):
         self._refresh_tts_auto()
         if getattr(self, "_tts_state", "off") == "off":
             return
-        from .speak import get_speaker, voice_for
+        from .speak import get_speaker, split_clauses, voice_for
 
         lang = self._tts_lang()
         if lang == "chao" and self._ime is not None and self._ime.chao is not None:
@@ -930,15 +930,11 @@ class PinyinEngine(IBus.Engine):
         voice = voice_for(lang)
         # 在线缓存命中 → 立刻播在线（0ms）；没命中 → 先用本地音库立即出声，
         # 同时后台合成在线版（下次同一句 0ms）。否则用户要等 3-4 秒。
-        if config.tts_sentence_mode() == "instant" and not speaker.has_cache(text, voice, "edge"):
-            # 立刻出声：先播本地音库，在线在后台补
-            speaker.speak(text, voice, prefer="local")
-            speaker.warm(text, voice, prefer="edge")
-            LOG.info("整句朗读 %d 字（instant：先本地）%r", len(text), text)
-        else:
-            # 音质优先：直接走在线（缓存命中就是 0ms，没命中就等它合成）
-            speaker.speak(text, voice, prefer="model")
-            LOG.info("整句朗读 %d 字（quality：在线）%r", len(text), text)
+        # 「一句」= 标点切出来的子句：speak() 内部按标点分块，每块单独合成，
+        # 第一块出声时后面的块在合成，播完一块接一块（多文件一次交给播放器）。
+        speaker.speak(text, voice, prefer="model")
+        LOG.info("整句朗读 %d 字→%d 个子句（在线，按标点分段）",
+                 len(text), len(split_clauses(text)))
 
     def _tts_lang(self) -> str:
         """朗读语言：F9 状态优先（off 时按当前打字模式兜底）。"""
@@ -961,7 +957,7 @@ class PinyinEngine(IBus.Engine):
         state = getattr(self, "_tts_state", "off")
         if not config.tts_enabled() or state == "off" or not text:
             return
-        from .speak import get_speaker, voice_for
+        from .speak import get_speaker, split_clauses, voice_for
 
         if state == "chao":
             # espeak 没有潮州话声线，用粤拼声线读潮拼（近似，不是真人）
@@ -1018,7 +1014,7 @@ class PinyinEngine(IBus.Engine):
         word = self._ime.current_word()
         if not word:
             return
-        from .speak import get_speaker, voice_for
+        from .speak import get_speaker, split_clauses, voice_for
 
         lang = self._tts_lang()
         if lang == "chao" and self._ime.chao is not None:
@@ -1037,7 +1033,7 @@ class PinyinEngine(IBus.Engine):
         """
         if not config.tts_enabled():
             return False
-        from .speak import get_speaker, voice_for
+        from .speak import get_speaker, split_clauses, voice_for
 
         word = self._ime.current_word() if self._ime is not None else None
         text = word or self._last_commit
