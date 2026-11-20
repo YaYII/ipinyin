@@ -415,8 +415,6 @@ class Speaker:
 
     def _local_wav(self, text: str) -> bytes | None:
         """本地 VITS 粤语模型合成（首选）：质量稳定、完全离线。"""
-        if voice_is_unsupported := False:
-            return None
         tts = _local_tts()
         if tts is None:
             return None
@@ -428,8 +426,7 @@ class Speaker:
                 return None
             pcm = (np.clip(np.asarray(audio.samples, dtype="float32"), -1, 1)
                    * 32767).astype("<i2").tobytes()
-            data = units._wav_header(len(pcm)) + pcm
-            return _fade_wav(data, audio.sample_rate)
+            return units._wav_header(len(pcm)) + _fade(pcm, audio.sample_rate)
         except Exception as exc:
             LOG.warning("本地模型合成失败：%s", exc)
             return None
