@@ -541,6 +541,14 @@ class Speaker:
                 with self._cv:
                     self._prefetch[(piece, voice, None)] = done
 
+    def has_cache(self, text: str, voice: str = PINYIN_VOICE,
+                  backend: str = "edge") -> bool:
+        """这句话某个后端的音频是否已经合成好了（预热过或播过）。"""
+        text = normalize(text)
+        if not text:
+            return False
+        return os.path.exists(self._cache_path(text, voice, backend))
+
     def pending(self) -> int:
         """队列里还有多少条没播（诊断用：整句重播前应丢弃积压）。"""
         with self._cv:

@@ -261,7 +261,9 @@ def test_enter_replays_whole_sentence(monkeypatch):
     played = []
     dropped = []
     fake = SimpleNamespace(
-        speak=lambda t, v, prefer=None: played.append(t) or True,
+        speak=lambda t, v, prefer=None: played.append((t, prefer)) or True,
+        has_cache=lambda t, v, backend="edge": False,
+        warm=lambda t, v, prefer=None: None,
         pending=lambda: 3,
         stop=lambda: dropped.append(True),
     )
@@ -288,7 +290,8 @@ def test_enter_replays_whole_sentence(monkeypatch):
 
     eng = FakeEngine()
     eng._speak_sentence()
-    assert played == ["我唔知你講乜"]
+    assert [text for text, _ in played] == ["我唔知你講乜"]
+    assert played[0][1] == "local", "在线版没缓存时先播本地，保证立刻出声"
     assert dropped, "整句重播前要丢掉逐词积压，否则同一句会播两遍"
     assert eng._sentence == "", "念完要清空，否则下次回车会重复"
 

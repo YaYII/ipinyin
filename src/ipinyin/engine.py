@@ -902,9 +902,16 @@ class PinyinEngine(IBus.Engine):
         if pending:
             LOG.info("整句重播：丢弃逐词积压 %d 条", pending)
             speaker.stop()
-        # 整句重播走在线：一句一次合成，韵律连贯、没有拼接感（逐词播仍用本地音库）
-        speaker.speak(text, voice_for(lang), prefer="edge")
-        LOG.info("整句朗读 %d 字（在线）%r", len(text), text)
+        # 整句重播：在线版已缓存就播在线（连贯）；没有就先播本地保证立刻出声，
+        # 同时后台合成在线版——下次同一句直接命中缓存。
+        voice = voice_for(lang)
+        if speaker.has_cache(text, voice, "edge"):
+            speaker.speak(text, voice, prefer="edge")
+            LOG.info("整句朗读 %d 字（在线缓存命中）%r", len(text), text)
+        else:
+            speaker.speak(text, voice, prefer="local")
+            speaker.warm(text, voice, prefer="edge")
+            LOG.info("整句朗读 %d 字（先本地，后台补在线）%r", len(text), text)
 
     def _tts_lang(self) -> str:
         """朗读语言：F9 状态优先（off 时按当前打字模式兜底）。"""
