@@ -67,7 +67,9 @@ def test_speak_prefers_units_for_yue_only(tmp_path, monkeypatch):
 
 def test_trim_removes_padding_silence():
     """edge 把短文本补到 1.87s；不解静音，每个词后面都会停 1.3 秒。"""
-    pcm = b"\x00\x00" * 500 + b"\x00\x10" * 200 + b"\x00\x00" * 500
+    pcm = b"\x00\x00" * 2000 + b"\x00\x10" * 200 + b"\x00\x00" * 2000
     out = units._trim(pcm)
     assert 0 < len(out) < len(pcm)
     assert len(out) >= 200 * 2          # 有声部分必须完整保留
+    # 头部要留够起音余量（声母不能被切），至少 30ms
+    assert len(out) >= 200 * 2 + int(units.SR * 0.03) * 2

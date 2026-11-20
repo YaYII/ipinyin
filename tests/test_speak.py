@@ -171,7 +171,7 @@ def test_edge_output_is_trimmed():
     """edge 把短文本补到 1.87s；不裁的话两个字的词听起来像两秒。"""
     from ipinyin import units
 
-    pcm = b"\x00\x00" * 500 + b"\x00\x10" * 100 + b"\x00\x00" * 500
+    pcm = b"\x00\x00" * 2000 + b"\x00\x10" * 100 + b"\x00\x00" * 2000
     wav = units._wav_header(len(pcm)) + pcm
     out = speak._trim_wav(wav)
     assert out[:4] == b"RIFF"
