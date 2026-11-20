@@ -290,6 +290,7 @@ class PinyinEngine(IBus.Engine):
         self._last_key_at = time.monotonic()
         self._last_commit_at = 0.0
         self._sentence = ""      # 本次「一句」已上屏的文字：回车时整句连贯重播
+        self._stage = ""         # 中间态输入框：选中的字先攒在这里，回车才上屏
         self._last_focus_at = 0.0
         # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
         self._ai_on = False
@@ -493,7 +494,8 @@ class PinyinEngine(IBus.Engine):
         if not composing:
             # 没在打拼音时按回车 = 这句说完了：把整句连贯念一遍
             if action is Action.COMMIT_RAW:
-                self._speak_sentence()
+                if not self._commit_stage():
+                    self._speak_sentence()
             return False
 
         # 上屏前先把挂起的神经升级补上：200ms 内就选词的话，
@@ -509,6 +511,14 @@ class PinyinEngine(IBus.Engine):
             self._finish(self.ime.select(int(value)), key, weight=3, rank=int(value))
         elif action is Action.BACKSPACE:
             self._comp_backs += 1
+            if not self.ime.buffer and self._stage:
+                self._stage = self._stage[:-1]        # 先删中间态里的字
+                if self._stage:
+                    self.update_preedit_text(IBus.Text.new_from_string(self._stage),
+                                             len(self._stage), True)
+                else:
+                    self.hide_preedit_text()
+                return True
             self.ime.backspace()
             self._sync()
         elif action is Action.COMMIT:
@@ -526,6 +536,10 @@ class PinyinEngine(IBus.Engine):
                 self._speak_sentence()
                 return False
         elif action is Action.CLEAR:
+            if self._stage:
+                self._stage = ""
+                self.hide_preedit_text()
+                return True
             self._record_abandon()
             self._reset()
         elif action is Action.PAGE_PREV:
@@ -652,7 +666,13 @@ class PinyinEngine(IBus.Engine):
                     self._ime.context = base
             self._last_commit = text
             self._sentence = (self._sentence + text)[-120:]   # 最多留 120 字，防止无限长
-            self.commit_text(IBus.Text.new_from_string(text))
+            if config.staging_enabled():
+                # 中间态：先攒在 preedit 里，用户可以继续删改，回车才真正上屏
+                self._stage = (self._stage + text)[-200:]
+                self.update_preedit_text(IBus.Text.new_from_string(self._stage),
+                                         len(self._stage), True)
+            else:
+                self.commit_text(IBus.Text.new_from_string(text))
             self._speak_auto(text)
         self._sync_now()
 
@@ -709,6 +729,18 @@ class PinyinEngine(IBus.Engine):
             except Exception:
                 pass
         return self._sentence
+
+    def _commit_stage(self) -> bool:
+        """把中间态一次性上屏，然后整句念一遍。返回 True 表示确实上屏了。"""
+        text = self._stage
+        if not text:
+            return False
+        self._stage = ""
+        self.hide_preedit_text()
+        self.commit_text(IBus.Text.new_from_string(text))
+        self._sentence = text
+        self._speak_sentence()
+        return True
 
     def _speak_sentence(self) -> None:
         """把这一句已上屏的内容一次性念出来（逐字播完之后再连贯听一遍）。"""

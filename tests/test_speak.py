@@ -339,3 +339,25 @@ def test_sentence_text_prefers_surrounding_text():
             raise RuntimeError("not supported")
 
     assert NoSurround("", 0)._sentence_text() == "上屏累积的旧内容"
+
+
+def test_commit_stage_sends_everything_at_once():
+    """中间态：选中的字先攒着，回车时一次性上屏，不是每个词各自上屏。"""
+    from ipinyin import engine
+
+    sent = []
+
+    class FakeEngine:
+        _commit_stage = engine.PinyinEngine._commit_stage
+
+        def __init__(self):
+            self._stage = "我唔知你講乜"
+            self._sentence = ""
+            self.hide_preedit_text = lambda: None
+            self.commit_text = lambda t: sent.append(t.get_text())
+            self._speak_sentence = lambda: sent.append("<speak>")
+
+    eng = FakeEngine()
+    assert eng._commit_stage() is True
+    assert sent == ["我唔知你講乜", "<speak>"], "整句一次上屏，然后整句念"
+    assert eng._stage == ""

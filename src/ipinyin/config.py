@@ -137,6 +137,22 @@ def tts_enabled() -> bool:
     return os.environ.get("IPINYIN_TTS", "1") != "0"
 
 
+def staging_enabled() -> bool:
+    """中间态输入框：选中的字先进 preedit，可改可删，回车才一次上屏。
+
+    状态文件 ~/.local/share/ipinyin/staging（"0" 关，默认关）。
+    """
+    if os.environ.get("IPINYIN_STAGING") == "0":
+        return False
+    if os.environ.get("IPINYIN_STAGING") == "1":
+        return True
+    try:
+        with open(os.path.join(data_home(), "staging"), encoding="utf-8") as fh:
+            return fh.read().strip() != "0"
+    except OSError:
+        return False
+
+
 def tts_edge_enabled() -> bool:
     """是否允许联网声线（edge）。
 
