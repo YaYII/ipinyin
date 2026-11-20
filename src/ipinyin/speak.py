@@ -558,8 +558,12 @@ class Speaker:
                 return
             self._warming.add(text)
         def work():
+            started = time.time()
             try:
                 self._render(text, voice, prefer)      # 命中缓存就是空操作
+                cost = (time.time() - started) * 1000
+                LOG.info("预热%s %d 字 %.0fms", "命中缓存" if cost < 50 else "完成",
+                         len(text), cost)
             except Exception:
                 pass
             finally:

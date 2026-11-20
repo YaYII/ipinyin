@@ -760,7 +760,7 @@ class PinyinEngine(IBus.Engine):
         """打字停 400ms 就把当前整句在线合成好（回车直接用缓存）。"""
         if self._warm_source:
             GLib.source_remove(self._warm_source)
-        self._warm_source = GLib.timeout_add(400, self._warm_sentence)
+        self._warm_source = GLib.timeout_add(1200, self._warm_sentence)
 
     def _warm_sentence(self) -> bool:
         self._warm_source = 0
@@ -774,8 +774,9 @@ class PinyinEngine(IBus.Engine):
 
         try:
             get_speaker().warm(text, voice_for(self._tts_lang()), prefer="edge")
-        except Exception:
-            pass
+            LOG.info("整句排入预合成 %d 字 %r", len(text), text[:24])
+        except Exception as exc:
+            LOG.info("整句预合成失败：%s", exc)
         return False
 
     def _start_voice(self) -> None:
