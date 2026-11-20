@@ -11,6 +11,8 @@
 """
 from __future__ import annotations
 
+import array
+import collections
 import hashlib
 import logging
 import marshal
@@ -28,6 +30,7 @@ LOG = logging.getLogger("ipinyin")
 DEFAULT_SPEED = 165      # 比 espeak 默认稍慢：粤语六个声调，听清楚比听快重要
 MAX_CHARS = 80           # 再长就别念了——一句话念十秒没人受得了
 CACHE_LIMIT = 200        # 缓存 wav 条数上限
+BATCH_WAIT = 0.04        # 取批时等 40ms，让连打进来的字并进同一句（人打字间隔 >40ms 就各自播）
 CACHE_VERSION = "2"      # 裁静音后旧缓存（短句 1.87s）作废，键里带版本号
 
 # 普通话声线读汉字会逐字拼英文字母（们→m-e-n-f-a-i-v），必须喂拼音；
@@ -132,6 +135,25 @@ def _find_espeak() -> str | None:
     return None
 
 
+def _fade(pcm: bytes, sr: int, ms: int = 6) -> bytes:
+    """首尾各 6ms 淡入淡出。
+
+    裁静音是从"第一个超过阈值的样本"开始切，切点几乎不可能正好在过零点上，
+    播放时就是一个 DC 台阶——听起来就是每句开头"嗒"一声（用户说的按钮音）。
+    """
+    n = len(pcm) // 2
+    if n < 8:
+        return pcm
+    samples = array.array("h")
+    samples.frombytes(pcm[: n * 2])
+    f = min(int(sr * ms / 1000), n // 2)
+    for i in range(f):
+        g = i / f
+        samples[i] = int(samples[i] * g)
+        samples[n - 1 - i] = int(samples[n - 1 - i] * g)
+    return samples.tobytes()
+
+
 def _trim_wav(data: bytes) -> bytes:
     """裁掉 edge 补的静音。
 
@@ -143,6 +165,7 @@ def _trim_wav(data: bytes) -> bytes:
     pcm = units._trim(data[44:])
     if not pcm:
         return data
+    pcm = _fade(pcm, units.SR)
     return units._wav_header(len(pcm)) + pcm
 
 
@@ -191,7 +214,11 @@ def _find_edge() -> list[str] | None:
 
 
 class Speaker:
-    """一次只念一条：新的朗读先打断上一条，不叠音。"""
+    """按队列逐条念：连打不丢音，一条念完接着下一条。
+
+    以前是"新的打断旧的"（代次机制），打字快的时候前面的音全被吞掉，
+    听感就是"有延迟而且缺字"。现在排队，只有显式 stop() 才清队。
+    """
 
     def __init__(self, binary=None, player=None, cache_dir=None, speed: int = DEFAULT_SPEED,
                  edge: list[str] | None | str = "auto",
@@ -204,8 +231,13 @@ class Speaker:
         self._cache_dir = cache_dir or config.tts_cache_dir()
         self._speed = speed
         self._lock = threading.Lock()
+        self._cv = threading.Condition(self._lock)
+        self._queue: collections.deque = collections.deque()
+        self._prefetch: dict = {}      # (text, voice) -> 已合成好的结果，边播边合成下一条
+        self._warming: set = set()     # 正在后台预合成的文本，避免重复请求
+        self._worker: threading.Thread | None = None
         self._proc: subprocess.Popen | None = None
-        self._gen = 0        # 朗读代次：慢合成（edge 要 1–5s）期间连按，只有最后一条能出声
+        self._epoch = 0      # 只有 stop() 会推进；推进后队列里的旧条目作废
         self._warned = False
 
     @property
@@ -228,13 +260,13 @@ class Speaker:
         if not text:
             return None
         backends = []
-        offline = os.environ.get("IPINYIN_TTS_OFFLINE", "0") == "1"
-        if self._edge and not offline:
-            # 整句合成韵律自然；结果进缓存，同一句第二次起离线也能播
-            backends.append("edge")
+        offline = (os.environ.get("IPINYIN_TTS_OFFLINE", "0") == "1"
+                   or not config.tts_edge_enabled())     # 状态文件可运行时切换
+        # 本地音库优先：命中就 30-200ms 出声；没命中才联网，联网结果再收进音库
         if self._units is not None and voice == YUE_VOICE:
-            # 离线兜底：词级拼接，每个音固定、可逐条校对，但词间有边界
             backends.append("units")
+        if self._edge and not offline:
+            backends.append("edge")
         if self._binary:
             backends.append("espeak")
         for backend in backends:
@@ -252,6 +284,12 @@ class Speaker:
                 data = self._units.render(text)
             elif backend == "edge":
                 data = self._edge_wav(text, voice)
+                # 在线合成成功就顺手收进本地音库：下次同一個词离线可播
+                if data and voice == YUE_VOICE and self._units is not None:
+                    try:
+                        self._units.add(text, data)
+                    except Exception:
+                        pass
             else:
                 data = self._espeak_wav(text, voice)
             if data is None:
@@ -332,17 +370,41 @@ class Speaker:
         text = normalize(text)
         if not text:
             return False
-        self.stop()
-        with self._lock:
-            self._gen += 1
-            gen = self._gen
-        threading.Thread(target=self._play, args=(text, voice, gen), name="tts", daemon=True).start()
+        with self._cv:
+            self._queue.append((text, voice))
+            self._cv.notify()
+            if self._worker is None or not self._worker.is_alive():
+                self._worker = threading.Thread(target=self._run, name="tts", daemon=True)
+                self._worker.start()
         return True
 
+    def warm(self, text: str, voice: str = PINYIN_VOICE) -> None:
+        """后台预合成，不播放。用户上屏前先把候选合成好，上屏就能秒出。"""
+        if not self.available:
+            return
+        text = normalize(text)
+        if not text:
+            return
+        with self._cv:
+            if text in self._warming or (text, voice) in self._prefetch:
+                return
+            self._warming.add(text)
+        def work():
+            try:
+                self._render(text, voice)      # 命中缓存就是空操作
+            except Exception:
+                pass
+            finally:
+                with self._cv:
+                    self._warming.discard(text)
+        threading.Thread(target=work, name="tts-warm", daemon=True).start()
+
     def stop(self) -> None:
-        """打断正在念的那条（含还在合成的：代次一变，旧线程合成完也不许出声）。"""
-        with self._lock:
-            self._gen += 1
+        """清空队列并打断正在念的那条（显式中断，例如切模式/退出）。"""
+        with self._cv:
+            self._queue.clear()
+            self._prefetch.clear()
+            self._epoch += 1
             proc, self._proc = self._proc, None
         if proc is not None and proc.poll() is None:
             try:
@@ -350,12 +412,44 @@ class Speaker:
             except OSError:
                 pass
 
-    def _play(self, text: str, voice: str, gen: int) -> None:
-        got = self._render(text, voice)
+    def _take_batch(self) -> tuple[str, str, int]:
+        """取一批：队首 + 队列里同声线的后续条目，合并成一句。
+
+        edge 每条合成要 1.1s；积压 4 条就是 4.4s。合并成一句只合成一次，
+        内容一个字都不少，只是连着念。
+        """
+        with self._cv:
+            while not self._queue:
+                self._cv.wait()
+            text, voice = self._queue.popleft()
+            parts = [text]
+            deadline = time.monotonic() + BATCH_WAIT
+            while True:
+                while (self._queue and self._queue[0][1] == voice
+                       and len("".join(parts)) + len(self._queue[0][0]) <= MAX_CHARS):
+                    parts.append(self._queue.popleft()[0])
+                left = deadline - time.monotonic()
+                if left <= 0:
+                    break
+                self._cv.wait(left)      # 等 40ms 看还有没有字进来
+            return "".join(parts), voice, self._epoch
+
+    def _run(self) -> None:
+        """唯一的朗读线程：取一批、念一批、念完取下一批。"""
+        while True:
+            text, voice, epoch = self._take_batch()
+
+            try:
+                self._say(text, voice, epoch)
+            except Exception:          # 朗读永远不能把主循环带崩
+                LOG.exception("朗读线程异常")
+
+    def _say(self, text: str, voice: str, epoch: int) -> None:
+        got = self._prefetch.pop((text, voice), None) or self._render(text, voice)
         if not got:
             return
-        with self._lock:
-            if gen != self._gen:      # 合成期间用户又按了（或 stop），这条作废
+        with self._cv:
+            if epoch != self._epoch:      # stop() 过了，这条作废
                 return
         data, path = got
         if not os.path.exists(path):
@@ -369,15 +463,31 @@ class Speaker:
         except OSError as exc:
             LOG.warning("朗读播放失败：%s", exc)
             return
-        with self._lock:
-            if gen != self._gen:      # 起播前最后一刻再确认一次，避免叠音
+        with self._cv:
+            if epoch != self._epoch:      # 起播前最后一刻再确认一次
                 proc.terminate()
                 return
             self._proc = proc
+        # 播放期间把下一条先合成好：把 1.1s 的合成藏进 0.6s 的播放里
+        with self._cv:
+            nxt = self._queue[0] if self._queue else None
+            if len(self._prefetch) > 4:
+                self._prefetch.clear()
+        if nxt is not None and nxt not in self._prefetch:
+            try:
+                done = self._render(*nxt)
+                if done:
+                    self._prefetch[nxt] = done
+            except Exception:          # 预取失败不影响当前播放
+                pass
         try:
             proc.wait(timeout=60)
         except subprocess.TimeoutExpired:
             proc.kill()
+        finally:
+            with self._cv:
+                if self._proc is proc:
+                    self._proc = None
 
     # ---------- 内部 ----------
     def _cache_path(self, text: str, voice: str, backend: str = "espeak") -> str:

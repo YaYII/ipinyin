@@ -138,5 +138,18 @@ def tts_enabled() -> bool:
 
 
 def tts_edge_enabled() -> bool:
-    """IPINYIN_TTS_EDGE=0 可只用本地 espeak（不要联网声线）。"""
-    return os.environ.get("IPINYIN_TTS_EDGE", "1") != "0"
+    """是否允许联网声线（edge）。
+
+    优先级：环境变量 IPINYIN_TTS_EDGE > 状态文件 tts_edge > 默认开。
+    状态文件给「运行时切换」用——不用重启引擎、不用改环境变量。
+    """
+    env = os.environ.get("IPINYIN_TTS_EDGE")
+    if env == "0":
+        return False
+    if env == "1":          # 显式打开（测试用），忽略状态文件
+        return True
+    try:
+        with open(os.path.join(data_home(), "tts_edge"), encoding="utf-8") as fh:
+            return fh.read().strip() != "0"
+    except OSError:
+        return True

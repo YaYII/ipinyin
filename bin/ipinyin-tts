@@ -1,17 +1,45 @@
 #!/bin/sh
-# 上屏即读 开/关。改状态文件，引擎在下次上屏时读取生效，不用重启。
-# 用法：ipinyin-tts on | off | status
+# 上屏即读：选朗读语言档，或开关联网声线。改状态文件，引擎下次上屏时读取生效，不用重启。
+#
+#   ipinyin-tts             看当前状态
+#   ipinyin-tts off         关
+#   ipinyin-tts cmn|yue|chao 直接选档（国语 / 粤语 / 汕头）
+#   ipinyin-tts on          等于 yue（旧用法兼容）
+#   ipinyin-tts next        循环切档（等同 F9）
+#   ipinyin-tts edge on|off 是否允许联网声线（off = 只用本地音库）
 FILE="${XDG_DATA_HOME:-$HOME/.local/share}/ipinyin/tts_auto"
+EDGE="${XDG_DATA_HOME:-$HOME/.local/share}/ipinyin/tts_edge"
 mkdir -p "$(dirname "$FILE")" 2>/dev/null
+STATES="off cmn yue chao"
+LABEL_off="关"; LABEL_cmn="国语"; LABEL_yue="粤语"; LABEL_chao="汕头"
+
+cur() { cat "$FILE" 2>/dev/null || echo off; }
+label() { eval "printf '%s' \"\$LABEL_$1\""; }
+
+show() {
+    s=$(cur); case "$s" in 1) s=yue;; 0) s=off;; esac
+    e=$(cat "$EDGE" 2>/dev/null || echo 1)
+    printf '上屏即读：%s（%s）  联网声线：%s\n' "$s" "$(label "$s")" \
+        "$([ "$e" = 0 ] && echo 关 || echo 开)"
+}
+
 case "$1" in
-    on)  printf '1' > "$FILE" && echo "上屏即读：开（每次上屏自动念）" ;;
-    off) printf '0' > "$FILE" && echo "上屏即读：关（只有 Ctrl+回车 才念）" ;;
-    ""|status)
-        if [ "$(cat "$FILE" 2>/dev/null)" = "1" ]; then
-            echo "上屏即读：开"
-        else
-            echo "上屏即读：关"
-        fi
-        ;;
-    *) echo "用法: ipinyin-tts on|off|status"; exit 2 ;;
+    "")        show ;;
+    off|cmn|yue|chao)  printf '%s' "$1" > "$FILE"; show ;;
+    on)        printf 'yue' > "$FILE"; show ;;
+    next)
+        s=$(cur); case "$s" in 1) s=yue;; 0) s=off;; esac
+        n=off; hit=0
+        for st in $STATES; do
+            [ "$hit" = 1 ] && { n=$st; break; }
+            [ "$st" = "$s" ] && hit=1
+        done
+        printf '%s' "$n" > "$FILE"; show ;;
+    edge)
+        case "$2" in
+            on)  printf '1' > "$EDGE"; show ;;
+            off) printf '0' > "$EDGE"; show ;;
+            *)   echo "用法: ipinyin-tts edge on|off"; exit 2 ;;
+        esac ;;
+    *) echo "用法: ipinyin-tts [off|cmn|yue|chao|on|next|edge on|edge off]"; exit 2 ;;
 esac

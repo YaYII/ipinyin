@@ -73,7 +73,8 @@ def test_edge_voice_mapping():
 
 
 def test_edge_wins_over_espeak(tmp_path, monkeypatch):
-    """装了 edge 就先用它；成功时不该再调 espeak。"""
+    """没有本地音库时，装了 edge 就用它；成功时不该再调 espeak。"""
+    monkeypatch.setenv("IPINYIN_TTS_EDGE", "1")
     espeak_calls = tmp_path / "espeak_calls"
     espeak = _fake_script(
         tmp_path / "fake-espeak", f"echo x >> {espeak_calls}\nprintf 'RIFFespeak'\n"
@@ -112,6 +113,7 @@ def test_edge_failure_falls_back_to_espeak(tmp_path, monkeypatch):
 
 
 def test_edge_cache_does_not_leak_into_espeak(tmp_path, monkeypatch):
+    monkeypatch.setenv("IPINYIN_TTS_EDGE", "1")
     """同一句话两种引擎的音频不能互相冒充——断网后不能播到 edge 留下的缓存。"""
     espeak = _fake_script(tmp_path / "fake-espeak", "printf 'RIFFespeak'\n")
     edge = _fake_script(
@@ -131,8 +133,8 @@ def test_edge_cache_does_not_leak_into_espeak(tmp_path, monkeypatch):
                          edge=None, unit_lib=None).wav("你好", speak.YUE_VOICE) == b"RIFFespeak"
 
 
-def test_rapid_speak_only_last_one_plays(tmp_path):
-    """edge 合成要 1–5s，这期间连按不能叠音：先合成完的那条必须作废。"""
+def test_rapid_speak_merges_backlog(tmp_path):
+    """连按不丢字：积压的条目合并成一句播（只合成一次，所以只播一次）。"""
     import time
 
     plays = tmp_path / "plays"
@@ -143,8 +145,25 @@ def test_rapid_speak_only_last_one_plays(tmp_path):
     )
     assert speaker.speak("第一句", speak.YUE_VOICE)
     assert speaker.speak("第二句", speak.YUE_VOICE)
+    time.sleep(1.6)
+    assert plays.read_text().count("x") == 1, "积压两条应合并成一句，只播一次"
+
+
+def test_stop_clears_queue(tmp_path):
+    """stop() 才是打断：清队列并掐掉正在播的那条。"""
+    import time
+
+    plays = tmp_path / "plays"
+    espeak = _fake_script(tmp_path / "fake-espeak", "sleep 0.3\nprintf 'RIFF'\n")
+    player = _fake_script(tmp_path / "fake-player", f"echo x >> {plays}\n")
+    speaker = speak.Speaker(
+        binary=espeak, player=[player], cache_dir=str(tmp_path / "cache"), edge=None, unit_lib=None
+    )
+    speaker.speak("第一句", speak.YUE_VOICE)
+    speaker.speak("第二句", speak.YUE_VOICE)
+    speaker.stop()
     time.sleep(1.2)
-    assert plays.read_text().count("x") == 1, "只应播最后一条"
+    assert not plays.exists() or plays.read_text().count("x") <= 1
 
 
 def test_edge_output_is_trimmed():
@@ -157,3 +176,104 @@ def test_edge_output_is_trimmed():
     assert out[:4] == b"RIFF"
     assert len(out) < len(wav)
     assert len(out) >= 44 + 100 * 2          # 有声部分完整保留
+    # 首尾必须淡入淡出，否则裁切点有 DC 台阶，播放时"嗒"一声
+    import array
+    pcm = array.array("h")
+    pcm.frombytes(out[44:])
+    assert abs(pcm[0]) < 500 and abs(pcm[-1]) < 500
+
+
+def test_auto_voice_follows_tts_state_not_input_mode(monkeypatch):
+    """状态选了粤语，就算正在打普通话，也要播粤语。"""
+    from types import SimpleNamespace
+
+    from ipinyin import engine, speak
+
+    played = []
+    monkeypatch.setattr(speak, "get_speaker",
+                        lambda: SimpleNamespace(speak=lambda t, v: played.append((t, v)) or True))
+    monkeypatch.setattr(engine.config, "tts_enabled", lambda: True)
+
+    class FakeEngine:
+        _speak_auto = engine.PinyinEngine._speak_auto
+
+        def __init__(self, state, mode):
+            self._tts_state = state
+            self._ime = SimpleNamespace(mode=mode, chao=None)
+
+        def _refresh_tts_auto(self):
+            pass
+
+    FakeEngine("yue", "simp")._speak_auto("你好")
+    assert played[-1][1] == speak.YUE_VOICE, "状态粤语必须播粤语，不能跟输入模式"
+
+    FakeEngine("cmn", "yue")._speak_auto("你好")
+    assert played[-1][1] == speak.PINYIN_VOICE, "状态国语才播国语"
+
+    FakeEngine("off", "yue")._speak_auto("你好")
+    assert len(played) == 2, "关档不播"
+
+
+def test_tts_lang_prefers_state_then_mode(monkeypatch):
+    """Ctrl+回车与上屏即读共用同一条规则：状态优先，关档按模式兜底。"""
+    from types import SimpleNamespace
+
+    from ipinyin import engine
+
+    class FakeEngine:
+        _tts_lang = engine.PinyinEngine._tts_lang
+
+        def __init__(self, state, mode):
+            self._tts_state = state
+            self._ime = SimpleNamespace(mode=mode)
+
+        def _refresh_tts_auto(self):
+            pass
+
+    assert FakeEngine("yue", "simp")._tts_lang() == "yue"
+    assert FakeEngine("cmn", "yue")._tts_lang() == "cmn"
+    assert FakeEngine("off", "yue")._tts_lang() == "yue", "关档时按打字模式"
+
+
+def test_take_batch_merges_same_voice_only(tmp_path):
+    """合并只发生在同声线之间；换声线就断开，不能把粤语和国语拼成一句。"""
+    speaker = speak.Speaker(
+        binary=None, player=["true"], cache_dir=str(tmp_path / "cache"),
+        edge=None, unit_lib=None,
+    )
+    with speaker._cv:
+        speaker._queue.extend([("甲", speak.YUE_VOICE), ("乙", speak.YUE_VOICE),
+                               ("丙", speak.PINYIN_VOICE)])
+    text, voice, _ = speaker._take_batch()
+    assert text == "甲乙" and voice == speak.YUE_VOICE
+    text, voice, _ = speaker._take_batch()
+    assert text == "丙" and voice == speak.PINYIN_VOICE
+
+
+def test_enter_replays_whole_sentence(monkeypatch):
+    """空 buffer 按回车 = 一句说完：把整句连贯念一遍，而不是只念最后一个词。"""
+    from types import SimpleNamespace
+
+    from ipinyin import engine, speak
+
+    played = []
+    monkeypatch.setattr(speak, "get_speaker",
+                        lambda: SimpleNamespace(speak=lambda t, v: played.append(t) or True))
+    monkeypatch.setattr(engine.config, "tts_enabled", lambda: True)
+
+    class FakeEngine:
+        _speak_sentence = engine.PinyinEngine._speak_sentence
+        _tts_lang = engine.PinyinEngine._tts_lang
+
+        def __init__(self):
+            self._sentence = "我唔知你講乜"
+            self._tts_state = "yue"
+            self._ime = SimpleNamespace(mode="yue", chao=None)
+
+        def _refresh_tts_auto(self):
+            pass
+
+    eng = FakeEngine()
+    eng._speak_sentence()
+    assert played == ["我唔知你講乜"]
+    assert eng._sentence == "", "念完要清空，否则下次回车会重复"

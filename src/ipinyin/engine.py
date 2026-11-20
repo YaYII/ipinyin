@@ -162,8 +162,8 @@ def _tts_auto_path() -> str:
 
 
 # 朗读三档：关 / 粤语 / 汕头。文件里存 off|yue|chao（旧的 1/0 兼容成 yue/off）
-TTS_STATES = ("off", "yue", "chao")
-TTS_LABELS = {"off": "关", "yue": "粤语", "chao": "汕头"}
+TTS_STATES = ("off", "cmn", "yue", "chao")
+TTS_LABELS = {"off": "关", "cmn": "国语", "yue": "粤语", "chao": "汕头"}
 
 
 def _read_tts_auto() -> str:
@@ -284,10 +284,12 @@ class PinyinEngine(IBus.Engine):
         self._tts_state = "yue" if os.environ.get("IPINYIN_TTS_AUTO") == "1" else _read_tts_auto()
         self._hint_source = 0   # 切换后短暂显示状态用的 GLib 定时器
         self._neural_source = 0  # 粤语档：空闲后升级神经写法的定时器
+        self._warm_source = 0    # 空闲后预合成首选候选的定时器
         self._last_hint: tuple[str, bool] = ("", False)
         # 记忆体：上屏采集 + 空闲 60 秒后台整理
         self._last_key_at = time.monotonic()
         self._last_commit_at = 0.0
+        self._sentence = ""      # 本次「一句」已上屏的文字：回车时整句连贯重播
         self._last_focus_at = 0.0
         # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
         self._ai_on = False
@@ -489,6 +491,9 @@ class PinyinEngine(IBus.Engine):
             return True
 
         if not composing:
+            # 没在打拼音时按回车 = 这句说完了：把整句连贯念一遍
+            if action is Action.COMMIT_RAW:
+                self._speak_sentence()
             return False
 
         # 上屏前先把挂起的神经升级补上：200ms 内就选词的话，
@@ -513,7 +518,13 @@ class PinyinEngine(IBus.Engine):
                 text += " "
             self._finish(text, key)
         elif action is Action.COMMIT_RAW:
-            self._finish(self.ime.commit_raw(), key)
+            raw = self.ime.commit_raw()
+            if raw:
+                self._finish(raw, key)
+            else:
+                # 没有拼音可上屏时按回车 = 这句说完了：把整句连贯念一遍
+                self._speak_sentence()
+                return False
         elif action is Action.CLEAR:
             self._record_abandon()
             self._reset()
@@ -640,6 +651,7 @@ class PinyinEngine(IBus.Engine):
                 if self._ime is not None:
                     self._ime.context = base
             self._last_commit = text
+            self._sentence = (self._sentence + text)[-120:]   # 最多留 120 字，防止无限长
             self.commit_text(IBus.Text.new_from_string(text))
             self._speak_auto(text)
         self._sync_now()
@@ -658,8 +670,38 @@ class PinyinEngine(IBus.Engine):
             return
         self._tts_state = _read_tts_auto()
 
+    def _speak_sentence(self) -> None:
+        """把这一句已上屏的内容一次性念出来（逐字播完之后再连贯听一遍）。"""
+        text = self._sentence
+        self._sentence = ""
+        if not text or not config.tts_enabled():
+            return
+        self._refresh_tts_auto()
+        if getattr(self, "_tts_state", "off") == "off":
+            return
+        from .speak import get_speaker, voice_for
+
+        lang = self._tts_lang()
+        if lang == "chao" and self._ime is not None and self._ime.chao is not None:
+            text = self._ime.chao.pengim(text) or text
+        get_speaker().speak(text, voice_for(lang))
+        LOG.info("整句朗读 %r", text[:20])
+
+    def _tts_lang(self) -> str:
+        """朗读语言：F9 状态优先（off 时按当前打字模式兜底）。"""
+        self._refresh_tts_auto()
+        state = getattr(self, "_tts_state", "off")
+        if state != "off":
+            return state
+        return self._ime.mode if self._ime is not None else "simp"
+
     def _speak_auto(self, text: str) -> None:
-        """上屏即读：F9 三档循环 关 → 粤语 → 汕头（默认关，打字时不吵）。"""
+        """上屏即读：念哪种语言只由 F9 状态决定，与当前打字模式无关。
+
+        F9 四档：关 → 国语 → 粤语 → 汕头。
+        以前这里用 ime.mode 决定声线，于是「状态选了粤语、正在打普通话」
+        会播成普通话——状态说了算才对。
+        """
         self._refresh_tts_auto()
         state = getattr(self, "_tts_state", "off")
         if not config.tts_enabled() or state == "off" or not text:
@@ -672,8 +714,23 @@ class PinyinEngine(IBus.Engine):
                 text = self._ime.chao.pengim(text) or text
             get_speaker().speak(text, voice_for("chao"))
             return
-        mode = self._ime.mode if self._ime is not None else "simp"
-        get_speaker().speak(text, voice_for(mode))
+        if state == "yue":
+            get_speaker().speak(text, voice_for("yue"))
+            return
+        get_speaker().speak(text, voice_for("simp"))   # cmn = 国语
+
+    def _schedule_warm(self) -> None:
+        """任何模式下都预热朗读：打字停 200ms 后把首选候选合成好。"""
+        if not config.tts_enabled():
+            return
+        if self._warm_source:
+            GLib.source_remove(self._warm_source)
+        self._warm_source = GLib.timeout_add(200, self._warm_pass)
+
+    def _warm_pass(self) -> bool:
+        self._warm_source = 0
+        self._warm_tts()
+        return False
 
     def _schedule_neural(self) -> None:
         """粤语档：停手 200ms 后再把首选换成神经写法。
@@ -681,6 +738,7 @@ class PinyinEngine(IBus.Engine):
         神经推理 8~45ms，放在按键路径上就是「打字很卡」；先给规则版（0.02ms），
         停手再升级，看到的顺序不变、手感不卡。
         """
+        self._schedule_warm()          # 预热与模式无关，先挂上
         if self._ime is None or self._ime.mode != "yue":
             return
         if self._neural_source:
@@ -691,7 +749,29 @@ class PinyinEngine(IBus.Engine):
         self._neural_source = 0
         if self._ime is not None and self._ime.rebuild_neural():
             self._sync_now()
+        # 顺手把首选候选预合成：等用户上屏时音频已在缓存，播放不用再等 1.1s
+        self._warm_tts()
         return False
+
+    def _warm_tts(self) -> None:
+        """打字停顿 200ms 后，预合成当前首选候选（只在朗读开着时）。"""
+        if not config.tts_enabled() or self._ime is None:
+            return
+        self._refresh_tts_auto()
+        if getattr(self, "_tts_state", "off") == "off":
+            return
+        word = self._ime.current_word()
+        if not word:
+            return
+        from .speak import get_speaker, voice_for
+
+        lang = self._tts_lang()
+        if lang == "chao" and self._ime.chao is not None:
+            word = self._ime.chao.pengim(word) or word
+        try:
+            get_speaker().warm(word, voice_for(lang))
+        except Exception:
+            pass
 
     def _speak(self) -> bool:
         """Ctrl+回车：念当前候选；没候选就念刚上屏的那句。
@@ -702,14 +782,17 @@ class PinyinEngine(IBus.Engine):
         """
         if not config.tts_enabled():
             return False
-        from .speak import get_speaker, target
+        from .speak import get_speaker, voice_for
 
         word = self._ime.current_word() if self._ime is not None else None
-        mode = self._ime.mode if self._ime is not None else "simp"
-        picked = target(mode, word, self._last_commit)
-        if picked is None:
+        text = word or self._last_commit
+        if not text:
             return False
-        text, voice = picked
+        # 语言跟 F9 状态走（与上屏即读一致）；状态是「关」时按打字模式兜底
+        lang = self._tts_lang()
+        if lang == "chao" and self._ime is not None and self._ime.chao is not None:
+            text = self._ime.chao.pengim(text) or text
+        voice = voice_for(lang)
         if not get_speaker().speak(text, voice):
             return False
         LOG.info("朗读 %r（%s）", text, voice)
