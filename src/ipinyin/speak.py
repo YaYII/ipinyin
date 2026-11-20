@@ -546,7 +546,7 @@ class Speaker:
         with self._cv:
             return len(self._queue)
 
-    def warm(self, text: str, voice: str = PINYIN_VOICE) -> None:
+    def warm(self, text: str, voice: str = PINYIN_VOICE, prefer: str | None = None) -> None:
         """后台预合成，不播放。用户上屏前先把候选合成好，上屏就能秒出。"""
         if not self.available:
             return
@@ -559,7 +559,7 @@ class Speaker:
             self._warming.add(text)
         def work():
             try:
-                self._render(text, voice)      # 命中缓存就是空操作
+                self._render(text, voice, prefer)      # 命中缓存就是空操作
             except Exception:
                 pass
             finally:

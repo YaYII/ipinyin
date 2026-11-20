@@ -296,6 +296,7 @@ class PinyinEngine(IBus.Engine):
         self._stage = ""         # 中间态输入框：选中的字先攒在这里，回车才上屏
         self._voice = None       # 常听线程（F8 开/关）
         self._voice_restored = False   # 启动后是否已按状态文件恢复过
+        self._warm_source = 0          # 整句在线预合成定时器（打字时提前合成）
         self._last_focus_at = 0.0
         # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
         self._ai_on = False
@@ -686,6 +687,7 @@ class PinyinEngine(IBus.Engine):
                     self._ime.context = base
             self._last_commit = text
             self._sentence += text          # 不截断：一句有多长留多长
+            self._schedule_sentence_warm()  # 打字时就先把整句在线合成好，回车即播
             self._last_spoken = ""          # 有新内容，允许重播
             if config.staging_enabled():
                 # 中间态：先攒在 preedit 里，用户可以继续删改，回车才真正上屏
@@ -753,6 +755,28 @@ class PinyinEngine(IBus.Engine):
                 handle.write("1" if on else "0")
         except OSError:
             pass
+
+    def _schedule_sentence_warm(self) -> None:
+        """打字停 400ms 就把当前整句在线合成好（回车直接用缓存）。"""
+        if self._warm_source:
+            GLib.source_remove(self._warm_source)
+        self._warm_source = GLib.timeout_add(400, self._warm_sentence)
+
+    def _warm_sentence(self) -> bool:
+        self._warm_source = 0
+        text = self._sentence
+        if not text or not config.tts_enabled():
+            return False
+        state = getattr(self, "_tts_state", "off")
+        if state == "off":
+            return False
+        from .speak import get_speaker, voice_for
+
+        try:
+            get_speaker().warm(text, voice_for(self._tts_lang()), prefer="edge")
+        except Exception:
+            pass
+        return False
 
     def _start_voice(self) -> None:
         """开始常听（F8 开 / 启动恢复都用它）。"""
