@@ -458,11 +458,6 @@ class PinyinEngine(IBus.Engine):
 
         composing = bool(self.ime.buffer)
 
-        # F8 语音输入：不依赖是否有候选
-        if action is Action.VOICE:
-            self._toggle_voice()
-            return True
-
         # 朗读不依赖是否有候选：没在打拼音时念刚上屏的那句
         if action is Action.SPEAK:
             return self._speak()
@@ -754,6 +749,7 @@ class PinyinEngine(IBus.Engine):
                 LOG.warning("录音启动失败：%s", exc)
                 return
             self._rec = (path, proc)
+            self._push_mode_hint(force=True)
             self.update_preedit_text(IBus.Text.new_from_string("🎤 录音中…按 F8 停止"), 0, True)
             LOG.info("语音：开始录音（%s）", asr.capture_device() or "默认设备")
             return
@@ -761,6 +757,7 @@ class PinyinEngine(IBus.Engine):
         path, proc = self._rec
         self._rec = None
         self.hide_preedit_text()
+        self._push_mode_hint(force=True)
         try:
             asr.stop_recording(path, proc)
         except Exception as exc:
@@ -1099,8 +1096,9 @@ class PinyinEngine(IBus.Engine):
                  "chao": "潮汕·汕头"}.get(self.ime.mode, "")
         # 状态可见：音:关/粤语/汕头 = 上屏即读的三档（Ctrl+回车 另算）
         state = getattr(self, "_tts_state", "off")
+        voice = "开" if config.voice_enabled() else "关"
         label = (f"{label} · 音:{TTS_LABELS.get(state, '关')}"
-                 f" · AI:{'开' if self._ai_active() else '关'}")
+                 f" · 语:{voice} · AI:{'开' if self._ai_active() else '关'}")
         visible = bool(self.ime.buffer) or force
         self._send_hint(label if visible else "", visible, force)
 

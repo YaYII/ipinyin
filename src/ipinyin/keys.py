@@ -23,7 +23,6 @@ KEY_BRACKET_LEFT = 0x5B    # [
 KEY_BRACKET_RIGHT = 0x5D   # ]
 KEY_BRACE_LEFT = 0x7B      # {
 KEY_BRACE_RIGHT = 0x7D     # }
-KEY_F8 = 0xFFC5            # F8：语音输入（开 / 停止并识别）
 KEY_F9 = 0xFFC6            # F9：切换「上屏即读」
 KEY_F10 = 0xFFC7           # F10：切换「AI 屏幕感知」
 
@@ -86,8 +85,6 @@ def translate(keyval: int, state: int) -> tuple[Action, str]:
         return Action.BACKSPACE, ""
     if keyval == KEY_TAB:
         return Action.TOGGLE_TRAD, ""
-    if keyval == KEY_F8:
-        return Action.VOICE, ""
     if keyval == KEY_F9:
         return Action.TOGGLE_TTS, ""
     if keyval == KEY_F10:
