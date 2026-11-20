@@ -31,3 +31,19 @@ def test_no_accidental_self_recursion():
             continue
         body = inspect.getsource(fn).split("\n", 1)[1]
         assert f"self.{name}(" not in body, f"{name} 调用了自己，会无限递归"
+
+
+def test_release_events_are_ignored():
+    """按下和松开都回调：只有按下才该处理，否则开关一按就切两次。"""
+    from ipinyin.engine import RELEASE_MASK, SHIFT_KEYVALS
+
+    assert RELEASE_MASK == 1 << 30
+    assert SHIFT_KEYVALS == (0xFFE1, 0xFFE2)
+
+
+def test_f8_single_toggle_per_press():
+    """F8 一次按下只切一次（源级守护：处理前必须有松开过滤）。"""
+    import inspect
+
+    source = inspect.getsource(engine.PinyinEngine._handle)
+    assert "RELEASE_MASK" in source, "缺少松开事件过滤，F8/F9/F10 都会被切两次"

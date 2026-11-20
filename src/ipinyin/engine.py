@@ -32,6 +32,8 @@ LOG = logging.getLogger("ipinyin")
 
 _LEXICON: Lexicon | None = None
 # 打字很快时，候选窗没必要每键都重画：把 UI 刷新合并到 15ms 一次（约 60fps）
+RELEASE_MASK = 1 << 30           # IBus 的按键松开标志
+SHIFT_KEYVALS = (0xFFE1, 0xFFE2)  # Shift 要靠松开事件判断「轻按一下」
 SYNC_INTERVAL = 0.015
 _MODELS: ModeModels | None = None
 _CONVERTER: Converter | None = None
@@ -410,6 +412,10 @@ class PinyinEngine(IBus.Engine):
     def _handle(self, keyval: int, state: int) -> bool:
         if not self.ready:
             return False  # 词库还在后台加载：放行，不卡输入
+        # 松开事件不处理：IBus 按下和松开都回调，开关会被切两次
+        # （F8 一按就「开→关」，就是这个原因）。Shift 例外，它靠松开判断轻按。
+        if state & RELEASE_MASK and keyval not in SHIFT_KEYVALS:
+            return False
 
         # 轻按一下 Shift（中间没按别的键）：中/英切换。英文模式下所有键原样放行。
         if keyval in (0xFFE1, 0xFFE2):
