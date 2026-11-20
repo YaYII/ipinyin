@@ -1,0 +1,12 @@
+#!/bin/sh
+# 整句朗读策略：ipinyin-tts-sentence quality|instant|status
+#   quality 等在线合成再播（音质最好，可能需要等 1-3 秒）
+#   instant 先播本地音库立刻出声（有拼接感），在线后台补
+FILE="${XDG_DATA_HOME:-$HOME/.local/share}/ipinyin/tts_sentence"
+mkdir -p "$(dirname "$FILE")" 2>/dev/null
+case "$1" in
+    quality) printf 'quality' > "$FILE"; echo "整句：等在线（音质优先）" ;;
+    instant) printf 'instant' > "$FILE"; echo "整句：先本地（速度优先）" ;;
+    status)  printf '当前：%s\n' "$(cat "$FILE" 2>/dev/null || echo quality)" ;;
+    *)       echo "用法: ipinyin-tts-sentence quality|instant|status"; exit 2 ;;
+esac

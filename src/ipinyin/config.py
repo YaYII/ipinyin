@@ -137,6 +137,18 @@ def tts_enabled() -> bool:
     return os.environ.get("IPINYIN_TTS", "1") != "0"
 
 
+def tts_sentence_mode() -> str:
+    """整句回車策略：quality=等在线合成（默认，音质优先）；instant=先本地立刻出声。"""
+    try:
+        with open(os.path.join(data_home(), "tts_sentence"), encoding="utf-8") as fh:
+            value = fh.read().strip()
+            if value in ("quality", "instant"):
+                return value
+    except OSError:
+        pass
+    return "quality"
+
+
 def tts_gender() -> str:
     """朗读声线性别：male=男声（音库 WanLung）；female=女声（VITS 模型）。
 
