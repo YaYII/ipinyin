@@ -298,6 +298,7 @@ class PinyinEngine(IBus.Engine):
         self._voice_restored = False   # 启动后是否已按状态文件恢复过
         self._warm_source = 0          # 整句在线预合成定时器（打字时提前合成）
         self._warmed_text = ""         # 上次已预热的整句，避免重复提交
+        self._warmed_clauses: set = set()   # 已预热的子句（标点结尾，不会再变）
         self._last_focus_at = 0.0
         # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
         self._ai_on = False
@@ -779,10 +780,22 @@ class PinyinEngine(IBus.Engine):
         state = getattr(self, "_tts_state", "off")
         if state == "off":
             return False
-        from .speak import get_speaker, voice_for
+        from .speak import completed_clauses, get_speaker, voice_for
 
+        speaker = get_speaker()
+        voice = voice_for(self._tts_lang())
+        # 标点结尾的子句已经定稿，立刻预热（用户几乎总会打标点，逗号也算一句）
+        warmed = 0
+        for clause in completed_clauses(text):
+            if clause in self._warmed_clauses:
+                continue
+            self._warmed_clauses.add(clause)
+            speaker.warm(clause, voice, prefer="edge")
+            warmed += 1
+        if warmed:
+            LOG.info("子句预合成 %d 段（标点分句）", warmed)
         try:
-            get_speaker().warm(text, voice_for(self._tts_lang()), prefer="edge")
+            speaker.warm(text, voice, prefer="edge")
             self._warmed_text = text
             LOG.info("整句排入预合成 %d 字 %r", len(text), text[:24])
         except Exception as exc:

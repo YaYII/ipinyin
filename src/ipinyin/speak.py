@@ -90,13 +90,30 @@ def chunks(text: str) -> list[str]:
     buf = ""
     for ch in text:
         buf += ch
-        if (ch in PUNCT and len(buf) >= 8) or len(buf) >= CHUNK_CHARS:
+        if (ch in PUNCT and len(buf) >= 2) or len(buf) >= CHUNK_CHARS:
             piece = buf.strip()
             if piece:
                 out.append(piece)
             buf = ""
     if buf.strip():
         out.append(buf.strip())
+    return out
+
+
+CLAUSE_PUNCT = "，。！？；：、,.!?;:"
+
+
+def completed_clauses(text: str) -> list[str]:
+    """已经以标点结尾的子句——这些不会再变，可以立刻预热。"""
+    out: list[str] = []
+    buf = ""
+    for ch in text:
+        buf += ch
+        if ch in CLAUSE_PUNCT:
+            piece = buf.strip()
+            if len(piece) >= 2:
+                out.append(piece)
+            buf = ""
     return out
 
 
@@ -371,36 +388,30 @@ class Speaker:
             backends = []
             if unit_lib is not None:
                 backends.append("units")
-            if self._binary:
-                backends.append("espeak")
-            order = "prefer-local"
-        elif prefer == "model":
-            # 整句：在线一次合成（韵律最好）→ 在线不可用用本地模型 → 再退音库 → 机器音
+        elif prefer == "edge":
+            # 只要在线：整句一次合成，韵律最好
             backends = []
             if can_edge:
                 backends.append("edge")
-            # 女声才用 VITS 模型；男声直接走男声音库，否则会突然变女声
-            if gender == "female" and voice == YUE_VOICE and local_tts_dir():
-                backends.append("local")
             if unit_lib is not None:
                 backends.append("units")
-            if self._binary:
-                backends.append("espeak")
-            order = "prefer-model"
-        if order == "model":
-            # 女声只有 VITS 模型有；男声只有音库（WanLung）有
-            if gender == "female" and voice == YUE_VOICE and local_tts_dir():
-                backends.append("local")
-            if unit_lib is not None:
-                backends.append("units")
+        elif prefer == "model":
+            # 在线 → 本地模型（仅女声）→ 音库 → 机器音
+            backends = []
             if can_edge:
                 backends.append("edge")
             if gender == "female" and voice == YUE_VOICE and local_tts_dir():
-                backends.append("local")      # 音库和联网都不行时再用模型兜底
-        else:
+                backends.append("local")
             if unit_lib is not None:
                 backends.append("units")
-            if can_edge:
+        else:
+            # 没指定 prefer：按 tts_order 的全局顺序
+            backends = []
+            if order == "model" and can_edge:
+                backends.append("edge")
+            if unit_lib is not None:
+                backends.append("units")
+            if order != "model" and can_edge:
                 backends.append("edge")
         if self._binary:
             backends.append("espeak")
