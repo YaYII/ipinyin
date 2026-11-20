@@ -23,7 +23,13 @@ import threading
 LOG = logging.getLogger("ipinyin")
 
 SR = 22050          # 单元统一采样率：edge 输出是 24kHz，转成 22.05k 体积小一点
-GAP_MS = 15         # 词间静音：40ms 听起来一字一顿，收到 15ms 才连贯
+GAP_MS = 15
+# 标点停顿：逗号短、句号长。以前标点被直接跳过，整句一口气念完，听感很赶。
+PAUSE_MS = {
+    "，": 180, ",": 150, "、": 120,
+    "。": 360, ".": 300, "！": 320, "!": 300, "？": 320, "?": 300,
+    "；": 220, ";": 200, "：": 160, ":": 150,
+}         # 词间静音：40ms 听起来一字一顿，收到 15ms 才连贯
 CACHE_LIMIT = 400   # 解码后的 PCM 缓存条数（约 400 × 1s × 44KB ≈ 17MB）
 SILENCE = 300       # 静音阈值（16bit 幅度）：edge 对短文本会补到 1.87s，必须裁掉
 HEAD_MS = 5         # 裁完留一点头，避免起音被切
@@ -117,6 +123,20 @@ def _join(chunks: list[bytes], sr: int = SR, fade_ms: int = 20) -> bytes:
     return body
 
 
+def _split_clauses(text: str) -> list[tuple[str, int]]:
+    """按标点切成分句，返回 [(分句, 停顿毫秒)]；最后一组停顿为 0。"""
+    out: list[tuple[str, int]] = []
+    buf = ""
+    for ch in text:
+        if ch in PAUSE_MS:
+            out.append((buf.strip(), PAUSE_MS[ch]))
+            buf = ""
+        else:
+            buf += ch
+    out.append((buf.strip(), 0))
+    return out
+
+
 class UnitLibrary:
     """词 → Opus 单元 → 拼接成 wav。线程安全（朗读在后台线程）。"""
 
@@ -172,7 +192,24 @@ class UnitLibrary:
         return out
 
     def render(self, text: str) -> bytes | None:
-        """整句 → wav bytes；词/字都查不到时退回按音节拼接。"""
+        """整句 → wav bytes；标点处插入停顿；词/字都查不到时退回按音节拼接。"""
+        clauses = _split_clauses(text)
+        if len(clauses) > 1:
+            body = b""
+            for clause, pause in clauses:
+                if clause:
+                    pcm = self._render_pcm(clause)
+                    if pcm is None:
+                        return None
+                    body += pcm
+                if pause:
+                    body += b"\x00\x00" * int(SR * pause / 1000)
+            return _wav_header(len(body)) + body
+        pcm = self._render_pcm(text)
+        return None if pcm is None else _wav_header(len(pcm)) + pcm
+
+    def _render_pcm(self, text: str) -> bytes | None:
+        """一段没有标点的文字 → PCM。"""
         pieces = self.segment(text)
         if pieces is None:
             return self._render_by_syllable(text)
@@ -181,8 +218,7 @@ class UnitLibrary:
         chunks = self._decode_all([self._index[p] for p in pieces])
         if chunks is None:
             return None
-        body = _join(chunks)
-        return _wav_header(len(body)) + body
+        return _join(chunks)
 
     def _decode_all(self, names: list[str]) -> list[bytes] | None:
         """并发解码一批单元。
