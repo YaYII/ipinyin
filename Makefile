@@ -32,6 +32,16 @@ uninstall:
 test:
 	python3 -m pytest tests -q
 
+# 开发模式：让 IBus 直接跑仓库里的引擎（不装 deb）
+dev:
+	bin/ipinyin-dev
+
+dev-status:
+	bin/ipinyin-dev --status
+
+dev-restore:
+	bin/ipinyin-dev --restore
+
 # 扫密钥：AI 通道的 key 只该在 ~/.dsh/.credentials.yaml，绝不入库
 secrets:
 	python3 tools/check_secrets.py

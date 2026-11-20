@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+"""开发模式：让 IBus 直接跑仓库里的引擎，不装 deb、不复制代码。
+
+原理（三步，缺一不可）：
+1. **组件放哪**：ibus-daemon 按 $IBUS_COMPONENT_PATH 找组件 XML。本机 systemd 单元
+   org.freedesktop.IBus.session.GNOME.service 里已经有 drop-in 把它设成
+   `/usr/share/ibus/component:~/.local/share/ipinyin/component`，所以仓库这份要放到
+   **~/.local/share/ipinyin/component/**；
+2. **引擎名不能一样**：/usr/share 里 deb 装的组件先被读到，同名 `ipinyin` 抢不过它，
+   所以仓库这份叫 `ipinyin-dev`；
+3. **输入源与全局引擎**：gsettings 的 sources 要指向 `ipinyin-dev`，
+   否则 gnome-shell 会把引擎切回系统的那个。
+
+用法：
+    bin/ipinyin-dev            # 切到仓库引擎并验证
+    bin/ipinyin-dev --status   # 看当前跑的是仓库版还是 deb 版
+    bin/ipinyin-dev --restore  # 切回 deb 版
+"""
+from __future__ import annotations
+
+import os
+import subprocess
+import sys
+import time
+
+ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+ENGINE = os.path.join(ROOT, "bin", "ipinyin-engine")
+COMPONENT_DIR = os.path.join(os.path.expanduser("~"), ".local", "share", "ipinyin", "component")
+COMPONENT = os.path.join(COMPONENT_DIR, "ipinyin.xml")
+ENGINE_NAME = "ipinyin-dev"
+SYSTEM_SERVICE = "org.freedesktop.IBus.session.GNOME.service"
+
+TEMPLATE = """<?xml version="1.0" encoding="utf-8"?>
+<component>
+\t<name>org.freedesktop.IBus.IPinyinDev</name>
+\t<description>IPinyin (repo)</description>
+\t<exec>{engine} --ibus</exec>
+\t<version>{version}</version>
+\t<author>dev</author>
+\t<license>MIT</license>
+\t<homepage>https://github.com/YaYII/ipinyin</homepage>
+\t<textdomain>ipinyin</textdomain>
+\t<engines>
+\t\t<engine>
+\t\t\t<name>{name}</name>
+\t\t\t<language>zh_CN</language>
+\t\t\t<license>MIT</license>
+\t\t\t<author>dev</author>
+\t\t\t<icon>ibus-keyboard</icon>
+\t\t\t<layout>default</layout>
+\t\t\t<longname>IPinyin 拼音 (仓库)</longname>
+\t\t\t<description>从仓库运行（改代码只需重启引擎）</description>
+\t\t</engine>
+\t</engines>
+</component>
+"""
+
+
+def run(*args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(args, capture_output=True, text=True)
+
+
+def version() -> str:
+    try:
+        with open(os.path.join(ROOT, "VERSION"), encoding="utf-8") as handle:
+            return handle.read().strip() or "dev"
+    except OSError:
+        return "dev"
+
+
+def engines() -> list[str]:
+    done = run("pgrep", "-af", "ipinyin-engine --ibus")
+    return [line for line in done.stdout.splitlines() if "pgrep" not in line]
+
+
+def current_engine() -> str:
+    return run("ibus", "engine").stdout.strip()
+
+
+def status() -> int:
+    running = engines()
+    if not running:
+        print("引擎：没在跑")
+    for line in running:
+        print(f"引擎：{'仓库' if ROOT in line else 'deb 版'} → {line}")
+    print(f"全局引擎：{current_engine() or '(空)'}")
+    print(f"组件：{COMPONENT if os.path.exists(COMPONENT) else '未写（当前是 deb 模式）'}")
+    sources = run("gsettings", "get", "org.gnome.desktop.input-sources", "sources").stdout.strip()
+    print(f"输入源：{sources}")
+    return 0
+
+
+def write_component() -> None:
+    os.makedirs(COMPONENT_DIR, exist_ok=True)
+    with open(COMPONENT, "w", encoding="utf-8") as handle:
+        handle.write(TEMPLATE.format(engine=ENGINE, version=version(), name=ENGINE_NAME))
+    print(f"组件 → {COMPONENT}\n  exec = {ENGINE} --ibus")
+
+
+def restart_ibus() -> None:
+    """组件变了要清 registry 缓存，再让 systemd 重启 daemon（它带着 IBUS_COMPONENT_PATH）。"""
+    registry = os.path.join(os.path.expanduser("~"), ".cache", "ibus", "bus", "registry")
+    if os.path.exists(registry):
+        os.remove(registry)
+    stop = run("systemctl", "--user", "stop", SYSTEM_SERVICE)
+    start = run("systemctl", "--user", "start", SYSTEM_SERVICE)
+    if start.returncode != 0:
+        # 服务起不来就自己拉一个（仍然读同一个 IBUS_COMPONENT_PATH）
+        env = dict(os.environ)
+        env["IBUS_COMPONENT_PATH"] = (
+            "/usr/share/ibus/component:" + COMPONENT_DIR)
+        subprocess.Popen(["ibus-daemon", "-drx"], env=env,
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                         start_new_session=True)
+    time.sleep(2)
+
+
+def switch(name: str) -> None:
+    run("gsettings", "set", "org.gnome.desktop.input-sources", "sources",
+        f"[('ibus', '{name}')]")
+    run("gsettings", "set", "org.gnome.desktop.input-sources", "current", "0")
+    for _ in range(6):
+        run("ibus", "engine", name)
+        time.sleep(0.5)
+        if current_engine() == name:
+            break
+
+
+def main(argv: list[str]) -> int:
+    if "--status" in argv:
+        return status()
+    if "--restore" in argv:
+        if os.path.exists(COMPONENT):
+            os.remove(COMPONENT)
+        restart_ibus()
+        switch("ipinyin")
+        return status()
+
+    if not os.access(ENGINE, os.X_OK):
+        os.chmod(ENGINE, 0o755)
+    write_component()
+    restart_ibus()
+    switch(ENGINE_NAME)
+    return status()
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))
