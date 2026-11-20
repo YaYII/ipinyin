@@ -28,7 +28,7 @@ from . import config, tts_metrics, units
 LOG = logging.getLogger("ipinyin")
 
 DEFAULT_SPEED = 165      # 比 espeak 默认稍慢：粤语六个声调，听清楚比听快重要
-MAX_CHARS = 80           # 再长就别念了——一句话念十秒没人受得了
+MAX_CHARS = 0            # 0 = 不限制：有多少念多少
 CACHE_LIMIT = 200        # 缓存 wav 条数上限
 BATCH_WAIT = 0.04        # 取批时等 40ms，让连打进来的字并进同一句（人打字间隔 >40ms 就各自播）
 CACHE_VERSION = "2"      # 裁静音后旧缓存（短句 1.87s）作废，键里带版本号
@@ -82,7 +82,8 @@ def normalize(text: str) -> str:
     标点保留——espeak 会把它们念成自然停顿，去掉反而不像话。
     """
     cleaned = "".join(ch for ch in text if ch.isprintable() or ch.isspace())
-    return " ".join(cleaned.split())[:MAX_CHARS]
+    # 不截断：句子有多长就念多长
+    return " ".join(cleaned.split())
 
 
 def to_pinyin(text: str, table: dict[str, str]) -> str:
@@ -426,7 +427,8 @@ class Speaker:
             deadline = time.monotonic() + BATCH_WAIT
             while True:
                 while (self._queue and self._queue[0][1] == voice
-                       and len("".join(parts)) + len(self._queue[0][0]) <= MAX_CHARS):
+                       and (MAX_CHARS <= 0
+                            or len("".join(parts)) + len(self._queue[0][0]) <= MAX_CHARS)):
                     parts.append(self._queue.popleft()[0])
                 left = deadline - time.monotonic()
                 if left <= 0:

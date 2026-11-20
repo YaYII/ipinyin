@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import array
 import atexit
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
 import logging
@@ -177,14 +178,31 @@ class UnitLibrary:
             return self._render_by_syllable(text)
         if not pieces:
             return None
-        chunks: list[bytes] = []
-        for piece in pieces:
-            pcm = self._decode(self._index[piece])
-            if not pcm:
-                return None
-            chunks.append(pcm)
+        chunks = self._decode_all([self._index[p] for p in pieces])
+        if chunks is None:
+            return None
         body = _join(chunks)
         return _wav_header(len(body)) + body
+
+    def _decode_all(self, names: list[str]) -> list[bytes] | None:
+        """并发解码一批单元。
+
+        每个单元一次 ffmpeg 调用（~110ms）；42 字串行就是 4.6 秒，用户等不起。
+        并发 8 路把首播延迟压到 0.6 秒内，结果仍进 _pcm 缓存，重播是 0 成本。
+        """
+        todo = list(dict.fromkeys(n for n in names if n not in self._pcm))
+        if len(todo) > 1:
+            with ThreadPoolExecutor(max_workers=min(8, len(todo))) as pool:
+                list(pool.map(self._decode, todo))
+        out: list[bytes] = []
+        for name in names:
+            pcm = self._pcm.get(name)
+            if pcm is None:
+                pcm = self._decode(name)
+            if not pcm:
+                return None
+            out.append(pcm)
+        return out
 
     def _render_by_syllable(self, text: str) -> bytes | None:
         """B 级兜底：汉字 → 粤拼音节 → 代表字单元 → 拼接。
@@ -213,15 +231,15 @@ class UnitLibrary:
         reading = _YUE_CONV.jyutping(text)
         if not reading:
             return None
-        chunks: list[bytes] = []
+        names: list[str] = []
         for syl in reading.split():
             ch = _SYL2CHAR.get(syl)
             if not ch or ch not in self._index:
                 return None
-            pcm = self._decode(self._index[ch])
-            if not pcm:
-                return None
-            chunks.append(pcm)
+            names.append(self._index[ch])
+        chunks = self._decode_all(names)
+        if chunks is None:
+            return None
         if not chunks:
             return None
         body = _join(chunks)

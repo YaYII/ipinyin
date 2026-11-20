@@ -137,6 +137,21 @@ def tts_enabled() -> bool:
     return os.environ.get("IPINYIN_TTS", "1") != "0"
 
 
+def live_tts_enabled() -> bool:
+    """逐词播（上屏即读）。关掉就只在回车时整句念，打字时不出声。
+
+    逐词播会排队：打字比播放快时音频越积越落后。嫌慢就关它。
+    状态文件 ~/.local/share/ipinyin/tts_live（"0" 关，默认开）。
+    """
+    if os.environ.get("IPINYIN_TTS_LIVE") == "0":
+        return False
+    try:
+        with open(os.path.join(data_home(), "tts_live"), encoding="utf-8") as fh:
+            return fh.read().strip() != "0"
+    except OSError:
+        return True
+
+
 def staging_enabled() -> bool:
     """中间态输入框：选中的字先进 preedit，可改可删，回车才一次上屏。
 

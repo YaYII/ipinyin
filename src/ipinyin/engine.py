@@ -665,10 +665,10 @@ class PinyinEngine(IBus.Engine):
                 if self._ime is not None:
                     self._ime.context = base
             self._last_commit = text
-            self._sentence = (self._sentence + text)[-120:]   # 最多留 120 字，防止无限长
+            self._sentence += text          # 不截断：一句有多长留多长
             if config.staging_enabled():
                 # 中间态：先攒在 preedit 里，用户可以继续删改，回车才真正上屏
-                self._stage = (self._stage + text)[-200:]
+                self._stage += text
                 self.update_preedit_text(IBus.Text.new_from_string(self._stage),
                                          len(self._stage), True)
             else:
@@ -724,6 +724,11 @@ class PinyinEngine(IBus.Engine):
                     i = head.rfind(ch)
                     cut = max(cut, i + 1)
                 head = head[cut:].strip()
+                # 应用可能还没处理完最后一次上屏：它给的文本比我们刚提交的短，
+                # 且是同一句的前缀 —— 这时以累积缓冲为准，否则最后几个字会被吞掉
+                if (head and self._sentence and len(self._sentence) > len(head)
+                        and self._sentence.startswith(head)):
+                    return self._sentence
                 if head:
                     return head
             except Exception:
@@ -758,7 +763,7 @@ class PinyinEngine(IBus.Engine):
             text = self._ime.chao.pengim(text) or text
         text = self._spoken_text(text, lang)
         get_speaker().speak(text, voice_for(lang))
-        LOG.info("整句朗读 %r", text[:20])
+        LOG.info("整句朗读 %d 字 %r", len(text), text)
 
     def _tts_lang(self) -> str:
         """朗读语言：F9 状态优先（off 时按当前打字模式兜底）。"""
@@ -769,6 +774,8 @@ class PinyinEngine(IBus.Engine):
         return self._ime.mode if self._ime is not None else "simp"
 
     def _speak_auto(self, text: str) -> None:
+        if not config.live_tts_enabled():
+            return
         """上屏即读：念哪种语言只由 F9 状态决定，与当前打字模式无关。
 
         F9 四档：关 → 国语 → 粤语 → 汕头。

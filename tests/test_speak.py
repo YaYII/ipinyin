@@ -22,7 +22,8 @@ def test_target_keeps_voice_of_mode():
 def test_normalize_trims_and_caps():
     assert speak.normalize("  你好\n世界 ") == "你好 世界"
     assert speak.normalize("\x07你好") == "你好"
-    assert len(speak.normalize("啊" * 500)) == speak.MAX_CHARS
+    # 不截断：有多少念多少
+    assert speak.normalize("啊" * 500) == "啊" * 500
 
 
 def test_to_pinyin_keeps_ascii_and_drops_symbols():
