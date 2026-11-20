@@ -563,9 +563,33 @@ class Speaker:
                 self._worker.start()
         if len(pieces) > 1:
             # 后台把后面几段先合成好：段间不留空隙，播放器可以一次收多个文件
-            threading.Thread(target=self._render_ahead, args=(pieces[1:], voice),
-                             name="tts-ahead", daemon=True).start()
+            self._prefetch_pieces(pieces[1:], voice, prefer)
         return True
+
+    def _prefetch_pieces(self, pieces: list[str], voice: str,
+                         prefer: str | None = None) -> None:
+        """把下标 1..N 的子句并行丢进预热池：第 0 段播放时其余同时合成。"""
+        with self._cv:
+            if self._warm_pool is None:
+                self._warm_pool = ThreadPoolExecutor(max_workers=3,
+                                                     thread_name_prefix="tts-warm")
+            pool = self._warm_pool
+        for piece in pieces:
+            if not piece:
+                continue
+            pool.submit(self._prefetch_one, piece, voice, prefer)
+
+    def _prefetch_one(self, piece: str, voice: str, prefer: str | None = None) -> None:
+        with self._cv:
+            if (piece, voice, prefer) in self._prefetch:
+                return
+        try:
+            done = self._render(piece, voice, prefer)
+        except Exception:
+            return
+        if done:
+            with self._cv:
+                self._prefetch[(piece, voice, prefer)] = done
 
     def _render_ahead(self, pieces: list[str], voice: str) -> None:
         """把整句的每一段先合成好（命中缓存就是空操作）。"""
