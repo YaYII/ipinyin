@@ -1,7 +1,18 @@
-.PHONY: install uninstall test e2e lexicon units units-syl units-all clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs eval-coverage sogou-dict yue-guard eval-yue-guard macos macos-testpad projects-test push
+.PHONY: install uninstall test e2e lexicon units units-fetch units-syl units-all clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs eval-coverage sogou-dict yue-guard eval-yue-guard macos macos-testpad projects-test push
 
 install:
 	./install.sh
+
+VERSION ?= $(shell cat VERSION 2>/dev/null || echo 0.0.0)
+UNITS_URL := https://github.com/YaYII/ipinyin/releases/download/v$(VERSION)/ipinyin-tts-units-$(VERSION).tar.gz
+
+# 下载预建音库（60MB）：解压即用，不用自己录。新机器首选这条
+units-fetch:
+	@mkdir -p $(HOME)/.local/share/ipinyin
+	curl -fL --progress-bar -o /tmp/ipinyin-tts-units-$(VERSION).tar.gz "$(UNITS_URL)"
+	tar -xzf /tmp/ipinyin-tts-units-$(VERSION).tar.gz -C $(HOME)/.local/share/ipinyin
+	@echo "音库就位：$$(ls $(HOME)/.local/share/ipinyin/tts-units/*.opus | wc -l) 个单元"
+	-@bin/ipinyin-restart
 
 # 字级音库（常用 8000 字 + 音节代表字）：任意词可拼，约 15 分钟，只建一次
 units:
