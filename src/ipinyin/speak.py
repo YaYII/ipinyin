@@ -503,13 +503,34 @@ class Speaker:
             return False
         with self._cv:
             # 长句切段：worker 播一段、合成下一段，感知延迟≈第一段合成时间
-            for piece in (chunks(text) if len(text) > CHUNK_CHARS else [text]):
+            pieces = chunks(text) if len(text) > CHUNK_CHARS else [text]
+            for piece in pieces:
                 self._queue.append((piece, voice, False))
             self._cv.notify()
             if self._worker is None or not self._worker.is_alive():
                 self._worker = threading.Thread(target=self._run, name="tts", daemon=True)
                 self._worker.start()
+        if len(pieces) > 1:
+            # 后台把后面几段先合成好：段间不留空隙，播放器可以一次收多个文件
+            threading.Thread(target=self._render_ahead, args=(pieces[1:], voice),
+                             name="tts-ahead", daemon=True).start()
         return True
+
+    def _render_ahead(self, pieces: list[str], voice: str) -> None:
+        """把整句的每一段先合成好（命中缓存就是空操作）。"""
+        for piece in pieces:
+            if not piece:
+                continue
+            with self._cv:
+                if (piece, voice) in self._prefetch:
+                    continue
+            try:
+                done = self._render(piece, voice)
+            except Exception:
+                continue
+            if done:
+                with self._cv:
+                    self._prefetch[(piece, voice)] = done
 
     def pending(self) -> int:
         """队列里还有多少条没播（诊断用：整句重播前应丢弃积压）。"""
@@ -596,9 +617,20 @@ class Speaker:
             if not path:
                 return
         LOG.info("朗读播放 %d 字 %r", len(text), text[:24])
+        # 后面几段如果已经合成好，一次性交给播放器：多文件连续播，段间几乎无缝
+        paths = [path]
+        with self._cv:
+            while self._queue and self._queue[0][1] == voice:
+                nxt = self._queue[0][:2]
+                done = self._prefetch.pop(nxt, None)
+                if not done:
+                    break
+                self._queue.popleft()
+                paths.append(done[1])
+        LOG.info("朗读起播：%d 段连续播放", len(paths))
         try:
             proc = subprocess.Popen(
-                [*self._player, path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+                [*self._player, *paths], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
             )
         except OSError as exc:
             LOG.warning("朗读播放失败：%s", exc)
