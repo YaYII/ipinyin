@@ -1,7 +1,19 @@
-.PHONY: install uninstall test e2e lexicon clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs eval-coverage sogou-dict yue-guard eval-yue-guard macos macos-testpad projects-test push
+.PHONY: install uninstall test e2e lexicon units units-syl units-all clean dev-macos corpus lm train-yue eval-yue eval-word eval-sentence eval-docs eval-coverage sogou-dict yue-guard eval-yue-guard macos macos-testpad projects-test push
 
 install:
 	./install.sh
+
+# 字级音库（常用 8000 字 + 音节代表字）：任意词可拼，约 15 分钟，只建一次
+units:
+	python3 tools/build_tts_chars.py --chars 8000 --workers 8
+
+# 音节代表字库（1967 音节 → 代表字），字库的子集，单独跑很快
+units-syl:
+	python3 tools/build_tts_syllables.py
+
+# 全量：字 + 音节 + 词（词库体积大，可选）
+units-all: units
+	python3 tools/build_tts_units.py --limit 3000 --chars 0 --workers 8
 
 uninstall:
 	./uninstall.sh
