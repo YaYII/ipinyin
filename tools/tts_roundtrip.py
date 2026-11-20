@@ -26,7 +26,8 @@ CASES: list[tuple[str, list[str]]] = [
     ("标点停顿", ["我哋去行街,買嘢食。", "你食咗飯未?"]),
     ("英数混排", ["iPhone 幾多錢", "2026 年"]),
     ("长句", ["我哋今日去行街買嘢食順便睇下戲然後返屋企食飯夜晚再出去散步傾下偈"]),
-    ("生僻词", ["魑魅魍魉"]),
+    # 生僻字：日常几乎不写，只作信息记录，不计入通过率
+    ("生僻词(不计分)", ["魑魅魍魉"]),
     ("普转粤", ["我不知道", "这个多少钱", "他刚才说什么"]),
 ]
 
@@ -102,6 +103,7 @@ def main() -> int:
     rows = []
     total = ok = 0
     homophones = 0
+    uncounted = 0
     started = time.time()
     for title, items in CASES:
         for raw in items:
@@ -120,17 +122,23 @@ def main() -> int:
                 fh.write(got)
             heard = rec.recognize_file(path)
             verdict = compare(text, heard, conv, yue)
-            ok += verdict == "ok"
-            homophones += verdict == "homophone"
-            total += 1
+            counted = "不计分" not in title
+            ok += counted and verdict == "ok"
+            homophones += counted and verdict == "homophone"
+            if counted:
+                total += 1
+            else:
+                uncounted += 1
             rows.append((title, text, heard, verdict))
         if args.limit and total >= args.limit:
             break
 
     lines = [f"# TTS 往返质检报告", "",
-             f"用例 {total}，完全一致 {ok}（{ok / total * 100:.0f}%），"
-             f"同音 {homophones}，真错 {total - ok - homophones}，"
-             f"耗时 {time.time() - started:.0f}s", "",
+             f"计分用例 {total}：完全一致 {ok}（{ok / total * 100:.0f}%），"
+             f"同音 {homophones}，真错 {total - ok - homophones}；"
+             f"生僻字 {uncounted} 例不计分；耗时 {time.time() - started:.0f}s", "",
+             "> 生僻字日常几乎不写，不计入通过率；判定口径：完全一致=✅，同音不同字=🟡，"
+             "其余=❌（可能是 TTS 读错，也可能是 ASR 听错，需单字对照实验区分）", "",
              "| 场景 | 原文 | 识别结果 | 判定 |", "|---|---|---|---|"]
     mark = {"ok": "✅", "homophone": "🟡 同音", "mismatch": "❌"}
     for title, text, heard, verdict in rows:
