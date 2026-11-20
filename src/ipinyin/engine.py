@@ -773,9 +773,14 @@ class PinyinEngine(IBus.Engine):
 
     def _speak_sentence(self) -> None:
         """把这一句已上屏的内容一次性念出来（逐字播完之后再连贯听一遍）。"""
-        text = self._sentence_text()
+        # 闸门：两次回车之间没有新上屏内容 → 空回车，不播
+        fresh = self._sentence
+        if not fresh:
+            LOG.debug("整句重播跳过：回车之间没有新内容")
+            return
         self._sentence = ""
-        if not text or not config.tts_enabled():
+        text = self._sentence_text() or fresh
+        if not config.tts_enabled():
             return
         if text == self._last_spoken:
             LOG.info("整句重播跳过：同一句刚念过 %r", text[:20])

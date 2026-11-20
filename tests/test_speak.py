@@ -410,3 +410,36 @@ def test_deleted_tail_is_not_spoken(monkeypatch):
     eng._last_commit_at = time.monotonic() - 5.0
     assert eng._sentence_text() == "我哋今日去行街"
     assert eng._sentence == "我哋今日去行街", "缓冲要跟着同步，下次不再带旧字"
+
+
+def test_empty_enter_does_not_play(monkeypatch):
+    """空回车（两次回车之间没有新内容）不该播放。"""
+    from types import SimpleNamespace
+
+    from ipinyin import engine, speak
+
+    played = []
+    fake = SimpleNamespace(speak=lambda t, v: played.append(t) or True,
+                           pending=lambda: 0, stop=lambda: None)
+    monkeypatch.setattr(speak, "get_speaker", lambda: fake)
+    monkeypatch.setattr(engine.config, "tts_enabled", lambda: True)
+
+    class FakeEngine:
+        _speak_sentence = engine.PinyinEngine._speak_sentence
+        _tts_lang = engine.PinyinEngine._tts_lang
+        _spoken_text = engine.PinyinEngine._spoken_text
+
+        def __init__(self):
+            self._sentence = ""          # 没有新内容
+            self._last_spoken = ""
+            self._tts_state = "yue"
+            self._ime = SimpleNamespace(mode="yue", chao=None)
+
+        def _sentence_text(self):
+            return "整句已经有内容"       # 输入框里有旧内容，但不该念
+
+        def _refresh_tts_auto(self):
+            pass
+
+    FakeEngine()._speak_sentence()
+    assert played == [], "空回车不能播放"
