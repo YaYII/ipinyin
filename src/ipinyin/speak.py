@@ -366,7 +366,15 @@ class Speaker:
         # 顺序由 tts_order 决定：model=模型优先（音库兜底）；offline=音库优先
         order = config.tts_order()
         gender = config.tts_gender()
-        if prefer == "model":
+        if prefer == "local":
+            # 立刻出声用：只走本地音库，绝不联网
+            backends = []
+            if unit_lib is not None:
+                backends.append("units")
+            if self._binary:
+                backends.append("espeak")
+            order = "prefer-local"
+        elif prefer == "model":
             # 整句：在线一次合成（韵律最好）→ 在线不可用用本地模型 → 再退音库 → 机器音
             backends = []
             if can_edge:
