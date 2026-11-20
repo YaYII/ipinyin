@@ -291,7 +291,7 @@ def test_enter_replays_whole_sentence(monkeypatch):
     eng = FakeEngine()
     eng._speak_sentence()
     assert [text for text, _ in played] == ["我唔知你講乜"]
-    assert played[0][1] == "model", "整句走 model 优先级：在线 → 本地模型 → 音库"
+    assert played[0][1] == "local", "在线无缓存时先用本地，避免等 3-4 秒"
     assert dropped, "整句重播前要丢掉逐词积压，否则同一句会播两遍"
     assert eng._sentence == "", "念完要清空，否则下次回车会重复"
 

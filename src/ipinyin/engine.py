@@ -915,9 +915,15 @@ class PinyinEngine(IBus.Engine):
         # 整句重播：在线版已缓存就播在线（连贯）；没有就先播本地保证立刻出声，
         # 同时后台合成在线版——下次同一句直接命中缓存。
         voice = voice_for(lang)
-        # 整句：在线优先（韵律最好）→ 本地模型 → 音库；预热过就是 0ms 命中
-        speaker.speak(text, voice, prefer="model")
-        LOG.info("整句朗读 %d 字（在线优先）%r", len(text), text)
+        # 在线缓存命中 → 立刻播在线（0ms）；没命中 → 先用本地音库立即出声，
+        # 同时后台合成在线版（下次同一句 0ms）。否则用户要等 3-4 秒。
+        if speaker.has_cache(text, voice, "edge"):
+            speaker.speak(text, voice, prefer="model")
+            LOG.info("整句朗读 %d 字（在线缓存命中）%r", len(text), text)
+        else:
+            speaker.speak(text, voice, prefer="local")
+            speaker.warm(text, voice, prefer="edge")
+            LOG.info("整句朗读 %d 字（先本地，后台补在线）%r", len(text), text)
 
     def _tts_lang(self) -> str:
         """朗读语言：F9 状态优先（off 时按当前打字模式兜底）。"""

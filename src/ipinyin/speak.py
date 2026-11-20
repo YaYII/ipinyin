@@ -371,7 +371,8 @@ class Speaker:
             backends = []
             if can_edge:
                 backends.append("edge")
-            if voice == YUE_VOICE and local_tts_dir():
+            # 女声才用 VITS 模型；男声直接走男声音库，否则会突然变女声
+            if gender == "female" and voice == YUE_VOICE and local_tts_dir():
                 backends.append("local")
             if unit_lib is not None:
                 backends.append("units")
