@@ -204,6 +204,56 @@ def _find_units() -> units.UnitLibrary | None:
     return library if library.available else None
 
 
+def local_tts_dir() -> str:
+    """本地粤语 TTS 模型目录（sherpa-onnx VITS，102MB）。"""
+    base = os.path.join(config.data_home(), "tts")
+    for name in os.listdir(base) if os.path.isdir(base) else []:
+        if name.startswith("vits-cantonese"):
+            return os.path.join(base, name)
+    return ""
+
+
+_LOCAL_TTS = None
+_LOCAL_TTS_FAILED = False
+_LOCAL_TTS_LOCK = threading.Lock()
+
+
+def _local_tts():
+    """懒加载 VITS 粤语模型：加载 1.8s，之后每句 400-900ms。"""
+    global _LOCAL_TTS, _LOCAL_TTS_FAILED
+    if _LOCAL_TTS is not None or _LOCAL_TTS_FAILED:
+        return _LOCAL_TTS
+    with _LOCAL_TTS_LOCK:
+        if _LOCAL_TTS is not None or _LOCAL_TTS_FAILED:
+            return _LOCAL_TTS
+        directory = local_tts_dir()
+        if not directory:
+            _LOCAL_TTS_FAILED = True
+            return None
+        try:
+            import sherpa_onnx
+
+            started = time.time()
+            _LOCAL_TTS = sherpa_onnx.OfflineTts(sherpa_onnx.OfflineTtsConfig(
+                model=sherpa_onnx.OfflineTtsModelConfig(
+                    vits=sherpa_onnx.OfflineTtsVitsModelConfig(
+                        model=os.path.join(directory, os.path.basename(directory) + ".onnx"),
+                        lexicon=os.path.join(directory, "lexicon.txt"),
+                        tokens=os.path.join(directory, "tokens.txt"),
+                    ),
+                    num_threads=4,
+                ),
+                max_num_sentences=1,
+                rule_fsts=os.path.join(directory, "rule.fst"),
+            ))
+            LOG.info("粤语 TTS 模型已加载 %.1fs（%s）", time.time() - started, directory)
+        except Exception as exc:
+            LOG.warning("粤语 TTS 模型加载失败：%s", exc)
+            _LOCAL_TTS_FAILED = True
+            return None
+    return _LOCAL_TTS
+
+
 def _find_player() -> list[str] | None:
     for name, argv in PLAYERS:
         if shutil.which(name):
@@ -309,10 +359,25 @@ class Speaker:
                    or not config.tts_edge_enabled())     # 状态文件可运行时切换
         # 本地音库优先：命中就 30-200ms 出声；没命中才联网，联网结果再收进音库
         unit_lib = self._units_for(voice)
-        if unit_lib is not None:
-            backends.append("units")
-        if self._edge and not offline:
-            backends.append("edge")
+        can_edge = bool(self._edge) and not offline
+        # 顺序由 tts_order 决定：model=模型优先（音库兜底）；offline=音库优先
+        order = config.tts_order()
+        gender = config.tts_gender()
+        if order == "model":
+            # 女声只有 VITS 模型有；男声只有音库（WanLung）有
+            if gender == "female" and voice == YUE_VOICE and local_tts_dir():
+                backends.append("local")
+            if unit_lib is not None:
+                backends.append("units")
+            if can_edge:
+                backends.append("edge")
+            if gender == "female" and voice == YUE_VOICE and local_tts_dir():
+                backends.append("local")      # 音库和联网都不行时再用模型兜底
+        else:
+            if unit_lib is not None:
+                backends.append("units")
+            if can_edge:
+                backends.append("edge")
         if self._binary:
             backends.append("espeak")
         for backend in backends:
@@ -326,7 +391,9 @@ class Speaker:
             except OSError:
                 pass
             started = time.time()
-            if backend == "units":
+            if backend == "local":
+                data = self._local_wav(text)
+            elif backend == "units":
                 data = unit_lib.render(text)
             elif backend == "edge":
                 data = self._edge_wav(text, voice)
@@ -345,6 +412,27 @@ class Speaker:
             tts_metrics.record(text, backend, (time.time() - started) * 1000, seconds)
             return data, path
         return None
+
+    def _local_wav(self, text: str) -> bytes | None:
+        """本地 VITS 粤语模型合成（首选）：质量稳定、完全离线。"""
+        if voice_is_unsupported := False:
+            return None
+        tts = _local_tts()
+        if tts is None:
+            return None
+        try:
+            import numpy as np
+
+            audio = tts.generate(text, sid=0, speed=1.0)
+            if not audio.samples:
+                return None
+            pcm = (np.clip(np.asarray(audio.samples, dtype="float32"), -1, 1)
+                   * 32767).astype("<i2").tobytes()
+            data = units._wav_header(len(pcm)) + pcm
+            return _fade_wav(data, audio.sample_rate)
+        except Exception as exc:
+            LOG.warning("本地模型合成失败：%s", exc)
+            return None
 
     def _espeak_wav(self, text: str, voice: str) -> bytes | None:
         spoken = to_pinyin(text, _char_pinyin()) if voice == PINYIN_VOICE else text

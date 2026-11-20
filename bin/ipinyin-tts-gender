@@ -1,0 +1,12 @@
+#!/bin/sh
+# 朗读声线性别：ipinyin-tts-gender male|female|status
+#   male   男声（WanLung 音库，105Hz，126ms）
+#   female 女声（VITS 模型，237Hz，约 500-900ms）
+FILE="${XDG_DATA_HOME:-$HOME/.local/share}/ipinyin/tts_gender"
+mkdir -p "$(dirname "$FILE")" 2>/dev/null
+case "$1" in
+    male)   printf 'male'   > "$FILE"; echo "声线：男声（音库 WanLung）" ;;
+    female) printf 'female' > "$FILE"; echo "声线：女声（VITS 模型）" ;;
+    status) printf '当前：%s\n' "$(cat "$FILE" 2>/dev/null || echo male)" ;;
+    *)      echo "用法: ipinyin-tts-gender male|female|status"; exit 2 ;;
+esac

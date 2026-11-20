@@ -1,0 +1,12 @@
+#!/bin/sh
+# 朗读优先级：ipinyin-tts-order model|offline|status
+#   model   联网模型优先（质量最好，每句约 1.1s；断网自动回落本地音库）
+#   offline 本地音库优先（126ms，离线可用；生僻字才联网）
+FILE="${XDG_DATA_HOME:-$HOME/.local/share}/ipinyin/tts_order"
+mkdir -p "$(dirname "$FILE")" 2>/dev/null
+case "$1" in
+    model)   printf 'model'   > "$FILE"; echo "朗读顺序：模型优先（音库兜底）" ;;
+    offline) printf 'offline' > "$FILE"; echo "朗读顺序：本地音库优先" ;;
+    status)  printf '当前：%s\n' "$(cat "$FILE" 2>/dev/null || echo model)" ;;
+    *)       echo "用法: ipinyin-tts-order model|offline|status"; exit 2 ;;
+esac

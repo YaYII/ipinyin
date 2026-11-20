@@ -137,6 +137,36 @@ def tts_enabled() -> bool:
     return os.environ.get("IPINYIN_TTS", "1") != "0"
 
 
+def tts_gender() -> str:
+    """朗读声线性别：male=男声（音库 WanLung）；female=女声（VITS 模型）。
+
+    状态文件 ~/.local/share/ipinyin/tts_gender，默认 male。
+    """
+    try:
+        with open(os.path.join(data_home(), "tts_gender"), encoding="utf-8") as fh:
+            value = fh.read().strip()
+            if value in ("male", "female"):
+                return value
+    except OSError:
+        pass
+    return "male"
+
+
+def tts_order() -> str:
+    """播放优先级：model=联网模型优先（音库兜底）；offline=本地音库优先。
+
+    状态文件 ~/.local/share/ipinyin/tts_order，默认 model（质量优先）。
+    """
+    try:
+        with open(os.path.join(data_home(), "tts_order"), encoding="utf-8") as fh:
+            value = fh.read().strip()
+            if value in ("model", "offline"):
+                return value
+    except OSError:
+        pass
+    return "model"
+
+
 def voice_enabled() -> bool:
     """语音输入总开关（F8 说话的前提）。状态文件 ~/.local/share/ipinyin/voice。"""
     if os.environ.get("IPINYIN_VOICE") == "1":
