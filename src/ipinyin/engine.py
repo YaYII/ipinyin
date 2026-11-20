@@ -293,6 +293,7 @@ class PinyinEngine(IBus.Engine):
         self._last_spoken = ""   # 刚念过的那句：重复回车不再重播（否则 stop 会掐断自己）
         self._stage = ""         # 中间态输入框：选中的字先攒在这里，回车才上屏
         self._voice = None       # 常听线程（F8 开/关）
+        self._voice_restored = False   # 启动后是否已按状态文件恢复过
         self._last_focus_at = 0.0
         # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
         self._ai_on = False
@@ -366,6 +367,12 @@ class PinyinEngine(IBus.Engine):
             pass
 
     def do_focus_in(self):
+        # 状态文件只是偏好记录：重启后按它恢复一次，之后完全由 F8 控制
+        if not self._voice_restored and config.voice_enabled() and self._voice is None:
+            self._voice_restored = True
+            self._start_voice()
+        elif not self._voice_restored:
+            self._voice_restored = True
         # 引擎位空了就自荐（节流 15s）：升级/重启后 ibus-daemon 会把当前引擎清掉，
         # 表现就是「输入法不见了，打出来全是拼音」
         if time.monotonic() - _ENGINE_CHECK_AT > 15:
@@ -741,6 +748,21 @@ class PinyinEngine(IBus.Engine):
         except OSError:
             pass
 
+    def _start_voice(self) -> None:
+        """开始常听（F8 开 / 启动恢复都用它）。"""
+        from . import asr
+
+        if self._voice is not None:
+            return
+        self._voice = asr.Listener(
+            on_text=lambda text: GLib.idle_add(self._apply_voice_text, text),
+            language=self._voice_language(),
+        )
+        self._voice.start()
+        self._write_voice_state(True)
+        LOG.info("语音输入：开（常听，设备 %s）", asr.capture_device() or "默认")
+        self._push_mode_hint(force=True)
+
     def _toggle_voice(self) -> None:
         """F8：开/关语音输入。开着就常听，语音和拼音可以同时用。"""
         from . import asr
@@ -753,14 +775,7 @@ class PinyinEngine(IBus.Engine):
             self._push_mode_hint(force=True)
             return
 
-        self._voice = asr.Listener(
-            on_text=lambda text: GLib.idle_add(self._apply_voice_text, text),
-            language=self._voice_language(),
-        )
-        self._voice.start()
-        self._write_voice_state(True)
-        LOG.info("语音输入：开（常听）")
-        self._push_mode_hint(force=True)
+        self._start_voice()
 
     def _apply_voice_text(self, text: str) -> bool:
         if text:
