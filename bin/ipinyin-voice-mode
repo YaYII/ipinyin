@@ -1,0 +1,11 @@
+#!/bin/sh
+# 语音输入总开关：ipinyin-voice-mode on|off|status
+# 开之后按 F8 开始录音，再按 F8 停止并识别上屏。
+FILE="${XDG_DATA_HOME:-$HOME/.local/share}/ipinyin/voice"
+mkdir -p "$(dirname "$FILE")" 2>/dev/null
+case "$1" in
+    on)     printf '1' > "$FILE"; echo "语音输入：开（F8 说话）" ;;
+    off)    printf '0' > "$FILE"; echo "语音输入：关" ;;
+    status) [ "$(cat "$FILE" 2>/dev/null)" = "1" ] && echo "语音输入：开" || echo "语音输入：关" ;;
+    *)      echo "用法: ipinyin-voice-mode on|off|status"; exit 2 ;;
+esac

@@ -90,6 +90,29 @@ class YueConverter:
         (re.compile(r"在干什么"), "喺度做緊乜嘢"),
         (re.compile(r"干什么(?=[，。！？]|$)"), "做乜嘢"),
         (re.compile(r"食过(?=喇|了)"), "食咗"),
+        # 神经模型偶尔出错的固定修正
+        (re.compile(r"爛意|烂意"), "鍾意"),
+        # 请求/否定：别X → 唔好X，不要X → 唔好X
+        (re.compile(r"别(?=[\u4e00-\u9fff])"), "唔好"),
+        (re.compile(r"不要(?=[\u4e00-\u9fff])"), "唔好"),
+        # 疑问词（守卫整句打回时最后的兜底）
+        (re.compile(r"什么时候"), "幾時"),
+        (re.compile(r"怎么会"), "點會"),
+        (re.compile(r"怎么会这样"), "點會噉"),
+        (re.compile(r"谁(?=告诉|说|讲|来)"), "邊個"),
+        (re.compile(r"请稍等"), "請等等"),
+        (re.compile(r"太贵了(?=吧|$)"), "太貴喇"),
+        (re.compile(r"怎么样(?=$|[，。！？])"), "點樣"),
+        (re.compile(r"点样(?=$|[，。！？])"), "點樣"),
+        # A不A → A唔A（要不要 → 要唔要、去不去 → 去唔去）
+        (re.compile(r"([\u4e00-\u9fff])不\1"), r"\1唔\1"),
+        (re.compile(r"这样"), "噉"),
+        (re.compile(r"告诉"), "講"),
+        (re.compile(r"吧(?=$|[，。！？])"), "啦"),
+        (re.compile(r"喇啦|啦喇"), "喇"),
+        # 神经模型偶尔把「怎么」译成「啲樣」（不是粤语词），统一修回
+        (re.compile(r"啲樣"), "點樣"),
+        (re.compile(r"點你的|講你的"), "同你講嘅"),
     )
 
     def _post_edit(self, text: str) -> str:

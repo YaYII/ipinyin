@@ -137,6 +137,19 @@ def tts_enabled() -> bool:
     return os.environ.get("IPINYIN_TTS", "1") != "0"
 
 
+def voice_enabled() -> bool:
+    """语音输入总开关（F8 说话的前提）。状态文件 ~/.local/share/ipinyin/voice。"""
+    if os.environ.get("IPINYIN_VOICE") == "1":
+        return True
+    if os.environ.get("IPINYIN_VOICE") == "0":
+        return False
+    try:
+        with open(os.path.join(data_home(), "voice"), encoding="utf-8") as fh:
+            return fh.read().strip() == "1"
+    except OSError:
+        return False
+
+
 def live_tts_enabled() -> bool:
     """逐词播（上屏即读）。关掉就只在回车时整句念，打字时不出声。
 
