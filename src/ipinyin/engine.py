@@ -1017,7 +1017,12 @@ class PinyinEngine(IBus.Engine):
             return
         view = self.ime.view()
         if not view.visible:
-            self.hide_preedit_text()
+            # 中间态里攒着字：不能藏 preedit，否则用户看不到自己选了什么
+            if self._stage:
+                self.update_preedit_text(IBus.Text.new_from_string(self._stage),
+                                         len(self._stage), True)
+            else:
+                self.hide_preedit_text()
             self.hide_lookup_table()
             # 空输入时也要刷新状态栏：否则按 Tab 切了模式，提示还停在旧的那行
             self._push_mode_hint()
