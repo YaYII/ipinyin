@@ -297,6 +297,7 @@ class PinyinEngine(IBus.Engine):
         self._voice = None       # 常听线程（F8 开/关）
         self._voice_restored = False   # 启动后是否已按状态文件恢复过
         self._warm_source = 0          # 整句在线预合成定时器（打字时提前合成）
+        self._warmed_text = ""         # 上次已预热的整句，避免重复提交
         self._last_focus_at = 0.0
         # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
         self._ai_on = False
@@ -758,15 +759,23 @@ class PinyinEngine(IBus.Engine):
 
     def _schedule_sentence_warm(self) -> None:
         """打字停 400ms 就把当前整句在线合成好（回车直接用缓存）。"""
+        if len(self._sentence) < self.WARM_MIN_CHARS:
+            return                            # 还没到 8 个字，先不排
         if self._warm_source:
             GLib.source_remove(self._warm_source)
-        self._warm_source = GLib.timeout_add(1200, self._warm_sentence)
+        self._warm_source = GLib.timeout_add(800, self._warm_sentence)
+
+    WARM_MIN_CHARS = 8      # 够 8 个字才开始预热（太短合成没意义）
 
     def _warm_sentence(self) -> bool:
         self._warm_source = 0
         text = self._sentence
         if not text or not config.tts_enabled():
             return False
+        if len(text) < self.WARM_MIN_CHARS:
+            return False                      # 字数不够，等再打几个
+        if text == self._warmed_text:
+            return False                      # 没变化，不重复提交
         state = getattr(self, "_tts_state", "off")
         if state == "off":
             return False
@@ -774,6 +783,7 @@ class PinyinEngine(IBus.Engine):
 
         try:
             get_speaker().warm(text, voice_for(self._tts_lang()), prefer="edge")
+            self._warmed_text = text
             LOG.info("整句排入预合成 %d 字 %r", len(text), text[:24])
         except Exception as exc:
             LOG.info("整句预合成失败：%s", exc)

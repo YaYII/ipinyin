@@ -22,6 +22,7 @@ import subprocess
 import tempfile
 import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 from . import config, tts_metrics, units
 
@@ -310,6 +311,7 @@ class Speaker:
         self._queue: collections.deque = collections.deque()
         self._prefetch: dict = {}      # (text, voice) -> 已合成好的结果，边播边合成下一条
         self._warming: set = set()     # 正在后台预合成的文本，避免重复请求
+        self._warm_pool = None          # 预热专用线程池（与播放队列隔离）
         self._worker: threading.Thread | None = None
         self._proc: subprocess.Popen | None = None
         self._epoch = 0      # 只有 stop() 会推进；推进后队列里的旧条目作废
