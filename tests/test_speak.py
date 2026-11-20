@@ -381,3 +381,31 @@ def test_chunks_splits_long_sentence_at_punctuation():
     assert all(len(p) <= speak.CHUNK_CHARS + 8 for p in parts)
     # 短句不切
     assert speak.chunks("你好") == ["你好"]
+
+
+def test_deleted_tail_is_not_spoken(monkeypatch):
+    """用户删掉尾部的字：以应用文本为准，不能退回累积缓冲。"""
+    import time
+    from types import SimpleNamespace
+
+    from ipinyin import engine
+
+    class FakeText:
+        def get_text(self):
+            return "我哋今日去行街"
+
+    class FakeEngine:
+        _sentence_text = engine.PinyinEngine._sentence_text
+        _last_commit_at = 0.0
+
+        def __init__(self):
+            self._sentence = "我哋今日去行街買嘢食"     # 累积里还有被删的字
+
+        def get_surrounding_text(self):
+            return FakeText(), 7, 7
+
+    eng = FakeEngine()
+    # 最后一次上屏是 5 秒前 → 不可能是「应用滞后」，只能是用户删除
+    eng._last_commit_at = time.monotonic() - 5.0
+    assert eng._sentence_text() == "我哋今日去行街"
+    assert eng._sentence == "我哋今日去行街", "缓冲要跟着同步，下次不再带旧字"

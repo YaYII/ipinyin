@@ -724,11 +724,20 @@ class PinyinEngine(IBus.Engine):
                     i = head.rfind(ch)
                     cut = max(cut, i + 1)
                 head = head[cut:].strip()
-                # 应用可能还没处理完最后一次上屏：它给的文本比我们刚提交的短，
-                # 且是同一句的前缀 —— 这时以累积缓冲为准，否则最后几个字会被吞掉
+                # 诊断：应用里的真实文本 vs 上屏累积。两者不同就说明用户删改过，
+                # 或者应用还没处理完最后一次上屏。
+                if head and head != self._sentence:
+                    LOG.info("整句文本差异｜应用=%r｜累积=%r", head, self._sentence)
+                # 应用文本是累积缓冲的前缀：两种可能，必须分清
+                #   ① 应用还没处理完最后一次上屏（300ms 内）→ 用缓冲补齐，否则吞字
+                #   ② 用户删掉了尾部的字 → 以应用为准，否则删掉的字又被念出来
                 if (head and self._sentence and len(self._sentence) > len(head)
                         and self._sentence.startswith(head)):
-                    return self._sentence
+                    fresh = (time.monotonic() - self._last_commit_at) < 0.3
+                    if fresh:
+                        return self._sentence
+                    LOG.info("检测到删除：%r → %r", self._sentence, head)
+                    self._sentence = head
                 if head:
                     return head
             except Exception:
