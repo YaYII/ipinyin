@@ -37,9 +37,9 @@ def test_render_builds_valid_wav(tmp_path, monkeypatch):
     lib = make_lib(tmp_path, monkeypatch, ["你好", "世界"])
     data = lib.render("你好世界")
     assert data[:4] == b"RIFF" and data[8:12] == b"WAVE"
-    gap = b"\x00\x00" * int(units.SR * units.GAP_MS / 1000)
-    # 2 段 PCM（各 200 字节）+ 段间与句尾各一个间隙
-    assert len(data) == 44 + 400 + 2 * len(gap)
+    # 2 段 PCM（各 200 字节），20ms 交叉淡化把两段重叠掉一部分，不再插静音
+    overlap = min(int(units.SR * 0.02) * 2, 200)
+    assert len(data) == 44 + 400 - overlap
 
 
 def test_empty_index_is_unavailable(tmp_path):

@@ -9,6 +9,8 @@
 from __future__ import annotations
 
 import array
+import atexit
+import hashlib
 import json
 import logging
 import os
@@ -25,6 +27,10 @@ CACHE_LIMIT = 400   # 解码后的 PCM 缓存条数（约 400 × 1s × 44KB ≈ 
 SILENCE = 300       # 静音阈值（16bit 幅度）：edge 对短文本会补到 1.87s，必须裁掉
 HEAD_MS = 5         # 裁完留一点头，避免起音被切
 TAIL_MS = 25        # 留一点尾，避免尾音被切；太长会吃掉连读
+
+
+_SYL2CHAR: dict | None = None
+_YUE_CONV = None
 
 
 def default_root() -> str:
@@ -67,12 +73,56 @@ def _trim(pcm: bytes, sr: int = SR) -> bytes:
     return samples[start:end].tobytes()
 
 
+def _fade(pcm: bytes, sr: int = SR, ms: int = 4) -> bytes:
+    """每个单元首尾 4ms 淡入淡出。
+
+    裁静音是从非零样本切开的，直接拼会在每个字边界留一个台阶——听感就是
+    「磨砂 / 不融合」。淡入淡出把台阶抹掉，代价是丢 4ms 起音。
+    """
+    n = len(pcm) // 2
+    if n < 8:
+        return pcm
+    samples = array.array("h")
+    samples.frombytes(pcm[: n * 2])
+    f = min(int(sr * ms / 1000), n // 2)
+    for i in range(f):
+        g = i / f
+        samples[i] = int(samples[i] * g)
+        samples[n - 1 - i] = int(samples[n - 1 - i] * g)
+    return samples.tobytes()
+
+
+def _join(chunks: list[bytes], sr: int = SR, fade_ms: int = 20) -> bytes:
+    """单元拼接：相邻两段做 20ms 交叉淡化，而不是插静音。
+
+    插 15ms 静音会让每个字边界出现一个谱通量尖峰（实测 8 个 vs 整句合成 2 个），
+    听感就是「一字一顿」。交叉淡化把边界抹平，还顺带把句子缩短约 20%。
+    """
+    if not chunks:
+        return b""
+    body = chunks[0]
+    for nxt in chunks[1:]:
+        n = min(int(sr * fade_ms / 1000), len(body) // 2, len(nxt) // 2)
+        if n <= 0:
+            body += nxt
+            continue
+        a = array.array("h")
+        a.frombytes(body[-n * 2:])
+        b = array.array("h")
+        b.frombytes(nxt[: n * 2])
+        mixed = array.array("h", (int(a[i] * (1 - i / n) + b[i] * (i / n))
+                                  for i in range(n)))
+        body = body[: -n * 2] + mixed.tobytes() + nxt[n * 2:]
+    return body
+
+
 class UnitLibrary:
     """词 → Opus 单元 → 拼接成 wav。线程安全（朗读在后台线程）。"""
 
     def __init__(self, root: str, ffmpeg: str | None = None):
         self._root = root
         self._index: dict[str, str] = {}
+        self._dirty = 0
         self._maxlen = 1
         self._pcm: dict[str, bytes] = {}
         self._lock = threading.Lock()
@@ -88,6 +138,7 @@ class UnitLibrary:
         if isinstance(data, dict):
             self._index = {str(k): str(v) for k, v in data.items() if k and v}
         self._maxlen = max((len(k) for k in self._index), default=1)
+        atexit.register(self.flush)      # 进程退出前把攒的单元写盘
 
     @property
     def available(self) -> bool:
@@ -120,19 +171,119 @@ class UnitLibrary:
         return out
 
     def render(self, text: str) -> bytes | None:
-        """整句 → wav bytes；覆盖不全或解码失败返回 None。"""
+        """整句 → wav bytes；词/字都查不到时退回按音节拼接。"""
         pieces = self.segment(text)
+        if pieces is None:
+            return self._render_by_syllable(text)
         if not pieces:
             return None
-        gap = b"\x00\x00" * int(SR * GAP_MS / 1000)
         chunks: list[bytes] = []
         for piece in pieces:
             pcm = self._decode(self._index[piece])
             if not pcm:
                 return None
             chunks.append(pcm)
-        body = gap.join(chunks) + gap
+        body = _join(chunks)
         return _wav_header(len(body)) + body
+
+    def _render_by_syllable(self, text: str) -> bytes | None:
+        """B 级兜底：汉字 → 粤拼音节 → 代表字单元 → 拼接。
+
+        词级库再全也有查不到的词；音节级是有限集（1967 个），拼得出来就念得出来。
+        代表字是「读音唯一、尽量常用」的那个字，单元本身仍是 edge 录的真音。
+        """
+        global _SYL2CHAR, _YUE_CONV
+        if _SYL2CHAR is None:
+            try:
+                import json as _json
+                with open(os.path.join(self._root, "syllables.json"), encoding="utf-8") as fh:
+                    _SYL2CHAR = _json.load(fh)
+            except (OSError, ValueError):
+                _SYL2CHAR = {}
+        if not _SYL2CHAR:
+            return None
+        if _YUE_CONV is None:
+            try:
+                from . import config, yue
+                _YUE_CONV = yue.YueConverter.load_dict(config.yue_dict_path())
+            except Exception:
+                _YUE_CONV = False
+        if not _YUE_CONV:
+            return None
+        reading = _YUE_CONV.jyutping(text)
+        if not reading:
+            return None
+        chunks: list[bytes] = []
+        for syl in reading.split():
+            ch = _SYL2CHAR.get(syl)
+            if not ch or ch not in self._index:
+                return None
+            pcm = self._decode(self._index[ch])
+            if not pcm:
+                return None
+            chunks.append(pcm)
+        if not chunks:
+            return None
+        body = _join(chunks)
+        return _wav_header(len(body)) + body
+
+    def add(self, text: str, wav: bytes) -> bool:
+        """把一段在线合成好的音频收进音库：用得越多，越少联网。
+
+        只收短词（≤4 字）：整句存进来会污染音库，而且拼接时用不上。
+        索引攒够一批再落盘，避免每次上屏都重写 index.json。
+        """
+        if not text or len(text) > 4 or len(wav) <= 44:
+            return False
+        if text in self._index:
+            return False
+        if not self._ffmpeg:
+            return False
+        name = hashlib.sha1(text.encode("utf-8")).hexdigest()[:16] + ".opus"
+        target = os.path.join(self._root, name)
+        src = target + ".tmp.wav"
+        try:
+            with open(src, "wb") as fh:
+                fh.write(wav)
+            done = subprocess.run(
+                [self._ffmpeg, "-y", "-v", "error", "-i", src, "-c:a", "libopus",
+                 "-b:a", "24k", "-ar", "24000", "-ac", "1", target],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False,
+            )
+            if done.returncode != 0 or not os.path.exists(target):
+                return False
+        except (OSError, subprocess.SubprocessError):
+            return False
+        finally:
+            if os.path.exists(src):
+                try:
+                    os.unlink(src)
+                except OSError:
+                    pass
+        with self._lock:
+            self._index[text] = name
+            self._maxlen = max(self._maxlen, len(text))
+            self._dirty += 1
+            flush = self._dirty >= 10
+        if flush:
+            self.flush()
+        return True
+
+    def flush(self) -> None:
+        """把新增单元写进 index.json（原子替换）。"""
+        with self._lock:
+            if self._dirty <= 0:
+                return
+            snapshot = dict(self._index)
+            self._dirty = 0
+        path = os.path.join(self._root, "index.json")
+        tmp = path + ".tmp"
+        try:
+            with open(tmp, "w", encoding="utf-8") as fh:
+                json.dump(snapshot, fh, ensure_ascii=False, indent=0, sort_keys=True)
+            os.replace(tmp, path)
+        except OSError:
+            pass
 
     def _decode(self, name: str) -> bytes | None:
         with self._lock:
@@ -154,7 +305,7 @@ class UnitLibrary:
         if done.returncode != 0 or not done.stdout:
             LOG.warning("音库单元解码失败：%s 退出码 %s", name, done.returncode)
             return None
-        done_stdout = _trim(done.stdout)
+        done_stdout = _fade(_trim(done.stdout))
         if not done_stdout:
             return None
         done = subprocess.CompletedProcess(done.args, 0, done_stdout, b"")

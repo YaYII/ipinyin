@@ -155,6 +155,10 @@ async def build(units: list[str], out: str, workers: int) -> dict[str, str]:
         except (OSError, ValueError):
             index = {}
 
+    # 已有文件的也要补进索引：上一次跑到一半被杀，文件在、索引没写，就成了孤儿
+    for w in units:
+        if os.path.exists(os.path.join(out, unit_name(w))):
+            index[w] = unit_name(w)
     todo = [w for w in units if not os.path.exists(os.path.join(out, unit_name(w)))]
     print(f"目标 {len(units)} 个单元，已有 {len(units) - len(todo)}，待合成 {len(todo)}")
     sem = asyncio.Semaphore(workers)
