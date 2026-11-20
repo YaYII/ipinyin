@@ -699,7 +699,20 @@ class PinyinEngine(IBus.Engine):
         if lang != "yue" or self._ime is None or self._ime.mode == "yue":
             return text
         try:
-            return get_yue().convert(text) or text
+            conv = get_yue()
+            # 按标点分段转换：整句喂给神经模型会把标点吃掉、还凭空冒出字
+            # （"目前测试的结果,看样子," → "…結果下睇樣子…"）。分段后标点原样保留。
+            import re as _re
+            parts = _re.split(r"([,，。！？!?;；:：\n])", text)
+            out: list[str] = []
+            for piece in parts:
+                if not piece:
+                    continue
+                if _re.fullmatch(r"[,，。！？!?;；:：\n]", piece):
+                    out.append(piece)
+                else:
+                    out.append(conv.convert(piece) or piece)
+            return "".join(out) or text
         except Exception:
             return text
 
