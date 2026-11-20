@@ -10,6 +10,7 @@ import os
 import signal as _signal
 import subprocess
 import tempfile
+import threading
 import time
 
 from . import config
@@ -103,6 +104,21 @@ class Recognizer:
         return (stream.result.text or "").strip()
 
 
+def list_devices() -> list[str]:
+    """所有可录音设备（plughw:c,d），第一个通常就是内置麦。"""
+    out = []
+    try:
+        done = subprocess.run(["arecord", "-l"], capture_output=True, text=True,
+                              timeout=3, env=dict(os.environ, LC_ALL="C"))
+        import re
+
+        for card, device in re.findall(r"card (\d+):.*?device (\d+):", done.stdout, re.S):
+            out.append(f"plughw:{card},{device}")
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return out
+
+
 def capture_device() -> str:
     """找录音设备。
 
@@ -163,3 +179,134 @@ def stop_recording(path: str, proc: subprocess.Popen, timeout: float = 3.0) -> s
         except subprocess.TimeoutExpired:
             proc.kill()
     return path
+
+
+class Listener(threading.Thread):
+    """常听模式：一直读麦克风，检测到说话就攒，静下来就识别。
+
+    F8 开一次开始听，再按一次停止。阈值按开机后 0.6 秒的底噪自适应，
+    免得安静房间一直触发、嘈杂环境一句也听不到。
+    """
+
+    FRAME_MS = 100
+    START_FRAMES = 3          # 连续 3 帧高于阈值 = 开始说话
+    SILENCE_FRAMES = 7        # 连续 7 帧（0.7s）低于阈值 = 说完了
+    MIN_SPEECH_MS = 300       # 太短不当一句话
+    MAX_SPEECH_MS = 15000     # 超长截断，防止一直录
+
+    def __init__(self, on_text, language: str = "yue", device: str = "", level=None):
+        super().__init__(daemon=True, name="ipinyin-voice")
+        self._on_text = on_text
+        self._language = language
+        self._device = device or capture_device()
+        self._level = level
+        self._stop = threading.Event()
+        self._proc = None
+        self._rec = None
+
+    def stop(self) -> None:
+        self._stop.set()
+        proc, self._proc = self._proc, None
+        if proc is not None and proc.poll() is None:
+            try:
+                proc.kill()
+            except OSError:
+                pass
+
+    def _open(self):
+        command = ["arecord", "-q", "-f", "S16_LE", "-r", "16000", "-c", "1", "-t", "raw"]
+        if self._device:
+            command[1:1] = ["-D", self._device]
+        self._proc = subprocess.Popen(command, stdout=subprocess.PIPE,
+                                      stderr=subprocess.DEVNULL, bufsize=0)
+        return self._proc.stdout
+
+    def run(self) -> None:
+        import numpy as np
+
+        try:
+            stream = self._open()
+        except OSError as exc:
+            LOG.warning("语音常听启动失败：%s", exc)
+            return
+        frame_bytes = 16000 * self.FRAME_MS // 1000 * 2
+        noise = 0.0           # 底噪（前 6 帧平均）
+        calibrated = 0
+        speaking = False
+        voiced_run = 0
+        silent_run = 0
+        buf: list = []
+        if self._rec is None:
+            self._rec = Recognizer(language=self._language)
+        pending = b""
+        try:
+            while not self._stop.is_set():
+                # 管道 read 不保证读满：短读要攒，攒够一帧再处理（以前当 EOF 直接退出了）
+                chunk = stream.read(frame_bytes - len(pending))
+                if not chunk:
+                    break
+                pending += chunk
+                if len(pending) < frame_bytes:
+                    continue
+                frame, pending = pending[:frame_bytes], pending[frame_bytes:]
+                x = np.frombuffer(frame, "<i2").astype("float32") / 32768.0
+                rms = float(np.sqrt((x ** 2).mean()))
+                if calibrated < 6:
+                    noise = max(noise, rms) if calibrated else rms
+                    calibrated += 1
+                    if calibrated == 6:
+                        noise = max(noise, 0.004)
+                        LOG.info("语音常听就绪：设备 %s，底噪 %.4f，阈值 %.4f",
+                                 self._device or "默认", noise, noise * 3)
+                    continue
+                threshold = max(noise * 3, 0.012)
+                if rms > threshold:
+                    voiced_run += 1
+                    silent_run = 0
+                else:
+                    silent_run += 1
+                    voiced_run = 0
+                if not speaking:
+                    if voiced_run >= self.START_FRAMES:
+                        speaking = True
+                        buf = [x]
+                        LOG.info("语音：检测到说话")
+                    continue
+                buf.append(x)
+                frames = len(buf)
+                if silent_run >= self.SILENCE_FRAMES:
+                    speaking = False
+                    if frames * self.FRAME_MS < self.MIN_SPEECH_MS:
+                        buf = []
+                        continue
+                    self._deliver(buf)
+                    buf = []
+                elif frames * self.FRAME_MS >= self.MAX_SPEECH_MS:
+                    speaking = False
+                    self._deliver(buf)
+                    buf = []
+        except Exception:
+            LOG.exception("语音常听线程异常")
+        finally:
+            proc, self._proc = self._proc, None
+            if proc is not None and proc.poll() is None:
+                try:
+                    proc.kill()
+                except OSError:
+                    pass
+
+    def _deliver(self, buf) -> None:
+        import numpy as np
+
+        try:
+            samples = np.concatenate(buf)
+            LOG.info("语音：识别 %.1fs 音频", len(samples) / 16000)
+            text = self._rec.recognize_samples(samples, 16000)
+            if text:
+                self._on_text(text)
+            else:
+                LOG.info("语音：这段没识别出内容")
+        except Exception:
+            LOG.exception("语音识别失败")
+
+

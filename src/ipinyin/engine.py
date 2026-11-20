@@ -292,8 +292,7 @@ class PinyinEngine(IBus.Engine):
         self._sentence = ""      # 本次「一句」已上屏的文字：回车时整句连贯重播
         self._last_spoken = ""   # 刚念过的那句：重复回车不再重播（否则 stop 会掐断自己）
         self._stage = ""         # 中间态输入框：选中的字先攒在这里，回车才上屏
-        self._rec = None         # 语音录音句柄 (path, proc)；非 None = 正在录音
-        self._asr_rec = None     # 懒加载的识别器
+        self._voice = None       # 常听线程（F8 开/关）
         self._last_focus_at = 0.0
         # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
         self._ai_on = False
@@ -734,50 +733,34 @@ class PinyinEngine(IBus.Engine):
             return "zh"
         return "auto"
 
+    def _write_voice_state(self, on: bool) -> None:
+        try:
+            path = os.path.join(config.data_home(), "voice")
+            with open(path, "w", encoding="utf-8") as handle:
+                handle.write("1" if on else "0")
+        except OSError:
+            pass
+
     def _toggle_voice(self) -> None:
-        """F8：第一次开始录音，第二次停止并识别。"""
-        if not config.voice_enabled():
-            LOG.info("语音输入未开启：bin/ipinyin-voice-mode on")
-            self._flash_mode_hint()
-            return
+        """F8：开/关语音输入。开着就常听，语音和拼音可以同时用。"""
         from . import asr
 
-        if self._rec is None:
-            try:
-                path, proc = asr.start_recording()
-            except Exception as exc:
-                LOG.warning("录音启动失败：%s", exc)
-                return
-            self._rec = (path, proc)
+        if self._voice is not None:
+            self._voice.stop()
+            self._voice = None
+            self._write_voice_state(False)
+            LOG.info("语音输入：关")
             self._push_mode_hint(force=True)
-            self.update_preedit_text(IBus.Text.new_from_string("🎤 录音中…按 F8 停止"), 0, True)
-            LOG.info("语音：开始录音（%s）", asr.capture_device() or "默认设备")
             return
 
-        path, proc = self._rec
-        self._rec = None
-        self.hide_preedit_text()
+        self._voice = asr.Listener(
+            on_text=lambda text: GLib.idle_add(self._apply_voice_text, text),
+            language=self._voice_language(),
+        )
+        self._voice.start()
+        self._write_voice_state(True)
+        LOG.info("语音输入：开（常听）")
         self._push_mode_hint(force=True)
-        try:
-            asr.stop_recording(path, proc)
-        except Exception as exc:
-            LOG.warning("录音停止失败：%s", exc)
-            return
-        LOG.info("语音：停止录音，开始识别")
-        threading.Thread(target=self._recognize_voice, args=(path,), daemon=True).start()
-
-    def _recognize_voice(self, path: str) -> None:
-        """识别在后台线程做（300ms 左右），结果回主线程上屏。"""
-        from . import asr
-
-        text = ""
-        try:
-            if self._asr_rec is None:
-                self._asr_rec = asr.Recognizer(language=self._voice_language())
-            text = self._asr_rec.recognize_file(path)
-        except Exception:
-            LOG.exception("语音识别失败")
-        GLib.idle_add(self._apply_voice_text, text)
 
     def _apply_voice_text(self, text: str) -> bool:
         if text:
