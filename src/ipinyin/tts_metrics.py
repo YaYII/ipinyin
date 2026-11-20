@@ -60,8 +60,7 @@ def detect(chars: int, backend: str, synth_ms: int, audio_s: float) -> list[str]
         flags.append("slow-synth")
     if backend == "espeak":
         flags.append("fallback-espeak")
-    elif backend == "units":
-        flags.append("fallback-units")
+    # units 现在是主力音库，不再标记为异常（以前每句都刷一条 WARNING）
     return flags
 
 

@@ -20,7 +20,8 @@ def test_detect_too_slow_and_too_fast():
 
 def test_detect_fallbacks_and_empty():
     assert "fallback-espeak" in tts_metrics.detect(5, "espeak", 30, 1.0)
-    assert "fallback-units" in tts_metrics.detect(5, "units", 30, 1.0)
+    # units 是主力音库，不该再被标记成「回落」
+    assert "fallback-units" not in tts_metrics.detect(5, "units", 30, 1.0)
     assert tts_metrics.detect(5, "edge", 30, 0) == ["empty-audio"]
 
 

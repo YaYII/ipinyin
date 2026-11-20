@@ -279,6 +279,7 @@ def test_enter_replays_whole_sentence(monkeypatch):
 
         def __init__(self):
             self._sentence = "我唔知你講乜"
+            self._last_spoken = ""
             self._tts_state = "yue"
             self._ime = SimpleNamespace(mode="yue", chao=None)
 

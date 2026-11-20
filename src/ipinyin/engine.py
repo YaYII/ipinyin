@@ -290,6 +290,7 @@ class PinyinEngine(IBus.Engine):
         self._last_key_at = time.monotonic()
         self._last_commit_at = 0.0
         self._sentence = ""      # 本次「一句」已上屏的文字：回车时整句连贯重播
+        self._last_spoken = ""   # 刚念过的那句：重复回车不再重播（否则 stop 会掐断自己）
         self._stage = ""         # 中间态输入框：选中的字先攒在这里，回车才上屏
         self._last_focus_at = 0.0
         # AI 感知状态：读 screencast 心跳，3 秒缓存（别每次按键都读文件）
@@ -666,6 +667,7 @@ class PinyinEngine(IBus.Engine):
                     self._ime.context = base
             self._last_commit = text
             self._sentence += text          # 不截断：一句有多长留多长
+            self._last_spoken = ""          # 有新内容，允许重播
             if config.staging_enabled():
                 # 中间态：先攒在 preedit 里，用户可以继续删改，回车才真正上屏
                 self._stage += text
@@ -775,6 +777,10 @@ class PinyinEngine(IBus.Engine):
         self._sentence = ""
         if not text or not config.tts_enabled():
             return
+        if text == self._last_spoken:
+            LOG.info("整句重播跳过：同一句刚念过 %r", text[:20])
+            return
+        self._last_spoken = text
         self._refresh_tts_auto()
         if getattr(self, "_tts_state", "off") == "off":
             return
