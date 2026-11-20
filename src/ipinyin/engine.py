@@ -762,7 +762,14 @@ class PinyinEngine(IBus.Engine):
         if lang == "chao" and self._ime is not None and self._ime.chao is not None:
             text = self._ime.chao.pengim(text) or text
         text = self._spoken_text(text, lang)
-        get_speaker().speak(text, voice_for(lang))
+        speaker = get_speaker()
+        # 逐词播的积压要丢掉：整句重播是对同一内容的覆盖，
+        # 两者叠着放，用户会先听 6 秒旧词、再听 9 秒整句，观感是「乱」。
+        pending = speaker.pending()
+        if pending:
+            LOG.info("整句重播：丢弃逐词积压 %d 条", pending)
+            speaker.stop()
+        speaker.speak(text, voice_for(lang))
         LOG.info("整句朗读 %d 字 %r", len(text), text)
 
     def _tts_lang(self) -> str:

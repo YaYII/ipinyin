@@ -404,6 +404,11 @@ class Speaker:
                 self._worker.start()
         return True
 
+    def pending(self) -> int:
+        """队列里还有多少条没播（诊断用：整句重播前应丢弃积压）。"""
+        with self._cv:
+            return len(self._queue)
+
     def warm(self, text: str, voice: str = PINYIN_VOICE) -> None:
         """后台预合成，不播放。用户上屏前先把候选合成好，上屏就能秒出。"""
         if not self.available:
@@ -483,6 +488,7 @@ class Speaker:
             path = self._spill(data)
             if not path:
                 return
+        LOG.info("朗读播放 %d 字 %r", len(text), text[:24])
         try:
             proc = subprocess.Popen(
                 [*self._player, path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL

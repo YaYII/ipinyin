@@ -259,8 +259,13 @@ def test_enter_replays_whole_sentence(monkeypatch):
     from ipinyin import engine, speak
 
     played = []
-    monkeypatch.setattr(speak, "get_speaker",
-                        lambda: SimpleNamespace(speak=lambda t, v: played.append(t) or True))
+    dropped = []
+    fake = SimpleNamespace(
+        speak=lambda t, v: played.append(t) or True,
+        pending=lambda: 3,
+        stop=lambda: dropped.append(True),
+    )
+    monkeypatch.setattr(speak, "get_speaker", lambda: fake)
     monkeypatch.setattr(engine.config, "tts_enabled", lambda: True)
 
     class FakeEngine:
@@ -283,6 +288,7 @@ def test_enter_replays_whole_sentence(monkeypatch):
     eng = FakeEngine()
     eng._speak_sentence()
     assert played == ["我唔知你講乜"]
+    assert dropped, "整句重播前要丢掉逐词积压，否则同一句会播两遍"
     assert eng._sentence == "", "念完要清空，否则下次回车会重复"
 
 
