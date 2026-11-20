@@ -683,9 +683,36 @@ class PinyinEngine(IBus.Engine):
         except Exception:
             return text
 
+    def _sentence_text(self) -> str:
+        """取「这一句」的真实文本。
+
+        优先问应用要周围文本：用户在输入框里删掉、改掉的字，只有应用知道；
+        用上屏累积去念，会把中间删掉的内容也念出来（听起来莫名其妙）。
+        应用不支持 surrounding text 时，退回累积缓冲。
+        """
+        try:
+            got = self.get_surrounding_text()
+        except Exception:
+            got = None
+        if got:
+            try:
+                text_obj, cursor, _anchor = got
+                full = text_obj.get_text() if hasattr(text_obj, "get_text") else str(text_obj)
+                head = full[: max(0, min(int(cursor), len(full)))]
+                cut = 0
+                for ch in "。！？!?；;\n":
+                    i = head.rfind(ch)
+                    cut = max(cut, i + 1)
+                head = head[cut:].strip()
+                if head:
+                    return head
+            except Exception:
+                pass
+        return self._sentence
+
     def _speak_sentence(self) -> None:
         """把这一句已上屏的内容一次性念出来（逐字播完之后再连贯听一遍）。"""
-        text = self._sentence
+        text = self._sentence_text()
         self._sentence = ""
         if not text or not config.tts_enabled():
             return

@@ -266,6 +266,10 @@ def test_enter_replays_whole_sentence(monkeypatch):
         _speak_sentence = engine.PinyinEngine._speak_sentence
         _tts_lang = engine.PinyinEngine._tts_lang
         _spoken_text = engine.PinyinEngine._spoken_text
+        _sentence_text = engine.PinyinEngine._sentence_text
+
+        def get_surrounding_text(self):
+            raise RuntimeError("app 不支持")
 
         def __init__(self):
             self._sentence = "我唔知你講乜"
@@ -299,3 +303,39 @@ def test_spoken_text_converts_mandarin_to_cantonese():
     assert FakeEngine("yue")._spoken_text("睇下", "yue") == "睇下"
     # 念国语时永远不转
     assert FakeEngine("simp")._spoken_text("看看", "cmn") == "看看"
+
+
+def test_sentence_text_prefers_surrounding_text():
+    """应用里的真实文本优先：删掉的字不能再念出来。"""
+    from types import SimpleNamespace
+
+    from ipinyin import engine
+
+    class FakeText:
+        def __init__(self, s):
+            self._s = s
+
+        def get_text(self):
+            return self._s
+
+    class FakeEngine:
+        _sentence_text = engine.PinyinEngine._sentence_text
+
+        def __init__(self, surrounding, cursor):
+            self._surrounding = surrounding
+            self._cursor = cursor
+            self._sentence = "上屏累积的旧内容"
+
+        def get_surrounding_text(self):
+            return FakeText(self._surrounding), self._cursor, self._cursor
+
+    # 输入框里最终是「睇下啦」，之前累积的是「睇下睇下啦」——要念输入框里的
+    eng = FakeEngine("前面一句。睇下啦", len("前面一句。睇下啦"))
+    assert eng._sentence_text() == "睇下啦"
+
+    # 应用不支持 surrounding text：退回累积缓冲
+    class NoSurround(FakeEngine):
+        def get_surrounding_text(self):
+            raise RuntimeError("not supported")
+
+    assert NoSurround("", 0)._sentence_text() == "上屏累积的旧内容"
