@@ -106,7 +106,8 @@ def _fade(pcm: bytes, sr: int = SR, ms: int = 4) -> bytes:
     return samples.tobytes()
 
 
-def _join(chunks: list[bytes], sr: int = SR, fade_ms: int = 20) -> bytes:
+def _join(chunks: list[bytes], names: list[str] | None = None,
+          sr: int = SR, fade_ms: int = 20, repeat_gap_ms: int = 45) -> bytes:
     """单元拼接：相邻两段做 20ms 交叉淡化，而不是插静音。
 
     插 15ms 静音会让每个字边界出现一个谱通量尖峰（实测 8 个 vs 整句合成 2 个），
@@ -115,7 +116,12 @@ def _join(chunks: list[bytes], sr: int = SR, fade_ms: int = 20) -> bytes:
     if not chunks:
         return b""
     body = chunks[0]
-    for nxt in chunks[1:]:
+    for i, nxt in enumerate(chunks[1:], 1):
+        # 同一个单元连着出现（你你你、谢谢）：不能用交叉淡化，
+        # 否则后一个字的声母会被前一个字的韵母盖掉，听成一个拉长的音。
+        if names is not None and names[i] == names[i - 1]:
+            body += b"\x00\x00" * int(sr * repeat_gap_ms / 1000) + nxt
+            continue
         n = min(int(sr * fade_ms / 1000), len(body) // 2, len(nxt) // 2)
         if n <= 0:
             body += nxt
@@ -222,10 +228,11 @@ class UnitLibrary:
             return self._render_by_syllable(text)
         if not pieces:
             return None
-        chunks = self._decode_all([self._index[p] for p in pieces])
+        names = [self._index[p] for p in pieces]
+        chunks = self._decode_all(names)
         if chunks is None:
             return None
-        return _join(chunks)
+        return _join(chunks, names)
 
     def _decode_all(self, names: list[str]) -> list[bytes] | None:
         """并发解码一批单元。
