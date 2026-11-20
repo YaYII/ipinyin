@@ -366,14 +366,18 @@ class Speaker:
         # 顺序由 tts_order 决定：model=模型优先（音库兜底）；offline=音库优先
         order = config.tts_order()
         gender = config.tts_gender()
-        if prefer == "edge" and can_edge:
-            # 整句重播指定走在线：一句一次合成，韵律天然连贯，没有拼接感
-            backends = ["edge"]
+        if prefer == "model":
+            # 整句：在线一次合成（韵律最好）→ 在线不可用用本地模型 → 再退音库 → 机器音
+            backends = []
+            if can_edge:
+                backends.append("edge")
+            if voice == YUE_VOICE and local_tts_dir():
+                backends.append("local")
             if unit_lib is not None:
                 backends.append("units")
             if self._binary:
                 backends.append("espeak")
-            order = "prefer-edge"
+            order = "prefer-model"
         if order == "model":
             # 女声只有 VITS 模型有；男声只有音库（WanLung）有
             if gender == "female" and voice == YUE_VOICE and local_tts_dir():
