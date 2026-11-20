@@ -670,6 +670,19 @@ class PinyinEngine(IBus.Engine):
             return
         self._tts_state = _read_tts_auto()
 
+    def _spoken_text(self, text: str, lang: str) -> str:
+        """要念的语言和正文不一致时先转换。
+
+        打普通话、朗读档却是粤语时，直接拿粤语声线读汉字，读出来是「粤语读普通话」
+        （看看 → hon3 hon3）。要先过一遍普→粤转换，念的才是「睇下」。
+        """
+        if lang != "yue" or self._ime is None or self._ime.mode == "yue":
+            return text
+        try:
+            return get_yue().convert(text) or text
+        except Exception:
+            return text
+
     def _speak_sentence(self) -> None:
         """把这一句已上屏的内容一次性念出来（逐字播完之后再连贯听一遍）。"""
         text = self._sentence
@@ -684,6 +697,7 @@ class PinyinEngine(IBus.Engine):
         lang = self._tts_lang()
         if lang == "chao" and self._ime is not None and self._ime.chao is not None:
             text = self._ime.chao.pengim(text) or text
+        text = self._spoken_text(text, lang)
         get_speaker().speak(text, voice_for(lang))
         LOG.info("整句朗读 %r", text[:20])
 
@@ -715,7 +729,7 @@ class PinyinEngine(IBus.Engine):
             get_speaker().speak(text, voice_for("chao"))
             return
         if state == "yue":
-            get_speaker().speak(text, voice_for("yue"))
+            get_speaker().speak(self._spoken_text(text, "yue"), voice_for("yue"))
             return
         get_speaker().speak(text, voice_for("simp"))   # cmn = 国语
 
@@ -792,6 +806,7 @@ class PinyinEngine(IBus.Engine):
         lang = self._tts_lang()
         if lang == "chao" and self._ime is not None and self._ime.chao is not None:
             text = self._ime.chao.pengim(text) or text
+        text = self._spoken_text(text, lang)
         voice = voice_for(lang)
         if not get_speaker().speak(text, voice):
             return False

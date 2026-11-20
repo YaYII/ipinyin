@@ -196,6 +196,7 @@ def test_auto_voice_follows_tts_state_not_input_mode(monkeypatch):
 
     class FakeEngine:
         _speak_auto = engine.PinyinEngine._speak_auto
+        _spoken_text = engine.PinyinEngine._spoken_text
 
         def __init__(self, state, mode):
             self._tts_state = state
@@ -264,6 +265,7 @@ def test_enter_replays_whole_sentence(monkeypatch):
     class FakeEngine:
         _speak_sentence = engine.PinyinEngine._speak_sentence
         _tts_lang = engine.PinyinEngine._tts_lang
+        _spoken_text = engine.PinyinEngine._spoken_text
 
         def __init__(self):
             self._sentence = "我唔知你講乜"
@@ -277,3 +279,23 @@ def test_enter_replays_whole_sentence(monkeypatch):
     eng._speak_sentence()
     assert played == ["我唔知你講乜"]
     assert eng._sentence == "", "念完要清空，否则下次回车会重复"
+
+
+def test_spoken_text_converts_mandarin_to_cantonese():
+    """打普通话、朗读档是粤语：念之前必须先转成粤语，否则是「粤语读普通话」。"""
+    from types import SimpleNamespace
+
+    from ipinyin import engine
+
+    class FakeEngine:
+        _spoken_text = engine.PinyinEngine._spoken_text
+
+        def __init__(self, mode):
+            self._ime = SimpleNamespace(mode=mode)
+
+    # mode != yue：正文是普通话，要转
+    assert FakeEngine("simp")._spoken_text("看看", "yue") != "看看"
+    # mode == yue：正文本来就是粤语，不能再转
+    assert FakeEngine("yue")._spoken_text("睇下", "yue") == "睇下"
+    # 念国语时永远不转
+    assert FakeEngine("simp")._spoken_text("看看", "cmn") == "看看"
